@@ -5,7 +5,7 @@ final class AlertWindowController: NSWindowController {
     private let event: EKEvent
     private let alertType: AlertType
 
-    init(event: EKEvent, alertType: AlertType = .oneMinuteWarning) {
+    init(event: EKEvent, alertType: AlertType = .secondWarning(minutes: 1)) {
         self.event = event
         self.alertType = alertType
 
@@ -34,10 +34,8 @@ final class AlertWindowController: NSWindowController {
 
     private static func windowTitle(for alertType: AlertType) -> String {
         switch alertType {
-        case .fiveMinuteWarning:
-            return "5 Minute Warning"
-        case .oneMinuteWarning:
-            return "1 Minute Warning"
+        case .firstWarning(let minutes), .secondWarning(let minutes):
+            return "\(minutes) Minute Warning"
         case .eventStarting:
             return "Event Starting Now"
         }
@@ -45,10 +43,8 @@ final class AlertWindowController: NSWindowController {
 
     private func alertMessage(for alertType: AlertType) -> String {
         switch alertType {
-        case .fiveMinuteWarning:
-            return "starts in 5 minutes"
-        case .oneMinuteWarning:
-            return "starts in 1 minute"
+        case .firstWarning(let minutes), .secondWarning(let minutes):
+            return "starts in \(minutes) minute\(minutes == 1 ? "" : "s")"
         case .eventStarting:
             return "is starting now!"
         }

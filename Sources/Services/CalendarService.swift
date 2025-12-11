@@ -1,9 +1,9 @@
 import EventKit
 import Foundation
 
-enum AlertType {
-    case fiveMinuteWarning
-    case oneMinuteWarning
+enum AlertType: Hashable {
+    case firstWarning(minutes: Int)
+    case secondWarning(minutes: Int)
     case eventStarting
 }
 
@@ -41,24 +41,34 @@ final class CalendarService {
         let predicate = eventStore.predicateForEvents(withStart: now, end: endDate, calendars: calendars)
         let events = eventStore.events(matching: predicate)
 
+        let prefs = Preferences.shared
+
         for event in events {
             guard let eventID = event.eventIdentifier else { continue }
 
             let timeUntilStart = event.startDate.timeIntervalSince(now)
             var sentAlerts = notifiedEvents[eventID] ?? []
 
-            // 5 minute warning (between 5:00 and 4:30 minutes before)
-            if timeUntilStart <= 300 && timeUntilStart > 270 && !sentAlerts.contains(.fiveMinuteWarning) {
-                sentAlerts.insert(.fiveMinuteWarning)
-                notifiedEvents[eventID] = sentAlerts
-                onEventAlert?(event, .fiveMinuteWarning)
+            // First warning (configurable minutes before)
+            if prefs.firstAlertEnabled {
+                let firstAlertSeconds = TimeInterval(prefs.firstAlertMinutes * 60)
+                let firstAlertType = AlertType.firstWarning(minutes: prefs.firstAlertMinutes)
+                if timeUntilStart <= firstAlertSeconds && timeUntilStart > firstAlertSeconds - 30 && !sentAlerts.contains(firstAlertType) {
+                    sentAlerts.insert(firstAlertType)
+                    notifiedEvents[eventID] = sentAlerts
+                    onEventAlert?(event, firstAlertType)
+                }
             }
 
-            // 1 minute warning (between 1:00 and 0:30 minutes before)
-            if timeUntilStart <= 60 && timeUntilStart > 30 && !sentAlerts.contains(.oneMinuteWarning) {
-                sentAlerts.insert(.oneMinuteWarning)
-                notifiedEvents[eventID] = sentAlerts
-                onEventAlert?(event, .oneMinuteWarning)
+            // Second warning (configurable minutes before)
+            if prefs.secondAlertEnabled {
+                let secondAlertSeconds = TimeInterval(prefs.secondAlertMinutes * 60)
+                let secondAlertType = AlertType.secondWarning(minutes: prefs.secondAlertMinutes)
+                if timeUntilStart <= secondAlertSeconds && timeUntilStart > secondAlertSeconds - 30 && !sentAlerts.contains(secondAlertType) {
+                    sentAlerts.insert(secondAlertType)
+                    notifiedEvents[eventID] = sentAlerts
+                    onEventAlert?(event, secondAlertType)
+                }
             }
 
             // Event starting (between 0 and -30 seconds)

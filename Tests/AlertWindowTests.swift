@@ -151,16 +151,20 @@ final class AlertWindowTests: XCTestCase {
         let controller = AlertWindowController(event: mockEvent)
         controller.showWindow(nil)
 
-        // Keep the window visible for 3 seconds so you can see it
+        XCTAssertTrue(controller.window?.isVisible ?? false, "Window should be visible after showing")
+
+        // Keep the window visible for 15 seconds so you can see it
         let expectation = expectation(description: "Visual display delay")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0) {
             expectation.fulfill()
         }
 
-        waitForExpectations(timeout: 5.0)
+        waitForExpectations(timeout: 20.0)
 
-        XCTAssertTrue(controller.window?.isVisible ?? false, "Window should still be visible")
-        controller.close()
+        // Close the window if it's still open (user may have dismissed it during the test)
+        if controller.window?.isVisible == true {
+            controller.close()
+        }
     }
 
     // MARK: - Helper Methods

@@ -11,10 +11,13 @@
 		A1000002229A0001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012229A0001 /* AppDelegate.swift */; };
 		A1000003229A0001 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000013229A0001 /* CalendarService.swift */; };
 		A1000004229A0001 /* AlertWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000014229A0001 /* AlertWindowController.swift */; };
+		A1000007229A0001 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000017229A0001 /* PreferencesWindowController.swift */; };
+		A1000008229A0001 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000018229A0001 /* Preferences.swift */; };
 		A1000005229A0001 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1000021229A0001 /* EventKit.framework */; };
 		A1000006229A0001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000016229A0001 /* Assets.xcassets */; };
 		A2000001229A0001 /* CalendarAccessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000011229A0001 /* CalendarAccessTests.swift */; };
 		A2000002229A0001 /* AlertWindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012229A0001 /* AlertWindowTests.swift */; };
+		A2000003229A0001 /* PreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000013229A0001 /* PreferencesTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,12 +35,15 @@
 		A1000012229A0001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1000013229A0001 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		A1000014229A0001 /* AlertWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowController.swift; sourceTree = "<group>"; };
+		A1000017229A0001 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
+		A1000018229A0001 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		A1000015229A0001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1000016229A0001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1000021229A0001 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		A1000031229A0001 /* Klaxon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Klaxon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2000011229A0001 /* CalendarAccessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAccessTests.swift; sourceTree = "<group>"; };
 		A2000012229A0001 /* AlertWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowTests.swift; sourceTree = "<group>"; };
+		A2000013229A0001 /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
 		A2000031229A0001 /* KlaxonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KlaxonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -74,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				A1000055229A0001 /* App */,
+				A1000058229A0001 /* Models */,
 				A1000056229A0001 /* Services */,
 				A1000057229A0001 /* Views */,
 				A1000016229A0001 /* Assets.xcassets */,
@@ -120,8 +127,17 @@
 			isa = PBXGroup;
 			children = (
 				A1000014229A0001 /* AlertWindowController.swift */,
+				A1000017229A0001 /* PreferencesWindowController.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A1000058229A0001 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A1000018229A0001 /* Preferences.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		A2000051229A0001 /* Tests */ = {
@@ -129,6 +145,7 @@
 			children = (
 				A2000011229A0001 /* CalendarAccessTests.swift */,
 				A2000012229A0001 /* AlertWindowTests.swift */,
+				A2000013229A0001 /* PreferencesTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -228,6 +245,8 @@
 				A1000002229A0001 /* AppDelegate.swift in Sources */,
 				A1000003229A0001 /* CalendarService.swift in Sources */,
 				A1000004229A0001 /* AlertWindowController.swift in Sources */,
+				A1000007229A0001 /* PreferencesWindowController.swift in Sources */,
+				A1000008229A0001 /* Preferences.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +256,7 @@
 			files = (
 				A2000001229A0001 /* CalendarAccessTests.swift in Sources */,
 				A2000002229A0001 /* AlertWindowTests.swift in Sources */,
+				A2000003229A0001 /* PreferencesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

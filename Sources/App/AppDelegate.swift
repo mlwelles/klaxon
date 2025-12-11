@@ -5,6 +5,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem?
     private var calendarService: CalendarService?
     private var alertWindowController: AlertWindowController?
+    private var preferencesWindowController: PreferencesWindowController?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMenuBarItem()
@@ -15,10 +16,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
         if let button = statusItem?.button {
-            button.image = NSImage(systemSymbolName: "megaphone.fill", accessibilityDescription: "Klaxon")
+            button.image = NSImage(named: "MenuBarIcon")
+            button.image?.isTemplate = true
+            button.image?.accessibilityDescription = "Klaxon"
         }
 
         let menu = NSMenu()
+        menu.addItem(NSMenuItem(title: "Preferences...", action: #selector(openPreferences), keyEquivalent: ","))
+        menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(quitApp), keyEquivalent: "q"))
         statusItem?.menu = menu
     }
@@ -79,6 +84,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             self?.alertWindowController = AlertWindowController(event: event, alertType: alertType)
             self?.alertWindowController?.showWindow(nil)
         }
+    }
+
+    @objc private func openPreferences() {
+        if preferencesWindowController == nil {
+            preferencesWindowController = PreferencesWindowController()
+        }
+        preferencesWindowController?.showWindow(nil)
     }
 
     @objc private func quitApp() {
