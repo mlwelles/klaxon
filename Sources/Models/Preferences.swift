@@ -24,11 +24,11 @@ final class Preferences {
         defaults.register(defaults: [
             Keys.firstAlertEnabled: true,
             Keys.firstAlertMinutes: 5,
-            Keys.firstAlertSoundDuration: 0.5,
+            Keys.firstAlertSoundDuration: 1.0,
             Keys.secondAlertEnabled: true,
             Keys.secondAlertMinutes: 1,
-            Keys.secondAlertSoundDuration: 1.0,
-            Keys.eventStartSoundDuration: 2.0
+            Keys.secondAlertSoundDuration: 2.0,
+            Keys.eventStartSoundDuration: 4.0
         ])
     }
 

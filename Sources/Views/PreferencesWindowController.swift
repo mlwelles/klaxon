@@ -22,11 +22,15 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
     private let soundDurationOptions: [(title: String, value: Double)] = [
         ("No sound", 0),
-        ("1/2 second", 0.5),
         ("1 second", 1.0),
         ("2 seconds", 2.0),
         ("3 seconds", 3.0),
+        ("4 seconds", 4.0),
         ("5 seconds", 5.0),
+        ("6 seconds", 6.0),
+        ("7 seconds", 7.0),
+        ("8 seconds", 8.0),
+        ("9 seconds", 9.0),
         ("10 seconds", 10.0)
     ]
 
@@ -230,7 +234,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
             firstAlertPlayButton.centerYAnchor.constraint(equalTo: firstAlertSoundLabel.centerYAnchor),
             firstAlertPlayButton.leadingAnchor.constraint(equalTo: firstAlertSoundPopup.trailingAnchor, constant: 4),
-            firstAlertPlayButton.widthAnchor.constraint(equalToConstant: 20),
+            firstAlertPlayButton.widthAnchor.constraint(equalToConstant: 60),
 
             // Second alert sound row
             secondAlertSoundLabel.topAnchor.constraint(equalTo: firstAlertSoundLabel.bottomAnchor, constant: 12),
@@ -243,7 +247,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
             secondAlertPlayButton.centerYAnchor.constraint(equalTo: secondAlertSoundLabel.centerYAnchor),
             secondAlertPlayButton.leadingAnchor.constraint(equalTo: secondAlertSoundPopup.trailingAnchor, constant: 4),
-            secondAlertPlayButton.widthAnchor.constraint(equalToConstant: 20),
+            secondAlertPlayButton.widthAnchor.constraint(equalToConstant: 60),
 
             // Event start sound row
             eventStartSoundLabel.topAnchor.constraint(equalTo: secondAlertSoundLabel.bottomAnchor, constant: 12),
@@ -256,7 +260,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
             eventStartPlayButton.centerYAnchor.constraint(equalTo: eventStartSoundLabel.centerYAnchor),
             eventStartPlayButton.leadingAnchor.constraint(equalTo: eventStartSoundPopup.trailingAnchor, constant: 4),
-            eventStartPlayButton.widthAnchor.constraint(equalToConstant: 20),
+            eventStartPlayButton.widthAnchor.constraint(equalToConstant: 60),
 
             // General header
             generalHeaderLabel.topAnchor.constraint(equalTo: eventStartSoundLabel.bottomAnchor, constant: 24),
@@ -282,14 +286,11 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     }
 
     private func createPlayButton(action: Selector) -> NSButton {
-        let button = NSButton()
+        let button = NSButton(title: "Preview", target: self, action: action)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.bezelStyle = .inline
-        button.isBordered = false
-        button.image = NSImage(systemSymbolName: "play.fill", accessibilityDescription: "Play sound preview")
-        button.imagePosition = .imageOnly
-        button.target = self
-        button.action = action
+        button.bezelStyle = .rounded
+        button.controlSize = .small
+        button.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
         return button
     }
 
