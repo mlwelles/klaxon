@@ -166,6 +166,9 @@ final class AlertWindowController: NSWindowController {
     }
 
     private func playAlertSound() {
+        let duration = audioDuration(for: alertType)
+        guard duration > 0 else { return }
+
         guard let soundURL = Bundle.main.url(forResource: "fire-alarm-bell", withExtension: "mp3") else {
             return
         }
@@ -176,7 +179,6 @@ final class AlertWindowController: NSWindowController {
             audioPlayer?.play()
 
             // Schedule stop based on alert type
-            let duration = audioDuration(for: alertType)
             audioStopTimer = Timer.scheduledTimer(withTimeInterval: duration, repeats: false) { [weak self] _ in
                 self?.stopAlertSound()
             }
@@ -186,13 +188,14 @@ final class AlertWindowController: NSWindowController {
     }
 
     private func audioDuration(for alertType: AlertType) -> TimeInterval {
+        let prefs = Preferences.shared
         switch alertType {
         case .firstWarning:
-            return 0.5  // First alert: 0.5 seconds
+            return prefs.firstAlertSoundDuration
         case .secondWarning:
-            return 1.0  // Second alert: 1 second
+            return prefs.secondAlertSoundDuration
         case .eventStarting:
-            return 2.0  // Event starting: 2 seconds
+            return prefs.eventStartSoundDuration
         }
     }
 
