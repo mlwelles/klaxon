@@ -68,7 +68,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(alertsHeaderLabel)
 
         // First alert row
-        firstAlertCheckbox = NSButton(checkboxWithTitle: "First alert", target: self, action: #selector(firstAlertToggled))
+        firstAlertCheckbox = NSButton(checkboxWithTitle: "First warning", target: self, action: #selector(firstAlertToggled))
         firstAlertCheckbox.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(firstAlertCheckbox)
 
@@ -96,7 +96,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(firstMinutesLabel)
 
         // Second alert row
-        secondAlertCheckbox = NSButton(checkboxWithTitle: "Second alert", target: self, action: #selector(secondAlertToggled))
+        secondAlertCheckbox = NSButton(checkboxWithTitle: "Second warning", target: self, action: #selector(secondAlertToggled))
         secondAlertCheckbox.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(secondAlertCheckbox)
 
@@ -137,7 +137,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(soundsHeaderLabel)
 
         // First alert sound row
-        let firstAlertSoundLabel = NSTextField(labelWithString: "First alert:")
+        let firstAlertSoundLabel = NSTextField(labelWithString: "First warning:")
         firstAlertSoundLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(firstAlertSoundLabel)
 
@@ -148,7 +148,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(firstAlertPlayButton)
 
         // Second alert sound row
-        let secondAlertSoundLabel = NSTextField(labelWithString: "Second alert:")
+        let secondAlertSoundLabel = NSTextField(labelWithString: "Second warning:")
         secondAlertSoundLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(secondAlertSoundLabel)
 
