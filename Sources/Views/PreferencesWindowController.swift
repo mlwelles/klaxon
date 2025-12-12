@@ -15,11 +15,12 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
     private let soundDurationOptions: [(title: String, value: Double)] = [
         ("No sound", 0),
-        ("0.5 seconds", 0.5),
+        ("1/2 second", 0.5),
         ("1 second", 1.0),
         ("2 seconds", 2.0),
         ("3 seconds", 3.0),
-        ("5 seconds", 5.0)
+        ("5 seconds", 5.0),
+        ("10 seconds", 10.0)
     ]
 
     init() {
