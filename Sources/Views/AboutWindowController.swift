@@ -3,7 +3,7 @@ import AppKit
 final class AboutWindowController: NSWindowController {
     init() {
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 400, height: 320),
+            contentRect: NSRect(x: 0, y: 0, width: 400, height: 380),
             styleMask: [.titled, .closable],
             backing: .buffered,
             defer: false
@@ -24,11 +24,11 @@ final class AboutWindowController: NSWindowController {
     }
 
     private func setupContent() {
-        let contentView = NSView(frame: NSRect(x: 0, y: 0, width: 400, height: 320))
+        let contentView = NSView(frame: NSRect(x: 0, y: 0, width: 400, height: 380))
 
         // App icon
         let iconSize: CGFloat = 80
-        let iconView = NSImageView(frame: NSRect(x: (400 - iconSize) / 2, y: 220, width: iconSize, height: iconSize))
+        let iconView = NSImageView(frame: NSRect(x: (400 - iconSize) / 2, y: 280, width: iconSize, height: iconSize))
         iconView.image = NSApp.applicationIconImage
         iconView.imageScaling = .scaleProportionallyUpOrDown
         contentView.addSubview(iconView)
@@ -37,7 +37,7 @@ final class AboutWindowController: NSWindowController {
         let appNameLabel = NSTextField(labelWithString: "Klaxon")
         appNameLabel.font = NSFont.boldSystemFont(ofSize: 20)
         appNameLabel.alignment = .center
-        appNameLabel.frame = NSRect(x: 20, y: 185, width: 360, height: 28)
+        appNameLabel.frame = NSRect(x: 20, y: 245, width: 360, height: 28)
         contentView.addSubview(appNameLabel)
 
         // Version
@@ -46,32 +46,40 @@ final class AboutWindowController: NSWindowController {
         versionLabel.font = NSFont.systemFont(ofSize: 12)
         versionLabel.alignment = .center
         versionLabel.textColor = .secondaryLabelColor
-        versionLabel.frame = NSRect(x: 20, y: 165, width: 360, height: 18)
+        versionLabel.frame = NSRect(x: 20, y: 225, width: 360, height: 18)
         contentView.addSubview(versionLabel)
 
         // Description
         let descriptionLabel = NSTextField(wrappingLabelWithString: "Klaxon watches your calendar and sounds the alarm when meetings are about to start. Never miss a meeting again!")
         descriptionLabel.font = NSFont.systemFont(ofSize: 12)
         descriptionLabel.alignment = .center
-        descriptionLabel.frame = NSRect(x: 30, y: 110, width: 340, height: 50)
+        descriptionLabel.frame = NSRect(x: 30, y: 175, width: 340, height: 45)
         contentView.addSubview(descriptionLabel)
+
+        // Assistive purpose
+        let assistiveLabel = NSTextField(wrappingLabelWithString: "Designed as an assistive tool for people with ADHD, time blindness, or anyone who gets absorbed in their work and needs an unmissable reminder.")
+        assistiveLabel.font = NSFont.systemFont(ofSize: 11)
+        assistiveLabel.alignment = .center
+        assistiveLabel.textColor = .secondaryLabelColor
+        assistiveLabel.frame = NSRect(x: 30, y: 120, width: 340, height: 50)
+        contentView.addSubview(assistiveLabel)
 
         // Author
         let authorLabel = NSTextField(labelWithString: "Created by Michael L. Welles")
         authorLabel.font = NSFont.systemFont(ofSize: 11)
         authorLabel.alignment = .center
-        authorLabel.frame = NSRect(x: 20, y: 85, width: 360, height: 16)
+        authorLabel.frame = NSRect(x: 20, y: 95, width: 360, height: 16)
         contentView.addSubview(authorLabel)
 
         let emailLabel = createClickableEmail()
-        emailLabel.frame = NSRect(x: 20, y: 67, width: 360, height: 16)
+        emailLabel.frame = NSRect(x: 20, y: 77, width: 360, height: 16)
         contentView.addSubview(emailLabel)
 
         // Credits header
         let creditsHeader = NSTextField(labelWithString: "Credits")
         creditsHeader.font = NSFont.boldSystemFont(ofSize: 11)
         creditsHeader.alignment = .center
-        creditsHeader.frame = NSRect(x: 20, y: 45, width: 360, height: 16)
+        creditsHeader.frame = NSRect(x: 20, y: 55, width: 360, height: 16)
         contentView.addSubview(creditsHeader)
 
         // Icon credit
@@ -79,7 +87,7 @@ final class AboutWindowController: NSWindowController {
         iconCredit.font = NSFont.systemFont(ofSize: 10)
         iconCredit.alignment = .center
         iconCredit.textColor = .secondaryLabelColor
-        iconCredit.frame = NSRect(x: 20, y: 28, width: 360, height: 14)
+        iconCredit.frame = NSRect(x: 20, y: 38, width: 360, height: 14)
         contentView.addSubview(iconCredit)
 
         // Sound credit
@@ -87,7 +95,7 @@ final class AboutWindowController: NSWindowController {
         soundCredit.font = NSFont.systemFont(ofSize: 10)
         soundCredit.alignment = .center
         soundCredit.textColor = .secondaryLabelColor
-        soundCredit.frame = NSRect(x: 20, y: 12, width: 360, height: 14)
+        soundCredit.frame = NSRect(x: 20, y: 22, width: 360, height: 14)
         contentView.addSubview(soundCredit)
 
         window?.contentView = contentView
