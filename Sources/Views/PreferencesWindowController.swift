@@ -62,83 +62,45 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         let contentView = NSView(frame: window.contentRect(forFrameRect: window.frame))
 
         // Alerts section header
-        let alertsHeaderLabel = NSTextField(labelWithString: "Alerts")
-        alertsHeaderLabel.font = .boldSystemFont(ofSize: 13)
-        alertsHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
+        let alertsHeaderLabel = createSectionHeader("Alerts")
         contentView.addSubview(alertsHeaderLabel)
 
         // First alert row
-        firstAlertCheckbox = NSButton(checkboxWithTitle: "First warning", target: self, action: #selector(firstAlertToggled))
-        firstAlertCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        firstAlertCheckbox = createCheckbox(title: "First warning", action: #selector(firstAlertToggled))
         contentView.addSubview(firstAlertCheckbox)
 
-        firstAlertTextField = NSTextField()
-        firstAlertTextField.translatesAutoresizingMaskIntoConstraints = false
-        firstAlertTextField.alignment = .center
-        firstAlertTextField.isEditable = false
-        firstAlertTextField.isSelectable = false
-        firstAlertTextField.isBordered = true
-        firstAlertTextField.bezelStyle = .roundedBezel
+        firstAlertTextField = createMinutesTextField()
         contentView.addSubview(firstAlertTextField)
 
-        firstAlertStepper = NSStepper()
-        firstAlertStepper.translatesAutoresizingMaskIntoConstraints = false
-        firstAlertStepper.minValue = 1
-        firstAlertStepper.maxValue = 60
-        firstAlertStepper.increment = 1
-        firstAlertStepper.valueWraps = false
-        firstAlertStepper.target = self
-        firstAlertStepper.action = #selector(firstAlertMinutesChanged)
+        firstAlertStepper = createMinutesStepper(action: #selector(firstAlertMinutesChanged))
         contentView.addSubview(firstAlertStepper)
 
-        let firstMinutesLabel = NSTextField(labelWithString: "minutes before")
-        firstMinutesLabel.translatesAutoresizingMaskIntoConstraints = false
+        let firstMinutesLabel = createLabel("minutes before")
         contentView.addSubview(firstMinutesLabel)
 
         // Second alert row
-        secondAlertCheckbox = NSButton(checkboxWithTitle: "Second warning", target: self, action: #selector(secondAlertToggled))
-        secondAlertCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        secondAlertCheckbox = createCheckbox(title: "Second warning", action: #selector(secondAlertToggled))
         contentView.addSubview(secondAlertCheckbox)
 
-        secondAlertTextField = NSTextField()
-        secondAlertTextField.translatesAutoresizingMaskIntoConstraints = false
-        secondAlertTextField.alignment = .center
-        secondAlertTextField.isEditable = false
-        secondAlertTextField.isSelectable = false
-        secondAlertTextField.isBordered = true
-        secondAlertTextField.bezelStyle = .roundedBezel
+        secondAlertTextField = createMinutesTextField()
         contentView.addSubview(secondAlertTextField)
 
-        secondAlertStepper = NSStepper()
-        secondAlertStepper.translatesAutoresizingMaskIntoConstraints = false
-        secondAlertStepper.minValue = 1
-        secondAlertStepper.maxValue = 60
-        secondAlertStepper.increment = 1
-        secondAlertStepper.valueWraps = false
-        secondAlertStepper.target = self
-        secondAlertStepper.action = #selector(secondAlertMinutesChanged)
+        secondAlertStepper = createMinutesStepper(action: #selector(secondAlertMinutesChanged))
         contentView.addSubview(secondAlertStepper)
 
-        let secondMinutesLabel = NSTextField(labelWithString: "minutes before")
-        secondMinutesLabel.translatesAutoresizingMaskIntoConstraints = false
+        let secondMinutesLabel = createLabel("minutes before")
         contentView.addSubview(secondMinutesLabel)
 
         // Event start note
-        let eventStartNote = NSTextField(labelWithString: "An alert is always shown when the event starts.")
-        eventStartNote.translatesAutoresizingMaskIntoConstraints = false
-        eventStartNote.font = .systemFont(ofSize: 11)
-        eventStartNote.textColor = .secondaryLabelColor
+        let eventStartNote = createNoteLabel("An alert is always shown when the event starts.")
         contentView.addSubview(eventStartNote)
 
         // Alert Sounds section header
-        let soundsHeaderLabel = NSTextField(labelWithString: "Alert Sounds")
-        soundsHeaderLabel.font = .boldSystemFont(ofSize: 13)
-        soundsHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
+        let soundsHeaderLabel = createSectionHeader("Alert Sounds")
         contentView.addSubview(soundsHeaderLabel)
 
         // First alert sound row
-        let firstAlertSoundLabel = NSTextField(labelWithString: "First warning:")
-        firstAlertSoundLabel.translatesAutoresizingMaskIntoConstraints = false
+        let firstAlertSoundLabel = createLabel("First warning:")
         contentView.addSubview(firstAlertSoundLabel)
 
         firstAlertSoundPopup = createSoundPopup(action: #selector(firstAlertSoundChanged))
@@ -148,8 +110,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(firstAlertPlayButton)
 
         // Second alert sound row
-        let secondAlertSoundLabel = NSTextField(labelWithString: "Second warning:")
-        secondAlertSoundLabel.translatesAutoresizingMaskIntoConstraints = false
+        let secondAlertSoundLabel = createLabel("Second warning:")
         contentView.addSubview(secondAlertSoundLabel)
 
         secondAlertSoundPopup = createSoundPopup(action: #selector(secondAlertSoundChanged))
@@ -159,8 +120,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(secondAlertPlayButton)
 
         // Event start sound row
-        let eventStartSoundLabel = NSTextField(labelWithString: "Event start:")
-        eventStartSoundLabel.translatesAutoresizingMaskIntoConstraints = false
+        let eventStartSoundLabel = createLabel("Event start:")
         contentView.addSubview(eventStartSoundLabel)
 
         eventStartSoundPopup = createSoundPopup(action: #selector(eventStartSoundChanged))
@@ -170,14 +130,11 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(eventStartPlayButton)
 
         // General section header
-        let generalHeaderLabel = NSTextField(labelWithString: "General")
-        generalHeaderLabel.font = .boldSystemFont(ofSize: 13)
-        generalHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
+        let generalHeaderLabel = createSectionHeader("General")
         contentView.addSubview(generalHeaderLabel)
 
         // Launch at login checkbox
-        launchAtLoginCheckbox = NSButton(checkboxWithTitle: "Start Klaxon at login", target: self, action: #selector(launchAtLoginToggled))
-        launchAtLoginCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        launchAtLoginCheckbox = createCheckbox(title: "Start Klaxon at login", action: #selector(launchAtLoginToggled))
         contentView.addSubview(launchAtLoginCheckbox)
 
         NSLayoutConstraint.activate([
@@ -274,6 +231,48 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         window.contentView = contentView
     }
 
+    private func createSectionHeader(_ title: String) -> NSTextField {
+        let label = NSTextField(labelWithString: title)
+        label.font = .boldSystemFont(ofSize: 13)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
+
+    private func createLabel(_ title: String) -> NSTextField {
+        let label = NSTextField(labelWithString: title)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
+
+    private func createMinutesTextField() -> NSTextField {
+        let textField = NSTextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.alignment = .center
+        textField.isEditable = false
+        textField.isSelectable = false
+        textField.isBordered = true
+        textField.bezelStyle = .roundedBezel
+        return textField
+    }
+
+    private func createMinutesStepper(action: Selector) -> NSStepper {
+        let stepper = NSStepper()
+        stepper.translatesAutoresizingMaskIntoConstraints = false
+        stepper.minValue = 1
+        stepper.maxValue = 60
+        stepper.increment = 1
+        stepper.valueWraps = false
+        stepper.target = self
+        stepper.action = action
+        return stepper
+    }
+
+    private func createCheckbox(title: String, action: Selector) -> NSButton {
+        let checkbox = NSButton(checkboxWithTitle: title, target: self, action: action)
+        checkbox.translatesAutoresizingMaskIntoConstraints = false
+        return checkbox
+    }
+
     private func createSoundPopup(action: Selector) -> NSPopUpButton {
         let popup = NSPopUpButton()
         popup.translatesAutoresizingMaskIntoConstraints = false
@@ -292,6 +291,14 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         button.controlSize = .small
         button.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
         return button
+    }
+
+    private func createNoteLabel(_ text: String) -> NSTextField {
+        let label = NSTextField(labelWithString: text)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 11)
+        label.textColor = .secondaryLabelColor
+        return label
     }
 
     private func selectSoundDuration(_ duration: Double, in popup: NSPopUpButton) {
