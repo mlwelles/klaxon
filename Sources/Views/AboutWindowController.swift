@@ -50,7 +50,7 @@ final class AboutWindowController: NSWindowController {
         contentView.addSubview(versionLabel)
 
         // Description
-        let descriptionLabel = NSTextField(wrappingLabelWithString: "A macOS menu bar app that monitors your calendar and displays blocking modal alerts before events start. Never miss a meeting again!")
+        let descriptionLabel = NSTextField(wrappingLabelWithString: "Klaxon watches your calendar and sounds the alarm when meetings are about to start. Never miss a meeting again!")
         descriptionLabel.font = NSFont.systemFont(ofSize: 12)
         descriptionLabel.alignment = .center
         descriptionLabel.frame = NSRect(x: 30, y: 110, width: 340, height: 50)
