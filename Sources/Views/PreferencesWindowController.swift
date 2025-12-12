@@ -1,5 +1,4 @@
 import AppKit
-import AVFoundation
 import ServiceManagement
 
 final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
@@ -7,18 +6,12 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     private var firstAlertStepper: NSStepper!
     private var firstAlertTextField: NSTextField!
     private var firstAlertSoundPopup: NSPopUpButton!
-    private var firstAlertPlayButton: NSButton!
     private var secondAlertCheckbox: NSButton!
     private var secondAlertStepper: NSStepper!
     private var secondAlertTextField: NSTextField!
     private var secondAlertSoundPopup: NSPopUpButton!
-    private var secondAlertPlayButton: NSButton!
     private var eventStartSoundPopup: NSPopUpButton!
-    private var eventStartPlayButton: NSButton!
     private var launchAtLoginCheckbox: NSButton!
-
-    private var previewPlayer: AVAudioPlayer?
-    private var previewStopTimer: Timer?
 
     private let soundDurationOptions: [(title: String, value: Double)] = [
         ("No sound", 0),
@@ -106,9 +99,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         firstAlertSoundPopup = createSoundPopup(action: #selector(firstAlertSoundChanged))
         contentView.addSubview(firstAlertSoundPopup)
 
-        firstAlertPlayButton = createPlayButton(action: #selector(playFirstAlertSound))
-        contentView.addSubview(firstAlertPlayButton)
-
         // Second alert sound row
         let secondAlertSoundLabel = createLabel("Second warning:")
         contentView.addSubview(secondAlertSoundLabel)
@@ -116,18 +106,12 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         secondAlertSoundPopup = createSoundPopup(action: #selector(secondAlertSoundChanged))
         contentView.addSubview(secondAlertSoundPopup)
 
-        secondAlertPlayButton = createPlayButton(action: #selector(playSecondAlertSound))
-        contentView.addSubview(secondAlertPlayButton)
-
         // Event start sound row
         let eventStartSoundLabel = createLabel("Event start:")
         contentView.addSubview(eventStartSoundLabel)
 
         eventStartSoundPopup = createSoundPopup(action: #selector(eventStartSoundChanged))
         contentView.addSubview(eventStartSoundPopup)
-
-        eventStartPlayButton = createPlayButton(action: #selector(playEventStartSound))
-        contentView.addSubview(eventStartPlayButton)
 
         // General section header
         let generalHeaderLabel = createSectionHeader("General")
@@ -189,10 +173,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             firstAlertSoundPopup.leadingAnchor.constraint(equalTo: firstAlertSoundLabel.trailingAnchor, constant: 8),
             firstAlertSoundPopup.widthAnchor.constraint(equalToConstant: 110),
 
-            firstAlertPlayButton.centerYAnchor.constraint(equalTo: firstAlertSoundLabel.centerYAnchor),
-            firstAlertPlayButton.leadingAnchor.constraint(equalTo: firstAlertSoundPopup.trailingAnchor, constant: 4),
-            firstAlertPlayButton.widthAnchor.constraint(equalToConstant: 60),
-
             // Second alert sound row
             secondAlertSoundLabel.topAnchor.constraint(equalTo: firstAlertSoundLabel.bottomAnchor, constant: 12),
             secondAlertSoundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
@@ -202,10 +182,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             secondAlertSoundPopup.leadingAnchor.constraint(equalTo: secondAlertSoundLabel.trailingAnchor, constant: 8),
             secondAlertSoundPopup.widthAnchor.constraint(equalToConstant: 110),
 
-            secondAlertPlayButton.centerYAnchor.constraint(equalTo: secondAlertSoundLabel.centerYAnchor),
-            secondAlertPlayButton.leadingAnchor.constraint(equalTo: secondAlertSoundPopup.trailingAnchor, constant: 4),
-            secondAlertPlayButton.widthAnchor.constraint(equalToConstant: 60),
-
             // Event start sound row
             eventStartSoundLabel.topAnchor.constraint(equalTo: secondAlertSoundLabel.bottomAnchor, constant: 12),
             eventStartSoundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
@@ -214,10 +190,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             eventStartSoundPopup.centerYAnchor.constraint(equalTo: eventStartSoundLabel.centerYAnchor),
             eventStartSoundPopup.leadingAnchor.constraint(equalTo: eventStartSoundLabel.trailingAnchor, constant: 8),
             eventStartSoundPopup.widthAnchor.constraint(equalToConstant: 110),
-
-            eventStartPlayButton.centerYAnchor.constraint(equalTo: eventStartSoundLabel.centerYAnchor),
-            eventStartPlayButton.leadingAnchor.constraint(equalTo: eventStartSoundPopup.trailingAnchor, constant: 4),
-            eventStartPlayButton.widthAnchor.constraint(equalToConstant: 60),
 
             // General header
             generalHeaderLabel.topAnchor.constraint(equalTo: eventStartSoundLabel.bottomAnchor, constant: 24),
@@ -284,15 +256,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         return popup
     }
 
-    private func createPlayButton(action: Selector) -> NSButton {
-        let button = NSButton(title: "Preview", target: self, action: action)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.bezelStyle = .rounded
-        button.controlSize = .small
-        button.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
-        return button
-    }
-
     private func createNoteLabel(_ text: String) -> NSTextField {
         let label = NSTextField(labelWithString: text)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -339,7 +302,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         firstAlertTextField.isEnabled = enabled
         firstAlertTextField.textColor = enabled ? .labelColor : .disabledControlTextColor
         firstAlertSoundPopup.isEnabled = enabled
-        firstAlertPlayButton.isEnabled = enabled
     }
 
     private func updateSecondAlertControlsEnabled() {
@@ -348,7 +310,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         secondAlertTextField.isEnabled = enabled
         secondAlertTextField.textColor = enabled ? .labelColor : .disabledControlTextColor
         secondAlertSoundPopup.isEnabled = enabled
-        secondAlertPlayButton.isEnabled = enabled
     }
 
     @objc private func firstAlertToggled() {
@@ -386,54 +347,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     @objc private func eventStartSoundChanged() {
         let index = eventStartSoundPopup.indexOfSelectedItem
         Preferences.shared.eventStartSoundDuration = soundDurationOptions[index].value
-    }
-
-    @objc private func playFirstAlertSound() {
-        let index = firstAlertSoundPopup.indexOfSelectedItem
-        let duration = soundDurationOptions[index].value
-        playPreviewSound(duration: duration)
-    }
-
-    @objc private func playSecondAlertSound() {
-        let index = secondAlertSoundPopup.indexOfSelectedItem
-        let duration = soundDurationOptions[index].value
-        playPreviewSound(duration: duration)
-    }
-
-    @objc private func playEventStartSound() {
-        let index = eventStartSoundPopup.indexOfSelectedItem
-        let duration = soundDurationOptions[index].value
-        playPreviewSound(duration: duration)
-    }
-
-    private func playPreviewSound(duration: TimeInterval) {
-        // Stop any existing preview
-        stopPreviewSound()
-
-        guard duration > 0 else { return }
-
-        guard let soundURL = Bundle.main.url(forResource: "fire-alarm-bell", withExtension: "mp3") else {
-            return
-        }
-
-        do {
-            previewPlayer = try AVAudioPlayer(contentsOf: soundURL)
-            previewPlayer?.prepareToPlay()
-            previewPlayer?.play()
-
-            previewStopTimer = Timer.scheduledTimer(withTimeInterval: duration, repeats: false) { [weak self] _ in
-                self?.stopPreviewSound()
-            }
-        } catch {
-            // Silently fail if audio playback fails
-        }
-    }
-
-    private func stopPreviewSound() {
-        previewPlayer?.stop()
-        previewPlayer = nil
-        previewStopTimer?.invalidate()
-        previewStopTimer = nil
     }
 
     @objc private func launchAtLoginToggled() {
