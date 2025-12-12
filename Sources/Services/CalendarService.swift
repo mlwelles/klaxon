@@ -2,8 +2,7 @@ import EventKit
 import Foundation
 
 enum AlertType: Hashable {
-    case firstWarning(minutes: Int)
-    case secondWarning(minutes: Int)
+    case warning(minutes: Int, soundDuration: Double)
     case eventStarting
 }
 
@@ -49,25 +48,14 @@ final class CalendarService {
             let timeUntilStart = event.startDate.timeIntervalSince(now)
             var sentAlerts = notifiedEvents[eventID] ?? []
 
-            // First warning (configurable minutes before)
-            if prefs.firstAlertEnabled {
-                let firstAlertSeconds = TimeInterval(prefs.firstAlertMinutes * 60)
-                let firstAlertType = AlertType.firstWarning(minutes: prefs.firstAlertMinutes)
-                if timeUntilStart <= firstAlertSeconds && timeUntilStart > firstAlertSeconds - 30 && !sentAlerts.contains(firstAlertType) {
-                    sentAlerts.insert(firstAlertType)
+            // Check each configured warning
+            for warning in prefs.warnings {
+                let alertSeconds = TimeInterval(warning.minutesBefore * 60)
+                let alertType = AlertType.warning(minutes: warning.minutesBefore, soundDuration: warning.soundDuration)
+                if timeUntilStart <= alertSeconds && timeUntilStart > alertSeconds - 30 && !sentAlerts.contains(alertType) {
+                    sentAlerts.insert(alertType)
                     notifiedEvents[eventID] = sentAlerts
-                    onEventAlert?(event, firstAlertType)
-                }
-            }
-
-            // Second warning (configurable minutes before)
-            if prefs.secondAlertEnabled {
-                let secondAlertSeconds = TimeInterval(prefs.secondAlertMinutes * 60)
-                let secondAlertType = AlertType.secondWarning(minutes: prefs.secondAlertMinutes)
-                if timeUntilStart <= secondAlertSeconds && timeUntilStart > secondAlertSeconds - 30 && !sentAlerts.contains(secondAlertType) {
-                    sentAlerts.insert(secondAlertType)
-                    notifiedEvents[eventID] = sentAlerts
-                    onEventAlert?(event, secondAlertType)
+                    onEventAlert?(event, alertType)
                 }
             }
 

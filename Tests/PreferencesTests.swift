@@ -18,145 +18,157 @@ final class PreferencesTests: XCTestCase {
         super.tearDown()
     }
 
-    // MARK: - Default Values Tests
+    // MARK: - AlertWarning Model Tests
 
-    func testDefaultFirstAlertEnabled() {
-        XCTAssertTrue(preferences.firstAlertEnabled, "First alert should be enabled by default")
+    func testAlertWarningEquality() {
+        let warning1 = AlertWarning(minutesBefore: 5, soundDuration: 1.0)
+        let warning2 = AlertWarning(minutesBefore: 5, soundDuration: 1.0)
+        let warning3 = AlertWarning(minutesBefore: 10, soundDuration: 2.0)
+
+        XCTAssertEqual(warning1, warning2, "Warnings with same values should be equal")
+        XCTAssertNotEqual(warning1, warning3, "Warnings with different values should not be equal")
     }
 
-    func testDefaultFirstAlertMinutes() {
-        XCTAssertEqual(preferences.firstAlertMinutes, 5, "First alert should default to 5 minutes")
+    func testAlertWarningCodable() throws {
+        let warning = AlertWarning(minutesBefore: 5, soundDuration: 2.5)
+        let encoded = try JSONEncoder().encode(warning)
+        let decoded = try JSONDecoder().decode(AlertWarning.self, from: encoded)
+
+        XCTAssertEqual(warning, decoded, "Warning should round-trip through JSON encoding")
     }
 
-    func testDefaultSecondAlertEnabled() {
-        XCTAssertTrue(preferences.secondAlertEnabled, "Second alert should be enabled by default")
+    func testDefaultWarnings() {
+        let defaults = AlertWarning.defaultWarnings
+
+        XCTAssertEqual(defaults.count, 2, "Should have 2 default warnings")
+        XCTAssertEqual(defaults[0].minutesBefore, 5, "First default warning should be 5 minutes")
+        XCTAssertEqual(defaults[0].soundDuration, 1.0, "First default warning sound should be 1 second")
+        XCTAssertEqual(defaults[1].minutesBefore, 1, "Second default warning should be 1 minute")
+        XCTAssertEqual(defaults[1].soundDuration, 2.0, "Second default warning sound should be 2 seconds")
     }
 
-    func testDefaultSecondAlertMinutes() {
-        XCTAssertEqual(preferences.secondAlertMinutes, 1, "Second alert should default to 1 minute")
+    // MARK: - Warnings Array Tests
+
+    func testDefaultWarningsReturned() {
+        // Fresh preferences should return default warnings
+        XCTAssertEqual(preferences.warnings.count, 2, "Should have 2 warnings by default")
+        XCTAssertEqual(preferences.warnings[0].minutesBefore, 5, "First warning should be 5 minutes")
+        XCTAssertEqual(preferences.warnings[1].minutesBefore, 1, "Second warning should be 1 minute")
     }
 
-    // MARK: - First Alert Tests
+    func testSetWarnings() {
+        let newWarnings = [
+            AlertWarning(minutesBefore: 10, soundDuration: 3.0),
+            AlertWarning(minutesBefore: 3, soundDuration: 1.0),
+            AlertWarning(minutesBefore: 1, soundDuration: 2.0)
+        ]
 
-    func testSetFirstAlertEnabled() {
-        preferences.firstAlertEnabled = false
-        XCTAssertFalse(preferences.firstAlertEnabled, "First alert enabled should be settable to false")
+        preferences.warnings = newWarnings
 
-        preferences.firstAlertEnabled = true
-        XCTAssertTrue(preferences.firstAlertEnabled, "First alert enabled should be settable to true")
+        XCTAssertEqual(preferences.warnings.count, 3, "Should have 3 warnings after setting")
+        XCTAssertEqual(preferences.warnings[0].minutesBefore, 10, "First warning should be 10 minutes")
+        XCTAssertEqual(preferences.warnings[1].minutesBefore, 3, "Second warning should be 3 minutes")
+        XCTAssertEqual(preferences.warnings[2].minutesBefore, 1, "Third warning should be 1 minute")
     }
 
-    func testSetFirstAlertMinutes() {
-        preferences.firstAlertMinutes = 10
-        XCTAssertEqual(preferences.firstAlertMinutes, 10, "First alert minutes should be settable")
+    func testWarningsPersistence() {
+        let newWarnings = [
+            AlertWarning(minutesBefore: 15, soundDuration: 5.0)
+        ]
 
-        preferences.firstAlertMinutes = 30
-        XCTAssertEqual(preferences.firstAlertMinutes, 30, "First alert minutes should be updatable")
-    }
-
-    func testFirstAlertMinutesPersistence() {
-        preferences.firstAlertMinutes = 15
-
-        // Create a new Preferences instance with the same UserDefaults
-        let newPreferences = Preferences(defaults: testDefaults)
-        XCTAssertEqual(newPreferences.firstAlertMinutes, 15, "First alert minutes should persist")
-    }
-
-    func testFirstAlertEnabledPersistence() {
-        preferences.firstAlertEnabled = false
-
-        let newPreferences = Preferences(defaults: testDefaults)
-        XCTAssertFalse(newPreferences.firstAlertEnabled, "First alert enabled should persist")
-    }
-
-    // MARK: - Second Alert Tests
-
-    func testSetSecondAlertEnabled() {
-        preferences.secondAlertEnabled = false
-        XCTAssertFalse(preferences.secondAlertEnabled, "Second alert enabled should be settable to false")
-
-        preferences.secondAlertEnabled = true
-        XCTAssertTrue(preferences.secondAlertEnabled, "Second alert enabled should be settable to true")
-    }
-
-    func testSetSecondAlertMinutes() {
-        preferences.secondAlertMinutes = 3
-        XCTAssertEqual(preferences.secondAlertMinutes, 3, "Second alert minutes should be settable")
-
-        preferences.secondAlertMinutes = 2
-        XCTAssertEqual(preferences.secondAlertMinutes, 2, "Second alert minutes should be updatable")
-    }
-
-    func testSecondAlertMinutesPersistence() {
-        preferences.secondAlertMinutes = 7
+        preferences.warnings = newWarnings
 
         let newPreferences = Preferences(defaults: testDefaults)
-        XCTAssertEqual(newPreferences.secondAlertMinutes, 7, "Second alert minutes should persist")
+        XCTAssertEqual(newPreferences.warnings.count, 1, "Warnings should persist")
+        XCTAssertEqual(newPreferences.warnings[0].minutesBefore, 15, "Warning minutes should persist")
+        XCTAssertEqual(newPreferences.warnings[0].soundDuration, 5.0, "Warning sound duration should persist")
     }
 
-    func testSecondAlertEnabledPersistence() {
-        preferences.secondAlertEnabled = false
+    func testEmptyWarningsArray() {
+        preferences.warnings = []
+
+        XCTAssertEqual(preferences.warnings.count, 0, "Should allow empty warnings array")
+    }
+
+    func testSingleWarning() {
+        let singleWarning = [AlertWarning(minutesBefore: 5, soundDuration: 2.0)]
+        preferences.warnings = singleWarning
+
+        XCTAssertEqual(preferences.warnings.count, 1, "Should allow single warning")
+    }
+
+    func testManyWarnings() {
+        let manyWarnings = (1...10).map { AlertWarning(minutesBefore: $0, soundDuration: Double($0)) }
+        preferences.warnings = manyWarnings
+
+        XCTAssertEqual(preferences.warnings.count, 10, "Should allow many warnings")
+    }
+
+    // MARK: - Event Start Sound Tests
+
+    func testDefaultEventStartSoundDuration() {
+        XCTAssertEqual(preferences.eventStartSoundDuration, 4.0, "Event start sound should default to 4 seconds")
+    }
+
+    func testSetEventStartSoundDuration() {
+        preferences.eventStartSoundDuration = 6.0
+        XCTAssertEqual(preferences.eventStartSoundDuration, 6.0, "Event start sound duration should be settable")
+    }
+
+    func testEventStartSoundDurationPersistence() {
+        preferences.eventStartSoundDuration = 8.0
 
         let newPreferences = Preferences(defaults: testDefaults)
-        XCTAssertFalse(newPreferences.secondAlertEnabled, "Second alert enabled should persist")
+        XCTAssertEqual(newPreferences.eventStartSoundDuration, 8.0, "Event start sound duration should persist")
     }
 
-    // MARK: - Edge Cases
+    // MARK: - Alert Sound Tests
 
-    func testFirstAlertMinutesMinValue() {
-        preferences.firstAlertMinutes = 1
-        XCTAssertEqual(preferences.firstAlertMinutes, 1, "First alert should accept minimum value of 1")
+    func testDefaultAlertSound() {
+        XCTAssertEqual(preferences.alertSound, "fire-alarm-bell", "Alert sound should default to fire-alarm-bell")
     }
 
-    func testFirstAlertMinutesMaxValue() {
-        preferences.firstAlertMinutes = 60
-        XCTAssertEqual(preferences.firstAlertMinutes, 60, "First alert should accept maximum value of 60")
+    func testSetAlertSound() {
+        preferences.alertSound = "other-sound"
+        XCTAssertEqual(preferences.alertSound, "other-sound", "Alert sound should be settable")
     }
 
-    func testSecondAlertMinutesMinValue() {
-        preferences.secondAlertMinutes = 1
-        XCTAssertEqual(preferences.secondAlertMinutes, 1, "Second alert should accept minimum value of 1")
+    func testEmptyAlertSound() {
+        preferences.alertSound = ""
+        XCTAssertEqual(preferences.alertSound, "", "Alert sound should allow empty string for no audio")
     }
 
-    func testSecondAlertMinutesMaxValue() {
-        preferences.secondAlertMinutes = 60
-        XCTAssertEqual(preferences.secondAlertMinutes, 60, "Second alert should accept maximum value of 60")
+    func testAlertSoundPersistence() {
+        preferences.alertSound = "custom-sound"
+
+        let newPreferences = Preferences(defaults: testDefaults)
+        XCTAssertEqual(newPreferences.alertSound, "custom-sound", "Alert sound should persist")
     }
 
-    func testZeroMinutesValue() {
-        // While the UI enforces min of 1, the model should handle 0
-        preferences.firstAlertMinutes = 0
-        XCTAssertEqual(preferences.firstAlertMinutes, 0, "First alert should accept 0 minutes")
+    // MARK: - Available Sounds Tests
 
-        preferences.secondAlertMinutes = 0
-        XCTAssertEqual(preferences.secondAlertMinutes, 0, "Second alert should accept 0 minutes")
+    func testAvailableSoundsIncludesNoAudio() {
+        let sounds = Preferences.availableSounds
+        XCTAssertTrue(sounds.contains { $0.id == "" && $0.name == "No audio" }, "Available sounds should include 'No audio' option")
     }
 
-    // MARK: - Independence Tests
-
-    func testAlertsAreIndependent() {
-        preferences.firstAlertEnabled = false
-        preferences.secondAlertEnabled = true
-
-        XCTAssertFalse(preferences.firstAlertEnabled, "First alert state should be independent")
-        XCTAssertTrue(preferences.secondAlertEnabled, "Second alert state should be independent")
+    func testAvailableSoundsIncludesFireAlarmBell() {
+        let sounds = Preferences.availableSounds
+        XCTAssertTrue(sounds.contains { $0.id == "fire-alarm-bell" }, "Available sounds should include fire-alarm-bell")
     }
 
-    func testAlertMinutesAreIndependent() {
-        preferences.firstAlertMinutes = 10
-        preferences.secondAlertMinutes = 2
-
-        XCTAssertEqual(preferences.firstAlertMinutes, 10, "First alert minutes should be independent")
-        XCTAssertEqual(preferences.secondAlertMinutes, 2, "Second alert minutes should be independent")
+    func testDisplayNameConversion() {
+        let sounds = Preferences.availableSounds
+        let fireAlarm = sounds.first { $0.id == "fire-alarm-bell" }
+        XCTAssertEqual(fireAlarm?.name, "Fire Alarm Bell", "Display name should be title case with spaces")
     }
 
     // MARK: - Keys Tests
 
     func testKeysAreCorrect() {
-        XCTAssertEqual(Preferences.Keys.firstAlertEnabled, "firstAlertEnabled")
-        XCTAssertEqual(Preferences.Keys.firstAlertMinutes, "firstAlertMinutes")
-        XCTAssertEqual(Preferences.Keys.secondAlertEnabled, "secondAlertEnabled")
-        XCTAssertEqual(Preferences.Keys.secondAlertMinutes, "secondAlertMinutes")
+        XCTAssertEqual(Preferences.Keys.warnings, "warnings")
+        XCTAssertEqual(Preferences.Keys.eventStartSoundDuration, "eventStartSoundDuration")
+        XCTAssertEqual(Preferences.Keys.alertSound, "alertSound")
     }
 
     // MARK: - Shared Instance Tests

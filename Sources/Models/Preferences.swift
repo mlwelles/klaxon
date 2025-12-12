@@ -1,5 +1,16 @@
 import Foundation
 
+/// A configurable warning that fires before an event starts
+struct AlertWarning: Codable, Equatable {
+    var minutesBefore: Int
+    var soundDuration: Double
+
+    static let defaultWarnings: [AlertWarning] = [
+        AlertWarning(minutesBefore: 5, soundDuration: 1.0),
+        AlertWarning(minutesBefore: 1, soundDuration: 2.0)
+    ]
+}
+
 final class Preferences {
     static let shared = Preferences()
 
@@ -24,12 +35,7 @@ final class Preferences {
     }
 
     enum Keys {
-        static let firstAlertEnabled = "firstAlertEnabled"
-        static let firstAlertMinutes = "firstAlertMinutes"
-        static let firstAlertSoundDuration = "firstAlertSoundDuration"
-        static let secondAlertEnabled = "secondAlertEnabled"
-        static let secondAlertMinutes = "secondAlertMinutes"
-        static let secondAlertSoundDuration = "secondAlertSoundDuration"
+        static let warnings = "warnings"
         static let eventStartSoundDuration = "eventStartSoundDuration"
         static let alertSound = "alertSound"
     }
@@ -41,47 +47,25 @@ final class Preferences {
 
     private func registerDefaults() {
         defaults.register(defaults: [
-            Keys.firstAlertEnabled: true,
-            Keys.firstAlertMinutes: 5,
-            Keys.firstAlertSoundDuration: 1.0,
-            Keys.secondAlertEnabled: true,
-            Keys.secondAlertMinutes: 1,
-            Keys.secondAlertSoundDuration: 2.0,
             Keys.eventStartSoundDuration: 4.0,
             Keys.alertSound: "fire-alarm-bell"
         ])
     }
 
-    var firstAlertEnabled: Bool {
-        get { defaults.bool(forKey: Keys.firstAlertEnabled) }
-        set { defaults.set(newValue, forKey: Keys.firstAlertEnabled) }
-    }
-
-    var firstAlertMinutes: Int {
-        get { defaults.integer(forKey: Keys.firstAlertMinutes) }
-        set { defaults.set(newValue, forKey: Keys.firstAlertMinutes) }
-    }
-
-    var secondAlertEnabled: Bool {
-        get { defaults.bool(forKey: Keys.secondAlertEnabled) }
-        set { defaults.set(newValue, forKey: Keys.secondAlertEnabled) }
-    }
-
-    var secondAlertMinutes: Int {
-        get { defaults.integer(forKey: Keys.secondAlertMinutes) }
-        set { defaults.set(newValue, forKey: Keys.secondAlertMinutes) }
-    }
-
-    /// Sound duration in seconds for first alert (0 = no sound)
-    var firstAlertSoundDuration: Double {
-        get { defaults.double(forKey: Keys.firstAlertSoundDuration) }
-        set { defaults.set(newValue, forKey: Keys.firstAlertSoundDuration) }
-    }
-
-    /// Sound duration in seconds for second alert (0 = no sound)
-    var secondAlertSoundDuration: Double {
-        get { defaults.double(forKey: Keys.secondAlertSoundDuration) }
-        set { defaults.set(newValue, forKey: Keys.secondAlertSoundDuration) }
+    /// Configurable warnings before events
+    var warnings: [AlertWarning] {
+        get {
+            guard let data = defaults.data(forKey: Keys.warnings),
+                  let decoded = try? JSONDecoder().decode([AlertWarning].self, from: data) else {
+                return AlertWarning.defaultWarnings
+            }
+            return decoded
+        }
+        set {
+            if let encoded = try? JSONEncoder().encode(newValue) {
+                defaults.set(encoded, forKey: Keys.warnings)
+            }
+        }
     }
 
     /// Sound duration in seconds for event start alert (0 = no sound)

@@ -2,15 +2,10 @@ import AppKit
 import ServiceManagement
 
 final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
-    private var firstAlertCheckbox: NSButton!
-    private var firstAlertStepper: NSStepper!
-    private var firstAlertTextField: NSTextField!
-    private var firstAlertSoundPopup: NSPopUpButton!
+    private var warningRows: [WarningRowView] = []
+    private var warningsStackView: NSStackView!
+    private var addWarningButton: NSButton!
     private var alertSoundPopup: NSPopUpButton!
-    private var secondAlertCheckbox: NSButton!
-    private var secondAlertStepper: NSStepper!
-    private var secondAlertTextField: NSTextField!
-    private var secondAlertSoundPopup: NSPopUpButton!
     private var eventStartSoundPopup: NSPopUpButton!
     private var launchAtLoginCheckbox: NSButton!
 
@@ -30,7 +25,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
     init() {
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 450, height: 420),
+            contentRect: NSRect(x: 0, y: 0, width: 450, height: 480),
             styleMask: [.titled, .closable, .miniaturizable],
             backing: .buffered,
             defer: false
@@ -59,31 +54,20 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         let alertsHeaderLabel = createSectionHeader("Alerts")
         contentView.addSubview(alertsHeaderLabel)
 
-        // First alert row
-        firstAlertCheckbox = createCheckbox(title: "First warning", action: #selector(firstAlertToggled))
-        contentView.addSubview(firstAlertCheckbox)
+        // Warnings stack view (for dynamic rows)
+        warningsStackView = NSStackView()
+        warningsStackView.translatesAutoresizingMaskIntoConstraints = false
+        warningsStackView.orientation = .vertical
+        warningsStackView.alignment = .leading
+        warningsStackView.spacing = 8
+        contentView.addSubview(warningsStackView)
 
-        firstAlertTextField = createMinutesTextField()
-        contentView.addSubview(firstAlertTextField)
-
-        firstAlertStepper = createMinutesStepper(action: #selector(firstAlertMinutesChanged))
-        contentView.addSubview(firstAlertStepper)
-
-        let firstMinutesLabel = createLabel("minutes before")
-        contentView.addSubview(firstMinutesLabel)
-
-        // Second alert row
-        secondAlertCheckbox = createCheckbox(title: "Second warning", action: #selector(secondAlertToggled))
-        contentView.addSubview(secondAlertCheckbox)
-
-        secondAlertTextField = createMinutesTextField()
-        contentView.addSubview(secondAlertTextField)
-
-        secondAlertStepper = createMinutesStepper(action: #selector(secondAlertMinutesChanged))
-        contentView.addSubview(secondAlertStepper)
-
-        let secondMinutesLabel = createLabel("minutes before")
-        contentView.addSubview(secondMinutesLabel)
+        // Add warning button
+        addWarningButton = NSButton(title: "+ Add Warning", target: self, action: #selector(addWarning))
+        addWarningButton.translatesAutoresizingMaskIntoConstraints = false
+        addWarningButton.bezelStyle = .rounded
+        addWarningButton.controlSize = .small
+        contentView.addSubview(addWarningButton)
 
         // Event start note
         let eventStartNote = createNoteLabel("An alert is always shown when the event starts.")
@@ -100,25 +84,11 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         alertSoundPopup = createAlertSoundPopup()
         contentView.addSubview(alertSoundPopup)
 
-        // First alert sound row
-        let firstAlertSoundLabel = createLabel("First warning:")
-        contentView.addSubview(firstAlertSoundLabel)
-
-        firstAlertSoundPopup = createSoundPopup(action: #selector(firstAlertSoundChanged))
-        contentView.addSubview(firstAlertSoundPopup)
-
-        // Second alert sound row
-        let secondAlertSoundLabel = createLabel("Second warning:")
-        contentView.addSubview(secondAlertSoundLabel)
-
-        secondAlertSoundPopup = createSoundPopup(action: #selector(secondAlertSoundChanged))
-        contentView.addSubview(secondAlertSoundPopup)
-
         // Event start sound row
         let eventStartSoundLabel = createLabel("Event start:")
         contentView.addSubview(eventStartSoundLabel)
 
-        eventStartSoundPopup = createSoundPopup(action: #selector(eventStartSoundChanged))
+        eventStartSoundPopup = createSoundDurationPopup(action: #selector(eventStartSoundChanged))
         contentView.addSubview(eventStartSoundPopup)
 
         // General section header
@@ -134,38 +104,17 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             alertsHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             alertsHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
 
-            // First alert row
-            firstAlertCheckbox.topAnchor.constraint(equalTo: alertsHeaderLabel.bottomAnchor, constant: 12),
-            firstAlertCheckbox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            firstAlertCheckbox.widthAnchor.constraint(equalToConstant: 100),
+            // Warnings stack view
+            warningsStackView.topAnchor.constraint(equalTo: alertsHeaderLabel.bottomAnchor, constant: 12),
+            warningsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            warningsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
 
-            firstAlertTextField.centerYAnchor.constraint(equalTo: firstAlertCheckbox.centerYAnchor),
-            firstAlertTextField.leadingAnchor.constraint(equalTo: firstAlertCheckbox.trailingAnchor, constant: 10),
-            firstAlertTextField.widthAnchor.constraint(equalToConstant: 40),
-
-            firstAlertStepper.centerYAnchor.constraint(equalTo: firstAlertCheckbox.centerYAnchor),
-            firstAlertStepper.leadingAnchor.constraint(equalTo: firstAlertTextField.trailingAnchor, constant: 4),
-
-            firstMinutesLabel.centerYAnchor.constraint(equalTo: firstAlertCheckbox.centerYAnchor),
-            firstMinutesLabel.leadingAnchor.constraint(equalTo: firstAlertStepper.trailingAnchor, constant: 8),
-
-            // Second alert row
-            secondAlertCheckbox.topAnchor.constraint(equalTo: firstAlertCheckbox.bottomAnchor, constant: 12),
-            secondAlertCheckbox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            secondAlertCheckbox.widthAnchor.constraint(equalToConstant: 100),
-
-            secondAlertTextField.centerYAnchor.constraint(equalTo: secondAlertCheckbox.centerYAnchor),
-            secondAlertTextField.leadingAnchor.constraint(equalTo: secondAlertCheckbox.trailingAnchor, constant: 10),
-            secondAlertTextField.widthAnchor.constraint(equalToConstant: 40),
-
-            secondAlertStepper.centerYAnchor.constraint(equalTo: secondAlertCheckbox.centerYAnchor),
-            secondAlertStepper.leadingAnchor.constraint(equalTo: secondAlertTextField.trailingAnchor, constant: 4),
-
-            secondMinutesLabel.centerYAnchor.constraint(equalTo: secondAlertCheckbox.centerYAnchor),
-            secondMinutesLabel.leadingAnchor.constraint(equalTo: secondAlertStepper.trailingAnchor, constant: 8),
+            // Add warning button
+            addWarningButton.topAnchor.constraint(equalTo: warningsStackView.bottomAnchor, constant: 8),
+            addWarningButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
 
             // Event start note
-            eventStartNote.topAnchor.constraint(equalTo: secondAlertCheckbox.bottomAnchor, constant: 12),
+            eventStartNote.topAnchor.constraint(equalTo: addWarningButton.bottomAnchor, constant: 12),
             eventStartNote.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
 
             // Alert Sounds header
@@ -181,26 +130,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             alertSoundPopup.leadingAnchor.constraint(equalTo: alertSoundLabel.trailingAnchor, constant: 8),
             alertSoundPopup.widthAnchor.constraint(equalToConstant: 150),
 
-            // First alert sound row
-            firstAlertSoundLabel.topAnchor.constraint(equalTo: alertSoundLabel.bottomAnchor, constant: 12),
-            firstAlertSoundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            firstAlertSoundLabel.widthAnchor.constraint(equalToConstant: 100),
-
-            firstAlertSoundPopup.centerYAnchor.constraint(equalTo: firstAlertSoundLabel.centerYAnchor),
-            firstAlertSoundPopup.leadingAnchor.constraint(equalTo: firstAlertSoundLabel.trailingAnchor, constant: 8),
-            firstAlertSoundPopup.widthAnchor.constraint(equalToConstant: 110),
-
-            // Second alert sound row
-            secondAlertSoundLabel.topAnchor.constraint(equalTo: firstAlertSoundLabel.bottomAnchor, constant: 12),
-            secondAlertSoundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            secondAlertSoundLabel.widthAnchor.constraint(equalToConstant: 100),
-
-            secondAlertSoundPopup.centerYAnchor.constraint(equalTo: secondAlertSoundLabel.centerYAnchor),
-            secondAlertSoundPopup.leadingAnchor.constraint(equalTo: secondAlertSoundLabel.trailingAnchor, constant: 8),
-            secondAlertSoundPopup.widthAnchor.constraint(equalToConstant: 110),
-
             // Event start sound row
-            eventStartSoundLabel.topAnchor.constraint(equalTo: secondAlertSoundLabel.bottomAnchor, constant: 12),
+            eventStartSoundLabel.topAnchor.constraint(equalTo: alertSoundLabel.bottomAnchor, constant: 12),
             eventStartSoundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             eventStartSoundLabel.widthAnchor.constraint(equalToConstant: 100),
 
@@ -220,6 +151,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         window.contentView = contentView
     }
 
+    // MARK: - UI Factory Methods
+
     private func createSectionHeader(_ title: String) -> NSTextField {
         let label = NSTextField(labelWithString: title)
         label.font = .boldSystemFont(ofSize: 13)
@@ -233,36 +166,13 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         return label
     }
 
-    private func createMinutesTextField() -> NSTextField {
-        let textField = NSTextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.alignment = .center
-        textField.isEditable = false
-        textField.isSelectable = false
-        textField.isBordered = true
-        textField.bezelStyle = .roundedBezel
-        return textField
-    }
-
-    private func createMinutesStepper(action: Selector) -> NSStepper {
-        let stepper = NSStepper()
-        stepper.translatesAutoresizingMaskIntoConstraints = false
-        stepper.minValue = 1
-        stepper.maxValue = 60
-        stepper.increment = 1
-        stepper.valueWraps = false
-        stepper.target = self
-        stepper.action = action
-        return stepper
-    }
-
     private func createCheckbox(title: String, action: Selector) -> NSButton {
         let checkbox = NSButton(checkboxWithTitle: title, target: self, action: action)
         checkbox.translatesAutoresizingMaskIntoConstraints = false
         return checkbox
     }
 
-    private func createSoundPopup(action: Selector) -> NSPopUpButton {
+    private func createSoundDurationPopup(action: Selector) -> NSPopUpButton {
         let popup = NSPopUpButton()
         popup.translatesAutoresizingMaskIntoConstraints = false
         for option in soundDurationOptions {
@@ -292,11 +202,36 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         return label
     }
 
+    // MARK: - Load/Save
+
+    private func loadPreferences() {
+        let prefs = Preferences.shared
+
+        // Load warnings
+        for warning in prefs.warnings {
+            addWarningRow(warning: warning)
+        }
+
+        // Select the current alert sound
+        if let soundIndex = Preferences.availableSounds.firstIndex(where: { $0.id == prefs.alertSound }) {
+            alertSoundPopup.selectItem(at: soundIndex)
+        }
+
+        selectSoundDuration(prefs.eventStartSoundDuration, in: eventStartSoundPopup)
+        updateSoundControlsEnabled()
+
+        launchAtLoginCheckbox.state = SMAppService.mainApp.status == .enabled ? .on : .off
+    }
+
+    private func saveWarnings() {
+        let warnings = warningRows.map { $0.warning }
+        Preferences.shared.warnings = warnings
+    }
+
     private func selectSoundDuration(_ duration: Double, in popup: NSPopUpButton) {
         if let index = soundDurationOptions.firstIndex(where: { $0.value == duration }) {
             popup.selectItem(at: index)
         } else {
-            // If exact match not found, select closest option
             let closestIndex = soundDurationOptions.enumerated().min(by: {
                 abs($0.element.value - duration) < abs($1.element.value - duration)
             })?.offset ?? 0
@@ -304,86 +239,49 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         }
     }
 
-    private func loadPreferences() {
-        let prefs = Preferences.shared
-
-        firstAlertCheckbox.state = prefs.firstAlertEnabled ? .on : .off
-        firstAlertStepper.integerValue = prefs.firstAlertMinutes
-        firstAlertTextField.stringValue = "\(prefs.firstAlertMinutes)"
-        selectSoundDuration(prefs.firstAlertSoundDuration, in: firstAlertSoundPopup)
-        updateFirstAlertControlsEnabled()
-
-        secondAlertCheckbox.state = prefs.secondAlertEnabled ? .on : .off
-        secondAlertStepper.integerValue = prefs.secondAlertMinutes
-        secondAlertTextField.stringValue = "\(prefs.secondAlertMinutes)"
-        selectSoundDuration(prefs.secondAlertSoundDuration, in: secondAlertSoundPopup)
-        updateSecondAlertControlsEnabled()
-
-        selectSoundDuration(prefs.eventStartSoundDuration, in: eventStartSoundPopup)
-
-        // Select the current alert sound
-        if let soundIndex = Preferences.availableSounds.firstIndex(where: { $0.id == prefs.alertSound }) {
-            alertSoundPopup.selectItem(at: soundIndex)
-        }
-        updateSoundDurationControlsEnabled()
-
-        launchAtLoginCheckbox.state = SMAppService.mainApp.status == .enabled ? .on : .off
-    }
-
-    private func updateFirstAlertControlsEnabled() {
-        let enabled = firstAlertCheckbox.state == .on
-        firstAlertStepper.isEnabled = enabled
-        firstAlertTextField.isEnabled = enabled
-        firstAlertTextField.textColor = enabled ? .labelColor : .disabledControlTextColor
-        firstAlertSoundPopup.isEnabled = enabled && Preferences.shared.alertSound.isEmpty == false
-    }
-
-    private func updateSecondAlertControlsEnabled() {
-        let enabled = secondAlertCheckbox.state == .on
-        secondAlertStepper.isEnabled = enabled
-        secondAlertTextField.isEnabled = enabled
-        secondAlertTextField.textColor = enabled ? .labelColor : .disabledControlTextColor
-        secondAlertSoundPopup.isEnabled = enabled && Preferences.shared.alertSound.isEmpty == false
-    }
-
-    private func updateSoundDurationControlsEnabled() {
-        let soundEnabled = Preferences.shared.alertSound.isEmpty == false
-        firstAlertSoundPopup.isEnabled = firstAlertCheckbox.state == .on && soundEnabled
-        secondAlertSoundPopup.isEnabled = secondAlertCheckbox.state == .on && soundEnabled
+    private func updateSoundControlsEnabled() {
+        let soundEnabled = !Preferences.shared.alertSound.isEmpty
         eventStartSoundPopup.isEnabled = soundEnabled
+        for row in warningRows {
+            row.setSoundControlEnabled(soundEnabled)
+        }
     }
 
-    @objc private func firstAlertToggled() {
-        Preferences.shared.firstAlertEnabled = firstAlertCheckbox.state == .on
-        updateFirstAlertControlsEnabled()
+    // MARK: - Warning Row Management
+
+    private func addWarningRow(warning: AlertWarning) {
+        let row = WarningRowView(
+            warning: warning,
+            soundDurationOptions: soundDurationOptions,
+            onDelete: { [weak self] row in
+                self?.removeWarningRow(row)
+            },
+            onChange: { [weak self] in
+                self?.saveWarnings()
+            }
+        )
+        row.setSoundControlEnabled(!Preferences.shared.alertSound.isEmpty)
+        warningRows.append(row)
+        warningsStackView.addArrangedSubview(row)
     }
 
-    @objc private func firstAlertMinutesChanged() {
-        let minutes = firstAlertStepper.integerValue
-        firstAlertTextField.stringValue = "\(minutes)"
-        Preferences.shared.firstAlertMinutes = minutes
+    private func removeWarningRow(_ row: WarningRowView) {
+        guard warningRows.count > 1 else { return } // Keep at least one warning
+        if let index = warningRows.firstIndex(where: { $0 === row }) {
+            warningRows.remove(at: index)
+            warningsStackView.removeArrangedSubview(row)
+            row.removeFromSuperview()
+            saveWarnings()
+        }
     }
 
-    @objc private func secondAlertToggled() {
-        Preferences.shared.secondAlertEnabled = secondAlertCheckbox.state == .on
-        updateSecondAlertControlsEnabled()
+    @objc private func addWarning() {
+        let newWarning = AlertWarning(minutesBefore: 5, soundDuration: 2.0)
+        addWarningRow(warning: newWarning)
+        saveWarnings()
     }
 
-    @objc private func secondAlertMinutesChanged() {
-        let minutes = secondAlertStepper.integerValue
-        secondAlertTextField.stringValue = "\(minutes)"
-        Preferences.shared.secondAlertMinutes = minutes
-    }
-
-    @objc private func firstAlertSoundChanged() {
-        let index = firstAlertSoundPopup.indexOfSelectedItem
-        Preferences.shared.firstAlertSoundDuration = soundDurationOptions[index].value
-    }
-
-    @objc private func secondAlertSoundChanged() {
-        let index = secondAlertSoundPopup.indexOfSelectedItem
-        Preferences.shared.secondAlertSoundDuration = soundDurationOptions[index].value
-    }
+    // MARK: - Actions
 
     @objc private func eventStartSoundChanged() {
         let index = eventStartSoundPopup.indexOfSelectedItem
@@ -393,7 +291,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     @objc private func alertSoundChanged() {
         let index = alertSoundPopup.indexOfSelectedItem
         Preferences.shared.alertSound = Preferences.availableSounds[index].id
-        updateSoundDurationControlsEnabled()
+        updateSoundControlsEnabled()
     }
 
     @objc private func launchAtLoginToggled() {
@@ -404,7 +302,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
                 try SMAppService.mainApp.unregister()
             }
         } catch {
-            // Revert checkbox state on failure
             launchAtLoginCheckbox.state = launchAtLoginCheckbox.state == .on ? .off : .on
             let alert = NSAlert()
             alert.messageText = "Failed to update login item"
@@ -423,5 +320,138 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
     func windowWillClose(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
+    }
+}
+
+// MARK: - Warning Row View
+
+private class WarningRowView: NSView {
+    private(set) var warning: AlertWarning
+    private let soundDurationOptions: [(title: String, value: Double)]
+    private let onDelete: (WarningRowView) -> Void
+    private let onChange: () -> Void
+
+    private var minutesTextField: NSTextField!
+    private var minutesStepper: NSStepper!
+    private var soundPopup: NSPopUpButton!
+    private var deleteButton: NSButton!
+
+    init(warning: AlertWarning,
+         soundDurationOptions: [(title: String, value: Double)],
+         onDelete: @escaping (WarningRowView) -> Void,
+         onChange: @escaping () -> Void) {
+        self.warning = warning
+        self.soundDurationOptions = soundDurationOptions
+        self.onDelete = onDelete
+        self.onChange = onChange
+        super.init(frame: .zero)
+        setupViews()
+        loadValues()
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setupViews() {
+        translatesAutoresizingMaskIntoConstraints = false
+
+        // Minutes text field
+        minutesTextField = NSTextField()
+        minutesTextField.translatesAutoresizingMaskIntoConstraints = false
+        minutesTextField.alignment = .center
+        minutesTextField.isEditable = false
+        minutesTextField.isSelectable = false
+        minutesTextField.isBordered = true
+        minutesTextField.bezelStyle = .roundedBezel
+        addSubview(minutesTextField)
+
+        // Stepper
+        minutesStepper = NSStepper()
+        minutesStepper.translatesAutoresizingMaskIntoConstraints = false
+        minutesStepper.minValue = 1
+        minutesStepper.maxValue = 60
+        minutesStepper.increment = 1
+        minutesStepper.valueWraps = false
+        minutesStepper.target = self
+        minutesStepper.action = #selector(minutesChanged)
+        addSubview(minutesStepper)
+
+        // "minutes before" label
+        let minutesLabel = NSTextField(labelWithString: "min before, sound:")
+        minutesLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(minutesLabel)
+
+        // Sound duration popup
+        soundPopup = NSPopUpButton()
+        soundPopup.translatesAutoresizingMaskIntoConstraints = false
+        for option in soundDurationOptions {
+            soundPopup.addItem(withTitle: option.title)
+        }
+        soundPopup.target = self
+        soundPopup.action = #selector(soundDurationChanged)
+        addSubview(soundPopup)
+
+        // Delete button
+        deleteButton = NSButton(title: "−", target: self, action: #selector(deletePressed))
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.bezelStyle = .rounded
+        deleteButton.controlSize = .small
+        addSubview(deleteButton)
+
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: 26),
+
+            minutesTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
+            minutesTextField.centerYAnchor.constraint(equalTo: centerYAnchor),
+            minutesTextField.widthAnchor.constraint(equalToConstant: 40),
+
+            minutesStepper.leadingAnchor.constraint(equalTo: minutesTextField.trailingAnchor, constant: 4),
+            minutesStepper.centerYAnchor.constraint(equalTo: centerYAnchor),
+
+            minutesLabel.leadingAnchor.constraint(equalTo: minutesStepper.trailingAnchor, constant: 8),
+            minutesLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+
+            soundPopup.leadingAnchor.constraint(equalTo: minutesLabel.trailingAnchor, constant: 8),
+            soundPopup.centerYAnchor.constraint(equalTo: centerYAnchor),
+            soundPopup.widthAnchor.constraint(equalToConstant: 100),
+
+            deleteButton.leadingAnchor.constraint(equalTo: soundPopup.trailingAnchor, constant: 8),
+            deleteButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            deleteButton.widthAnchor.constraint(equalToConstant: 24),
+
+            trailingAnchor.constraint(greaterThanOrEqualTo: deleteButton.trailingAnchor),
+        ])
+    }
+
+    private func loadValues() {
+        minutesTextField.stringValue = "\(warning.minutesBefore)"
+        minutesStepper.integerValue = warning.minutesBefore
+
+        if let index = soundDurationOptions.firstIndex(where: { $0.value == warning.soundDuration }) {
+            soundPopup.selectItem(at: index)
+        }
+    }
+
+    func setSoundControlEnabled(_ enabled: Bool) {
+        soundPopup.isEnabled = enabled
+    }
+
+    @objc private func minutesChanged() {
+        let minutes = minutesStepper.integerValue
+        minutesTextField.stringValue = "\(minutes)"
+        warning.minutesBefore = minutes
+        onChange()
+    }
+
+    @objc private func soundDurationChanged() {
+        let index = soundPopup.indexOfSelectedItem
+        warning.soundDuration = soundDurationOptions[index].value
+        onChange()
+    }
+
+    @objc private func deletePressed() {
+        onDelete(self)
     }
 }
