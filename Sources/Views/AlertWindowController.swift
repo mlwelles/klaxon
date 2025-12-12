@@ -169,7 +169,10 @@ final class AlertWindowController: NSWindowController {
         let duration = audioDuration(for: alertType)
         guard duration > 0 else { return }
 
-        guard let soundURL = Bundle.main.url(forResource: "fire-alarm-bell", withExtension: "mp3") else {
+        let soundName = Preferences.shared.alertSound
+        guard !soundName.isEmpty else { return }
+
+        guard let soundURL = Bundle.main.url(forResource: soundName, withExtension: "mp3") else {
             return
         }
 

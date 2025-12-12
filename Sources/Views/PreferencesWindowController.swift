@@ -6,6 +6,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     private var firstAlertStepper: NSStepper!
     private var firstAlertTextField: NSTextField!
     private var firstAlertSoundPopup: NSPopUpButton!
+    private var alertSoundPopup: NSPopUpButton!
     private var secondAlertCheckbox: NSButton!
     private var secondAlertStepper: NSStepper!
     private var secondAlertTextField: NSTextField!
@@ -92,6 +93,13 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         let soundsHeaderLabel = createSectionHeader("Alert Sounds")
         contentView.addSubview(soundsHeaderLabel)
 
+        // Sound selection row
+        let alertSoundLabel = createLabel("Sound:")
+        contentView.addSubview(alertSoundLabel)
+
+        alertSoundPopup = createAlertSoundPopup()
+        contentView.addSubview(alertSoundPopup)
+
         // First alert sound row
         let firstAlertSoundLabel = createLabel("First warning:")
         contentView.addSubview(firstAlertSoundLabel)
@@ -164,8 +172,17 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             soundsHeaderLabel.topAnchor.constraint(equalTo: eventStartNote.bottomAnchor, constant: 24),
             soundsHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
 
+            // Sound selection row
+            alertSoundLabel.topAnchor.constraint(equalTo: soundsHeaderLabel.bottomAnchor, constant: 12),
+            alertSoundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            alertSoundLabel.widthAnchor.constraint(equalToConstant: 100),
+
+            alertSoundPopup.centerYAnchor.constraint(equalTo: alertSoundLabel.centerYAnchor),
+            alertSoundPopup.leadingAnchor.constraint(equalTo: alertSoundLabel.trailingAnchor, constant: 8),
+            alertSoundPopup.widthAnchor.constraint(equalToConstant: 150),
+
             // First alert sound row
-            firstAlertSoundLabel.topAnchor.constraint(equalTo: soundsHeaderLabel.bottomAnchor, constant: 12),
+            firstAlertSoundLabel.topAnchor.constraint(equalTo: alertSoundLabel.bottomAnchor, constant: 12),
             firstAlertSoundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             firstAlertSoundLabel.widthAnchor.constraint(equalToConstant: 100),
 
@@ -256,6 +273,17 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         return popup
     }
 
+    private func createAlertSoundPopup() -> NSPopUpButton {
+        let popup = NSPopUpButton()
+        popup.translatesAutoresizingMaskIntoConstraints = false
+        for sound in Preferences.availableSounds {
+            popup.addItem(withTitle: sound.name)
+        }
+        popup.target = self
+        popup.action = #selector(alertSoundChanged)
+        return popup
+    }
+
     private func createNoteLabel(_ text: String) -> NSTextField {
         let label = NSTextField(labelWithString: text)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -293,6 +321,12 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
         selectSoundDuration(prefs.eventStartSoundDuration, in: eventStartSoundPopup)
 
+        // Select the current alert sound
+        if let soundIndex = Preferences.availableSounds.firstIndex(where: { $0.id == prefs.alertSound }) {
+            alertSoundPopup.selectItem(at: soundIndex)
+        }
+        updateSoundDurationControlsEnabled()
+
         launchAtLoginCheckbox.state = SMAppService.mainApp.status == .enabled ? .on : .off
     }
 
@@ -301,7 +335,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         firstAlertStepper.isEnabled = enabled
         firstAlertTextField.isEnabled = enabled
         firstAlertTextField.textColor = enabled ? .labelColor : .disabledControlTextColor
-        firstAlertSoundPopup.isEnabled = enabled
+        firstAlertSoundPopup.isEnabled = enabled && Preferences.shared.alertSound.isEmpty == false
     }
 
     private func updateSecondAlertControlsEnabled() {
@@ -309,7 +343,14 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         secondAlertStepper.isEnabled = enabled
         secondAlertTextField.isEnabled = enabled
         secondAlertTextField.textColor = enabled ? .labelColor : .disabledControlTextColor
-        secondAlertSoundPopup.isEnabled = enabled
+        secondAlertSoundPopup.isEnabled = enabled && Preferences.shared.alertSound.isEmpty == false
+    }
+
+    private func updateSoundDurationControlsEnabled() {
+        let soundEnabled = Preferences.shared.alertSound.isEmpty == false
+        firstAlertSoundPopup.isEnabled = firstAlertCheckbox.state == .on && soundEnabled
+        secondAlertSoundPopup.isEnabled = secondAlertCheckbox.state == .on && soundEnabled
+        eventStartSoundPopup.isEnabled = soundEnabled
     }
 
     @objc private func firstAlertToggled() {
@@ -347,6 +388,12 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     @objc private func eventStartSoundChanged() {
         let index = eventStartSoundPopup.indexOfSelectedItem
         Preferences.shared.eventStartSoundDuration = soundDurationOptions[index].value
+    }
+
+    @objc private func alertSoundChanged() {
+        let index = alertSoundPopup.indexOfSelectedItem
+        Preferences.shared.alertSound = Preferences.availableSounds[index].id
+        updateSoundDurationControlsEnabled()
     }
 
     @objc private func launchAtLoginToggled() {

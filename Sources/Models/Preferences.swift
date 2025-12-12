@@ -5,6 +5,24 @@ final class Preferences {
 
     private let defaults: UserDefaults
 
+    /// Available alert sounds (filename without extension)
+    private static let soundFiles = ["fire-alarm-bell"]
+
+    /// Available alert sounds with display names
+    static var availableSounds: [(id: String, name: String)] {
+        [("", "No audio")] + soundFiles.map { ($0, displayName(for: $0)) }
+    }
+
+    /// Convert a sound filename to a display name (title case, dashes/underscores to spaces)
+    private static func displayName(for filename: String) -> String {
+        filename
+            .replacingOccurrences(of: "-", with: " ")
+            .replacingOccurrences(of: "_", with: " ")
+            .split(separator: " ")
+            .map { $0.prefix(1).uppercased() + $0.dropFirst().lowercased() }
+            .joined(separator: " ")
+    }
+
     enum Keys {
         static let firstAlertEnabled = "firstAlertEnabled"
         static let firstAlertMinutes = "firstAlertMinutes"
@@ -13,6 +31,7 @@ final class Preferences {
         static let secondAlertMinutes = "secondAlertMinutes"
         static let secondAlertSoundDuration = "secondAlertSoundDuration"
         static let eventStartSoundDuration = "eventStartSoundDuration"
+        static let alertSound = "alertSound"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -28,7 +47,8 @@ final class Preferences {
             Keys.secondAlertEnabled: true,
             Keys.secondAlertMinutes: 1,
             Keys.secondAlertSoundDuration: 2.0,
-            Keys.eventStartSoundDuration: 4.0
+            Keys.eventStartSoundDuration: 4.0,
+            Keys.alertSound: "fire-alarm-bell"
         ])
     }
 
@@ -68,5 +88,11 @@ final class Preferences {
     var eventStartSoundDuration: Double {
         get { defaults.double(forKey: Keys.eventStartSoundDuration) }
         set { defaults.set(newValue, forKey: Keys.eventStartSoundDuration) }
+    }
+
+    /// Selected alert sound filename (without extension), empty string means no audio
+    var alertSound: String {
+        get { defaults.string(forKey: Keys.alertSound) ?? "fire-alarm-bell" }
+        set { defaults.set(newValue, forKey: Keys.alertSound) }
     }
 }
