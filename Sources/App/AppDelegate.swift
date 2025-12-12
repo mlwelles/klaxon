@@ -6,6 +6,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var calendarService: CalendarService?
     private var alertWindowController: AlertWindowController?
     private var preferencesWindowController: PreferencesWindowController?
+    private var aboutWindowController: AboutWindowController?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMenuBarItem()
@@ -22,6 +23,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         let menu = NSMenu()
+        menu.addItem(NSMenuItem(title: "About Klaxon", action: #selector(openAbout), keyEquivalent: ""))
+        menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Preferences...", action: #selector(openPreferences), keyEquivalent: ","))
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(quitApp), keyEquivalent: "q"))
@@ -84,6 +87,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             self?.alertWindowController = AlertWindowController(event: event, alertType: alertType)
             self?.alertWindowController?.showWindow(nil)
         }
+    }
+
+    @objc private func openAbout() {
+        if aboutWindowController == nil {
+            aboutWindowController = AboutWindowController()
+        }
+        aboutWindowController?.showWindow(nil)
     }
 
     @objc private func openPreferences() {

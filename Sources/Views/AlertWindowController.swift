@@ -1,9 +1,12 @@
 import AppKit
+import AVFoundation
 import EventKit
 
 final class AlertWindowController: NSWindowController {
     private let event: EKEvent
     private let alertType: AlertType
+    private var audioPlayer: AVAudioPlayer?
+    private var audioStopTimer: Timer?
 
     init(event: EKEvent, alertType: AlertType = .secondWarning(minutes: 1)) {
         self.event = event
@@ -159,13 +162,54 @@ final class AlertWindowController: NSWindowController {
         super.showWindow(sender)
         window?.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+        playAlertSound()
+    }
+
+    private func playAlertSound() {
+        guard let soundURL = Bundle.main.url(forResource: "fire-alarm-bell", withExtension: "mp3") else {
+            return
+        }
+
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            audioPlayer?.prepareToPlay()
+            audioPlayer?.play()
+
+            // Schedule stop based on alert type
+            let duration = audioDuration(for: alertType)
+            audioStopTimer = Timer.scheduledTimer(withTimeInterval: duration, repeats: false) { [weak self] _ in
+                self?.stopAlertSound()
+            }
+        } catch {
+            // Silently fail if audio playback fails
+        }
+    }
+
+    private func audioDuration(for alertType: AlertType) -> TimeInterval {
+        switch alertType {
+        case .firstWarning:
+            return 0.5  // First alert: 0.5 seconds
+        case .secondWarning:
+            return 1.0  // Second alert: 1 second
+        case .eventStarting:
+            return 2.0  // Event starting: 2 seconds
+        }
+    }
+
+    private func stopAlertSound() {
+        audioPlayer?.stop()
+        audioPlayer = nil
+        audioStopTimer?.invalidate()
+        audioStopTimer = nil
     }
 
     @objc private func dismissAlert() {
+        stopAlertSound()
         close()
     }
 
     @objc private func openEvent() {
+        stopAlertSound()
         // Build the Calendar.app URL to open the specific event
         // Format: ical://ekevent/<calendarItemExternalIdentifier>?start=<date>
         if let eventIdentifier = event.calendarItemExternalIdentifier {

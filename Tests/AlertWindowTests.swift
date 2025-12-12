@@ -1,6 +1,7 @@
 import XCTest
 import EventKit
 import AppKit
+import AVFoundation
 @testable import Klaxon
 
 final class AlertWindowTests: XCTestCase {
@@ -165,6 +166,43 @@ final class AlertWindowTests: XCTestCase {
         if controller.window?.isVisible == true {
             controller.close()
         }
+    }
+
+    // MARK: - Audio Tests
+
+    func testFireAlarmBellAudioFileExists() {
+        let soundURL = Bundle.main.url(forResource: "fire-alarm-bell", withExtension: "mp3")
+        XCTAssertNotNil(soundURL, "fire-alarm-bell.mp3 should exist in the app bundle")
+    }
+
+    func testFireAlarmBellAudioFileIsPlayable() throws {
+        let soundURL = try XCTUnwrap(
+            Bundle.main.url(forResource: "fire-alarm-bell", withExtension: "mp3"),
+            "fire-alarm-bell.mp3 should exist in the app bundle"
+        )
+
+        let audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+        XCTAssertTrue(audioPlayer.duration > 0, "Audio file should have a duration greater than 0")
+        XCTAssertTrue(audioPlayer.prepareToPlay(), "Audio player should be able to prepare for playback")
+    }
+
+    @MainActor
+    func testAlertWindowPlaysSound() {
+        // This test verifies that showing an alert window triggers audio playback
+        // We can't easily test the actual audio output, but we can verify the window shows without crashing
+        let controller = AlertWindowController(event: mockEvent, alertType: .firstWarning(minutes: 5))
+        controller.showWindow(nil)
+
+        XCTAssertTrue(controller.window?.isVisible ?? false, "Window should be visible")
+
+        // Give a moment for audio to start
+        let expectation = expectation(description: "Brief delay for audio start")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 1.0)
+
+        controller.close()
     }
 
     // MARK: - Helper Methods

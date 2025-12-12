@@ -13,6 +13,8 @@
 		A1000004229A0001 /* AlertWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000014229A0001 /* AlertWindowController.swift */; };
 		A1000007229A0001 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000017229A0001 /* PreferencesWindowController.swift */; };
 		A1000008229A0001 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000018229A0001 /* Preferences.swift */; };
+		A1000009229A0001 /* fire-alarm-bell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A1000019229A0001 /* fire-alarm-bell.mp3 */; };
+		A100000A229A0001 /* AboutWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001A229A0001 /* AboutWindowController.swift */; };
 		A1000005229A0001 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1000021229A0001 /* EventKit.framework */; };
 		A1000006229A0001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000016229A0001 /* Assets.xcassets */; };
 		A2000001229A0001 /* CalendarAccessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000011229A0001 /* CalendarAccessTests.swift */; };
@@ -37,6 +39,8 @@
 		A1000014229A0001 /* AlertWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowController.swift; sourceTree = "<group>"; };
 		A1000017229A0001 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		A1000018229A0001 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		A1000019229A0001 /* fire-alarm-bell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "fire-alarm-bell.mp3"; sourceTree = "<group>"; };
+		A100001A229A0001 /* AboutWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWindowController.swift; sourceTree = "<group>"; };
 		A1000015229A0001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1000016229A0001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1000021229A0001 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
@@ -83,10 +87,19 @@
 				A1000058229A0001 /* Models */,
 				A1000056229A0001 /* Services */,
 				A1000057229A0001 /* Views */,
+				A1000059229A0001 /* Resources */,
 				A1000016229A0001 /* Assets.xcassets */,
 				A1000015229A0001 /* Info.plist */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		A1000059229A0001 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A1000019229A0001 /* fire-alarm-bell.mp3 */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		A1000053229A0001 /* Frameworks */ = {
@@ -126,6 +139,7 @@
 		A1000057229A0001 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A100001A229A0001 /* AboutWindowController.swift */,
 				A1000014229A0001 /* AlertWindowController.swift */,
 				A1000017229A0001 /* PreferencesWindowController.swift */,
 			);
@@ -231,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1000006229A0001 /* Assets.xcassets in Resources */,
+				A1000009229A0001 /* fire-alarm-bell.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +262,7 @@
 				A1000004229A0001 /* AlertWindowController.swift in Sources */,
 				A1000007229A0001 /* PreferencesWindowController.swift in Sources */,
 				A1000008229A0001 /* Preferences.swift in Sources */,
+				A100000A229A0001 /* AboutWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
