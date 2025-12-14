@@ -16,8 +16,19 @@ final class Preferences {
 
     private let defaults: UserDefaults
 
-    /// Available alert sounds (filename without extension)
-    private static let soundFiles = ["fire-alarm-bell"]
+    /// Available alert sounds (filename without extension), sorted alphabetically
+    private static let soundFiles = [
+        "fire-alarm-bell",
+        "mixkit-alarm-tone",
+        "mixkit-alert-bells-echo",
+        "mixkit-battleship-alarm",
+        "mixkit-classic-short-alarm",
+        "mixkit-urgent-simple-tone",
+        "mixkit-warning-alarm-buzzer",
+        "soundbible-air-horn",
+        "soundbible-red-alert",
+        "soundbible-school-fire-alarm"
+    ]
 
     /// Available alert sounds with display names
     static var availableSounds: [(id: String, name: String)] {

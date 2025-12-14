@@ -1,3 +1,4 @@
+import AVFoundation
 import XCTest
 @testable import Klaxon
 
@@ -161,6 +162,60 @@ final class PreferencesTests: XCTestCase {
         let sounds = Preferences.availableSounds
         let fireAlarm = sounds.first { $0.id == "fire-alarm-bell" }
         XCTAssertEqual(fireAlarm?.name, "Fire Alarm Bell", "Display name should be title case with spaces")
+    }
+
+    func testAvailableSoundsCount() {
+        let sounds = Preferences.availableSounds
+        XCTAssertEqual(sounds.count, 11, "Should have 11 options: No audio + 10 sound files")
+    }
+
+    func testNoAudioIsFirstOption() {
+        let sounds = Preferences.availableSounds
+        XCTAssertEqual(sounds.first?.id, "", "First option should be 'No audio' with empty id")
+        XCTAssertEqual(sounds.first?.name, "No audio", "First option should be named 'No audio'")
+    }
+
+    func testAllSoundFilesExistInBundle() {
+        let sounds = Preferences.availableSounds.filter { !$0.id.isEmpty }
+        for sound in sounds {
+            let url = Bundle.main.url(forResource: sound.id, withExtension: "mp3")
+            XCTAssertNotNil(url, "Sound file '\(sound.id).mp3' should exist in bundle")
+        }
+    }
+
+    func testAllSoundFilesArePlayable() {
+        let sounds = Preferences.availableSounds.filter { !$0.id.isEmpty }
+        for sound in sounds {
+            guard let url = Bundle.main.url(forResource: sound.id, withExtension: "mp3") else {
+                XCTFail("Sound file '\(sound.id).mp3' not found")
+                continue
+            }
+            do {
+                let player = try AVAudioPlayer(contentsOf: url)
+                XCTAssertTrue(player.duration > 0, "Sound file '\(sound.id).mp3' should have positive duration")
+            } catch {
+                XCTFail("Sound file '\(sound.id).mp3' should be playable: \(error)")
+            }
+        }
+    }
+
+    func testAllExpectedSoundsAreAvailable() {
+        let expectedSounds = [
+            "fire-alarm-bell",
+            "mixkit-alarm-tone",
+            "mixkit-alert-bells-echo",
+            "mixkit-battleship-alarm",
+            "mixkit-classic-short-alarm",
+            "mixkit-urgent-simple-tone",
+            "mixkit-warning-alarm-buzzer",
+            "soundbible-air-horn",
+            "soundbible-red-alert",
+            "soundbible-school-fire-alarm"
+        ]
+        let availableIds = Preferences.availableSounds.map { $0.id }
+        for expected in expectedSounds {
+            XCTAssertTrue(availableIds.contains(expected), "Should include '\(expected)' in available sounds")
+        }
     }
 
     // MARK: - Keys Tests

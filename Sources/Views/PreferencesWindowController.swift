@@ -1,4 +1,5 @@
 import AppKit
+import AVFoundation
 import ServiceManagement
 
 final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
@@ -6,8 +7,10 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     private var warningsStackView: NSStackView!
     private var addWarningButton: NSButton!
     private var alertSoundPopup: NSPopUpButton!
+    private var playSoundButton: NSButton!
     private var eventStartSoundPopup: NSPopUpButton!
     private var launchAtLoginCheckbox: NSButton!
+    private var audioPlayer: AVAudioPlayer?
 
     private let soundDurationOptions: [(title: String, value: Double)] = [
         ("No sound", 0),
@@ -84,8 +87,14 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         alertSoundPopup = createAlertSoundPopup()
         contentView.addSubview(alertSoundPopup)
 
-        // Event start sound row
-        let eventStartSoundLabel = createLabel("Event start:")
+        playSoundButton = NSButton(title: "▶", target: self, action: #selector(playSoundPressed))
+        playSoundButton.translatesAutoresizingMaskIntoConstraints = false
+        playSoundButton.bezelStyle = .rounded
+        playSoundButton.controlSize = .regular
+        contentView.addSubview(playSoundButton)
+
+        // Duration row
+        let eventStartSoundLabel = createLabel("Duration:")
         contentView.addSubview(eventStartSoundLabel)
 
         eventStartSoundPopup = createSoundDurationPopup(action: #selector(eventStartSoundChanged))
@@ -130,7 +139,11 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             alertSoundPopup.leadingAnchor.constraint(equalTo: alertSoundLabel.trailingAnchor, constant: 8),
             alertSoundPopup.widthAnchor.constraint(equalToConstant: 150),
 
-            // Event start sound row
+            playSoundButton.centerYAnchor.constraint(equalTo: alertSoundLabel.centerYAnchor),
+            playSoundButton.leadingAnchor.constraint(equalTo: alertSoundPopup.trailingAnchor, constant: 8),
+            playSoundButton.widthAnchor.constraint(equalToConstant: 30),
+
+            // Duration row
             eventStartSoundLabel.topAnchor.constraint(equalTo: alertSoundLabel.bottomAnchor, constant: 12),
             eventStartSoundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             eventStartSoundLabel.widthAnchor.constraint(equalToConstant: 100),
@@ -242,6 +255,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     private func updateSoundControlsEnabled() {
         let soundEnabled = !Preferences.shared.alertSound.isEmpty
         eventStartSoundPopup.isEnabled = soundEnabled
+        playSoundButton.isEnabled = soundEnabled
         for row in warningRows {
             row.setSoundControlEnabled(soundEnabled)
         }
@@ -292,6 +306,25 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         let index = alertSoundPopup.indexOfSelectedItem
         Preferences.shared.alertSound = Preferences.availableSounds[index].id
         updateSoundControlsEnabled()
+    }
+
+    @objc private func playSoundPressed() {
+        audioPlayer?.stop()
+        audioPlayer = nil
+
+        let soundName = Preferences.shared.alertSound
+        guard !soundName.isEmpty,
+              let soundURL = Bundle.main.url(forResource: soundName, withExtension: "mp3") else {
+            return
+        }
+
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            audioPlayer?.prepareToPlay()
+            audioPlayer?.play()
+        } catch {
+            // Silently fail if audio playback fails
+        }
     }
 
     @objc private func launchAtLoginToggled() {
