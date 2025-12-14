@@ -54,32 +54,13 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
         let contentView = NSView(frame: window.contentRect(forFrameRect: window.frame))
 
-        // Warnings section header
-        let alertsHeaderLabel = createSectionHeader("Warnings")
-        contentView.addSubview(alertsHeaderLabel)
+        // Event section header
+        let eventHeaderLabel = createSectionHeader("Event")
+        contentView.addSubview(eventHeaderLabel)
 
-        // Warnings stack view (for dynamic rows)
-        warningsStackView = NSStackView()
-        warningsStackView.translatesAutoresizingMaskIntoConstraints = false
-        warningsStackView.orientation = .vertical
-        warningsStackView.alignment = .leading
-        warningsStackView.spacing = 8
-        contentView.addSubview(warningsStackView)
-
-        // Add warning button
-        addWarningButton = NSButton(title: "+ Add Warning", target: self, action: #selector(addWarning))
-        addWarningButton.translatesAutoresizingMaskIntoConstraints = false
-        addWarningButton.bezelStyle = .rounded
-        addWarningButton.controlSize = .small
-        contentView.addSubview(addWarningButton)
-
-        // Event start note
-        let eventStartNote = createNoteLabel("An alert is always shown when the event starts.")
-        contentView.addSubview(eventStartNote)
-
-        // Event Start Alert section header
-        let soundsHeaderLabel = createSectionHeader("Event Start Alert")
-        contentView.addSubview(soundsHeaderLabel)
+        // Event section description
+        let eventDescription = createNoteLabel("Alert shown when an event starts.")
+        contentView.addSubview(eventDescription)
 
         // Sound selection row
         let alertSoundLabel = createLabel("Sound:")
@@ -101,6 +82,29 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         eventStartSoundPopup = createSoundDurationPopup(action: #selector(eventStartSoundChanged))
         contentView.addSubview(eventStartSoundPopup)
 
+        // Warnings section header
+        let warningsHeaderLabel = createSectionHeader("Warnings")
+        contentView.addSubview(warningsHeaderLabel)
+
+        // Warnings section description
+        let warningsDescription = createNoteLabel("Optional alerts shown before an event starts.")
+        contentView.addSubview(warningsDescription)
+
+        // Warnings stack view (for dynamic rows)
+        warningsStackView = NSStackView()
+        warningsStackView.translatesAutoresizingMaskIntoConstraints = false
+        warningsStackView.orientation = .vertical
+        warningsStackView.alignment = .leading
+        warningsStackView.spacing = 8
+        contentView.addSubview(warningsStackView)
+
+        // Add warning button
+        addWarningButton = NSButton(title: "+ Add Warning", target: self, action: #selector(addWarning))
+        addWarningButton.translatesAutoresizingMaskIntoConstraints = false
+        addWarningButton.bezelStyle = .rounded
+        addWarningButton.controlSize = .small
+        contentView.addSubview(addWarningButton)
+
         // General section header
         let generalHeaderLabel = createSectionHeader("General")
         contentView.addSubview(generalHeaderLabel)
@@ -110,29 +114,16 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(launchAtLoginCheckbox)
 
         NSLayoutConstraint.activate([
-            // Alerts header
-            alertsHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            alertsHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            // Event header
+            eventHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            eventHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
 
-            // Warnings stack view
-            warningsStackView.topAnchor.constraint(equalTo: alertsHeaderLabel.bottomAnchor, constant: 12),
-            warningsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            warningsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-
-            // Add warning button
-            addWarningButton.topAnchor.constraint(equalTo: warningsStackView.bottomAnchor, constant: 8),
-            addWarningButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-
-            // Event start note
-            eventStartNote.topAnchor.constraint(equalTo: addWarningButton.bottomAnchor, constant: 12),
-            eventStartNote.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-
-            // Alert Sounds header
-            soundsHeaderLabel.topAnchor.constraint(equalTo: eventStartNote.bottomAnchor, constant: 24),
-            soundsHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            // Event description
+            eventDescription.topAnchor.constraint(equalTo: eventHeaderLabel.bottomAnchor, constant: 4),
+            eventDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
 
             // Sound selection row
-            alertSoundLabel.topAnchor.constraint(equalTo: soundsHeaderLabel.bottomAnchor, constant: 12),
+            alertSoundLabel.topAnchor.constraint(equalTo: eventDescription.bottomAnchor, constant: 12),
             alertSoundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             alertSoundLabel.widthAnchor.constraint(equalToConstant: 100),
 
@@ -153,8 +144,25 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             eventStartSoundPopup.leadingAnchor.constraint(equalTo: eventStartSoundLabel.trailingAnchor, constant: 8),
             eventStartSoundPopup.widthAnchor.constraint(equalToConstant: 110),
 
+            // Warnings header
+            warningsHeaderLabel.topAnchor.constraint(equalTo: eventStartSoundLabel.bottomAnchor, constant: 24),
+            warningsHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+
+            // Warnings description
+            warningsDescription.topAnchor.constraint(equalTo: warningsHeaderLabel.bottomAnchor, constant: 4),
+            warningsDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+
+            // Warnings stack view
+            warningsStackView.topAnchor.constraint(equalTo: warningsDescription.bottomAnchor, constant: 12),
+            warningsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            warningsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+
+            // Add warning button
+            addWarningButton.topAnchor.constraint(equalTo: warningsStackView.bottomAnchor, constant: 8),
+            addWarningButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+
             // General header
-            generalHeaderLabel.topAnchor.constraint(equalTo: eventStartSoundLabel.bottomAnchor, constant: 24),
+            generalHeaderLabel.topAnchor.constraint(equalTo: addWarningButton.bottomAnchor, constant: 24),
             generalHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
 
             // Launch at login

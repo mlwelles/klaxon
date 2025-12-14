@@ -157,8 +157,15 @@ final class PreferencesTests: XCTestCase {
 
     func testDisplayNameConversion() {
         let sounds = Preferences.availableSounds
-        let fireAlarm = sounds.first { $0.id == "fire-alarm-bell" }
-        XCTAssertEqual(fireAlarm?.name, "Fire Alarm Bell", "Display name should be title case with spaces")
+        let alarmBell = sounds.first { $0.id == "fire-alarm-bell" }
+        XCTAssertEqual(alarmBell?.name, "Alarm Bell", "fire-alarm-bell should display as 'Alarm Bell'")
+
+        // Verify prefixes are removed
+        let mixkitSound = sounds.first { $0.id == "mixkit-alarm-tone" }
+        XCTAssertEqual(mixkitSound?.name, "Alarm Tone", "mixkit prefix should be removed")
+
+        let soundbibleSound = sounds.first { $0.id == "soundbible-air-horn" }
+        XCTAssertEqual(soundbibleSound?.name, "Air Horn", "soundbible prefix should be removed")
     }
 
     func testAvailableSoundsCount() {

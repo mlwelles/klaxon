@@ -38,7 +38,18 @@ final class Preferences {
 
     /// Convert a sound filename to a display name (title case, dashes/underscores to spaces)
     private static func displayName(for filename: String) -> String {
-        filename
+        // Special case for fire-alarm-bell
+        if filename == "fire-alarm-bell" {
+            return "Alarm Bell"
+        }
+
+        // Remove source prefixes
+        var name = filename
+            .replacingOccurrences(of: "mixkit-", with: "")
+            .replacingOccurrences(of: "soundbible-", with: "")
+
+        // Convert to title case
+        return name
             .replacingOccurrences(of: "-", with: " ")
             .replacingOccurrences(of: "_", with: " ")
             .split(separator: " ")
