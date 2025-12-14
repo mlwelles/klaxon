@@ -8,7 +8,7 @@ final class AlertWindowController: NSWindowController {
     private var audioPlayer: AVAudioPlayer?
     private var audioStopTimer: Timer?
 
-    init(event: EKEvent, alertType: AlertType = .warning(minutes: 1, soundDuration: 2.0)) {
+    init(event: EKEvent, alertType: AlertType = .warning(minutes: 1)) {
         self.event = event
         self.alertType = alertType
 
@@ -37,7 +37,7 @@ final class AlertWindowController: NSWindowController {
 
     private static func windowTitle(for alertType: AlertType) -> String {
         switch alertType {
-        case .warning(let minutes, _):
+        case .warning(let minutes):
             return "\(minutes) Minute Warning"
         case .eventStarting:
             return "Event Starting Now"
@@ -46,7 +46,7 @@ final class AlertWindowController: NSWindowController {
 
     private func alertMessage(for alertType: AlertType) -> String {
         switch alertType {
-        case .warning(let minutes, _):
+        case .warning(let minutes):
             return "starts in \(minutes) minute\(minutes == 1 ? "" : "s")"
         case .eventStarting:
             return "is starting now!"
@@ -191,12 +191,8 @@ final class AlertWindowController: NSWindowController {
     }
 
     private func audioDuration(for alertType: AlertType) -> TimeInterval {
-        switch alertType {
-        case .warning(_, let soundDuration):
-            return soundDuration
-        case .eventStarting:
-            return Preferences.shared.eventStartSoundDuration
-        }
+        // All alert types use the global sound duration setting
+        return Preferences.shared.eventStartSoundDuration
     }
 
     private func stopAlertSound() {

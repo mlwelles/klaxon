@@ -7,14 +7,12 @@ final class CalendarServiceTests: XCTestCase {
     // MARK: - AlertType Tests
 
     func testAlertTypeWarningEquality() {
-        let type1 = AlertType.warning(minutes: 5, soundDuration: 1.0)
-        let type2 = AlertType.warning(minutes: 5, soundDuration: 1.0)
-        let type3 = AlertType.warning(minutes: 5, soundDuration: 2.0)
-        let type4 = AlertType.warning(minutes: 10, soundDuration: 1.0)
+        let type1 = AlertType.warning(minutes: 5)
+        let type2 = AlertType.warning(minutes: 5)
+        let type3 = AlertType.warning(minutes: 10)
 
         XCTAssertEqual(type1, type2, "Warnings with same values should be equal")
-        XCTAssertNotEqual(type1, type3, "Warnings with different sound duration should not be equal")
-        XCTAssertNotEqual(type1, type4, "Warnings with different minutes should not be equal")
+        XCTAssertNotEqual(type1, type3, "Warnings with different minutes should not be equal")
     }
 
     func testAlertTypeEventStartingEquality() {
@@ -25,7 +23,7 @@ final class CalendarServiceTests: XCTestCase {
     }
 
     func testAlertTypeWarningNotEqualToEventStarting() {
-        let warning = AlertType.warning(minutes: 0, soundDuration: 0)
+        let warning = AlertType.warning(minutes: 0)
         let eventStarting = AlertType.eventStarting
 
         XCTAssertNotEqual(warning, eventStarting, "Warning should not equal event starting")
@@ -34,9 +32,9 @@ final class CalendarServiceTests: XCTestCase {
     func testAlertTypeIsHashable() {
         var set = Set<AlertType>()
 
-        set.insert(.warning(minutes: 5, soundDuration: 1.0))
-        set.insert(.warning(minutes: 5, soundDuration: 1.0)) // Duplicate
-        set.insert(.warning(minutes: 1, soundDuration: 2.0))
+        set.insert(.warning(minutes: 5))
+        set.insert(.warning(minutes: 5)) // Duplicate
+        set.insert(.warning(minutes: 1))
         set.insert(.eventStarting)
 
         XCTAssertEqual(set.count, 3, "Set should contain 3 unique alert types")
@@ -45,32 +43,29 @@ final class CalendarServiceTests: XCTestCase {
     func testAlertTypeCanBeUsedAsDictionaryKey() {
         var dict: [AlertType: String] = [:]
 
-        dict[.warning(minutes: 5, soundDuration: 1.0)] = "first"
-        dict[.warning(minutes: 1, soundDuration: 2.0)] = "second"
+        dict[.warning(minutes: 5)] = "first"
+        dict[.warning(minutes: 1)] = "second"
         dict[.eventStarting] = "start"
 
-        XCTAssertEqual(dict[.warning(minutes: 5, soundDuration: 1.0)], "first")
-        XCTAssertEqual(dict[.warning(minutes: 1, soundDuration: 2.0)], "second")
+        XCTAssertEqual(dict[.warning(minutes: 5)], "first")
+        XCTAssertEqual(dict[.warning(minutes: 1)], "second")
         XCTAssertEqual(dict[.eventStarting], "start")
     }
 
     // MARK: - AlertWarning Tests
 
     func testAlertWarningCreation() {
-        let warning = AlertWarning(minutesBefore: 10, soundDuration: 3.0)
+        let warning = AlertWarning(minutesBefore: 10)
 
         XCTAssertEqual(warning.minutesBefore, 10)
-        XCTAssertEqual(warning.soundDuration, 3.0)
     }
 
     func testAlertWarningMutability() {
-        var warning = AlertWarning(minutesBefore: 5, soundDuration: 1.0)
+        var warning = AlertWarning(minutesBefore: 5)
 
         warning.minutesBefore = 15
-        warning.soundDuration = 5.0
 
         XCTAssertEqual(warning.minutesBefore, 15)
-        XCTAssertEqual(warning.soundDuration, 5.0)
     }
 
     func testAlertWarningDefaultWarningsAreSorted() {
@@ -82,12 +77,11 @@ final class CalendarServiceTests: XCTestCase {
     }
 
     func testAlertWarningCanConvertToAlertType() {
-        let warning = AlertWarning(minutesBefore: 5, soundDuration: 2.0)
-        let alertType = AlertType.warning(minutes: warning.minutesBefore, soundDuration: warning.soundDuration)
+        let warning = AlertWarning(minutesBefore: 5)
+        let alertType = AlertType.warning(minutes: warning.minutesBefore)
 
-        if case .warning(let minutes, let duration) = alertType {
+        if case .warning(let minutes) = alertType {
             XCTAssertEqual(minutes, 5)
-            XCTAssertEqual(duration, 2.0)
         } else {
             XCTFail("Should be a warning type")
         }
@@ -123,10 +117,10 @@ final class CalendarServiceTests: XCTestCase {
 
         // Configure multiple warnings
         prefs.warnings = [
-            AlertWarning(minutesBefore: 30, soundDuration: 5.0),
-            AlertWarning(minutesBefore: 15, soundDuration: 3.0),
-            AlertWarning(minutesBefore: 5, soundDuration: 2.0),
-            AlertWarning(minutesBefore: 1, soundDuration: 1.0)
+            AlertWarning(minutesBefore: 30),
+            AlertWarning(minutesBefore: 15),
+            AlertWarning(minutesBefore: 5),
+            AlertWarning(minutesBefore: 1)
         ]
 
         XCTAssertEqual(prefs.warnings.count, 4, "Should have 4 configured warnings")
@@ -143,13 +137,13 @@ final class CalendarServiceTests: XCTestCase {
 
     func testWarningsGenerateUniqueAlertTypes() {
         let warnings = [
-            AlertWarning(minutesBefore: 5, soundDuration: 1.0),
-            AlertWarning(minutesBefore: 5, soundDuration: 2.0), // Same minutes, different duration
-            AlertWarning(minutesBefore: 10, soundDuration: 1.0)
+            AlertWarning(minutesBefore: 5),
+            AlertWarning(minutesBefore: 10),
+            AlertWarning(minutesBefore: 15)
         ]
 
         let alertTypes = warnings.map {
-            AlertType.warning(minutes: $0.minutesBefore, soundDuration: $0.soundDuration)
+            AlertType.warning(minutes: $0.minutesBefore)
         }
 
         let uniqueTypes = Set(alertTypes)

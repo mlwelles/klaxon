@@ -256,9 +256,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         let soundEnabled = !Preferences.shared.alertSound.isEmpty
         eventStartSoundPopup.isEnabled = soundEnabled
         playSoundButton.isEnabled = soundEnabled
-        for row in warningRows {
-            row.setSoundControlEnabled(soundEnabled)
-        }
     }
 
     // MARK: - Warning Row Management
@@ -266,7 +263,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     private func addWarningRow(warning: AlertWarning) {
         let row = WarningRowView(
             warning: warning,
-            soundDurationOptions: soundDurationOptions,
             onDelete: { [weak self] row in
                 self?.removeWarningRow(row)
             },
@@ -274,7 +270,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
                 self?.saveWarnings()
             }
         )
-        row.setSoundControlEnabled(!Preferences.shared.alertSound.isEmpty)
         warningRows.append(row)
         warningsStackView.addArrangedSubview(row)
     }
@@ -290,7 +285,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     }
 
     @objc private func addWarning() {
-        let newWarning = AlertWarning(minutesBefore: 5, soundDuration: 2.0)
+        let newWarning = AlertWarning(minutesBefore: 5)
         addWarningRow(warning: newWarning)
         saveWarnings()
     }
@@ -360,21 +355,17 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
 private class WarningRowView: NSView {
     private(set) var warning: AlertWarning
-    private let soundDurationOptions: [(title: String, value: Double)]
     private let onDelete: (WarningRowView) -> Void
     private let onChange: () -> Void
 
     private var minutesTextField: NSTextField!
     private var minutesStepper: NSStepper!
-    private var soundPopup: NSPopUpButton!
     private var deleteButton: NSButton!
 
     init(warning: AlertWarning,
-         soundDurationOptions: [(title: String, value: Double)],
          onDelete: @escaping (WarningRowView) -> Void,
          onChange: @escaping () -> Void) {
         self.warning = warning
-        self.soundDurationOptions = soundDurationOptions
         self.onDelete = onDelete
         self.onChange = onChange
         super.init(frame: .zero)
@@ -412,19 +403,9 @@ private class WarningRowView: NSView {
         addSubview(minutesStepper)
 
         // "minutes before" label
-        let minutesLabel = NSTextField(labelWithString: "min before, sound:")
+        let minutesLabel = NSTextField(labelWithString: "minutes before")
         minutesLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(minutesLabel)
-
-        // Sound duration popup
-        soundPopup = NSPopUpButton()
-        soundPopup.translatesAutoresizingMaskIntoConstraints = false
-        for option in soundDurationOptions {
-            soundPopup.addItem(withTitle: option.title)
-        }
-        soundPopup.target = self
-        soundPopup.action = #selector(soundDurationChanged)
-        addSubview(soundPopup)
 
         // Delete button
         deleteButton = NSButton(title: "−", target: self, action: #selector(deletePressed))
@@ -446,11 +427,7 @@ private class WarningRowView: NSView {
             minutesLabel.leadingAnchor.constraint(equalTo: minutesStepper.trailingAnchor, constant: 8),
             minutesLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-            soundPopup.leadingAnchor.constraint(equalTo: minutesLabel.trailingAnchor, constant: 8),
-            soundPopup.centerYAnchor.constraint(equalTo: centerYAnchor),
-            soundPopup.widthAnchor.constraint(equalToConstant: 100),
-
-            deleteButton.leadingAnchor.constraint(equalTo: soundPopup.trailingAnchor, constant: 8),
+            deleteButton.leadingAnchor.constraint(equalTo: minutesLabel.trailingAnchor, constant: 8),
             deleteButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             deleteButton.widthAnchor.constraint(equalToConstant: 24),
 
@@ -461,26 +438,12 @@ private class WarningRowView: NSView {
     private func loadValues() {
         minutesTextField.stringValue = "\(warning.minutesBefore)"
         minutesStepper.integerValue = warning.minutesBefore
-
-        if let index = soundDurationOptions.firstIndex(where: { $0.value == warning.soundDuration }) {
-            soundPopup.selectItem(at: index)
-        }
-    }
-
-    func setSoundControlEnabled(_ enabled: Bool) {
-        soundPopup.isEnabled = enabled
     }
 
     @objc private func minutesChanged() {
         let minutes = minutesStepper.integerValue
         minutesTextField.stringValue = "\(minutes)"
         warning.minutesBefore = minutes
-        onChange()
-    }
-
-    @objc private func soundDurationChanged() {
-        let index = soundPopup.indexOfSelectedItem
-        warning.soundDuration = soundDurationOptions[index].value
         onChange()
     }
 

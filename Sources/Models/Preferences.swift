@@ -3,11 +3,10 @@ import Foundation
 /// A configurable warning that fires before an event starts
 struct AlertWarning: Codable, Equatable {
     var minutesBefore: Int
-    var soundDuration: Double
 
     static let defaultWarnings: [AlertWarning] = [
-        AlertWarning(minutesBefore: 5, soundDuration: 1.0),
-        AlertWarning(minutesBefore: 1, soundDuration: 2.0)
+        AlertWarning(minutesBefore: 5),
+        AlertWarning(minutesBefore: 1)
     ]
 }
 

@@ -190,7 +190,7 @@ final class AlertWindowTests: XCTestCase {
     func testAlertWindowPlaysSound() {
         // This test verifies that showing an alert window triggers audio playback
         // We can't easily test the actual audio output, but we can verify the window shows without crashing
-        let controller = AlertWindowController(event: mockEvent, alertType: .warning(minutes: 5, soundDuration: 1.0))
+        let controller = AlertWindowController(event: mockEvent, alertType: .warning(minutes: 5))
         controller.showWindow(nil)
 
         XCTAssertTrue(controller.window?.isVisible ?? false, "Window should be visible")

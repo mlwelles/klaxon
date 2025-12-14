@@ -22,16 +22,16 @@ final class PreferencesTests: XCTestCase {
     // MARK: - AlertWarning Model Tests
 
     func testAlertWarningEquality() {
-        let warning1 = AlertWarning(minutesBefore: 5, soundDuration: 1.0)
-        let warning2 = AlertWarning(minutesBefore: 5, soundDuration: 1.0)
-        let warning3 = AlertWarning(minutesBefore: 10, soundDuration: 2.0)
+        let warning1 = AlertWarning(minutesBefore: 5)
+        let warning2 = AlertWarning(minutesBefore: 5)
+        let warning3 = AlertWarning(minutesBefore: 10)
 
         XCTAssertEqual(warning1, warning2, "Warnings with same values should be equal")
         XCTAssertNotEqual(warning1, warning3, "Warnings with different values should not be equal")
     }
 
     func testAlertWarningCodable() throws {
-        let warning = AlertWarning(minutesBefore: 5, soundDuration: 2.5)
+        let warning = AlertWarning(minutesBefore: 5)
         let encoded = try JSONEncoder().encode(warning)
         let decoded = try JSONDecoder().decode(AlertWarning.self, from: encoded)
 
@@ -43,9 +43,7 @@ final class PreferencesTests: XCTestCase {
 
         XCTAssertEqual(defaults.count, 2, "Should have 2 default warnings")
         XCTAssertEqual(defaults[0].minutesBefore, 5, "First default warning should be 5 minutes")
-        XCTAssertEqual(defaults[0].soundDuration, 1.0, "First default warning sound should be 1 second")
         XCTAssertEqual(defaults[1].minutesBefore, 1, "Second default warning should be 1 minute")
-        XCTAssertEqual(defaults[1].soundDuration, 2.0, "Second default warning sound should be 2 seconds")
     }
 
     // MARK: - Warnings Array Tests
@@ -59,9 +57,9 @@ final class PreferencesTests: XCTestCase {
 
     func testSetWarnings() {
         let newWarnings = [
-            AlertWarning(minutesBefore: 10, soundDuration: 3.0),
-            AlertWarning(minutesBefore: 3, soundDuration: 1.0),
-            AlertWarning(minutesBefore: 1, soundDuration: 2.0)
+            AlertWarning(minutesBefore: 10),
+            AlertWarning(minutesBefore: 3),
+            AlertWarning(minutesBefore: 1)
         ]
 
         preferences.warnings = newWarnings
@@ -74,7 +72,7 @@ final class PreferencesTests: XCTestCase {
 
     func testWarningsPersistence() {
         let newWarnings = [
-            AlertWarning(minutesBefore: 15, soundDuration: 5.0)
+            AlertWarning(minutesBefore: 15)
         ]
 
         preferences.warnings = newWarnings
@@ -82,7 +80,6 @@ final class PreferencesTests: XCTestCase {
         let newPreferences = Preferences(defaults: testDefaults)
         XCTAssertEqual(newPreferences.warnings.count, 1, "Warnings should persist")
         XCTAssertEqual(newPreferences.warnings[0].minutesBefore, 15, "Warning minutes should persist")
-        XCTAssertEqual(newPreferences.warnings[0].soundDuration, 5.0, "Warning sound duration should persist")
     }
 
     func testEmptyWarningsArray() {
@@ -92,14 +89,14 @@ final class PreferencesTests: XCTestCase {
     }
 
     func testSingleWarning() {
-        let singleWarning = [AlertWarning(minutesBefore: 5, soundDuration: 2.0)]
+        let singleWarning = [AlertWarning(minutesBefore: 5)]
         preferences.warnings = singleWarning
 
         XCTAssertEqual(preferences.warnings.count, 1, "Should allow single warning")
     }
 
     func testManyWarnings() {
-        let manyWarnings = (1...10).map { AlertWarning(minutesBefore: $0, soundDuration: Double($0)) }
+        let manyWarnings = (1...10).map { AlertWarning(minutesBefore: $0) }
         preferences.warnings = manyWarnings
 
         XCTAssertEqual(preferences.warnings.count, 10, "Should allow many warnings")

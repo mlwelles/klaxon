@@ -2,7 +2,7 @@ import EventKit
 import Foundation
 
 enum AlertType: Hashable {
-    case warning(minutes: Int, soundDuration: Double)
+    case warning(minutes: Int)
     case eventStarting
 }
 
@@ -51,7 +51,7 @@ final class CalendarService {
             // Check each configured warning
             for warning in prefs.warnings {
                 let alertSeconds = TimeInterval(warning.minutesBefore * 60)
-                let alertType = AlertType.warning(minutes: warning.minutesBefore, soundDuration: warning.soundDuration)
+                let alertType = AlertType.warning(minutes: warning.minutesBefore)
                 if timeUntilStart <= alertSeconds && timeUntilStart > alertSeconds - 30 && !sentAlerts.contains(alertType) {
                     sentAlerts.insert(alertType)
                     notifiedEvents[eventID] = sentAlerts
