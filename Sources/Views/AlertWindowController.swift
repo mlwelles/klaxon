@@ -8,7 +8,7 @@ final class AlertWindowController: NSWindowController {
     private var audioPlayer: AVAudioPlayer?
     private var audioStopTimer: Timer?
 
-    init(event: EKEvent, alertType: AlertType = .warning(minutes: 1)) {
+    init(event: EKEvent, alertType: AlertType = .warning(minutes: 1, sound: "fire-alarm-bell", soundDuration: 4.0)) {
         self.event = event
         self.alertType = alertType
 
@@ -37,7 +37,7 @@ final class AlertWindowController: NSWindowController {
 
     private static func windowTitle(for alertType: AlertType) -> String {
         switch alertType {
-        case .warning(let minutes):
+        case .warning(let minutes, _, _):
             return "\(minutes) Minute Warning"
         case .eventStarting:
             return "Event Starting Now"
@@ -46,7 +46,7 @@ final class AlertWindowController: NSWindowController {
 
     private func alertMessage(for alertType: AlertType) -> String {
         switch alertType {
-        case .warning(let minutes):
+        case .warning(let minutes, _, _):
             return "starts in \(minutes) minute\(minutes == 1 ? "" : "s")"
         case .eventStarting:
             return "is starting now!"
@@ -166,11 +166,8 @@ final class AlertWindowController: NSWindowController {
     }
 
     private func playAlertSound() {
-        let duration = audioDuration(for: alertType)
-        guard duration > 0 else { return }
-
-        let soundName = Preferences.shared.alertSound
-        guard !soundName.isEmpty else { return }
+        let (soundName, duration) = soundSettings(for: alertType)
+        guard duration > 0, !soundName.isEmpty else { return }
 
         guard let soundURL = Bundle.main.url(forResource: soundName, withExtension: "mp3") else {
             return
@@ -190,9 +187,13 @@ final class AlertWindowController: NSWindowController {
         }
     }
 
-    private func audioDuration(for alertType: AlertType) -> TimeInterval {
-        // All alert types use the global sound duration setting
-        return Preferences.shared.eventStartSoundDuration
+    private func soundSettings(for alertType: AlertType) -> (sound: String, duration: TimeInterval) {
+        switch alertType {
+        case .warning(_, let sound, let soundDuration):
+            return (sound, soundDuration)
+        case .eventStarting:
+            return (Preferences.shared.alertSound, Preferences.shared.eventStartSoundDuration)
+        }
     }
 
     private func stopAlertSound() {

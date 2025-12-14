@@ -29,7 +29,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
     init() {
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 450, height: 480),
+            contentRect: NSRect(x: 0, y: 0, width: 520, height: 480),
             styleMask: [.titled, .closable, .miniaturizable],
             backing: .buffered,
             defer: false
@@ -77,8 +77,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         let eventStartNote = createNoteLabel("An alert is always shown when the event starts.")
         contentView.addSubview(eventStartNote)
 
-        // Sound section header
-        let soundsHeaderLabel = createSectionHeader("Sound")
+        // Event Start Alert section header
+        let soundsHeaderLabel = createSectionHeader("Event Start Alert")
         contentView.addSubview(soundsHeaderLabel)
 
         // Sound selection row
@@ -285,7 +285,12 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     }
 
     @objc private func addWarning() {
-        let newWarning = AlertWarning(minutesBefore: 5)
+        let prefs = Preferences.shared
+        let newWarning = AlertWarning(
+            minutesBefore: 5,
+            sound: prefs.alertSound,
+            soundDuration: prefs.eventStartSoundDuration
+        )
         addWarningRow(warning: newWarning)
         saveWarnings()
     }
@@ -370,7 +375,26 @@ private class WarningRowView: NSView {
 
     private var minutesTextField: NSTextField!
     private var minutesStepper: NSStepper!
+    private var soundPopup: NSPopUpButton!
+    private var durationPopup: NSPopUpButton!
+    private var playButton: NSButton!
     private var deleteButton: NSButton!
+    private var audioPlayer: AVAudioPlayer?
+    private var audioStopTimer: Timer?
+
+    private static let soundDurationOptions: [(title: String, value: Double)] = [
+        ("No sound", 0),
+        ("1 second", 1.0),
+        ("2 seconds", 2.0),
+        ("3 seconds", 3.0),
+        ("4 seconds", 4.0),
+        ("5 seconds", 5.0),
+        ("6 seconds", 6.0),
+        ("7 seconds", 7.0),
+        ("8 seconds", 8.0),
+        ("9 seconds", 9.0),
+        ("10 seconds", 10.0)
+    ]
 
     init(warning: AlertWarning,
          onDelete: @escaping (WarningRowView) -> Void,
@@ -412,10 +436,41 @@ private class WarningRowView: NSView {
         minutesStepper.action = #selector(minutesChanged)
         addSubview(minutesStepper)
 
-        // "minutes before" label
-        let minutesLabel = NSTextField(labelWithString: "minutes before")
+        // "min," label
+        let minutesLabel = NSTextField(labelWithString: "min,")
         minutesLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(minutesLabel)
+
+        // Sound popup
+        soundPopup = NSPopUpButton()
+        soundPopup.translatesAutoresizingMaskIntoConstraints = false
+        soundPopup.controlSize = .small
+        soundPopup.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
+        for sound in Preferences.availableSounds {
+            soundPopup.addItem(withTitle: sound.name)
+        }
+        soundPopup.target = self
+        soundPopup.action = #selector(soundChanged)
+        addSubview(soundPopup)
+
+        // Duration popup
+        durationPopup = NSPopUpButton()
+        durationPopup.translatesAutoresizingMaskIntoConstraints = false
+        durationPopup.controlSize = .small
+        durationPopup.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
+        for option in Self.soundDurationOptions {
+            durationPopup.addItem(withTitle: option.title)
+        }
+        durationPopup.target = self
+        durationPopup.action = #selector(durationChanged)
+        addSubview(durationPopup)
+
+        // Play button
+        playButton = NSButton(title: "▶", target: self, action: #selector(playPressed))
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        playButton.bezelStyle = .rounded
+        playButton.controlSize = .small
+        addSubview(playButton)
 
         // Delete button
         deleteButton = NSButton(title: "−", target: self, action: #selector(deletePressed))
@@ -434,10 +489,22 @@ private class WarningRowView: NSView {
             minutesStepper.leadingAnchor.constraint(equalTo: minutesTextField.trailingAnchor, constant: 4),
             minutesStepper.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-            minutesLabel.leadingAnchor.constraint(equalTo: minutesStepper.trailingAnchor, constant: 8),
+            minutesLabel.leadingAnchor.constraint(equalTo: minutesStepper.trailingAnchor, constant: 4),
             minutesLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-            deleteButton.leadingAnchor.constraint(equalTo: minutesLabel.trailingAnchor, constant: 8),
+            soundPopup.leadingAnchor.constraint(equalTo: minutesLabel.trailingAnchor, constant: 4),
+            soundPopup.centerYAnchor.constraint(equalTo: centerYAnchor),
+            soundPopup.widthAnchor.constraint(equalToConstant: 120),
+
+            durationPopup.leadingAnchor.constraint(equalTo: soundPopup.trailingAnchor, constant: 4),
+            durationPopup.centerYAnchor.constraint(equalTo: centerYAnchor),
+            durationPopup.widthAnchor.constraint(equalToConstant: 80),
+
+            playButton.leadingAnchor.constraint(equalTo: durationPopup.trailingAnchor, constant: 4),
+            playButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            playButton.widthAnchor.constraint(equalToConstant: 24),
+
+            deleteButton.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 4),
             deleteButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             deleteButton.widthAnchor.constraint(equalToConstant: 24),
 
@@ -448,6 +515,22 @@ private class WarningRowView: NSView {
     private func loadValues() {
         minutesTextField.stringValue = "\(warning.minutesBefore)"
         minutesStepper.integerValue = warning.minutesBefore
+
+        if let soundIndex = Preferences.availableSounds.firstIndex(where: { $0.id == warning.sound }) {
+            soundPopup.selectItem(at: soundIndex)
+        }
+
+        if let durationIndex = Self.soundDurationOptions.firstIndex(where: { $0.value == warning.soundDuration }) {
+            durationPopup.selectItem(at: durationIndex)
+        }
+
+        updatePlayButtonEnabled()
+    }
+
+    private func updatePlayButtonEnabled() {
+        let hasSound = !warning.sound.isEmpty && warning.soundDuration > 0
+        playButton.isEnabled = hasSound
+        durationPopup.isEnabled = !warning.sound.isEmpty
     }
 
     @objc private func minutesChanged() {
@@ -457,7 +540,48 @@ private class WarningRowView: NSView {
         onChange()
     }
 
+    @objc private func soundChanged() {
+        let index = soundPopup.indexOfSelectedItem
+        warning.sound = Preferences.availableSounds[index].id
+        updatePlayButtonEnabled()
+        onChange()
+    }
+
+    @objc private func durationChanged() {
+        let index = durationPopup.indexOfSelectedItem
+        warning.soundDuration = Self.soundDurationOptions[index].value
+        updatePlayButtonEnabled()
+        onChange()
+    }
+
+    @objc private func playPressed() {
+        audioStopTimer?.invalidate()
+        audioStopTimer = nil
+        audioPlayer?.stop()
+        audioPlayer = nil
+
+        guard warning.soundDuration > 0, !warning.sound.isEmpty,
+              let soundURL = Bundle.main.url(forResource: warning.sound, withExtension: "mp3") else {
+            return
+        }
+
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            audioPlayer?.prepareToPlay()
+            audioPlayer?.play()
+
+            audioStopTimer = Timer.scheduledTimer(withTimeInterval: warning.soundDuration, repeats: false) { [weak self] _ in
+                self?.audioPlayer?.stop()
+                self?.audioPlayer = nil
+            }
+        } catch {
+            // Silently fail
+        }
+    }
+
     @objc private func deletePressed() {
+        audioStopTimer?.invalidate()
+        audioPlayer?.stop()
         onDelete(self)
     }
 }
