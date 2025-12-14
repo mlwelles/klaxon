@@ -7,10 +7,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var alertWindowController: AlertWindowController?
     private var preferencesWindowController: PreferencesWindowController?
     private var aboutWindowController: AboutWindowController?
+    private var launchedAtLogin = false
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        // Detect if launched at login by checking system uptime
+        // If system booted recently (within 60 seconds), assume login launch
+        let uptime = ProcessInfo.processInfo.systemUptime
+        launchedAtLogin = uptime < 60
+
         setupMenuBarItem()
         requestCalendarAccess()
+
+        // Open preferences if manually launched (not at login)
+        if !launchedAtLogin {
+            DispatchQueue.main.async { [weak self] in
+                self?.openPreferences()
+            }
+        }
     }
 
     private func setupMenuBarItem() {
