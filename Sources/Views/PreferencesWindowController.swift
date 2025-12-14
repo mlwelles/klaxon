@@ -54,8 +54,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
         let contentView = NSView(frame: window.contentRect(forFrameRect: window.frame))
 
-        // Alerts section header
-        let alertsHeaderLabel = createSectionHeader("Alerts")
+        // Warnings section header
+        let alertsHeaderLabel = createSectionHeader("Warnings")
         contentView.addSubview(alertsHeaderLabel)
 
         // Warnings stack view (for dynamic rows)
@@ -77,8 +77,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         let eventStartNote = createNoteLabel("An alert is always shown when the event starts.")
         contentView.addSubview(eventStartNote)
 
-        // Alert Sounds section header
-        let soundsHeaderLabel = createSectionHeader("Alert Sounds")
+        // Sound section header
+        let soundsHeaderLabel = createSectionHeader("Sound")
         contentView.addSubview(soundsHeaderLabel)
 
         // Sound selection row
@@ -276,7 +276,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     }
 
     private func removeWarningRow(_ row: WarningRowView) {
-        guard warningRows.count > 1 else { return } // Keep at least one warning
         if let index = warningRows.firstIndex(where: { $0 === row }) {
             warningRows.remove(at: index)
             warningsStackView.removeArrangedSubview(row)
