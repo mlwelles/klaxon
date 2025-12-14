@@ -11,6 +11,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     private var eventStartSoundPopup: NSPopUpButton!
     private var launchAtLoginCheckbox: NSButton!
     private var audioPlayer: AVAudioPlayer?
+    private var audioStopTimer: Timer?
 
     private let soundDurationOptions: [(title: String, value: Double)] = [
         ("No sound", 0),
@@ -304,8 +305,13 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     }
 
     @objc private func playSoundPressed() {
+        audioStopTimer?.invalidate()
+        audioStopTimer = nil
         audioPlayer?.stop()
         audioPlayer = nil
+
+        let duration = Preferences.shared.eventStartSoundDuration
+        guard duration > 0 else { return }
 
         let soundName = Preferences.shared.alertSound
         guard !soundName.isEmpty,
@@ -317,6 +323,11 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
             audioPlayer?.prepareToPlay()
             audioPlayer?.play()
+
+            audioStopTimer = Timer.scheduledTimer(withTimeInterval: duration, repeats: false) { [weak self] _ in
+                self?.audioPlayer?.stop()
+                self?.audioPlayer = nil
+            }
         } catch {
             // Silently fail if audio playback fails
         }
