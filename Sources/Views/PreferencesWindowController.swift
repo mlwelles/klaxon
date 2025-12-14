@@ -220,8 +220,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     private func loadPreferences() {
         let prefs = Preferences.shared
 
-        // Load warnings
-        for warning in prefs.warnings {
+        // Load warnings sorted by duration (longest first)
+        for warning in prefs.warnings.sorted(by: { $0.minutesBefore > $1.minutesBefore }) {
             addWarningRow(warning: warning)
         }
 
