@@ -10,6 +10,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     private var playSoundButton: NSButton!
     private var eventStartSoundPopup: NSPopUpButton!
     private var launchAtLoginCheckbox: NSButton!
+    private var showWindowOnLaunchCheckbox: NSButton!
     private var audioPlayer: AVAudioPlayer?
     private var audioStopTimer: Timer?
 
@@ -113,6 +114,10 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         launchAtLoginCheckbox = createCheckbox(title: "Start Klaxon at login", action: #selector(launchAtLoginToggled))
         contentView.addSubview(launchAtLoginCheckbox)
 
+        // Show window on launch checkbox
+        showWindowOnLaunchCheckbox = createCheckbox(title: "Show app window on launch", action: #selector(showWindowOnLaunchToggled))
+        contentView.addSubview(showWindowOnLaunchCheckbox)
+
         NSLayoutConstraint.activate([
             // Event header
             eventHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
@@ -168,6 +173,23 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             // Launch at login
             launchAtLoginCheckbox.topAnchor.constraint(equalTo: generalHeaderLabel.bottomAnchor, constant: 12),
             launchAtLoginCheckbox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+
+            // Show window on launch
+            showWindowOnLaunchCheckbox.topAnchor.constraint(equalTo: launchAtLoginCheckbox.bottomAnchor, constant: 8),
+            showWindowOnLaunchCheckbox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+        ])
+
+        // OK button at bottom
+        let okButton = NSButton(title: "OK", target: self, action: #selector(okPressed))
+        okButton.translatesAutoresizingMaskIntoConstraints = false
+        okButton.bezelStyle = .rounded
+        okButton.keyEquivalent = "\r"
+        contentView.addSubview(okButton)
+
+        NSLayoutConstraint.activate([
+            okButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            okButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            okButton.widthAnchor.constraint(equalToConstant: 80),
         ])
 
         window.contentView = contentView
@@ -243,6 +265,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         updateSoundControlsEnabled()
 
         launchAtLoginCheckbox.state = SMAppService.mainApp.status == .enabled ? .on : .off
+        showWindowOnLaunchCheckbox.state = Preferences.shared.showWindowOnLaunch ? .on : .off
     }
 
     private func saveWarnings() {
@@ -360,6 +383,14 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             alert.alertStyle = .warning
             alert.runModal()
         }
+    }
+
+    @objc private func showWindowOnLaunchToggled() {
+        Preferences.shared.showWindowOnLaunch = showWindowOnLaunchCheckbox.state == .on
+    }
+
+    @objc private func okPressed() {
+        window?.close()
     }
 
     override func showWindow(_ sender: Any?) {

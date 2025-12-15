@@ -62,6 +62,7 @@ final class Preferences {
         static let eventStartSoundDuration = "eventStartSoundDuration"
         static let alertSound = "alertSound"
         static let hasLaunchedBefore = "hasLaunchedBefore"
+        static let showWindowOnLaunch = "showWindowOnLaunch"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -72,7 +73,8 @@ final class Preferences {
     private func registerDefaults() {
         defaults.register(defaults: [
             Keys.eventStartSoundDuration: 4.0,
-            Keys.alertSound: "fire-alarm-bell"
+            Keys.alertSound: "fire-alarm-bell",
+            Keys.showWindowOnLaunch: true
         ])
     }
 
@@ -108,5 +110,11 @@ final class Preferences {
     var hasLaunchedBefore: Bool {
         get { defaults.bool(forKey: Keys.hasLaunchedBefore) }
         set { defaults.set(newValue, forKey: Keys.hasLaunchedBefore) }
+    }
+
+    /// Whether to show the welcome window on manual launch
+    var showWindowOnLaunch: Bool {
+        get { defaults.bool(forKey: Keys.showWindowOnLaunch) }
+        set { defaults.set(newValue, forKey: Keys.showWindowOnLaunch) }
     }
 }

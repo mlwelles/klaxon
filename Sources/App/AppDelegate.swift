@@ -23,24 +23,39 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             showWelcomeAndRequestAccess()
         } else {
             requestCalendarAccess()
-            // Open preferences if manually launched (not at login)
-            if !launchedAtLogin {
+            // Show welcome window if manually launched and preference is enabled
+            if !launchedAtLogin && Preferences.shared.showWindowOnLaunch {
                 DispatchQueue.main.async { [weak self] in
-                    self?.openPreferences()
+                    self?.showWelcome()
                 }
             }
         }
     }
 
     private func showWelcomeAndRequestAccess() {
-        welcomeWindowController = WelcomeWindowController { [weak self] in
-            Preferences.shared.hasLaunchedBefore = true
-            self?.requestCalendarAccess()
-            // Open preferences after first launch
-            DispatchQueue.main.async {
-                self?.openPreferences()
+        welcomeWindowController = WelcomeWindowController(
+            onDismiss: { [weak self] in
+                Preferences.shared.hasLaunchedBefore = true
+                self?.requestCalendarAccess()
+            },
+            onOpenPreferences: { [weak self] in
+                DispatchQueue.main.async {
+                    self?.openPreferences()
+                }
             }
-        }
+        )
+        welcomeWindowController?.showWindow(nil)
+    }
+
+    private func showWelcome() {
+        welcomeWindowController = WelcomeWindowController(
+            onDismiss: {},
+            onOpenPreferences: { [weak self] in
+                DispatchQueue.main.async {
+                    self?.openPreferences()
+                }
+            }
+        )
         welcomeWindowController?.showWindow(nil)
     }
 
