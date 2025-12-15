@@ -7,6 +7,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var alertWindowController: AlertWindowController?
     private var preferencesWindowController: PreferencesWindowController?
     private var aboutWindowController: AboutWindowController?
+    private var welcomeWindowController: WelcomeWindowController?
     private var launchedAtLogin = false
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -16,14 +17,31 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         launchedAtLogin = uptime < 60
 
         setupMenuBarItem()
-        requestCalendarAccess()
 
-        // Open preferences if manually launched (not at login)
-        if !launchedAtLogin {
-            DispatchQueue.main.async { [weak self] in
+        // Show welcome modal on first launch before requesting calendar access
+        if !Preferences.shared.hasLaunchedBefore {
+            showWelcomeAndRequestAccess()
+        } else {
+            requestCalendarAccess()
+            // Open preferences if manually launched (not at login)
+            if !launchedAtLogin {
+                DispatchQueue.main.async { [weak self] in
+                    self?.openPreferences()
+                }
+            }
+        }
+    }
+
+    private func showWelcomeAndRequestAccess() {
+        welcomeWindowController = WelcomeWindowController { [weak self] in
+            Preferences.shared.hasLaunchedBefore = true
+            self?.requestCalendarAccess()
+            // Open preferences after first launch
+            DispatchQueue.main.async {
                 self?.openPreferences()
             }
         }
+        welcomeWindowController?.showWindow(nil)
     }
 
     private func setupMenuBarItem() {

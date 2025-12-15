@@ -49,11 +49,21 @@ final class AboutWindowController: NSWindowController {
         versionLabel.frame = NSRect(x: 20, y: 325, width: 360, height: 18)
         contentView.addSubview(versionLabel)
 
+        // Copyright with GitHub link
+        let copyrightLabel = createCopyrightLabel()
+        copyrightLabel.frame = NSRect(x: 20, y: 305, width: 360, height: 16)
+        contentView.addSubview(copyrightLabel)
+
+        // MIT License link
+        let licenseLabel = createLicenseLabel()
+        licenseLabel.frame = NSRect(x: 20, y: 287, width: 360, height: 16)
+        contentView.addSubview(licenseLabel)
+
         // Description
         let descriptionLabel = NSTextField(wrappingLabelWithString: "Klaxon watches your calendar and sounds the alarm when meetings are about to start. Never miss a meeting again!")
         descriptionLabel.font = NSFont.systemFont(ofSize: 12)
         descriptionLabel.alignment = .center
-        descriptionLabel.frame = NSRect(x: 30, y: 275, width: 340, height: 45)
+        descriptionLabel.frame = NSRect(x: 30, y: 232, width: 340, height: 45)
         contentView.addSubview(descriptionLabel)
 
         // Assistive purpose
@@ -61,19 +71,8 @@ final class AboutWindowController: NSWindowController {
         assistiveLabel.font = NSFont.systemFont(ofSize: 11)
         assistiveLabel.alignment = .center
         assistiveLabel.textColor = .secondaryLabelColor
-        assistiveLabel.frame = NSRect(x: 30, y: 220, width: 340, height: 50)
+        assistiveLabel.frame = NSRect(x: 30, y: 177, width: 340, height: 50)
         contentView.addSubview(assistiveLabel)
-
-        // Author
-        let authorLabel = NSTextField(labelWithString: "Created by Michael L. Welles")
-        authorLabel.font = NSFont.systemFont(ofSize: 11)
-        authorLabel.alignment = .center
-        authorLabel.frame = NSRect(x: 20, y: 195, width: 360, height: 16)
-        contentView.addSubview(authorLabel)
-
-        let emailLabel = createClickableEmail()
-        emailLabel.frame = NSRect(x: 20, y: 177, width: 360, height: 16)
-        contentView.addSubview(emailLabel)
 
         // Credits header
         let creditsHeader = NSTextField(labelWithString: "Credits")
@@ -112,25 +111,66 @@ final class AboutWindowController: NSWindowController {
         window?.contentView = contentView
     }
 
-    private func createClickableEmail() -> NSTextField {
-        let emailField = NSTextField(frame: .zero)
-        emailField.isEditable = false
-        emailField.isBordered = false
-        emailField.backgroundColor = .clear
-        emailField.allowsEditingTextAttributes = true
-        emailField.isSelectable = true
-        emailField.alignment = .center
+    private func createCopyrightLabel() -> NSTextField {
+        let field = NSTextField(frame: .zero)
+        field.isEditable = false
+        field.isBordered = false
+        field.backgroundColor = .clear
+        field.allowsEditingTextAttributes = true
+        field.isSelectable = true
+        field.alignment = .center
 
-        let email = "michael@welles.nyc"
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: NSFont.systemFont(ofSize: 11),
-            .foregroundColor: NSColor.linkColor,
-            .link: URL(string: "mailto:\(email)")!,
-            .underlineStyle: NSUnderlineStyle.single.rawValue
-        ]
-        emailField.attributedStringValue = NSAttributedString(string: email, attributes: attributes)
+        let year = Calendar.current.component(.year, from: Date())
+        let fullText = "© \(year) Michael L. Welles (@mlwelles)"
+        let attributedString = NSMutableAttributedString(
+            string: fullText,
+            attributes: [.font: NSFont.systemFont(ofSize: 11)]
+        )
 
-        return emailField
+        // Make (@mlwelles) a clickable link
+        if let range = fullText.range(of: "(@mlwelles)") {
+            let nsRange = NSRange(range, in: fullText)
+            attributedString.addAttributes([
+                .link: URL(string: "https://github.com/mlwelles")!,
+                .foregroundColor: NSColor.linkColor,
+                .underlineStyle: NSUnderlineStyle.single.rawValue
+            ], range: nsRange)
+        }
+
+        field.attributedStringValue = attributedString
+        return field
+    }
+
+    private func createLicenseLabel() -> NSTextField {
+        let field = NSTextField(frame: .zero)
+        field.isEditable = false
+        field.isBordered = false
+        field.backgroundColor = .clear
+        field.allowsEditingTextAttributes = true
+        field.isSelectable = true
+        field.alignment = .center
+
+        let fullText = "Released under the MIT License as open source."
+        let attributedString = NSMutableAttributedString(
+            string: fullText,
+            attributes: [
+                .font: NSFont.systemFont(ofSize: 11),
+                .foregroundColor: NSColor.secondaryLabelColor
+            ]
+        )
+
+        // Make "MIT License" a clickable link
+        if let range = fullText.range(of: "MIT License") {
+            let nsRange = NSRange(range, in: fullText)
+            attributedString.addAttributes([
+                .link: URL(string: "https://github.com/mlwelles/klaxon/blob/main/LICENSE.md")!,
+                .foregroundColor: NSColor.linkColor,
+                .underlineStyle: NSUnderlineStyle.single.rawValue
+            ], range: nsRange)
+        }
+
+        field.attributedStringValue = attributedString
+        return field
     }
 
     private func centerOnMainScreen() {

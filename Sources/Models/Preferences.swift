@@ -61,6 +61,7 @@ final class Preferences {
         static let warnings = "warnings"
         static let eventStartSoundDuration = "eventStartSoundDuration"
         static let alertSound = "alertSound"
+        static let hasLaunchedBefore = "hasLaunchedBefore"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -101,5 +102,11 @@ final class Preferences {
     var alertSound: String {
         get { defaults.string(forKey: Keys.alertSound) ?? "fire-alarm-bell" }
         set { defaults.set(newValue, forKey: Keys.alertSound) }
+    }
+
+    /// Whether the app has been launched before
+    var hasLaunchedBefore: Bool {
+        get { defaults.bool(forKey: Keys.hasLaunchedBefore) }
+        set { defaults.set(newValue, forKey: Keys.hasLaunchedBefore) }
     }
 }
