@@ -62,7 +62,7 @@ final class WelcomeWindowController: NSWindowController {
         let explanationLabel = NSTextField(wrappingLabelWithString: explanationText)
         explanationLabel.font = .systemFont(ofSize: 13)
         explanationLabel.alignment = .center
-        explanationLabel.frame = NSRect(x: 30, y: 55, width: 340, height: 120)
+        explanationLabel.frame = NSRect(x: 30, y: 55, width: 340, height: 100)
         contentView.addSubview(explanationLabel)
 
         // OK button

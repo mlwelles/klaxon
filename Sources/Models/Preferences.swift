@@ -74,7 +74,7 @@ final class Preferences {
         defaults.register(defaults: [
             Keys.eventStartSoundDuration: 4.0,
             Keys.alertSound: "fire-alarm-bell",
-            Keys.showWindowOnLaunch: true
+            Keys.showWindowOnLaunch: false
         ])
     }
 

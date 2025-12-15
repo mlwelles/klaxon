@@ -2,12 +2,12 @@ import AppKit
 import AVFoundation
 import ServiceManagement
 
-final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
-    private var warningRows: [WarningRowView] = []
-    private var warningsStackView: NSStackView!
+final class PreferencesWindowController: NSWindowController, NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate {
+    private var warnings: [AlertWarning] = []
+    private var warningsTableView: NSTableView!
+    private var warningsScrollView: NSScrollView!
     private var addWarningButton: NSButton!
     private var alertSoundPopup: NSPopUpButton!
-    private var playSoundButton: NSButton!
     private var eventStartSoundPopup: NSPopUpButton!
     private var launchAtLoginCheckbox: NSButton!
     private var showWindowOnLaunchCheckbox: NSButton!
@@ -16,16 +16,11 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
     private let soundDurationOptions: [(title: String, value: Double)] = [
         ("No sound", 0),
-        ("1 second", 1.0),
-        ("2 seconds", 2.0),
-        ("3 seconds", 3.0),
-        ("4 seconds", 4.0),
-        ("5 seconds", 5.0),
-        ("6 seconds", 6.0),
-        ("7 seconds", 7.0),
-        ("8 seconds", 8.0),
-        ("9 seconds", 9.0),
-        ("10 seconds", 10.0)
+        ("1 sec", 1.0),
+        ("2 sec", 2.0),
+        ("3 sec", 3.0),
+        ("4 sec", 4.0),
+        ("5 sec", 5.0)
     ]
 
     init() {
@@ -56,7 +51,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         let contentView = NSView(frame: window.contentRect(forFrameRect: window.frame))
 
         // Event section header
-        let eventHeaderLabel = createSectionHeader("Event")
+        let eventHeaderLabel = createSectionHeader("Event Alert")
         contentView.addSubview(eventHeaderLabel)
 
         // Event section description
@@ -64,17 +59,12 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(eventDescription)
 
         // Sound selection row
-        let alertSoundLabel = createLabel("Sound:")
+        let alertSoundLabel = createLabel("Play sound:")
         contentView.addSubview(alertSoundLabel)
 
         alertSoundPopup = createAlertSoundPopup()
         contentView.addSubview(alertSoundPopup)
 
-        playSoundButton = NSButton(title: "▶", target: self, action: #selector(playSoundPressed))
-        playSoundButton.translatesAutoresizingMaskIntoConstraints = false
-        playSoundButton.bezelStyle = .rounded
-        playSoundButton.controlSize = .regular
-        contentView.addSubview(playSoundButton)
 
         // Duration row
         let eventStartSoundLabel = createLabel("Duration:")
@@ -84,23 +74,44 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(eventStartSoundPopup)
 
         // Warnings section header
-        let warningsHeaderLabel = createSectionHeader("Warnings")
+        let warningsHeaderLabel = createSectionHeader("Warning Alerts")
         contentView.addSubview(warningsHeaderLabel)
 
         // Warnings section description
         let warningsDescription = createNoteLabel("Optional alerts shown before an event starts.")
         contentView.addSubview(warningsDescription)
 
-        // Warnings stack view (for dynamic rows)
-        warningsStackView = NSStackView()
-        warningsStackView.translatesAutoresizingMaskIntoConstraints = false
-        warningsStackView.orientation = .vertical
-        warningsStackView.alignment = .leading
-        warningsStackView.spacing = 8
-        contentView.addSubview(warningsStackView)
+        // Warnings table view
+        warningsTableView = NSTableView()
+        warningsTableView.translatesAutoresizingMaskIntoConstraints = false
+        warningsTableView.dataSource = self
+        warningsTableView.delegate = self
+        warningsTableView.headerView = nil
+        warningsTableView.rowHeight = 28
+        warningsTableView.intercellSpacing = NSSize(width: 4, height: 4)
+        warningsTableView.gridStyleMask = []
+        warningsTableView.backgroundColor = .clear
+        warningsTableView.usesAlternatingRowBackgroundColors = false
+
+        let contentColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("content"))
+        contentColumn.width = 430
+        warningsTableView.addTableColumn(contentColumn)
+
+        let removeColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("remove"))
+        removeColumn.width = 30
+        warningsTableView.addTableColumn(removeColumn)
+
+        warningsScrollView = NSScrollView()
+        warningsScrollView.translatesAutoresizingMaskIntoConstraints = false
+        warningsScrollView.documentView = warningsTableView
+        warningsScrollView.hasVerticalScroller = true
+        warningsScrollView.hasHorizontalScroller = false
+        warningsScrollView.borderType = .bezelBorder
+        warningsScrollView.autohidesScrollers = true
+        contentView.addSubview(warningsScrollView)
 
         // Add warning button
-        addWarningButton = NSButton(title: "+ Add Warning", target: self, action: #selector(addWarning))
+        addWarningButton = NSButton(title: "+ Add Warning Alert", target: self, action: #selector(addWarning))
         addWarningButton.translatesAutoresizingMaskIntoConstraints = false
         addWarningButton.bezelStyle = .rounded
         addWarningButton.controlSize = .small
@@ -115,7 +126,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(launchAtLoginCheckbox)
 
         // Show window on launch checkbox
-        showWindowOnLaunchCheckbox = createCheckbox(title: "Show welcome popup on startup", action: #selector(showWindowOnLaunchToggled))
+        showWindowOnLaunchCheckbox = createCheckbox(title: "Show welcome on start", action: #selector(showWindowOnLaunchToggled))
         contentView.addSubview(showWindowOnLaunchCheckbox)
 
         NSLayoutConstraint.activate([
@@ -136,10 +147,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             alertSoundPopup.leadingAnchor.constraint(equalTo: alertSoundLabel.trailingAnchor, constant: 8),
             alertSoundPopup.widthAnchor.constraint(equalToConstant: 150),
 
-            playSoundButton.centerYAnchor.constraint(equalTo: alertSoundLabel.centerYAnchor),
-            playSoundButton.leadingAnchor.constraint(equalTo: alertSoundPopup.trailingAnchor, constant: 8),
-            playSoundButton.widthAnchor.constraint(equalToConstant: 30),
-
             // Duration row
             eventStartSoundLabel.topAnchor.constraint(equalTo: alertSoundLabel.bottomAnchor, constant: 12),
             eventStartSoundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
@@ -157,13 +164,14 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             warningsDescription.topAnchor.constraint(equalTo: warningsHeaderLabel.bottomAnchor, constant: 4),
             warningsDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
 
-            // Warnings stack view
-            warningsStackView.topAnchor.constraint(equalTo: warningsDescription.bottomAnchor, constant: 12),
-            warningsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            warningsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            // Warnings table view
+            warningsScrollView.topAnchor.constraint(equalTo: warningsDescription.bottomAnchor, constant: 12),
+            warningsScrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            warningsScrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            warningsScrollView.heightAnchor.constraint(equalToConstant: 100),
 
             // Add warning button
-            addWarningButton.topAnchor.constraint(equalTo: warningsStackView.bottomAnchor, constant: 8),
+            addWarningButton.topAnchor.constraint(equalTo: warningsScrollView.bottomAnchor, constant: 8),
             addWarningButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
 
             // General header
@@ -252,9 +260,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         let prefs = Preferences.shared
 
         // Load warnings sorted by duration (longest first)
-        for warning in prefs.warnings.sorted(by: { $0.minutesBefore > $1.minutesBefore }) {
-            addWarningRow(warning: warning)
-        }
+        warnings = prefs.warnings.sorted(by: { $0.minutesBefore > $1.minutesBefore })
+        warningsTableView.reloadData()
 
         // Select the current alert sound
         if let soundIndex = Preferences.availableSounds.firstIndex(where: { $0.id == prefs.alertSound }) {
@@ -269,7 +276,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     }
 
     private func saveWarnings() {
-        let warnings = warningRows.map { $0.warning }
         Preferences.shared.warnings = warnings
     }
 
@@ -287,33 +293,9 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     private func updateSoundControlsEnabled() {
         let soundEnabled = !Preferences.shared.alertSound.isEmpty
         eventStartSoundPopup.isEnabled = soundEnabled
-        playSoundButton.isEnabled = soundEnabled
     }
 
-    // MARK: - Warning Row Management
-
-    private func addWarningRow(warning: AlertWarning) {
-        let row = WarningRowView(
-            warning: warning,
-            onDelete: { [weak self] row in
-                self?.removeWarningRow(row)
-            },
-            onChange: { [weak self] in
-                self?.saveWarnings()
-            }
-        )
-        warningRows.append(row)
-        warningsStackView.addArrangedSubview(row)
-    }
-
-    private func removeWarningRow(_ row: WarningRowView) {
-        if let index = warningRows.firstIndex(where: { $0 === row }) {
-            warningRows.remove(at: index)
-            warningsStackView.removeArrangedSubview(row)
-            row.removeFromSuperview()
-            saveWarnings()
-        }
-    }
+    // MARK: - Warning Management
 
     @objc private func addWarning() {
         let prefs = Preferences.shared
@@ -322,8 +304,190 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             sound: prefs.alertSound,
             soundDuration: prefs.eventStartSoundDuration
         )
-        addWarningRow(warning: newWarning)
+        warnings.append(newWarning)
+        warningsTableView.reloadData()
         saveWarnings()
+    }
+
+    @objc private func removeWarning(_ sender: NSButton) {
+        let row = warningsTableView.row(for: sender)
+        guard row >= 0 && row < warnings.count else { return }
+        warnings.remove(at: row)
+        warningsTableView.reloadData()
+        saveWarnings()
+    }
+
+    @objc private func warningMinutesChanged(_ sender: NSStepper) {
+        let row = warningsTableView.row(for: sender)
+        guard row >= 0 && row < warnings.count else { return }
+        warnings[row].minutesBefore = sender.integerValue
+        // Update the text field in the same row (find the editable-looking text field)
+        if let cellView = warningsTableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? NSView {
+            let textFields = cellView.subviews.compactMap { $0 as? NSTextField }
+            // The minutes field is the one with a border/bezel (not a label)
+            if let minutesField = textFields.first(where: { $0.isBordered }) {
+                minutesField.stringValue = "\(sender.integerValue)"
+            }
+        }
+        saveWarnings()
+    }
+
+    @objc private func warningSoundChanged(_ sender: NSPopUpButton) {
+        let row = warningsTableView.row(for: sender)
+        guard row >= 0 && row < warnings.count else { return }
+        let index = sender.indexOfSelectedItem
+        warnings[row].sound = Preferences.availableSounds[index].id
+        updateWarningDurationPopup(at: row)
+        saveWarnings()
+        playSound(warnings[row].sound, forDuration: warnings[row].soundDuration)
+    }
+
+    @objc private func warningDurationChanged(_ sender: NSPopUpButton) {
+        let row = warningsTableView.row(for: sender)
+        guard row >= 0 && row < warnings.count else { return }
+        let index = sender.indexOfSelectedItem
+        warnings[row].soundDuration = soundDurationOptions[index].value
+        saveWarnings()
+        playSound(warnings[row].sound, forDuration: warnings[row].soundDuration)
+    }
+
+    private func updateWarningDurationPopup(at row: Int) {
+        guard row >= 0 && row < warnings.count else { return }
+        let warning = warnings[row]
+
+        // Duration popup is in content column (0), find it by checking all popups
+        if let cellView = warningsTableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? NSView {
+            let popups = cellView.subviews.compactMap { $0 as? NSPopUpButton }
+            // Duration popup is the second popup (index 1)
+            if popups.count > 1 {
+                popups[1].isEnabled = !warning.sound.isEmpty
+            }
+        }
+    }
+
+    // MARK: - NSTableViewDataSource
+
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return warnings.count
+    }
+
+    // MARK: - NSTableViewDelegate
+
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard row < warnings.count, let columnId = tableColumn?.identifier.rawValue else { return nil }
+        let warning = warnings[row]
+
+        let cellView = NSView()
+
+        switch columnId {
+        case "content":
+            // Minutes text field
+            let minutesField = NSTextField()
+            minutesField.translatesAutoresizingMaskIntoConstraints = false
+            minutesField.stringValue = "\(warning.minutesBefore)"
+            minutesField.alignment = .center
+            minutesField.isEditable = false
+            minutesField.isSelectable = false
+            minutesField.isBordered = true
+            minutesField.bezelStyle = .roundedBezel
+            cellView.addSubview(minutesField)
+
+            // Minutes stepper
+            let stepper = NSStepper()
+            stepper.translatesAutoresizingMaskIntoConstraints = false
+            stepper.minValue = 1
+            stepper.maxValue = 60
+            stepper.integerValue = warning.minutesBefore
+            stepper.target = self
+            stepper.action = #selector(warningMinutesChanged(_:))
+            cellView.addSubview(stepper)
+
+            // "min before, play" label
+            let beforeLabel = NSTextField(labelWithString: "min before, play")
+            beforeLabel.translatesAutoresizingMaskIntoConstraints = false
+            cellView.addSubview(beforeLabel)
+
+            // Sound popup
+            let soundPopup = NSPopUpButton()
+            soundPopup.translatesAutoresizingMaskIntoConstraints = false
+            soundPopup.controlSize = .small
+            soundPopup.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
+            for sound in Preferences.availableSounds {
+                soundPopup.addItem(withTitle: sound.name)
+            }
+            if let soundIndex = Preferences.availableSounds.firstIndex(where: { $0.id == warning.sound }) {
+                soundPopup.selectItem(at: soundIndex)
+            }
+            soundPopup.target = self
+            soundPopup.action = #selector(warningSoundChanged(_:))
+            cellView.addSubview(soundPopup)
+
+            // "for max" label
+            let forMaxLabel = NSTextField(labelWithString: "for max")
+            forMaxLabel.translatesAutoresizingMaskIntoConstraints = false
+            cellView.addSubview(forMaxLabel)
+
+            // Duration popup
+            let durationPopup = NSPopUpButton()
+            durationPopup.translatesAutoresizingMaskIntoConstraints = false
+            durationPopup.controlSize = .small
+            durationPopup.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
+            for option in soundDurationOptions {
+                durationPopup.addItem(withTitle: option.title)
+            }
+            if let durationIndex = soundDurationOptions.firstIndex(where: { $0.value == warning.soundDuration }) {
+                durationPopup.selectItem(at: durationIndex)
+            }
+            durationPopup.isEnabled = !warning.sound.isEmpty
+            durationPopup.target = self
+            durationPopup.action = #selector(warningDurationChanged(_:))
+            cellView.addSubview(durationPopup)
+
+            NSLayoutConstraint.activate([
+                minutesField.leadingAnchor.constraint(equalTo: cellView.leadingAnchor),
+                minutesField.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+                minutesField.widthAnchor.constraint(equalToConstant: 32),
+
+                stepper.leadingAnchor.constraint(equalTo: minutesField.trailingAnchor, constant: 2),
+                stepper.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+
+                beforeLabel.leadingAnchor.constraint(equalTo: stepper.trailingAnchor, constant: 4),
+                beforeLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+
+                soundPopup.leadingAnchor.constraint(equalTo: beforeLabel.trailingAnchor, constant: 4),
+                soundPopup.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+                soundPopup.widthAnchor.constraint(equalToConstant: 110),
+
+                forMaxLabel.leadingAnchor.constraint(equalTo: soundPopup.trailingAnchor, constant: 4),
+                forMaxLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+
+                durationPopup.leadingAnchor.constraint(equalTo: forMaxLabel.trailingAnchor, constant: 4),
+                durationPopup.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+                durationPopup.widthAnchor.constraint(equalToConstant: 60),
+            ])
+
+        case "remove":
+            let button = NSButton(title: "", target: self, action: #selector(removeWarning(_:)))
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.bezelStyle = .rounded
+            button.controlSize = .small
+            if let trashImage = NSImage(systemSymbolName: "trash", accessibilityDescription: "Remove") {
+                button.image = trashImage
+            }
+            button.imagePosition = .imageOnly
+            cellView.addSubview(button)
+
+            NSLayoutConstraint.activate([
+                button.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
+                button.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+                button.widthAnchor.constraint(equalToConstant: 24),
+            ])
+
+        default:
+            break
+        }
+
+        return cellView
     }
 
     // MARK: - Actions
@@ -331,25 +495,35 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     @objc private func eventStartSoundChanged() {
         let index = eventStartSoundPopup.indexOfSelectedItem
         Preferences.shared.eventStartSoundDuration = soundDurationOptions[index].value
+        playEventAlertSound()
     }
 
     @objc private func alertSoundChanged() {
         let index = alertSoundPopup.indexOfSelectedItem
         Preferences.shared.alertSound = Preferences.availableSounds[index].id
         updateSoundControlsEnabled()
+        playEventAlertSound()
     }
 
-    @objc private func playSoundPressed() {
+    private func playEventAlertSound() {
+        let duration = Preferences.shared.eventStartSoundDuration
+        let soundName = Preferences.shared.alertSound
+        playSound(soundName, forDuration: duration)
+    }
+
+    private func fadeOutDuration(for duration: Double) -> TimeInterval {
+        if duration >= 3 { return 1.0 }
+        if duration >= 2 { return 0.5 }
+        return 0  // No fade for 1 second or less
+    }
+
+    private func playSound(_ soundName: String, forDuration duration: Double) {
         audioStopTimer?.invalidate()
         audioStopTimer = nil
         audioPlayer?.stop()
         audioPlayer = nil
 
-        let duration = Preferences.shared.eventStartSoundDuration
-        guard duration > 0 else { return }
-
-        let soundName = Preferences.shared.alertSound
-        guard !soundName.isEmpty,
+        guard duration > 0, !soundName.isEmpty,
               let soundURL = Bundle.main.url(forResource: soundName, withExtension: "mp3") else {
             return
         }
@@ -359,9 +533,24 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             audioPlayer?.prepareToPlay()
             audioPlayer?.play()
 
-            audioStopTimer = Timer.scheduledTimer(withTimeInterval: duration, repeats: false) { [weak self] _ in
-                self?.audioPlayer?.stop()
-                self?.audioPlayer = nil
+            let fadeDuration = fadeOutDuration(for: duration)
+            if fadeDuration > 0 {
+                // Start fade-out before duration ends, then stop after fade completes
+                let fadeStartTime = duration - fadeDuration
+                audioStopTimer = Timer.scheduledTimer(withTimeInterval: fadeStartTime, repeats: false) { [weak self] _ in
+                    self?.audioPlayer?.setVolume(0, fadeDuration: fadeDuration)
+                    // Schedule stop after fade completes
+                    Timer.scheduledTimer(withTimeInterval: fadeDuration, repeats: false) { [weak self] _ in
+                        self?.audioPlayer?.stop()
+                        self?.audioPlayer = nil
+                    }
+                }
+            } else {
+                // No fade, just stop at duration
+                audioStopTimer = Timer.scheduledTimer(withTimeInterval: duration, repeats: false) { [weak self] _ in
+                    self?.audioPlayer?.stop()
+                    self?.audioPlayer = nil
+                }
             }
         } catch {
             // Silently fail if audio playback fails
@@ -402,225 +591,5 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
 
     func windowWillClose(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
-    }
-}
-
-// MARK: - Warning Row View
-
-private class WarningRowView: NSView {
-    private(set) var warning: AlertWarning
-    private let onDelete: (WarningRowView) -> Void
-    private let onChange: () -> Void
-
-    private var minutesTextField: NSTextField!
-    private var minutesStepper: NSStepper!
-    private var soundPopup: NSPopUpButton!
-    private var durationPopup: NSPopUpButton!
-    private var playButton: NSButton!
-    private var deleteButton: NSButton!
-    private var audioPlayer: AVAudioPlayer?
-    private var audioStopTimer: Timer?
-
-    private static let soundDurationOptions: [(title: String, value: Double)] = [
-        ("No sound", 0),
-        ("1 second", 1.0),
-        ("2 seconds", 2.0),
-        ("3 seconds", 3.0),
-        ("4 seconds", 4.0),
-        ("5 seconds", 5.0),
-        ("6 seconds", 6.0),
-        ("7 seconds", 7.0),
-        ("8 seconds", 8.0),
-        ("9 seconds", 9.0),
-        ("10 seconds", 10.0)
-    ]
-
-    init(warning: AlertWarning,
-         onDelete: @escaping (WarningRowView) -> Void,
-         onChange: @escaping () -> Void) {
-        self.warning = warning
-        self.onDelete = onDelete
-        self.onChange = onChange
-        super.init(frame: .zero)
-        setupViews()
-        loadValues()
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setupViews() {
-        translatesAutoresizingMaskIntoConstraints = false
-
-        // Minutes text field
-        minutesTextField = NSTextField()
-        minutesTextField.translatesAutoresizingMaskIntoConstraints = false
-        minutesTextField.alignment = .center
-        minutesTextField.isEditable = false
-        minutesTextField.isSelectable = false
-        minutesTextField.isBordered = true
-        minutesTextField.bezelStyle = .roundedBezel
-        addSubview(minutesTextField)
-
-        // Stepper
-        minutesStepper = NSStepper()
-        minutesStepper.translatesAutoresizingMaskIntoConstraints = false
-        minutesStepper.minValue = 1
-        minutesStepper.maxValue = 60
-        minutesStepper.increment = 1
-        minutesStepper.valueWraps = false
-        minutesStepper.target = self
-        minutesStepper.action = #selector(minutesChanged)
-        addSubview(minutesStepper)
-
-        // "min," label
-        let minutesLabel = NSTextField(labelWithString: "min,")
-        minutesLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(minutesLabel)
-
-        // Sound popup
-        soundPopup = NSPopUpButton()
-        soundPopup.translatesAutoresizingMaskIntoConstraints = false
-        soundPopup.controlSize = .small
-        soundPopup.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
-        for sound in Preferences.availableSounds {
-            soundPopup.addItem(withTitle: sound.name)
-        }
-        soundPopup.target = self
-        soundPopup.action = #selector(soundChanged)
-        addSubview(soundPopup)
-
-        // Duration popup
-        durationPopup = NSPopUpButton()
-        durationPopup.translatesAutoresizingMaskIntoConstraints = false
-        durationPopup.controlSize = .small
-        durationPopup.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
-        for option in Self.soundDurationOptions {
-            durationPopup.addItem(withTitle: option.title)
-        }
-        durationPopup.target = self
-        durationPopup.action = #selector(durationChanged)
-        addSubview(durationPopup)
-
-        // Play button
-        playButton = NSButton(title: "▶", target: self, action: #selector(playPressed))
-        playButton.translatesAutoresizingMaskIntoConstraints = false
-        playButton.bezelStyle = .rounded
-        playButton.controlSize = .small
-        addSubview(playButton)
-
-        // Delete button
-        deleteButton = NSButton(title: "- Remove", target: self, action: #selector(deletePressed))
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.bezelStyle = .rounded
-        deleteButton.controlSize = .small
-        addSubview(deleteButton)
-
-        NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 26),
-
-            minutesTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
-            minutesTextField.centerYAnchor.constraint(equalTo: centerYAnchor),
-            minutesTextField.widthAnchor.constraint(equalToConstant: 40),
-
-            minutesStepper.leadingAnchor.constraint(equalTo: minutesTextField.trailingAnchor, constant: 4),
-            minutesStepper.centerYAnchor.constraint(equalTo: centerYAnchor),
-
-            minutesLabel.leadingAnchor.constraint(equalTo: minutesStepper.trailingAnchor, constant: 4),
-            minutesLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-
-            soundPopup.leadingAnchor.constraint(equalTo: minutesLabel.trailingAnchor, constant: 4),
-            soundPopup.centerYAnchor.constraint(equalTo: centerYAnchor),
-            soundPopup.widthAnchor.constraint(equalToConstant: 120),
-
-            durationPopup.leadingAnchor.constraint(equalTo: soundPopup.trailingAnchor, constant: 4),
-            durationPopup.centerYAnchor.constraint(equalTo: centerYAnchor),
-            durationPopup.widthAnchor.constraint(equalToConstant: 80),
-
-            playButton.leadingAnchor.constraint(equalTo: durationPopup.trailingAnchor, constant: 4),
-            playButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            playButton.widthAnchor.constraint(equalToConstant: 24),
-
-            deleteButton.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 4),
-            deleteButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            deleteButton.widthAnchor.constraint(equalToConstant: 70),
-
-            trailingAnchor.constraint(greaterThanOrEqualTo: deleteButton.trailingAnchor),
-        ])
-    }
-
-    private func loadValues() {
-        minutesTextField.stringValue = "\(warning.minutesBefore)"
-        minutesStepper.integerValue = warning.minutesBefore
-
-        if let soundIndex = Preferences.availableSounds.firstIndex(where: { $0.id == warning.sound }) {
-            soundPopup.selectItem(at: soundIndex)
-        }
-
-        if let durationIndex = Self.soundDurationOptions.firstIndex(where: { $0.value == warning.soundDuration }) {
-            durationPopup.selectItem(at: durationIndex)
-        }
-
-        updatePlayButtonEnabled()
-    }
-
-    private func updatePlayButtonEnabled() {
-        let hasSound = !warning.sound.isEmpty && warning.soundDuration > 0
-        playButton.isEnabled = hasSound
-        durationPopup.isEnabled = !warning.sound.isEmpty
-    }
-
-    @objc private func minutesChanged() {
-        let minutes = minutesStepper.integerValue
-        minutesTextField.stringValue = "\(minutes)"
-        warning.minutesBefore = minutes
-        onChange()
-    }
-
-    @objc private func soundChanged() {
-        let index = soundPopup.indexOfSelectedItem
-        warning.sound = Preferences.availableSounds[index].id
-        updatePlayButtonEnabled()
-        onChange()
-    }
-
-    @objc private func durationChanged() {
-        let index = durationPopup.indexOfSelectedItem
-        warning.soundDuration = Self.soundDurationOptions[index].value
-        updatePlayButtonEnabled()
-        onChange()
-    }
-
-    @objc private func playPressed() {
-        audioStopTimer?.invalidate()
-        audioStopTimer = nil
-        audioPlayer?.stop()
-        audioPlayer = nil
-
-        guard warning.soundDuration > 0, !warning.sound.isEmpty,
-              let soundURL = Bundle.main.url(forResource: warning.sound, withExtension: "mp3") else {
-            return
-        }
-
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-            audioPlayer?.prepareToPlay()
-            audioPlayer?.play()
-
-            audioStopTimer = Timer.scheduledTimer(withTimeInterval: warning.soundDuration, repeats: false) { [weak self] _ in
-                self?.audioPlayer?.stop()
-                self?.audioPlayer = nil
-            }
-        } catch {
-            // Silently fail
-        }
-    }
-
-    @objc private func deletePressed() {
-        audioStopTimer?.invalidate()
-        audioPlayer?.stop()
-        onDelete(self)
     }
 }

@@ -165,6 +165,12 @@ final class AlertWindowController: NSWindowController {
         playAlertSound()
     }
 
+    private func fadeOutDuration(for duration: Double) -> TimeInterval {
+        if duration >= 3 { return 1.0 }
+        if duration >= 2 { return 0.5 }
+        return 0  // No fade for 1 second or less
+    }
+
     private func playAlertSound() {
         let (soundName, duration) = soundSettings(for: alertType)
         guard duration > 0, !soundName.isEmpty else { return }
@@ -178,9 +184,24 @@ final class AlertWindowController: NSWindowController {
             audioPlayer?.prepareToPlay()
             audioPlayer?.play()
 
-            // Schedule stop based on alert type
-            audioStopTimer = Timer.scheduledTimer(withTimeInterval: duration, repeats: false) { [weak self] _ in
-                self?.stopAlertSound()
+            let fadeDuration = fadeOutDuration(for: duration)
+            if fadeDuration > 0 {
+                // Start fade-out before duration ends, then stop after fade completes
+                let fadeStartTime = duration - fadeDuration
+                audioStopTimer = Timer.scheduledTimer(withTimeInterval: fadeStartTime, repeats: false) { [weak self] _ in
+                    self?.audioPlayer?.setVolume(0, fadeDuration: fadeDuration)
+                    // Schedule stop after fade completes
+                    Timer.scheduledTimer(withTimeInterval: fadeDuration, repeats: false) { [weak self] _ in
+                        self?.audioPlayer?.stop()
+                        self?.audioPlayer = nil
+                    }
+                }
+            } else {
+                // No fade, just stop at duration
+                audioStopTimer = Timer.scheduledTimer(withTimeInterval: duration, repeats: false) { [weak self] _ in
+                    self?.audioPlayer?.stop()
+                    self?.audioPlayer = nil
+                }
             }
         } catch {
             // Silently fail if audio playback fails
