@@ -115,7 +115,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(launchAtLoginCheckbox)
 
         // Show window on launch checkbox
-        showWindowOnLaunchCheckbox = createCheckbox(title: "Show app window on launch", action: #selector(showWindowOnLaunchToggled))
+        showWindowOnLaunchCheckbox = createCheckbox(title: "Show welcome popup on startup", action: #selector(showWindowOnLaunchToggled))
         contentView.addSubview(showWindowOnLaunchCheckbox)
 
         NSLayoutConstraint.activate([
@@ -512,7 +512,7 @@ private class WarningRowView: NSView {
         addSubview(playButton)
 
         // Delete button
-        deleteButton = NSButton(title: "−", target: self, action: #selector(deletePressed))
+        deleteButton = NSButton(title: "- Remove", target: self, action: #selector(deletePressed))
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.bezelStyle = .rounded
         deleteButton.controlSize = .small
@@ -545,7 +545,7 @@ private class WarningRowView: NSView {
 
             deleteButton.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 4),
             deleteButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            deleteButton.widthAnchor.constraint(equalToConstant: 24),
+            deleteButton.widthAnchor.constraint(equalToConstant: 70),
 
             trailingAnchor.constraint(greaterThanOrEqualTo: deleteButton.trailingAnchor),
         ])

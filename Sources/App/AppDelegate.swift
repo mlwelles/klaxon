@@ -16,12 +16,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let uptime = ProcessInfo.processInfo.systemUptime
         launchedAtLogin = uptime < 60
 
-        setupMenuBarItem()
-
-        // Show welcome modal on first launch before requesting calendar access
+        // On first launch, show welcome window before setting up menu bar or requesting calendar access
         if !Preferences.shared.hasLaunchedBefore {
             showWelcomeAndRequestAccess()
         } else {
+            setupMenuBarItem()
             requestCalendarAccess()
             // Show welcome window if manually launched and preference is enabled
             if !launchedAtLogin && Preferences.shared.showWindowOnLaunch {
@@ -36,26 +35,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         welcomeWindowController = WelcomeWindowController(
             onDismiss: { [weak self] in
                 Preferences.shared.hasLaunchedBefore = true
+                Preferences.shared.showWindowOnLaunch = false
+                self?.setupMenuBarItem()
                 self?.requestCalendarAccess()
-            },
-            onOpenPreferences: { [weak self] in
-                DispatchQueue.main.async {
-                    self?.openPreferences()
-                }
             }
         )
         welcomeWindowController?.showWindow(nil)
     }
 
     private func showWelcome() {
-        welcomeWindowController = WelcomeWindowController(
-            onDismiss: {},
-            onOpenPreferences: { [weak self] in
-                DispatchQueue.main.async {
-                    self?.openPreferences()
-                }
-            }
-        )
+        welcomeWindowController = WelcomeWindowController(onDismiss: {})
         welcomeWindowController?.showWindow(nil)
     }
 

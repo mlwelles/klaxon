@@ -2,11 +2,9 @@ import AppKit
 
 final class WelcomeWindowController: NSWindowController {
     private var onDismiss: (() -> Void)?
-    private var onOpenPreferences: (() -> Void)?
 
-    init(onDismiss: @escaping () -> Void, onOpenPreferences: (() -> Void)? = nil) {
+    init(onDismiss: @escaping () -> Void) {
         self.onDismiss = onDismiss
-        self.onOpenPreferences = onOpenPreferences
 
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 400, height: 320),
@@ -46,6 +44,15 @@ final class WelcomeWindowController: NSWindowController {
         titleLabel.frame = NSRect(x: 20, y: 185, width: 360, height: 30)
         contentView.addSubview(titleLabel)
 
+        // Copyright
+        let year = Calendar.current.component(.year, from: Date())
+        let copyrightLabel = NSTextField(labelWithString: "© \(year) Michael L. Welles")
+        copyrightLabel.font = .systemFont(ofSize: 11)
+        copyrightLabel.alignment = .center
+        copyrightLabel.textColor = .secondaryLabelColor
+        copyrightLabel.frame = NSRect(x: 20, y: 167, width: 360, height: 16)
+        contentView.addSubview(copyrightLabel)
+
         // Explanation text
         let explanationText = """
         Klaxon monitors your calendar and sounds an unmissable alarm when meetings are about to start.
@@ -58,18 +65,12 @@ final class WelcomeWindowController: NSWindowController {
         explanationLabel.frame = NSRect(x: 30, y: 55, width: 340, height: 120)
         contentView.addSubview(explanationLabel)
 
-        // Preferences button
-        let prefsButton = NSButton(title: "Preferences", target: self, action: #selector(preferencesPressed))
-        prefsButton.bezelStyle = .rounded
-        prefsButton.frame = NSRect(x: 105, y: 15, width: 95, height: 32)
-        contentView.addSubview(prefsButton)
-
-        // Dismiss button
-        let dismissButton = NSButton(title: "Dismiss", target: self, action: #selector(dismissPressed))
-        dismissButton.bezelStyle = .rounded
-        dismissButton.keyEquivalent = "\r"
-        dismissButton.frame = NSRect(x: 205, y: 15, width: 90, height: 32)
-        contentView.addSubview(dismissButton)
+        // OK button
+        let okButton = NSButton(title: "OK", target: self, action: #selector(okPressed))
+        okButton.bezelStyle = .rounded
+        okButton.keyEquivalent = "\r"
+        okButton.frame = NSRect(x: 155, y: 15, width: 90, height: 32)
+        contentView.addSubview(okButton)
 
         window.contentView = contentView
     }
@@ -81,16 +82,9 @@ final class WelcomeWindowController: NSWindowController {
         NSApp.activate(ignoringOtherApps: true)
     }
 
-    @objc private func dismissPressed() {
+    @objc private func okPressed() {
         window?.close()
         NSApp.setActivationPolicy(.accessory)
         onDismiss?()
-    }
-
-    @objc private func preferencesPressed() {
-        window?.close()
-        NSApp.setActivationPolicy(.accessory)
-        onDismiss?()
-        onOpenPreferences?()
     }
 }
