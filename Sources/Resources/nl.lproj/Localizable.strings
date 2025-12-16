@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Dutch localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "Over Klaxon";
+"menu.preferences" = "Voorkeuren...";
+"menu.quit" = "Stop";
+
+// MARK: - Preferences Window
+"preferences.title" = "Klaxon Voorkeuren";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Gebeurtenisalarm";
+"preferences.eventAlert.description" = "Alarm bij het begin van een gebeurtenis.";
+"preferences.eventAlert.playSound" = "Geluid afspelen:";
+"preferences.eventAlert.duration" = "Duur:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Waarschuwingsalarmen";
+"preferences.warningAlerts.description" = "Optionele alarmen voor aanvang van de gebeurtenis.";
+"preferences.warningAlerts.addButton" = "+ Toevoegen";
+"preferences.warningAlerts.column.when" = "Wanneer";
+"preferences.warningAlerts.column.playSound" = "Geluid";
+"preferences.warningAlerts.column.duration" = "Duur";
+"preferences.warningAlerts.minBeforeEvent" = "min voor gebeurtenis";
+
+// General Section
+"preferences.general.header" = "Algemeen";
+"preferences.general.startAtLogin" = "Start Klaxon bij inloggen";
+"preferences.general.showWelcome" = "Toon welkom bij starten";
+
+// Buttons
+"preferences.button.ok" = "OK";
+
+// Duration Options
+"preferences.duration.noSound" = "Geen geluid";
+"preferences.duration.oneSecond" = "1 seconde";
+"preferences.duration.seconds" = "%d seconden";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Geen audio";
+"sound.alarmBell" = "Alarmbel";
+"sound.alarmTone" = "Alarmtoon";
+"sound.alertBellsEcho" = "Bellenecho";
+"sound.battleshipAlarm" = "Slagschip-alarm";
+"sound.classicShortAlarm" = "Klassiek kort alarm";
+"sound.urgentSimpleTone" = "Dringende simpele toon";
+"sound.warningAlarmBuzzer" = "Waarschuwingszoemer";
+"sound.airHorn" = "Luchthoorn";
+"sound.redAlert" = "Rood alarm";
+"sound.schoolFireAlarm" = "School-brandalarm";
+
+// MARK: - Alert Window
+"alert.warning.title" = "%d minuut waarschuwing";
+"alert.starting.title" = "Gebeurtenis begint nu";
+"alert.warning.message" = "begint over %d minuut";
+"alert.warning.messagePlural" = "begint over %d minuten";
+"alert.starting.message" = "begint nu!";
+"alert.startTime" = "Start: %@";
+"alert.location" = "Locatie: %@";
+"alert.untitledEvent" = "Naamloze gebeurtenis";
+"alert.button.dismiss" = "Sluiten";
+"alert.button.openEvent" = "Open gebeurtenis";
+
+// MARK: - Welcome Window
+"welcome.title" = "Welkom bij Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon bewaakt je agenda en laat een onmisbare alarm klinken wanneer je vergaderingen op het punt staan te beginnen.\n\nNa het sluiten van dit venster blijft Klaxon op de achtergrond draaien. Zoek het belpictogram in je menubalk om toegang te krijgen tot voorkeuren en bedieningselementen.";
+"welcome.button.ok" = "OK";
+
+// MARK: - About Window
+"about.title" = "Over Klaxon";
+"about.version" = "Versie %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Uitgebracht onder de MIT-licentie als open source.";
+"about.description" = "Klaxon bewaakt je agenda en laat het alarm klinken wanneer je vergaderingen op het punt staan te beginnen. Mis nooit meer een vergadering!";
+"about.assistive" = "Ontworpen als hulpmiddel voor mensen met ADHD, tijdsblindheid of iedereen die opgaat in het werk en een onmisbare herinnering nodig heeft.";
+"about.credits.header" = "Credits";
+"about.credits.icon" = "Pictogram: Electric Bell door Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell door battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Publiek domein, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Mixkit-licentie, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Mixkit-licentie, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Agenda-toegang vereist";
+"calendar.accessRequired.message" = "Klaxon heeft toegang nodig tot je agenda's om je te informeren over aankomende gebeurtenissen. Verleen agenda-toegang in Systeeminstellingen > Privacy en beveiliging > Agenda's.";
+"calendar.accessRequired.retry" = "Opnieuw proberen";
+"calendar.accessRequired.quit" = "Stop";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Kan inlogitem niet bijwerken";
