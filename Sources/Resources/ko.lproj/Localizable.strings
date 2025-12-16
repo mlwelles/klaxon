@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Korean localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "Klaxon에 관하여";
+"menu.preferences" = "환경설정...";
+"menu.quit" = "종료";
+
+// MARK: - Preferences Window
+"preferences.title" = "Klaxon 환경설정";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "이벤트 알림";
+"preferences.eventAlert.description" = "이벤트 시작 시 표시되는 알림.";
+"preferences.eventAlert.playSound" = "소리 재생:";
+"preferences.eventAlert.duration" = "길이:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "경고 알림";
+"preferences.warningAlerts.description" = "이벤트 시작 전 선택적 알림.";
+"preferences.warningAlerts.addButton" = "+ 추가";
+"preferences.warningAlerts.column.when" = "시간";
+"preferences.warningAlerts.column.playSound" = "소리";
+"preferences.warningAlerts.column.duration" = "길이";
+"preferences.warningAlerts.minBeforeEvent" = "분 전";
+
+// General Section
+"preferences.general.header" = "일반";
+"preferences.general.startAtLogin" = "로그인 시 Klaxon 시작";
+"preferences.general.showWelcome" = "시작 시 환영 화면 표시";
+
+// Buttons
+"preferences.button.ok" = "확인";
+
+// Duration Options
+"preferences.duration.noSound" = "소리 없음";
+"preferences.duration.oneSecond" = "1초";
+"preferences.duration.seconds" = "%d초";
+
+// MARK: - Sound Names
+"sound.noAudio" = "오디오 없음";
+"sound.alarmBell" = "알람 벨";
+"sound.alarmTone" = "알람 톤";
+"sound.alertBellsEcho" = "벨 에코";
+"sound.battleshipAlarm" = "전함 알람";
+"sound.classicShortAlarm" = "클래식 짧은 알람";
+"sound.urgentSimpleTone" = "긴급 심플 톤";
+"sound.warningAlarmBuzzer" = "경고 버저";
+"sound.airHorn" = "에어 혼";
+"sound.redAlert" = "레드 알러트";
+"sound.schoolFireAlarm" = "학교 화재 경보";
+
+// MARK: - Alert Window
+"alert.warning.title" = "%d분 전 경고";
+"alert.starting.title" = "이벤트가 지금 시작됩니다";
+"alert.warning.message" = "%d분 후 시작";
+"alert.warning.messagePlural" = "%d분 후 시작";
+"alert.starting.message" = "지금 시작합니다!";
+"alert.startTime" = "시작: %@";
+"alert.location" = "장소: %@";
+"alert.untitledEvent" = "제목 없는 이벤트";
+"alert.button.dismiss" = "닫기";
+"alert.button.openEvent" = "이벤트 열기";
+
+// MARK: - Welcome Window
+"welcome.title" = "Klaxon에 오신 것을 환영합니다";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon은 캘린더를 모니터링하고 회의가 시작되기 전에 놓칠 수 없는 알람을 울립니다.\n\n이 창을 닫으면 Klaxon은 백그라운드에서 계속 실행됩니다. 메뉴 막대에서 벨 아이콘을 찾아 환경설정과 컨트롤에 접근하세요.";
+"welcome.button.ok" = "확인";
+
+// MARK: - About Window
+"about.title" = "Klaxon에 관하여";
+"about.version" = "버전 %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "MIT 라이선스 하에 오픈 소스로 배포됨.";
+"about.description" = "Klaxon은 캘린더를 모니터링하고 회의가 시작되기 전에 알람을 울립니다. 다시는 회의를 놓치지 마세요!";
+"about.assistive" = "ADHD, 시간 맹목 또는 일에 몰두하여 놓칠 수 없는 알림이 필요한 분들을 위한 보조 도구로 설계되었습니다.";
+"about.credits.header" = "크레딧";
+"about.credits.icon" = "아이콘: Electric Bell by Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell by battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (퍼블릭 도메인, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Mixkit 라이선스, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Mixkit 라이선스, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "캘린더 접근 권한 필요";
+"calendar.accessRequired.message" = "Klaxon은 예정된 이벤트를 알리기 위해 캘린더 접근 권한이 필요합니다. 시스템 설정 > 개인 정보 보호 및 보안 > 캘린더에서 캘린더 접근을 허용해 주세요.";
+"calendar.accessRequired.retry" = "다시 시도";
+"calendar.accessRequired.quit" = "종료";
+
+// MARK: - Login Item
+"loginItem.error.title" = "로그인 항목 업데이트 실패";
