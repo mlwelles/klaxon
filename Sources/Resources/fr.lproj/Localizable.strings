@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  French localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "À propos de Klaxon";
+"menu.preferences" = "Préférences...";
+"menu.quit" = "Quitter";
+
+// MARK: - Preferences Window
+"preferences.title" = "Préférences Klaxon";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Alerte d'événement";
+"preferences.eventAlert.description" = "Alerte affichée au début d'un événement.";
+"preferences.eventAlert.playSound" = "Jouer le son :";
+"preferences.eventAlert.duration" = "Durée :";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Alertes d'avertissement";
+"preferences.warningAlerts.description" = "Alertes optionnelles avant le début de l'événement.";
+"preferences.warningAlerts.addButton" = "+ Ajouter";
+"preferences.warningAlerts.column.when" = "Quand";
+"preferences.warningAlerts.column.playSound" = "Son";
+"preferences.warningAlerts.column.duration" = "Durée";
+"preferences.warningAlerts.minBeforeEvent" = "min avant l'événement";
+
+// General Section
+"preferences.general.header" = "Général";
+"preferences.general.startAtLogin" = "Démarrer Klaxon à la connexion";
+"preferences.general.showWelcome" = "Afficher l'accueil au démarrage";
+
+// Buttons
+"preferences.button.ok" = "OK";
+
+// Duration Options
+"preferences.duration.noSound" = "Pas de son";
+"preferences.duration.oneSecond" = "1 seconde";
+"preferences.duration.seconds" = "%d secondes";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Pas d'audio";
+"sound.alarmBell" = "Cloche d'alarme";
+"sound.alarmTone" = "Tonalité d'alarme";
+"sound.alertBellsEcho" = "Écho de cloches";
+"sound.battleshipAlarm" = "Alarme de cuirassé";
+"sound.classicShortAlarm" = "Alarme classique courte";
+"sound.urgentSimpleTone" = "Tonalité urgente simple";
+"sound.warningAlarmBuzzer" = "Buzzer d'avertissement";
+"sound.airHorn" = "Corne de brume";
+"sound.redAlert" = "Alerte rouge";
+"sound.schoolFireAlarm" = "Alarme incendie scolaire";
+
+// MARK: - Alert Window
+"alert.warning.title" = "Avertissement %d minute";
+"alert.starting.title" = "L'événement commence maintenant";
+"alert.warning.message" = "commence dans %d minute";
+"alert.warning.messagePlural" = "commence dans %d minutes";
+"alert.starting.message" = "commence maintenant !";
+"alert.startTime" = "Début : %@";
+"alert.location" = "Lieu : %@";
+"alert.untitledEvent" = "Événement sans titre";
+"alert.button.dismiss" = "Fermer";
+"alert.button.openEvent" = "Ouvrir l'événement";
+
+// MARK: - Welcome Window
+"welcome.title" = "Bienvenue dans Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon surveille votre calendrier et sonne une alarme immanquable lorsque vos réunions sont sur le point de commencer.\n\nUne fois cette fenêtre fermée, Klaxon continuera à fonctionner en arrière-plan. Recherchez l'icône de cloche dans votre barre de menus pour accéder aux préférences et aux contrôles.";
+"welcome.button.ok" = "OK";
+
+// MARK: - About Window
+"about.title" = "À propos de Klaxon";
+"about.version" = "Version %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Publié sous licence MIT en open source.";
+"about.description" = "Klaxon surveille votre calendrier et sonne l'alarme lorsque vos réunions sont sur le point de commencer. Ne manquez plus jamais une réunion !";
+"about.assistive" = "Conçu comme outil d'assistance pour les personnes atteintes de TDAH, de cécité temporelle ou toute personne absorbée par son travail qui a besoin d'un rappel immanquable.";
+"about.credits.header" = "Crédits";
+"about.credits.icon" = "Icône : Electric Bell par Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell par battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Domaine public, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Licence Mixkit, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Licence Mixkit, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Accès au calendrier requis";
+"calendar.accessRequired.message" = "Klaxon a besoin d'accéder à vos calendriers pour vous notifier des événements à venir. Veuillez autoriser l'accès au calendrier dans Réglages système > Confidentialité et sécurité > Calendriers.";
+"calendar.accessRequired.retry" = "Réessayer";
+"calendar.accessRequired.quit" = "Quitter";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Échec de la mise à jour de l'élément de connexion";
