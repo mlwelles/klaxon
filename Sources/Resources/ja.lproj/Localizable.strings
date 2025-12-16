@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Japanese localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "Klaxonについて";
+"menu.preferences" = "設定...";
+"menu.quit" = "終了";
+
+// MARK: - Preferences Window
+"preferences.title" = "Klaxon 設定";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "イベントアラート";
+"preferences.eventAlert.description" = "イベント開始時に表示されるアラート。";
+"preferences.eventAlert.playSound" = "サウンドを再生:";
+"preferences.eventAlert.duration" = "長さ:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "警告アラート";
+"preferences.warningAlerts.description" = "イベント開始前のオプションアラート。";
+"preferences.warningAlerts.addButton" = "+ 追加";
+"preferences.warningAlerts.column.when" = "タイミング";
+"preferences.warningAlerts.column.playSound" = "サウンド";
+"preferences.warningAlerts.column.duration" = "長さ";
+"preferences.warningAlerts.minBeforeEvent" = "分前";
+
+// General Section
+"preferences.general.header" = "一般";
+"preferences.general.startAtLogin" = "ログイン時にKlaxonを起動";
+"preferences.general.showWelcome" = "起動時にようこそ画面を表示";
+
+// Buttons
+"preferences.button.ok" = "OK";
+
+// Duration Options
+"preferences.duration.noSound" = "サウンドなし";
+"preferences.duration.oneSecond" = "1秒";
+"preferences.duration.seconds" = "%d秒";
+
+// MARK: - Sound Names
+"sound.noAudio" = "オーディオなし";
+"sound.alarmBell" = "アラームベル";
+"sound.alarmTone" = "アラームトーン";
+"sound.alertBellsEcho" = "ベルエコー";
+"sound.battleshipAlarm" = "戦艦アラーム";
+"sound.classicShortAlarm" = "クラシック短アラーム";
+"sound.urgentSimpleTone" = "緊急シンプルトーン";
+"sound.warningAlarmBuzzer" = "警告ブザー";
+"sound.airHorn" = "エアホーン";
+"sound.redAlert" = "レッドアラート";
+"sound.schoolFireAlarm" = "学校火災警報";
+
+// MARK: - Alert Window
+"alert.warning.title" = "%d分前の警告";
+"alert.starting.title" = "イベントが今始まります";
+"alert.warning.message" = "%d分後に開始";
+"alert.warning.messagePlural" = "%d分後に開始";
+"alert.starting.message" = "今始まります！";
+"alert.startTime" = "開始: %@";
+"alert.location" = "場所: %@";
+"alert.untitledEvent" = "無題のイベント";
+"alert.button.dismiss" = "閉じる";
+"alert.button.openEvent" = "イベントを開く";
+
+// MARK: - Welcome Window
+"welcome.title" = "Klaxonへようこそ";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxonはカレンダーを監視し、会議が始まる前に見逃せないアラームを鳴らします。\n\nこのウィンドウを閉じると、Klaxonはバックグラウンドで動作し続けます。メニューバーのベルアイコンを探して、設定やコントロールにアクセスしてください。";
+"welcome.button.ok" = "OK";
+
+// MARK: - About Window
+"about.title" = "Klaxonについて";
+"about.version" = "バージョン %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "MITライセンスの下でオープンソースとして公開。";
+"about.description" = "Klaxonはカレンダーを監視し、会議が始まる前にアラームを鳴らします。もう会議を見逃しません！";
+"about.assistive" = "ADHD、時間盲、または仕事に没頭して見逃せないリマインダーが必要な方のための支援ツールとして設計されています。";
+"about.credits.header" = "クレジット";
+"about.credits.icon" = "アイコン: Electric Bell by Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell by battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (パブリックドメイン, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Mixkitライセンス, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Mixkitライセンス, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "カレンダーへのアクセスが必要";
+"calendar.accessRequired.message" = "Klaxonは今後のイベントを通知するためにカレンダーへのアクセスが必要です。システム設定 > プライバシーとセキュリティ > カレンダーでカレンダーへのアクセスを許可してください。";
+"calendar.accessRequired.retry" = "再試行";
+"calendar.accessRequired.quit" = "終了";
+
+// MARK: - Login Item
+"loginItem.error.title" = "ログイン項目の更新に失敗";
