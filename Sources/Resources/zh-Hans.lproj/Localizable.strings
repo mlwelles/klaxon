@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Chinese Simplified localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "关于 Klaxon";
+"menu.preferences" = "偏好设置...";
+"menu.quit" = "退出";
+
+// MARK: - Preferences Window
+"preferences.title" = "Klaxon 偏好设置";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "事件提醒";
+"preferences.eventAlert.description" = "事件开始时显示的提醒。";
+"preferences.eventAlert.playSound" = "播放声音:";
+"preferences.eventAlert.duration" = "时长:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "预警提醒";
+"preferences.warningAlerts.description" = "事件开始前的可选提醒。";
+"preferences.warningAlerts.addButton" = "+ 添加";
+"preferences.warningAlerts.column.when" = "时间";
+"preferences.warningAlerts.column.playSound" = "声音";
+"preferences.warningAlerts.column.duration" = "时长";
+"preferences.warningAlerts.minBeforeEvent" = "分钟前";
+
+// General Section
+"preferences.general.header" = "通用";
+"preferences.general.startAtLogin" = "登录时启动 Klaxon";
+"preferences.general.showWelcome" = "启动时显示欢迎界面";
+
+// Buttons
+"preferences.button.ok" = "好";
+
+// Duration Options
+"preferences.duration.noSound" = "无声音";
+"preferences.duration.oneSecond" = "1 秒";
+"preferences.duration.seconds" = "%d 秒";
+
+// MARK: - Sound Names
+"sound.noAudio" = "无音频";
+"sound.alarmBell" = "警铃";
+"sound.alarmTone" = "警报音";
+"sound.alertBellsEcho" = "铃声回响";
+"sound.battleshipAlarm" = "战舰警报";
+"sound.classicShortAlarm" = "经典短警报";
+"sound.urgentSimpleTone" = "紧急简单音";
+"sound.warningAlarmBuzzer" = "警告蜂鸣器";
+"sound.airHorn" = "气喇叭";
+"sound.redAlert" = "红色警报";
+"sound.schoolFireAlarm" = "学校火警";
+
+// MARK: - Alert Window
+"alert.warning.title" = "%d 分钟警告";
+"alert.starting.title" = "事件现在开始";
+"alert.warning.message" = "%d 分钟后开始";
+"alert.warning.messagePlural" = "%d 分钟后开始";
+"alert.starting.message" = "现在开始！";
+"alert.startTime" = "开始: %@";
+"alert.location" = "地点: %@";
+"alert.untitledEvent" = "无标题事件";
+"alert.button.dismiss" = "关闭";
+"alert.button.openEvent" = "打开事件";
+
+// MARK: - Welcome Window
+"welcome.title" = "欢迎使用 Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon 监控您的日历，在会议即将开始时发出不可错过的警报。\n\n关闭此窗口后，Klaxon 将继续在后台运行。在菜单栏中找到铃铛图标以访问偏好设置和控制。";
+"welcome.button.ok" = "好";
+
+// MARK: - About Window
+"about.title" = "关于 Klaxon";
+"about.version" = "版本 %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "以 MIT 许可证开源发布。";
+"about.description" = "Klaxon 监控您的日历，在会议即将开始时发出警报。再也不会错过会议！";
+"about.assistive" = "专为多动症、时间盲或任何沉浸于工作中需要不可错过提醒的人设计的辅助工具。";
+"about.credits.header" = "鸣谢";
+"about.credits.icon" = "图标: Electric Bell by Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell by battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (公共领域, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Mixkit 许可证, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Mixkit 许可证, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "需要日历访问权限";
+"calendar.accessRequired.message" = "Klaxon 需要访问您的日历以通知您即将到来的事件。请在系统设置 > 隐私与安全性 > 日历中授予日历访问权限。";
+"calendar.accessRequired.retry" = "重试";
+"calendar.accessRequired.quit" = "退出";
+
+// MARK: - Login Item
+"loginItem.error.title" = "更新登录项失败";
