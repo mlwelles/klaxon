@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Swahili localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "Kuhusu Klaxon";
+"menu.preferences" = "Mapendeleo...";
+"menu.quit" = "Ondoka";
+
+// MARK: - Preferences Window
+"preferences.title" = "Mapendeleo ya Klaxon";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Tahadhari ya Tukio";
+"preferences.eventAlert.description" = "Tahadhari inaonyeshwa tukio linapoanza.";
+"preferences.eventAlert.playSound" = "Cheza sauti:";
+"preferences.eventAlert.duration" = "Muda:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Tahadhari za Onyo";
+"preferences.warningAlerts.description" = "Tahadhari za hiari kabla ya tukio kuanza.";
+"preferences.warningAlerts.addButton" = "+ Ongeza";
+"preferences.warningAlerts.column.when" = "Wakati";
+"preferences.warningAlerts.column.playSound" = "Sauti";
+"preferences.warningAlerts.column.duration" = "Muda";
+"preferences.warningAlerts.minBeforeEvent" = "dak kabla ya tukio";
+
+// General Section
+"preferences.general.header" = "Jumla";
+"preferences.general.startAtLogin" = "Anza Klaxon wakati wa kuingia";
+"preferences.general.showWelcome" = "Onyesha karibu wakati wa kuanza";
+
+// Buttons
+"preferences.button.ok" = "Sawa";
+
+// Duration Options
+"preferences.duration.noSound" = "Hakuna sauti";
+"preferences.duration.oneSecond" = "Sekunde 1";
+"preferences.duration.seconds" = "Sekunde %d";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Hakuna sauti";
+"sound.alarmBell" = "Kengele ya Tahadhari";
+"sound.alarmTone" = "Toni ya Tahadhari";
+"sound.alertBellsEcho" = "Mwangwi wa Kengele";
+"sound.battleshipAlarm" = "Tahadhari ya Meli ya Vita";
+"sound.classicShortAlarm" = "Tahadhari Fupi ya Kawaida";
+"sound.urgentSimpleTone" = "Toni Rahisi ya Haraka";
+"sound.warningAlarmBuzzer" = "Kengele ya Onyo";
+"sound.airHorn" = "Honi ya Hewa";
+"sound.redAlert" = "Tahadhari Nyekundu";
+"sound.schoolFireAlarm" = "Tahadhari ya Moto Shuleni";
+
+// MARK: - Alert Window
+"alert.warning.title" = "Onyo la Dakika %d";
+"alert.starting.title" = "Tukio Linaanza Sasa";
+"alert.warning.message" = "inaanza katika dakika %d";
+"alert.warning.messagePlural" = "inaanza katika dakika %d";
+"alert.starting.message" = "inaanza sasa!";
+"alert.startTime" = "Kuanza: %@";
+"alert.location" = "Mahali: %@";
+"alert.untitledEvent" = "Tukio Bila Kichwa";
+"alert.button.dismiss" = "Funga";
+"alert.button.openEvent" = "Fungua Tukio";
+
+// MARK: - Welcome Window
+"welcome.title" = "Karibu Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon inafuatilia kalenda yako na kupiga kengele isiyokosa wakati mikutano yako inakaribia kuanza.\n\nUkishaifunga dirisha hili, Klaxon itaendelea kufanya kazi nyuma. Tafuta ikoni ya kengele kwenye upau wa menyu ili kufikia mapendeleo na udhibiti.";
+"welcome.button.ok" = "Sawa";
+
+// MARK: - About Window
+"about.title" = "Kuhusu Klaxon";
+"about.version" = "Toleo %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Imetolewa chini ya Leseni ya MIT kama chanzo huria.";
+"about.description" = "Klaxon inafuatilia kalenda yako na kupiga kengele wakati mikutano yako inakaribia kuanza. Usikose mkutano tena kamwe!";
+"about.assistive" = "Imeundwa kama zana ya kusaidia watu wenye ADHD, upofu wa muda, au yeyote anayezama katika kazi yake na anahitaji ukumbusho usiokosa.";
+"about.credits.header" = "Shukrani";
+"about.credits.icon" = "Ikoni: Electric Bell na Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell na battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Umma, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Leseni ya Mixkit, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Leseni ya Mixkit, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Upatikanaji wa Kalenda Unahitajika";
+"calendar.accessRequired.message" = "Klaxon inahitaji upatikanaji wa kalenda zako ili kukuarifu kuhusu matukio yanayokuja. Tafadhali ruhusu upatikanaji wa kalenda katika Mipangilio ya Mfumo > Faragha na Usalama > Kalenda.";
+"calendar.accessRequired.retry" = "Jaribu Tena";
+"calendar.accessRequired.quit" = "Ondoka";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Imeshindwa kusasisha kipengee cha kuingia";

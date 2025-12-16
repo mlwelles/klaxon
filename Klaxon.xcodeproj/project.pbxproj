@@ -76,6 +76,7 @@
 		A100003E229A0001 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A100003F229A0001 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A1000040229A0001 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1000050229A0001 /* sw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sw; path = sw.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A2000011229A0001 /* CalendarAccessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAccessTests.swift; sourceTree = "<group>"; };
 		A2000012229A0001 /* AlertWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowTests.swift; sourceTree = "<group>"; };
 		A2000013229A0001 /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
@@ -278,6 +279,7 @@
 				ja,
 				"zh-Hans",
 				ko,
+				sw,
 			);
 			mainGroup = A1000051229A0001;
 			productRefGroup = A1000054229A0001 /* Products */;
@@ -362,6 +364,7 @@
 				A100003E229A0001 /* ja */,
 				A100003F229A0001 /* zh-Hans */,
 				A1000040229A0001 /* ko */,
+				A1000050229A0001 /* sw */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
