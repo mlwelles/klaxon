@@ -9,7 +9,7 @@ final class AboutWindowController: NSWindowController {
             defer: false
         )
 
-        window.title = "About Klaxon"
+        window.title = NSLocalizedString("about.title", comment: "About window title")
         window.isReleasedWhenClosed = false
 
         super.init(window: window)
@@ -34,7 +34,7 @@ final class AboutWindowController: NSWindowController {
         contentView.addSubview(iconView)
 
         // App name
-        let appNameLabel = NSTextField(labelWithString: "Klaxon")
+        let appNameLabel = NSTextField(labelWithString: NSLocalizedString("app.name", comment: "App name"))
         appNameLabel.font = NSFont.boldSystemFont(ofSize: 20)
         appNameLabel.alignment = .center
         appNameLabel.frame = NSRect(x: 20, y: 345, width: 360, height: 28)
@@ -42,7 +42,7 @@ final class AboutWindowController: NSWindowController {
 
         // Version
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
-        let versionLabel = NSTextField(labelWithString: "Version \(version)")
+        let versionLabel = NSTextField(labelWithString: String(format: NSLocalizedString("about.version", comment: "Version %@"), version))
         versionLabel.font = NSFont.systemFont(ofSize: 12)
         versionLabel.alignment = .center
         versionLabel.textColor = .secondaryLabelColor
@@ -60,14 +60,14 @@ final class AboutWindowController: NSWindowController {
         contentView.addSubview(licenseLabel)
 
         // Description
-        let descriptionLabel = NSTextField(wrappingLabelWithString: "Klaxon watches your calendar and sounds the alarm when meetings are about to start. Never miss a meeting again!")
+        let descriptionLabel = NSTextField(wrappingLabelWithString: NSLocalizedString("about.description", comment: "About description"))
         descriptionLabel.font = NSFont.systemFont(ofSize: 12)
         descriptionLabel.alignment = .center
         descriptionLabel.frame = NSRect(x: 30, y: 232, width: 340, height: 45)
         contentView.addSubview(descriptionLabel)
 
         // Assistive purpose
-        let assistiveLabel = NSTextField(wrappingLabelWithString: "Designed as an assistive tool for people with ADHD, time blindness, or anyone who gets absorbed in their work and needs an unmissable reminder.")
+        let assistiveLabel = NSTextField(wrappingLabelWithString: NSLocalizedString("about.assistive", comment: "Assistive purpose description"))
         assistiveLabel.font = NSFont.systemFont(ofSize: 11)
         assistiveLabel.alignment = .center
         assistiveLabel.textColor = .secondaryLabelColor
@@ -75,14 +75,14 @@ final class AboutWindowController: NSWindowController {
         contentView.addSubview(assistiveLabel)
 
         // Credits header
-        let creditsHeader = NSTextField(labelWithString: "Credits")
+        let creditsHeader = NSTextField(labelWithString: NSLocalizedString("about.credits.header", comment: "Credits header"))
         creditsHeader.font = NSFont.boldSystemFont(ofSize: 11)
         creditsHeader.alignment = .center
         creditsHeader.frame = NSRect(x: 20, y: 152, width: 360, height: 16)
         contentView.addSubview(creditsHeader)
 
         // Icon credit
-        let iconCredit = NSTextField(labelWithString: "Icon: Electric Bell by Firkin (CC0, OpenClipart)")
+        let iconCredit = NSTextField(labelWithString: NSLocalizedString("about.credits.icon", comment: "Icon credit"))
         iconCredit.font = NSFont.systemFont(ofSize: 10)
         iconCredit.alignment = .center
         iconCredit.textColor = .secondaryLabelColor
@@ -91,10 +91,10 @@ final class AboutWindowController: NSWindowController {
 
         // Sound credits
         let soundCredits = [
-            "Fire Alarm Bell by battlestar10 (CC BY 3.0, SoundBible)",
-            "Air Horn, Red Alert, School Fire Alarm (Public Domain, SoundBible)",
-            "Alarm Tone, Alert Bells, Battleship Alarm (Mixkit License, Mixkit)",
-            "Classic Alarm, Urgent Tone, Warning Buzzer (Mixkit License, Mixkit)"
+            NSLocalizedString("about.credits.sound1", comment: "Sound credit 1"),
+            NSLocalizedString("about.credits.sound2", comment: "Sound credit 2"),
+            NSLocalizedString("about.credits.sound3", comment: "Sound credit 3"),
+            NSLocalizedString("about.credits.sound4", comment: "Sound credit 4")
         ]
 
         var yPosition: CGFloat = 118
@@ -121,7 +121,7 @@ final class AboutWindowController: NSWindowController {
         field.alignment = .center
 
         let year = Calendar.current.component(.year, from: Date())
-        let fullText = "© \(year) Michael L. Welles (@mlwelles)"
+        let fullText = String(format: NSLocalizedString("about.copyright", comment: "© %d Michael L. Welles (@mlwelles)"), year)
         let attributedString = NSMutableAttributedString(
             string: fullText,
             attributes: [.font: NSFont.systemFont(ofSize: 11)]
@@ -150,7 +150,7 @@ final class AboutWindowController: NSWindowController {
         field.isSelectable = true
         field.alignment = .center
 
-        let fullText = "Released under the MIT License as open source."
+        let fullText = NSLocalizedString("about.license", comment: "Released under the MIT License as open source.")
         let attributedString = NSMutableAttributedString(
             string: fullText,
             attributes: [

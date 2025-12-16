@@ -30,6 +30,7 @@
 		A2000001229A0001 /* CalendarAccessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000011229A0001 /* CalendarAccessTests.swift */; };
 		A2000002229A0001 /* AlertWindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012229A0001 /* AlertWindowTests.swift */; };
 		A2000003229A0001 /* PreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000013229A0001 /* PreferencesTests.swift */; };
+		A1000026229A0001 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1000036229A0001 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		A2000012229A0001 /* AlertWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowTests.swift; sourceTree = "<group>"; };
 		A2000013229A0001 /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
 		A2000031229A0001 /* KlaxonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KlaxonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000037229A0001 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 		A1000059229A0001 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A1000036229A0001 /* Localizable.strings */,
 				A1000019229A0001 /* fire-alarm-bell.mp3 */,
 				A100001B229A0001 /* mixkit-alarm-tone.mp3 */,
 				A100001C229A0001 /* mixkit-alert-bells-echo.mp3 */,
@@ -196,6 +199,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXVariantGroup section */
+		A1000036229A0001 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A1000037229A0001 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin PBXNativeTarget section */
 		A1000061229A0001 /* Klaxon */ = {
 			isa = PBXNativeTarget;
@@ -274,6 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1000026229A0001 /* Localizable.strings in Resources */,
 				A1000006229A0001 /* Assets.xcassets in Resources */,
 				A1000009229A0001 /* fire-alarm-bell.mp3 in Resources */,
 				A100000B229A0001 /* mixkit-alarm-tone.mp3 in Resources */,

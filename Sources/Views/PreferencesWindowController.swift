@@ -14,14 +14,16 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
     private var audioPlayer: AVAudioPlayer?
     private var audioStopTimer: Timer?
 
-    private let soundDurationOptions: [(title: String, value: Double)] = [
-        ("No sound", 0),
-        ("1 second", 1.0),
-        ("2 seconds", 2.0),
-        ("3 seconds", 3.0),
-        ("4 seconds", 4.0),
-        ("5 seconds", 5.0)
-    ]
+    private var soundDurationOptions: [(title: String, value: Double)] {
+        [
+            (NSLocalizedString("preferences.duration.noSound", comment: "No sound option"), 0),
+            (NSLocalizedString("preferences.duration.oneSecond", comment: "1 second"), 1.0),
+            (String(format: NSLocalizedString("preferences.duration.seconds", comment: "%d seconds"), 2), 2.0),
+            (String(format: NSLocalizedString("preferences.duration.seconds", comment: "%d seconds"), 3), 3.0),
+            (String(format: NSLocalizedString("preferences.duration.seconds", comment: "%d seconds"), 4), 4.0),
+            (String(format: NSLocalizedString("preferences.duration.seconds", comment: "%d seconds"), 5), 5.0)
+        ]
+    }
 
     init() {
         let window = NSWindow(
@@ -30,7 +32,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
             backing: .buffered,
             defer: false
         )
-        window.title = "Klaxon Preferences"
+        window.title = NSLocalizedString("preferences.title", comment: "Preferences window title")
         window.center()
 
         super.init(window: window)
@@ -51,15 +53,15 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         let contentView = NSView(frame: window.contentRect(forFrameRect: window.frame))
 
         // Event section header
-        let eventHeaderLabel = createSectionHeader("Event Alert")
+        let eventHeaderLabel = createSectionHeader(NSLocalizedString("preferences.eventAlert.header", comment: "Event Alert section header"))
         contentView.addSubview(eventHeaderLabel)
 
         // Event section description
-        let eventDescription = createNoteLabel("Alert shown when an event starts.")
+        let eventDescription = createNoteLabel(NSLocalizedString("preferences.eventAlert.description", comment: "Event alert description"))
         contentView.addSubview(eventDescription)
 
         // Sound selection row
-        let alertSoundLabel = createLabel("Play sound:")
+        let alertSoundLabel = createLabel(NSLocalizedString("preferences.eventAlert.playSound", comment: "Play sound label"))
         contentView.addSubview(alertSoundLabel)
 
         alertSoundPopup = createAlertSoundPopup()
@@ -67,18 +69,18 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
 
         // Duration row
-        let eventStartSoundLabel = createLabel("Duration:")
+        let eventStartSoundLabel = createLabel(NSLocalizedString("preferences.eventAlert.duration", comment: "Duration label"))
         contentView.addSubview(eventStartSoundLabel)
 
         eventStartSoundPopup = createSoundDurationPopup(action: #selector(eventStartSoundChanged))
         contentView.addSubview(eventStartSoundPopup)
 
         // Warnings section header
-        let warningsHeaderLabel = createSectionHeader("Warning Alerts")
+        let warningsHeaderLabel = createSectionHeader(NSLocalizedString("preferences.warningAlerts.header", comment: "Warning Alerts section header"))
         contentView.addSubview(warningsHeaderLabel)
 
         // Warnings section description
-        let warningsDescription = createNoteLabel("Optional alerts shown before event start.")
+        let warningsDescription = createNoteLabel(NSLocalizedString("preferences.warningAlerts.description", comment: "Warning alerts description"))
         contentView.addSubview(warningsDescription)
 
         // Warnings table view
@@ -94,17 +96,17 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         warningsTableView.usesAlternatingRowBackgroundColors = false
 
         let timeColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("time"))
-        timeColumn.title = "When"
+        timeColumn.title = NSLocalizedString("preferences.warningAlerts.column.when", comment: "When column header")
         timeColumn.width = 140
         warningsTableView.addTableColumn(timeColumn)
 
         let soundColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("sound"))
-        soundColumn.title = "Play Sound"
+        soundColumn.title = NSLocalizedString("preferences.warningAlerts.column.playSound", comment: "Play Sound column header")
         soundColumn.width = 150
         warningsTableView.addTableColumn(soundColumn)
 
         let durationColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("duration"))
-        durationColumn.title = "Duration"
+        durationColumn.title = NSLocalizedString("preferences.warningAlerts.column.duration", comment: "Duration column header")
         durationColumn.width = 90
         warningsTableView.addTableColumn(durationColumn)
 
@@ -123,22 +125,22 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         contentView.addSubview(warningsScrollView)
 
         // Add warning button
-        addWarningButton = NSButton(title: "+ Add", target: self, action: #selector(addWarning))
+        addWarningButton = NSButton(title: NSLocalizedString("preferences.warningAlerts.addButton", comment: "Add warning button"), target: self, action: #selector(addWarning))
         addWarningButton.translatesAutoresizingMaskIntoConstraints = false
         addWarningButton.bezelStyle = .rounded
         addWarningButton.controlSize = .small
         contentView.addSubview(addWarningButton)
 
         // General section header
-        let generalHeaderLabel = createSectionHeader("General")
+        let generalHeaderLabel = createSectionHeader(NSLocalizedString("preferences.general.header", comment: "General section header"))
         contentView.addSubview(generalHeaderLabel)
 
         // Launch at login checkbox
-        launchAtLoginCheckbox = createCheckbox(title: "Start Klaxon at login", action: #selector(launchAtLoginToggled))
+        launchAtLoginCheckbox = createCheckbox(title: NSLocalizedString("preferences.general.startAtLogin", comment: "Start at login checkbox"), action: #selector(launchAtLoginToggled))
         contentView.addSubview(launchAtLoginCheckbox)
 
         // Show window on launch checkbox
-        showWindowOnLaunchCheckbox = createCheckbox(title: "Show welcome on start", action: #selector(showWindowOnLaunchToggled))
+        showWindowOnLaunchCheckbox = createCheckbox(title: NSLocalizedString("preferences.general.showWelcome", comment: "Show welcome checkbox"), action: #selector(showWindowOnLaunchToggled))
         contentView.addSubview(showWindowOnLaunchCheckbox)
 
         NSLayoutConstraint.activate([
@@ -200,7 +202,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         ])
 
         // OK button at bottom
-        let okButton = NSButton(title: "OK", target: self, action: #selector(okPressed))
+        let okButton = NSButton(title: NSLocalizedString("preferences.button.ok", comment: "OK button"), target: self, action: #selector(okPressed))
         okButton.translatesAutoresizingMaskIntoConstraints = false
         okButton.bezelStyle = .rounded
         okButton.keyEquivalent = "\r"
@@ -449,7 +451,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
             cellView.addSubview(stepper)
 
             // "min before event" label
-            let minLabel = NSTextField(labelWithString: "min before event")
+            let minLabel = NSTextField(labelWithString: NSLocalizedString("preferences.warningAlerts.minBeforeEvent", comment: "min before event label"))
             minLabel.translatesAutoresizingMaskIntoConstraints = false
             cellView.addSubview(minLabel)
 
@@ -620,7 +622,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         } catch {
             launchAtLoginCheckbox.state = launchAtLoginCheckbox.state == .on ? .off : .on
             let alert = NSAlert()
-            alert.messageText = "Failed to update login item"
+            alert.messageText = NSLocalizedString("loginItem.error.title", comment: "Login item error title")
             alert.informativeText = error.localizedDescription
             alert.alertStyle = .warning
             alert.runModal()

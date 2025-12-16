@@ -38,18 +38,22 @@ final class AlertWindowController: NSWindowController {
     private static func windowTitle(for alertType: AlertType) -> String {
         switch alertType {
         case .warning(let minutes, _, _):
-            return "\(minutes) Minute Warning"
+            return String(format: NSLocalizedString("alert.warning.title", comment: "%d Minute Warning"), minutes)
         case .eventStarting:
-            return "Event Starting Now"
+            return NSLocalizedString("alert.starting.title", comment: "Event Starting Now")
         }
     }
 
     private func alertMessage(for alertType: AlertType) -> String {
         switch alertType {
         case .warning(let minutes, _, _):
-            return "starts in \(minutes) minute\(minutes == 1 ? "" : "s")"
+            if minutes == 1 {
+                return String(format: NSLocalizedString("alert.warning.message", comment: "starts in %d minute"), minutes)
+            } else {
+                return String(format: NSLocalizedString("alert.warning.messagePlural", comment: "starts in %d minutes"), minutes)
+            }
         case .eventStarting:
-            return "is starting now!"
+            return NSLocalizedString("alert.starting.message", comment: "is starting now!")
         }
     }
 
@@ -68,7 +72,7 @@ final class AlertWindowController: NSWindowController {
         let rightWidth: CGFloat = 320
 
         // Event title
-        let eventTitle = event.title?.isEmpty == false ? event.title! : "Untitled Event"
+        let eventTitle = event.title?.isEmpty == false ? event.title! : NSLocalizedString("alert.untitledEvent", comment: "Untitled Event")
         let titleLabel = NSTextField(labelWithString: eventTitle)
         titleLabel.font = NSFont.boldSystemFont(ofSize: 18)
         titleLabel.alignment = .left
@@ -89,7 +93,7 @@ final class AlertWindowController: NSWindowController {
         timeFormatter.dateStyle = .medium
         let timeString = timeFormatter.string(from: event.startDate)
 
-        let timeLabel = NSTextField(labelWithString: "Start: \(timeString)")
+        let timeLabel = NSTextField(labelWithString: String(format: NSLocalizedString("alert.startTime", comment: "Start: %@"), timeString))
         timeLabel.font = NSFont.systemFont(ofSize: 12)
         timeLabel.alignment = .left
         timeLabel.textColor = .tertiaryLabelColor
@@ -98,7 +102,7 @@ final class AlertWindowController: NSWindowController {
 
         // Location
         if let location = event.location, !location.isEmpty {
-            let locationLabel = NSTextField(labelWithString: "Location: \(location)")
+            let locationLabel = NSTextField(labelWithString: String(format: NSLocalizedString("alert.location", comment: "Location: %@"), location))
             locationLabel.font = NSFont.systemFont(ofSize: 11)
             locationLabel.alignment = .left
             locationLabel.textColor = .secondaryLabelColor
@@ -113,13 +117,13 @@ final class AlertWindowController: NSWindowController {
         }
 
         // Buttons
-        let dismissButton = NSButton(title: "Dismiss", target: self, action: #selector(dismissAlert))
+        let dismissButton = NSButton(title: NSLocalizedString("alert.button.dismiss", comment: "Dismiss button"), target: self, action: #selector(dismissAlert))
         dismissButton.bezelStyle = .rounded
         dismissButton.frame = NSRect(x: 390, y: 15, width: 90, height: 32)
         dismissButton.keyEquivalent = "\u{1b}" // Escape key
         contentView.addSubview(dismissButton)
 
-        let openEventButton = NSButton(title: "Open Event", target: self, action: #selector(openEvent))
+        let openEventButton = NSButton(title: NSLocalizedString("alert.button.openEvent", comment: "Open Event button"), target: self, action: #selector(openEvent))
         openEventButton.bezelStyle = .rounded
         openEventButton.frame = NSRect(x: 280, y: 15, width: 100, height: 32)
         openEventButton.keyEquivalent = "\r" // Enter key

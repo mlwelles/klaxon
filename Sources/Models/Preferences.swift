@@ -34,7 +34,7 @@ final class Preferences {
 
     /// Available alert sounds with display names
     static var availableSounds: [(id: String, name: String)] {
-        [("", "No audio")] + soundFiles.map { ($0, displayName(for: $0)) }
+        [("", NSLocalizedString("sound.noAudio", comment: "No audio option"))] + soundFiles.map { ($0, displayName(for: $0)) }
     }
 
     /// Cache of sound durations
@@ -56,25 +56,40 @@ final class Preferences {
         }
     }
 
-    /// Convert a sound filename to a display name (title case, dashes/underscores to spaces)
+    /// Convert a sound filename to a localized display name
     private static func displayName(for filename: String) -> String {
-        // Special case for fire-alarm-bell
-        if filename == "fire-alarm-bell" {
-            return "Alarm Bell"
+        switch filename {
+        case "fire-alarm-bell":
+            return NSLocalizedString("sound.alarmBell", comment: "Alarm Bell sound")
+        case "mixkit-alarm-tone":
+            return NSLocalizedString("sound.alarmTone", comment: "Alarm Tone sound")
+        case "mixkit-alert-bells-echo":
+            return NSLocalizedString("sound.alertBellsEcho", comment: "Alert Bells Echo sound")
+        case "mixkit-battleship-alarm":
+            return NSLocalizedString("sound.battleshipAlarm", comment: "Battleship Alarm sound")
+        case "mixkit-classic-short-alarm":
+            return NSLocalizedString("sound.classicShortAlarm", comment: "Classic Short Alarm sound")
+        case "mixkit-urgent-simple-tone":
+            return NSLocalizedString("sound.urgentSimpleTone", comment: "Urgent Simple Tone sound")
+        case "mixkit-warning-alarm-buzzer":
+            return NSLocalizedString("sound.warningAlarmBuzzer", comment: "Warning Alarm Buzzer sound")
+        case "soundbible-air-horn":
+            return NSLocalizedString("sound.airHorn", comment: "Air Horn sound")
+        case "soundbible-red-alert":
+            return NSLocalizedString("sound.redAlert", comment: "Red Alert sound")
+        case "soundbible-school-fire-alarm":
+            return NSLocalizedString("sound.schoolFireAlarm", comment: "School Fire Alarm sound")
+        default:
+            // Fallback: convert to title case
+            return filename
+                .replacingOccurrences(of: "mixkit-", with: "")
+                .replacingOccurrences(of: "soundbible-", with: "")
+                .replacingOccurrences(of: "-", with: " ")
+                .replacingOccurrences(of: "_", with: " ")
+                .split(separator: " ")
+                .map { $0.prefix(1).uppercased() + $0.dropFirst().lowercased() }
+                .joined(separator: " ")
         }
-
-        // Remove source prefixes
-        let name = filename
-            .replacingOccurrences(of: "mixkit-", with: "")
-            .replacingOccurrences(of: "soundbible-", with: "")
-
-        // Convert to title case
-        return name
-            .replacingOccurrences(of: "-", with: " ")
-            .replacingOccurrences(of: "_", with: " ")
-            .split(separator: " ")
-            .map { $0.prefix(1).uppercased() + $0.dropFirst().lowercased() }
-            .joined(separator: " ")
     }
 
     enum Keys {

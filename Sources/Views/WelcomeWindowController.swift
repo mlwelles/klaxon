@@ -12,7 +12,7 @@ final class WelcomeWindowController: NSWindowController {
             backing: .buffered,
             defer: false
         )
-        window.title = "Welcome to Klaxon"
+        window.title = NSLocalizedString("welcome.title", comment: "Welcome window title")
         window.center()
 
         super.init(window: window)
@@ -38,7 +38,7 @@ final class WelcomeWindowController: NSWindowController {
         contentView.addSubview(iconView)
 
         // App title
-        let titleLabel = NSTextField(labelWithString: "Klaxon")
+        let titleLabel = NSTextField(labelWithString: NSLocalizedString("app.name", comment: "App name"))
         titleLabel.font = .boldSystemFont(ofSize: 24)
         titleLabel.alignment = .center
         titleLabel.frame = NSRect(x: 20, y: 185, width: 360, height: 30)
@@ -46,7 +46,7 @@ final class WelcomeWindowController: NSWindowController {
 
         // Copyright
         let year = Calendar.current.component(.year, from: Date())
-        let copyrightLabel = NSTextField(labelWithString: "© \(year) Michael L. Welles")
+        let copyrightLabel = NSTextField(labelWithString: String(format: NSLocalizedString("welcome.copyright", comment: "© %d Michael L. Welles"), year))
         copyrightLabel.font = .systemFont(ofSize: 11)
         copyrightLabel.alignment = .center
         copyrightLabel.textColor = .secondaryLabelColor
@@ -54,19 +54,14 @@ final class WelcomeWindowController: NSWindowController {
         contentView.addSubview(copyrightLabel)
 
         // Explanation text
-        let explanationText = """
-        Klaxon monitors your calendar and sounds an unmissable alarm when meetings are about to start.
-
-        Once you dismiss this window, Klaxon will keep running in the background. Look for the bell icon in your menu bar to access preferences and controls.
-        """
-        let explanationLabel = NSTextField(wrappingLabelWithString: explanationText)
+        let explanationLabel = NSTextField(wrappingLabelWithString: NSLocalizedString("welcome.description", comment: "Welcome description"))
         explanationLabel.font = .systemFont(ofSize: 13)
         explanationLabel.alignment = .center
         explanationLabel.frame = NSRect(x: 30, y: 55, width: 340, height: 100)
         contentView.addSubview(explanationLabel)
 
         // OK button
-        let okButton = NSButton(title: "OK", target: self, action: #selector(okPressed))
+        let okButton = NSButton(title: NSLocalizedString("welcome.button.ok", comment: "OK button"), target: self, action: #selector(okPressed))
         okButton.bezelStyle = .rounded
         okButton.keyEquivalent = "\r"
         okButton.frame = NSRect(x: 155, y: 15, width: 90, height: 32)

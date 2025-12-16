@@ -54,15 +54,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if let button = statusItem?.button {
             button.image = NSImage(named: "MenuBarIcon")
             button.image?.isTemplate = true
-            button.image?.accessibilityDescription = "Klaxon"
+            button.image?.accessibilityDescription = NSLocalizedString("app.name", comment: "App name")
         }
 
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "About Klaxon", action: #selector(openAbout), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: NSLocalizedString("menu.about", comment: "About menu item"), action: #selector(openAbout), keyEquivalent: ""))
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Preferences...", action: #selector(openPreferences), keyEquivalent: ","))
+        menu.addItem(NSMenuItem(title: NSLocalizedString("menu.preferences", comment: "Preferences menu item"), action: #selector(openPreferences), keyEquivalent: ","))
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Quit", action: #selector(quitApp), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: NSLocalizedString("menu.quit", comment: "Quit menu item"), action: #selector(quitApp), keyEquivalent: "q"))
         statusItem?.menu = menu
     }
 
@@ -102,11 +102,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func showPermissionError() {
         let alert = NSAlert()
-        alert.messageText = "Calendar Access Required"
-        alert.informativeText = "Klaxon needs access to your calendars to notify you about upcoming events. Please grant calendar access in System Settings > Privacy & Security > Calendars."
+        alert.messageText = NSLocalizedString("calendar.accessRequired.title", comment: "Calendar access required title")
+        alert.informativeText = NSLocalizedString("calendar.accessRequired.message", comment: "Calendar access required message")
         alert.alertStyle = .critical
-        alert.addButton(withTitle: "Retry")
-        alert.addButton(withTitle: "Quit")
+        alert.addButton(withTitle: NSLocalizedString("calendar.accessRequired.retry", comment: "Retry button"))
+        alert.addButton(withTitle: NSLocalizedString("calendar.accessRequired.quit", comment: "Quit button"))
 
         let response = alert.runModal()
         if response == .alertFirstButtonReturn {

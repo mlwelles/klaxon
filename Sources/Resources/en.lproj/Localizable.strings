@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  English localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "About Klaxon";
+"menu.preferences" = "Preferences...";
+"menu.quit" = "Quit";
+
+// MARK: - Preferences Window
+"preferences.title" = "Klaxon Preferences";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Event Alert";
+"preferences.eventAlert.description" = "Alert shown when an event starts.";
+"preferences.eventAlert.playSound" = "Play sound:";
+"preferences.eventAlert.duration" = "Duration:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Warning Alerts";
+"preferences.warningAlerts.description" = "Optional alerts shown before event start.";
+"preferences.warningAlerts.addButton" = "+ Add";
+"preferences.warningAlerts.column.when" = "When";
+"preferences.warningAlerts.column.playSound" = "Play Sound";
+"preferences.warningAlerts.column.duration" = "Duration";
+"preferences.warningAlerts.minBeforeEvent" = "min before event";
+
+// General Section
+"preferences.general.header" = "General";
+"preferences.general.startAtLogin" = "Start Klaxon at login";
+"preferences.general.showWelcome" = "Show welcome on start";
+
+// Buttons
+"preferences.button.ok" = "OK";
+
+// Duration Options
+"preferences.duration.noSound" = "No sound";
+"preferences.duration.oneSecond" = "1 second";
+"preferences.duration.seconds" = "%d seconds";
+
+// MARK: - Sound Names
+"sound.noAudio" = "No audio";
+"sound.alarmBell" = "Alarm Bell";
+"sound.alarmTone" = "Alarm Tone";
+"sound.alertBellsEcho" = "Alert Bells Echo";
+"sound.battleshipAlarm" = "Battleship Alarm";
+"sound.classicShortAlarm" = "Classic Short Alarm";
+"sound.urgentSimpleTone" = "Urgent Simple Tone";
+"sound.warningAlarmBuzzer" = "Warning Alarm Buzzer";
+"sound.airHorn" = "Air Horn";
+"sound.redAlert" = "Red Alert";
+"sound.schoolFireAlarm" = "School Fire Alarm";
+
+// MARK: - Alert Window
+"alert.warning.title" = "%d Minute Warning";
+"alert.starting.title" = "Event Starting Now";
+"alert.warning.message" = "starts in %d minute";
+"alert.warning.messagePlural" = "starts in %d minutes";
+"alert.starting.message" = "is starting now!";
+"alert.startTime" = "Start: %@";
+"alert.location" = "Location: %@";
+"alert.untitledEvent" = "Untitled Event";
+"alert.button.dismiss" = "Dismiss";
+"alert.button.openEvent" = "Open Event";
+
+// MARK: - Welcome Window
+"welcome.title" = "Welcome to Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon monitors your calendar and sounds an unmissable alarm when meetings are about to start.\n\nOnce you dismiss this window, Klaxon will keep running in the background. Look for the bell icon in your menu bar to access preferences and controls.";
+"welcome.button.ok" = "OK";
+
+// MARK: - About Window
+"about.title" = "About Klaxon";
+"about.version" = "Version %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Released under the MIT License as open source.";
+"about.description" = "Klaxon watches your calendar and sounds the alarm when meetings are about to start. Never miss a meeting again!";
+"about.assistive" = "Designed as an assistive tool for people with ADHD, time blindness, or anyone who gets absorbed in their work and needs an unmissable reminder.";
+"about.credits.header" = "Credits";
+"about.credits.icon" = "Icon: Electric Bell by Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell by battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Public Domain, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Mixkit License, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Mixkit License, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Calendar Access Required";
+"calendar.accessRequired.message" = "Klaxon needs access to your calendars to notify you about upcoming events. Please grant calendar access in System Settings > Privacy & Security > Calendars.";
+"calendar.accessRequired.retry" = "Retry";
+"calendar.accessRequired.quit" = "Quit";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Failed to update login item";
