@@ -70,6 +70,7 @@
 		A1000038229A0001 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1000039229A0001 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A100003A229A0001 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A100003B229A0001 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A2000011229A0001 /* CalendarAccessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAccessTests.swift; sourceTree = "<group>"; };
 		A2000012229A0001 /* AlertWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowTests.swift; sourceTree = "<group>"; };
 		A2000013229A0001 /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
@@ -266,6 +267,7 @@
 				es,
 				fr,
 				de,
+				it,
 			);
 			mainGroup = A1000051229A0001;
 			productRefGroup = A1000054229A0001 /* Products */;
@@ -344,6 +346,7 @@
 				A1000038229A0001 /* es */,
 				A1000039229A0001 /* fr */,
 				A100003A229A0001 /* de */,
+				A100003B229A0001 /* it */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
