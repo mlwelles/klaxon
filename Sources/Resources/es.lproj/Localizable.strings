@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Spanish localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "Acerca de Klaxon";
+"menu.preferences" = "Preferencias...";
+"menu.quit" = "Salir";
+
+// MARK: - Preferences Window
+"preferences.title" = "Preferencias de Klaxon";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Alerta de evento";
+"preferences.eventAlert.description" = "Alerta que se muestra cuando comienza un evento.";
+"preferences.eventAlert.playSound" = "Reproducir sonido:";
+"preferences.eventAlert.duration" = "Duración:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Alertas de aviso";
+"preferences.warningAlerts.description" = "Alertas opcionales antes del inicio del evento.";
+"preferences.warningAlerts.addButton" = "+ Añadir";
+"preferences.warningAlerts.column.when" = "Cuándo";
+"preferences.warningAlerts.column.playSound" = "Sonido";
+"preferences.warningAlerts.column.duration" = "Duración";
+"preferences.warningAlerts.minBeforeEvent" = "min antes del evento";
+
+// General Section
+"preferences.general.header" = "General";
+"preferences.general.startAtLogin" = "Iniciar Klaxon al iniciar sesión";
+"preferences.general.showWelcome" = "Mostrar bienvenida al iniciar";
+
+// Buttons
+"preferences.button.ok" = "Aceptar";
+
+// Duration Options
+"preferences.duration.noSound" = "Sin sonido";
+"preferences.duration.oneSecond" = "1 segundo";
+"preferences.duration.seconds" = "%d segundos";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Sin audio";
+"sound.alarmBell" = "Campana de alarma";
+"sound.alarmTone" = "Tono de alarma";
+"sound.alertBellsEcho" = "Eco de campanas";
+"sound.battleshipAlarm" = "Alarma de acorazado";
+"sound.classicShortAlarm" = "Alarma clásica corta";
+"sound.urgentSimpleTone" = "Tono urgente simple";
+"sound.warningAlarmBuzzer" = "Zumbador de advertencia";
+"sound.airHorn" = "Bocina de aire";
+"sound.redAlert" = "Alerta roja";
+"sound.schoolFireAlarm" = "Alarma de incendios escolar";
+
+// MARK: - Alert Window
+"alert.warning.title" = "Aviso de %d minuto";
+"alert.starting.title" = "El evento comienza ahora";
+"alert.warning.message" = "comienza en %d minuto";
+"alert.warning.messagePlural" = "comienza en %d minutos";
+"alert.starting.message" = "¡está comenzando ahora!";
+"alert.startTime" = "Inicio: %@";
+"alert.location" = "Ubicación: %@";
+"alert.untitledEvent" = "Evento sin título";
+"alert.button.dismiss" = "Descartar";
+"alert.button.openEvent" = "Abrir evento";
+
+// MARK: - Welcome Window
+"welcome.title" = "Bienvenido a Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon monitorea tu calendario y hace sonar una alarma imposible de ignorar cuando tus reuniones están por comenzar.\n\nUna vez que cierres esta ventana, Klaxon seguirá ejecutándose en segundo plano. Busca el icono de campana en tu barra de menú para acceder a las preferencias y controles.";
+"welcome.button.ok" = "Aceptar";
+
+// MARK: - About Window
+"about.title" = "Acerca de Klaxon";
+"about.version" = "Versión %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Publicado bajo la Licencia MIT como código abierto.";
+"about.description" = "Klaxon vigila tu calendario y hace sonar la alarma cuando tus reuniones están por comenzar. ¡No vuelvas a perderte una reunión!";
+"about.assistive" = "Diseñado como herramienta de asistencia para personas con TDAH, ceguera temporal o cualquiera que se absorba en su trabajo y necesite un recordatorio imposible de ignorar.";
+"about.credits.header" = "Créditos";
+"about.credits.icon" = "Icono: Electric Bell por Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell por battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Dominio público, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Licencia Mixkit, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Licencia Mixkit, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Se requiere acceso al calendario";
+"calendar.accessRequired.message" = "Klaxon necesita acceso a tus calendarios para notificarte sobre próximos eventos. Por favor, concede acceso al calendario en Configuración del Sistema > Privacidad y Seguridad > Calendarios.";
+"calendar.accessRequired.retry" = "Reintentar";
+"calendar.accessRequired.quit" = "Salir";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Error al actualizar elemento de inicio";

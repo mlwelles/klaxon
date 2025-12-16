@@ -11,9 +11,12 @@
 		A1000002229A0001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012229A0001 /* AppDelegate.swift */; };
 		A1000003229A0001 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000013229A0001 /* CalendarService.swift */; };
 		A1000004229A0001 /* AlertWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000014229A0001 /* AlertWindowController.swift */; };
+		A1000005229A0001 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1000021229A0001 /* EventKit.framework */; };
+		A1000006229A0001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000016229A0001 /* Assets.xcassets */; };
 		A1000007229A0001 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000017229A0001 /* PreferencesWindowController.swift */; };
 		A1000008229A0001 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000018229A0001 /* Preferences.swift */; };
 		A1000009229A0001 /* fire-alarm-bell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A1000019229A0001 /* fire-alarm-bell.mp3 */; };
+		A100000A229A0001 /* AboutWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001A229A0001 /* AboutWindowController.swift */; };
 		A100000B229A0001 /* mixkit-alarm-tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A100001B229A0001 /* mixkit-alarm-tone.mp3 */; };
 		A100000C229A0001 /* mixkit-alert-bells-echo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A100001C229A0001 /* mixkit-alert-bells-echo.mp3 */; };
 		A100000D229A0001 /* mixkit-battleship-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A100001D229A0001 /* mixkit-battleship-alarm.mp3 */; };
@@ -23,14 +26,11 @@
 		A1000022229A0001 /* soundbible-air-horn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A1000032229A0001 /* soundbible-air-horn.mp3 */; };
 		A1000023229A0001 /* soundbible-red-alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A1000033229A0001 /* soundbible-red-alert.mp3 */; };
 		A1000024229A0001 /* soundbible-school-fire-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A1000034229A0001 /* soundbible-school-fire-alarm.mp3 */; };
-		A100000A229A0001 /* AboutWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001A229A0001 /* AboutWindowController.swift */; };
 		A1000025229A0001 /* WelcomeWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000035229A0001 /* WelcomeWindowController.swift */; };
-		A1000005229A0001 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1000021229A0001 /* EventKit.framework */; };
-		A1000006229A0001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000016229A0001 /* Assets.xcassets */; };
+		A1000026229A0001 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1000036229A0001 /* Localizable.strings */; };
 		A2000001229A0001 /* CalendarAccessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000011229A0001 /* CalendarAccessTests.swift */; };
 		A2000002229A0001 /* AlertWindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012229A0001 /* AlertWindowTests.swift */; };
 		A2000003229A0001 /* PreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000013229A0001 /* PreferencesTests.swift */; };
-		A1000026229A0001 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1000036229A0001 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,29 +48,30 @@
 		A1000012229A0001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1000013229A0001 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		A1000014229A0001 /* AlertWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowController.swift; sourceTree = "<group>"; };
+		A1000015229A0001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1000016229A0001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1000017229A0001 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		A1000018229A0001 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		A1000019229A0001 /* fire-alarm-bell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "fire-alarm-bell.mp3"; sourceTree = "<group>"; };
+		A100001A229A0001 /* AboutWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWindowController.swift; sourceTree = "<group>"; };
 		A100001B229A0001 /* mixkit-alarm-tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mixkit-alarm-tone.mp3"; sourceTree = "<group>"; };
 		A100001C229A0001 /* mixkit-alert-bells-echo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mixkit-alert-bells-echo.mp3"; sourceTree = "<group>"; };
 		A100001D229A0001 /* mixkit-battleship-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mixkit-battleship-alarm.mp3"; sourceTree = "<group>"; };
 		A100001E229A0001 /* mixkit-classic-short-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mixkit-classic-short-alarm.mp3"; sourceTree = "<group>"; };
 		A100001F229A0001 /* mixkit-urgent-simple-tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mixkit-urgent-simple-tone.mp3"; sourceTree = "<group>"; };
 		A1000020229A0001 /* mixkit-warning-alarm-buzzer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mixkit-warning-alarm-buzzer.mp3"; sourceTree = "<group>"; };
+		A1000021229A0001 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		A1000031229A0001 /* Klaxon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Klaxon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1000032229A0001 /* soundbible-air-horn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "soundbible-air-horn.mp3"; sourceTree = "<group>"; };
 		A1000033229A0001 /* soundbible-red-alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "soundbible-red-alert.mp3"; sourceTree = "<group>"; };
 		A1000034229A0001 /* soundbible-school-fire-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "soundbible-school-fire-alarm.mp3"; sourceTree = "<group>"; };
-		A100001A229A0001 /* AboutWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWindowController.swift; sourceTree = "<group>"; };
 		A1000035229A0001 /* WelcomeWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWindowController.swift; sourceTree = "<group>"; };
-		A1000015229A0001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A1000016229A0001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A1000021229A0001 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
-		A1000031229A0001 /* Klaxon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Klaxon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000037229A0001 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1000038229A0001 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A2000011229A0001 /* CalendarAccessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAccessTests.swift; sourceTree = "<group>"; };
 		A2000012229A0001 /* AlertWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowTests.swift; sourceTree = "<group>"; };
 		A2000013229A0001 /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
 		A2000031229A0001 /* KlaxonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KlaxonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1000037229A0001 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,24 +115,6 @@
 				A1000015229A0001 /* Info.plist */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		A1000059229A0001 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A1000036229A0001 /* Localizable.strings */,
-				A1000019229A0001 /* fire-alarm-bell.mp3 */,
-				A100001B229A0001 /* mixkit-alarm-tone.mp3 */,
-				A100001C229A0001 /* mixkit-alert-bells-echo.mp3 */,
-				A100001D229A0001 /* mixkit-battleship-alarm.mp3 */,
-				A100001E229A0001 /* mixkit-classic-short-alarm.mp3 */,
-				A100001F229A0001 /* mixkit-urgent-simple-tone.mp3 */,
-				A1000020229A0001 /* mixkit-warning-alarm-buzzer.mp3 */,
-				A1000032229A0001 /* soundbible-air-horn.mp3 */,
-				A1000033229A0001 /* soundbible-red-alert.mp3 */,
-				A1000034229A0001 /* soundbible-school-fire-alarm.mp3 */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		A1000053229A0001 /* Frameworks */ = {
@@ -187,6 +170,24 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		A1000059229A0001 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A1000036229A0001 /* Localizable.strings */,
+				A1000019229A0001 /* fire-alarm-bell.mp3 */,
+				A100001B229A0001 /* mixkit-alarm-tone.mp3 */,
+				A100001C229A0001 /* mixkit-alert-bells-echo.mp3 */,
+				A100001D229A0001 /* mixkit-battleship-alarm.mp3 */,
+				A100001E229A0001 /* mixkit-classic-short-alarm.mp3 */,
+				A100001F229A0001 /* mixkit-urgent-simple-tone.mp3 */,
+				A1000020229A0001 /* mixkit-warning-alarm-buzzer.mp3 */,
+				A1000032229A0001 /* soundbible-air-horn.mp3 */,
+				A1000033229A0001 /* soundbible-red-alert.mp3 */,
+				A1000034229A0001 /* soundbible-school-fire-alarm.mp3 */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		A2000051229A0001 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,17 +199,6 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
-
-/* Begin PBXVariantGroup section */
-		A1000036229A0001 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A1000037229A0001 /* en */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin PBXNativeTarget section */
 		A1000061229A0001 /* Klaxon */ = {
@@ -271,6 +261,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = A1000051229A0001;
 			productRefGroup = A1000054229A0001 /* Products */;
@@ -340,6 +331,18 @@
 			targetProxy = A2000021229A0001 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A1000036229A0001 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A1000037229A0001 /* en */,
+				A1000038229A0001 /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A1000091229A0001 /* Debug */ = {
