@@ -16,11 +16,11 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
     private let soundDurationOptions: [(title: String, value: Double)] = [
         ("No sound", 0),
-        ("1 sec", 1.0),
-        ("2 sec", 2.0),
-        ("3 sec", 3.0),
-        ("4 sec", 4.0),
-        ("5 sec", 5.0)
+        ("1 second", 1.0),
+        ("2 seconds", 2.0),
+        ("3 seconds", 3.0),
+        ("4 seconds", 4.0),
+        ("5 seconds", 5.0)
     ]
 
     init() {
@@ -78,7 +78,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         contentView.addSubview(warningsHeaderLabel)
 
         // Warnings section description
-        let warningsDescription = createNoteLabel("Optional alerts shown before an event starts.")
+        let warningsDescription = createNoteLabel("Optional alerts shown before event start.")
         contentView.addSubview(warningsDescription)
 
         // Warnings table view
@@ -86,19 +86,31 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         warningsTableView.translatesAutoresizingMaskIntoConstraints = false
         warningsTableView.dataSource = self
         warningsTableView.delegate = self
-        warningsTableView.headerView = nil
+        warningsTableView.headerView = NSTableHeaderView()
         warningsTableView.rowHeight = 28
         warningsTableView.intercellSpacing = NSSize(width: 4, height: 4)
         warningsTableView.gridStyleMask = []
         warningsTableView.backgroundColor = .clear
         warningsTableView.usesAlternatingRowBackgroundColors = false
 
-        let contentColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("content"))
-        contentColumn.width = 430
-        warningsTableView.addTableColumn(contentColumn)
+        let timeColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("time"))
+        timeColumn.title = "When"
+        timeColumn.width = 140
+        warningsTableView.addTableColumn(timeColumn)
+
+        let soundColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("sound"))
+        soundColumn.title = "Play Sound"
+        soundColumn.width = 150
+        warningsTableView.addTableColumn(soundColumn)
+
+        let durationColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("duration"))
+        durationColumn.title = "Duration"
+        durationColumn.width = 90
+        warningsTableView.addTableColumn(durationColumn)
 
         let removeColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("remove"))
-        removeColumn.width = 30
+        removeColumn.title = ""
+        removeColumn.width = 24
         warningsTableView.addTableColumn(removeColumn)
 
         warningsScrollView = NSScrollView()
@@ -111,7 +123,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         contentView.addSubview(warningsScrollView)
 
         // Add warning button
-        addWarningButton = NSButton(title: "+ Add Warning Alert", target: self, action: #selector(addWarning))
+        addWarningButton = NSButton(title: "+ Add", target: self, action: #selector(addWarning))
         addWarningButton.translatesAutoresizingMaskIntoConstraints = false
         addWarningButton.bezelStyle = .rounded
         addWarningButton.controlSize = .small
@@ -295,6 +307,27 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         eventStartSoundPopup.isEnabled = soundEnabled
     }
 
+    /// Get the maximum duration option index for a sound (first option >= actual duration)
+    private func maxDurationOptionIndex(for soundName: String) -> Int {
+        guard !soundName.isEmpty else { return soundDurationOptions.count - 1 }
+        let actualDuration = Preferences.soundDuration(for: soundName)
+        // Find the first option >= actual duration (skip "No sound" at index 0)
+        for (index, option) in soundDurationOptions.enumerated() where index > 0 {
+            if option.value >= actualDuration {
+                return index
+            }
+        }
+        return soundDurationOptions.count - 1  // Default to max if sound is longer than all options
+    }
+
+    /// Cap a duration to the max allowed for a sound, returns the capped value
+    private func cappedDuration(_ duration: Double, for soundName: String) -> Double {
+        guard !soundName.isEmpty, duration > 0 else { return duration }
+        let maxIndex = maxDurationOptionIndex(for: soundName)
+        let maxValue = soundDurationOptions[maxIndex].value
+        return min(duration, maxValue)
+    }
+
     // MARK: - Warning Management
 
     @objc private func addWarning() {
@@ -336,7 +369,16 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         let row = warningsTableView.row(for: sender)
         guard row >= 0 && row < warnings.count else { return }
         let index = sender.indexOfSelectedItem
-        warnings[row].sound = Preferences.availableSounds[index].id
+        let soundName = Preferences.availableSounds[index].id
+        warnings[row].sound = soundName
+
+        // Cap duration if it exceeds the max for this sound
+        let currentDuration = warnings[row].soundDuration
+        let cappedValue = cappedDuration(currentDuration, for: soundName)
+        if cappedValue != currentDuration {
+            warnings[row].soundDuration = cappedValue
+        }
+
         updateWarningDurationPopup(at: row)
         saveWarnings()
         playSound(warnings[row].sound, forDuration: warnings[row].soundDuration)
@@ -355,12 +397,16 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         guard row >= 0 && row < warnings.count else { return }
         let warning = warnings[row]
 
-        // Duration popup is in content column (0), find it by checking all popups
-        if let cellView = warningsTableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? NSView {
+        // Duration popup is in the duration column (index 2)
+        if let cellView = warningsTableView.view(atColumn: 2, row: row, makeIfNecessary: false) {
             let popups = cellView.subviews.compactMap { $0 as? NSPopUpButton }
-            // Duration popup is the second popup (index 1)
-            if popups.count > 1 {
-                popups[1].isEnabled = !warning.sound.isEmpty
+            if let durationPopup = popups.first {
+                durationPopup.isEnabled = !warning.sound.isEmpty
+
+                // Update selection to match current duration
+                if let durationIndex = soundDurationOptions.firstIndex(where: { $0.value == warning.soundDuration }) {
+                    durationPopup.selectItem(at: durationIndex)
+                }
             }
         }
     }
@@ -380,7 +426,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         let cellView = NSView()
 
         switch columnId {
-        case "content":
+        case "time":
             // Minutes text field
             let minutesField = NSTextField()
             minutesField.translatesAutoresizingMaskIntoConstraints = false
@@ -402,11 +448,24 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
             stepper.action = #selector(warningMinutesChanged(_:))
             cellView.addSubview(stepper)
 
-            // "min before, play" label
-            let beforeLabel = NSTextField(labelWithString: "min before, play")
-            beforeLabel.translatesAutoresizingMaskIntoConstraints = false
-            cellView.addSubview(beforeLabel)
+            // "min before event" label
+            let minLabel = NSTextField(labelWithString: "min before event")
+            minLabel.translatesAutoresizingMaskIntoConstraints = false
+            cellView.addSubview(minLabel)
 
+            NSLayoutConstraint.activate([
+                minutesField.leadingAnchor.constraint(equalTo: cellView.leadingAnchor),
+                minutesField.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+                minutesField.widthAnchor.constraint(equalToConstant: 32),
+
+                stepper.leadingAnchor.constraint(equalTo: minutesField.trailingAnchor, constant: 2),
+                stepper.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+
+                minLabel.leadingAnchor.constraint(equalTo: stepper.trailingAnchor, constant: 4),
+                minLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+            ])
+
+        case "sound":
             // Sound popup
             let soundPopup = NSPopUpButton()
             soundPopup.translatesAutoresizingMaskIntoConstraints = false
@@ -422,11 +481,13 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
             soundPopup.action = #selector(warningSoundChanged(_:))
             cellView.addSubview(soundPopup)
 
-            // "for max" label
-            let forMaxLabel = NSTextField(labelWithString: "for max")
-            forMaxLabel.translatesAutoresizingMaskIntoConstraints = false
-            cellView.addSubview(forMaxLabel)
+            NSLayoutConstraint.activate([
+                soundPopup.leadingAnchor.constraint(equalTo: cellView.leadingAnchor),
+                soundPopup.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+                soundPopup.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
+            ])
 
+        case "duration":
             // Duration popup
             let durationPopup = NSPopUpButton()
             durationPopup.translatesAutoresizingMaskIntoConstraints = false
@@ -444,26 +505,9 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
             cellView.addSubview(durationPopup)
 
             NSLayoutConstraint.activate([
-                minutesField.leadingAnchor.constraint(equalTo: cellView.leadingAnchor),
-                minutesField.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
-                minutesField.widthAnchor.constraint(equalToConstant: 32),
-
-                stepper.leadingAnchor.constraint(equalTo: minutesField.trailingAnchor, constant: 2),
-                stepper.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
-
-                beforeLabel.leadingAnchor.constraint(equalTo: stepper.trailingAnchor, constant: 4),
-                beforeLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
-
-                soundPopup.leadingAnchor.constraint(equalTo: beforeLabel.trailingAnchor, constant: 4),
-                soundPopup.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
-                soundPopup.widthAnchor.constraint(equalToConstant: 110),
-
-                forMaxLabel.leadingAnchor.constraint(equalTo: soundPopup.trailingAnchor, constant: 4),
-                forMaxLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
-
-                durationPopup.leadingAnchor.constraint(equalTo: forMaxLabel.trailingAnchor, constant: 4),
+                durationPopup.leadingAnchor.constraint(equalTo: cellView.leadingAnchor),
                 durationPopup.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
-                durationPopup.widthAnchor.constraint(equalToConstant: 60),
+                durationPopup.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
             ])
 
         case "remove":
@@ -500,8 +544,18 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
     @objc private func alertSoundChanged() {
         let index = alertSoundPopup.indexOfSelectedItem
-        Preferences.shared.alertSound = Preferences.availableSounds[index].id
+        let soundName = Preferences.availableSounds[index].id
+        Preferences.shared.alertSound = soundName
         updateSoundControlsEnabled()
+
+        // Cap duration if it exceeds the max for this sound
+        let currentDuration = Preferences.shared.eventStartSoundDuration
+        let cappedValue = cappedDuration(currentDuration, for: soundName)
+        if cappedValue != currentDuration {
+            Preferences.shared.eventStartSoundDuration = cappedValue
+            selectSoundDuration(cappedValue, in: eventStartSoundPopup)
+        }
+
         playEventAlertSound()
     }
 
@@ -512,7 +566,6 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
     }
 
     private func fadeOutDuration(for duration: Double) -> TimeInterval {
-        if duration >= 3 { return 1.0 }
         if duration >= 2 { return 0.5 }
         return 0  // No fade for 1 second or less
     }

@@ -1,3 +1,4 @@
+import AVFoundation
 import Foundation
 
 /// A configurable warning that fires before an event starts
@@ -36,6 +37,25 @@ final class Preferences {
         [("", "No audio")] + soundFiles.map { ($0, displayName(for: $0)) }
     }
 
+    /// Cache of sound durations
+    private static var soundDurationCache: [String: Double] = [:]
+
+    /// Get the actual duration of a sound file in seconds
+    static func soundDuration(for soundName: String) -> Double {
+        if soundName.isEmpty { return 0 }
+        if let cached = soundDurationCache[soundName] { return cached }
+
+        guard let url = Bundle.main.url(forResource: soundName, withExtension: "mp3") else { return 0 }
+        do {
+            let player = try AVAudioPlayer(contentsOf: url)
+            let duration = player.duration
+            soundDurationCache[soundName] = duration
+            return duration
+        } catch {
+            return 0
+        }
+    }
+
     /// Convert a sound filename to a display name (title case, dashes/underscores to spaces)
     private static func displayName(for filename: String) -> String {
         // Special case for fire-alarm-bell
@@ -44,7 +64,7 @@ final class Preferences {
         }
 
         // Remove source prefixes
-        var name = filename
+        let name = filename
             .replacingOccurrences(of: "mixkit-", with: "")
             .replacingOccurrences(of: "soundbible-", with: "")
 

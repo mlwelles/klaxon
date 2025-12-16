@@ -166,7 +166,6 @@ final class AlertWindowController: NSWindowController {
     }
 
     private func fadeOutDuration(for duration: Double) -> TimeInterval {
-        if duration >= 3 { return 1.0 }
         if duration >= 2 { return 0.5 }
         return 0  // No fade for 1 second or less
     }
