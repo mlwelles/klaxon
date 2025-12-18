@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Turkish localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "Klaxon Hakkında";
+"menu.preferences" = "Tercihler...";
+"menu.quit" = "Çık";
+
+// MARK: - Preferences Window
+"preferences.title" = "Klaxon Tercihleri";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Etkinlik Uyarısı";
+"preferences.eventAlert.description" = "Etkinlik başladığında gösterilen uyarı.";
+"preferences.eventAlert.playSound" = "Ses çal:";
+"preferences.eventAlert.duration" = "Süre:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Uyarı Bildirimleri";
+"preferences.warningAlerts.description" = "Etkinlik başlamadan önce isteğe bağlı uyarılar.";
+"preferences.warningAlerts.addButton" = "+ Ekle";
+"preferences.warningAlerts.column.when" = "Ne Zaman";
+"preferences.warningAlerts.column.playSound" = "Ses";
+"preferences.warningAlerts.column.duration" = "Süre";
+"preferences.warningAlerts.minBeforeEvent" = "dk";
+
+// General Section
+"preferences.general.header" = "Genel";
+"preferences.general.startAtLogin" = "Oturum açıldığında Klaxon'u başlat";
+"preferences.general.showWelcome" = "Başlangıçta hoş geldin göster";
+
+// Buttons
+"preferences.button.ok" = "Tamam";
+
+// Duration Options
+"preferences.duration.noSound" = "Ses yok";
+"preferences.duration.oneSecond" = "1 saniye";
+"preferences.duration.seconds" = "%d saniye";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Ses yok";
+"sound.alarmBell" = "Alarm Zili";
+"sound.alarmTone" = "Alarm Tonu";
+"sound.alertBellsEcho" = "Zil Yankısı";
+"sound.battleshipAlarm" = "Savaş Gemisi Alarmı";
+"sound.classicShortAlarm" = "Klasik Kısa Alarm";
+"sound.urgentSimpleTone" = "Acil Basit Ton";
+"sound.warningAlarmBuzzer" = "Uyarı Zili";
+"sound.airHorn" = "Hava Kornası";
+"sound.redAlert" = "Kırmızı Alarm";
+"sound.schoolFireAlarm" = "Okul Yangın Alarmı";
+
+// MARK: - Alert Window
+"alert.warning.title" = "%d Dakika Uyarısı";
+"alert.starting.title" = "Etkinlik Şimdi Başlıyor";
+"alert.warning.message" = "%d dakika içinde başlıyor";
+"alert.warning.messagePlural" = "%d dakika içinde başlıyor";
+"alert.starting.message" = "şimdi başlıyor!";
+"alert.startTime" = "Başlangıç: %@";
+"alert.location" = "Konum: %@";
+"alert.untitledEvent" = "Başlıksız Etkinlik";
+"alert.button.dismiss" = "Kapat";
+"alert.button.openEvent" = "Etkinliği Aç";
+
+// MARK: - Welcome Window
+"welcome.title" = "Klaxon'a Hoş Geldiniz";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon takviminizi izler ve toplantılarınız başlamak üzereyken kaçırılmaz bir alarm çalar.\n\nBu pencereyi kapattıktan sonra Klaxon arka planda çalışmaya devam edecektir. Tercihlere ve kontrollere erişmek için menü çubuğundaki zil simgesini bulun.";
+"welcome.button.ok" = "Tamam";
+
+// MARK: - About Window
+"about.title" = "Klaxon Hakkında";
+"about.version" = "Sürüm %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "MIT Lisansı altında açık kaynak olarak yayınlandı.";
+"about.description" = "Klaxon takviminizi izler ve toplantılarınız başlamak üzereyken alarm çalar. Bir daha asla toplantı kaçırmayın!";
+"about.assistive" = "DEHB, zaman körlüğü olan veya işine dalan ve kaçırılmaz bir hatırlatıcıya ihtiyaç duyan herkes için yardımcı araç olarak tasarlandı.";
+"about.credits.header" = "Katkıda Bulunanlar";
+"about.credits.icon" = "Simge: Electric Bell, Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell, battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Kamu Malı, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Mixkit Lisansı, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Mixkit Lisansı, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Takvim Erişimi Gerekli";
+"calendar.accessRequired.message" = "Klaxon'un yaklaşan etkinlikler hakkında sizi bilgilendirmesi için takvimlerinize erişmesi gerekiyor. Lütfen Sistem Ayarları > Gizlilik ve Güvenlik > Takvimler'den takvim erişimi verin.";
+"calendar.accessRequired.retry" = "Tekrar Dene";
+"calendar.accessRequired.quit" = "Çık";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Oturum açma öğesi güncellenemedi";

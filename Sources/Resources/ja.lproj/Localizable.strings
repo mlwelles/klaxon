@@ -29,7 +29,7 @@
 "preferences.warningAlerts.column.when" = "タイミング";
 "preferences.warningAlerts.column.playSound" = "サウンド";
 "preferences.warningAlerts.column.duration" = "長さ";
-"preferences.warningAlerts.minBeforeEvent" = "分前";
+"preferences.warningAlerts.minBeforeEvent" = "分";
 
 // General Section
 "preferences.general.header" = "一般";

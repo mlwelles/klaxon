@@ -29,7 +29,7 @@
 "preferences.warningAlerts.column.when" = "Wakati";
 "preferences.warningAlerts.column.playSound" = "Sauti";
 "preferences.warningAlerts.column.duration" = "Muda";
-"preferences.warningAlerts.minBeforeEvent" = "dak kabla ya tukio";
+"preferences.warningAlerts.minBeforeEvent" = "dak";
 
 // General Section
 "preferences.general.header" = "Jumla";

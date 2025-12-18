@@ -29,7 +29,7 @@
 "preferences.warningAlerts.column.when" = "时间";
 "preferences.warningAlerts.column.playSound" = "声音";
 "preferences.warningAlerts.column.duration" = "时长";
-"preferences.warningAlerts.minBeforeEvent" = "分钟前";
+"preferences.warningAlerts.minBeforeEvent" = "分钟";
 
 // General Section
 "preferences.general.header" = "通用";

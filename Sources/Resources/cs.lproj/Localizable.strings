@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Czech localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "O aplikaci Klaxon";
+"menu.preferences" = "Předvolby...";
+"menu.quit" = "Ukončit";
+
+// MARK: - Preferences Window
+"preferences.title" = "Předvolby Klaxon";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Upozornění na událost";
+"preferences.eventAlert.description" = "Upozornění zobrazené při začátku události.";
+"preferences.eventAlert.playSound" = "Přehrát zvuk:";
+"preferences.eventAlert.duration" = "Trvání:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Varovná upozornění";
+"preferences.warningAlerts.description" = "Volitelná upozornění před začátkem události.";
+"preferences.warningAlerts.addButton" = "+ Přidat";
+"preferences.warningAlerts.column.when" = "Kdy";
+"preferences.warningAlerts.column.playSound" = "Zvuk";
+"preferences.warningAlerts.column.duration" = "Trvání";
+"preferences.warningAlerts.minBeforeEvent" = "min";
+
+// General Section
+"preferences.general.header" = "Obecné";
+"preferences.general.startAtLogin" = "Spustit Klaxon při přihlášení";
+"preferences.general.showWelcome" = "Zobrazit uvítání při spuštění";
+
+// Buttons
+"preferences.button.ok" = "OK";
+
+// Duration Options
+"preferences.duration.noSound" = "Bez zvuku";
+"preferences.duration.oneSecond" = "1 sekunda";
+"preferences.duration.seconds" = "%d sekund";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Bez zvuku";
+"sound.alarmBell" = "Zvonkový alarm";
+"sound.alarmTone" = "Tón alarmu";
+"sound.alertBellsEcho" = "Ozvěna zvonků";
+"sound.battleshipAlarm" = "Lodní alarm";
+"sound.classicShortAlarm" = "Klasický krátký alarm";
+"sound.urgentSimpleTone" = "Naléhavý jednoduchý tón";
+"sound.warningAlarmBuzzer" = "Varovný bzučák";
+"sound.airHorn" = "Vzduchová houkačka";
+"sound.redAlert" = "Červený poplach";
+"sound.schoolFireAlarm" = "Školní požární alarm";
+
+// MARK: - Alert Window
+"alert.warning.title" = "Varování %d minuty";
+"alert.starting.title" = "Událost začíná nyní";
+"alert.warning.message" = "začíná za %d minutu";
+"alert.warning.messagePlural" = "začíná za %d minut";
+"alert.starting.message" = "začíná nyní!";
+"alert.startTime" = "Začátek: %@";
+"alert.location" = "Místo: %@";
+"alert.untitledEvent" = "Událost bez názvu";
+"alert.button.dismiss" = "Zavřít";
+"alert.button.openEvent" = "Otevřít událost";
+
+// MARK: - Welcome Window
+"welcome.title" = "Vítejte v Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon sleduje váš kalendář a spustí nezaměnitelný alarm, když se vaše schůzky blíží.\n\nPo zavření tohoto okna bude Klaxon nadále běžet na pozadí. Hledejte ikonu zvonku v liště nabídek pro přístup k předvolbám a ovládání.";
+"welcome.button.ok" = "OK";
+
+// MARK: - About Window
+"about.title" = "O aplikaci Klaxon";
+"about.version" = "Verze %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Vydáno pod licencí MIT jako open source.";
+"about.description" = "Klaxon sleduje váš kalendář a spustí alarm, když se vaše schůzky blíží. Už nikdy nezmeškáte schůzku!";
+"about.assistive" = "Navrženo jako asistenční nástroj pro lidi s ADHD, časovou slepotou nebo kohokoli, kdo se ponoří do práce a potřebuje nezaměnitelnou připomínku.";
+"about.credits.header" = "Poděkování";
+"about.credits.icon" = "Ikona: Electric Bell od Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell od battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Veřejná doména, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Licence Mixkit, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Licence Mixkit, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Vyžadován přístup ke kalendáři";
+"calendar.accessRequired.message" = "Klaxon potřebuje přístup k vašim kalendářům, aby vás mohl upozorňovat na nadcházející události. Udělte prosím přístup ke kalendáři v Nastavení systému > Soukromí a zabezpečení > Kalendáře.";
+"calendar.accessRequired.retry" = "Opakovat";
+"calendar.accessRequired.quit" = "Ukončit";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Nepodařilo se aktualizovat položku přihlášení";

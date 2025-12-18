@@ -29,7 +29,7 @@
 "preferences.warningAlerts.column.when" = "시간";
 "preferences.warningAlerts.column.playSound" = "소리";
 "preferences.warningAlerts.column.duration" = "길이";
-"preferences.warningAlerts.minBeforeEvent" = "분 전";
+"preferences.warningAlerts.minBeforeEvent" = "분";
 
 // General Section
 "preferences.general.header" = "일반";

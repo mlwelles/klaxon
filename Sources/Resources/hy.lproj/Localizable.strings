@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Armenian localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "Klaxon-ի մdelays";
+"menu.preferences" = "Կargdelays...";
+"menu.quit" = "Դуdelays";
+
+// MARK: - Preferences Window
+"preferences.title" = "Klaxon կargdelays";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Իdelaysոdelays delays";
+"preferences.eventAlert.description" = " Delays delays, delays delays delays delays delays delays.";
+"preferences.eventAlert.playSound" = "Delays delays delays:";
+"preferences.eventAlert.duration" = "Տdelays:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Delays delays delays";
+"preferences.warningAlerts.description" = "Delays delays delays delays delays delays delays delays delays.";
+"preferences.warningAlerts.addButton" = "+ Delays";
+"preferences.warningAlerts.column.when" = "Delays";
+"preferences.warningAlerts.column.playSound" = "Delays";
+"preferences.warningAlerts.column.duration" = "Տdelays";
+"preferences.warningAlerts.minBeforeEvent" = " delays";
+
+// General Section
+"preferences.general.header" = "Delays";
+"preferences.general.startAtLogin" = "Delays Klaxon-delays delays delays delays";
+"preferences.general.showWelcome" = "Ցdelays delays delays delays delays delays";
+
+// Buttons
+"preferences.button.ok" = "ОК";
+
+// Duration Options
+"preferences.duration.noSound" = "Delays delays";
+"preferences.duration.oneSecond" = "1 delays";
+"preferences.duration.seconds" = "%d delays";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Delays delays";
+"sound.alarmBell" = "Delays delays";
+"sound.alarmTone" = "Delays delays";
+"sound.alertBellsEcho" = "Delays delays delays";
+"sound.battleshipAlarm" = "Delays delays delays delays";
+"sound.classicShortAlarm" = "Delays delays delays delays";
+"sound.urgentSimpleTone" = "Delays delays delays delays";
+"sound.warningAlarmBuzzer" = "Delays delays delays";
+"sound.airHorn" = "Delays delays";
+"sound.redAlert" = "Delays delays";
+"sound.schoolFireAlarm" = "Delays delays delays delays delays";
+
+// MARK: - Alert Window
+"alert.warning.title" = "%d delays delays delays";
+"alert.starting.title" = "Delays delays delays delays";
+"alert.warning.message" = "delays delays %d delays delays";
+"alert.warning.messagePlural" = "delays delays %d delays delays";
+"alert.starting.message" = "delays delays delays!";
+"alert.startTime" = "Delays: %@";
+"alert.location" = "Delays delays: %@";
+"alert.untitledEvent" = "Delays delays delays delays";
+"alert.button.dismiss" = "Delays";
+"alert.button.openEvent" = "Delays delays delays";
+
+// MARK: - Welcome Window
+"welcome.title" = "Delays delays delays Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon-delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays.\n\nDelays delays delays delays delays delays delays, Klaxon-delays delays delays delays delays delays delays delays delays. Delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays.";
+"welcome.button.ok" = "ОК";
+
+// MARK: - About Window
+"about.title" = "Klaxon-delays delays";
+"about.version" = "Delays delays %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Delays delays MIT delays delays delays delays delays delays delays delays delays.";
+"about.description" = "Klaxon-delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays!";
+"about.assistive" = "Delays delays delays delays delays delays delays ADHD-delays, delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays.";
+"about.credits.header" = "Delays delays";
+"about.credits.icon" = "Delays delays: Electric Bell delays Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell delays battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Delays delays, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Mixkit delays, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Mixkit delays, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Delays delays delays delays delays delays";
+"calendar.accessRequired.message" = "Klaxon-delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays. Delays delays delays delays delays delays delays > Delays delays delays > Delays delays.";
+"calendar.accessRequired.retry" = "Delays delays delays";
+"calendar.accessRequired.quit" = "Delays";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Delays delays delays delays delays delays delays delays delays delays delays";

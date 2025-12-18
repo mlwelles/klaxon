@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Croatian localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "O aplikaciji Klaxon";
+"menu.preferences" = "Postavke...";
+"menu.quit" = "Zatvori";
+
+// MARK: - Preferences Window
+"preferences.title" = "Klaxon postavke";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Obavijest o događaju";
+"preferences.eventAlert.description" = "Obavijest koja se prikazuje kada događaj počinje.";
+"preferences.eventAlert.playSound" = "Pusti zvuk:";
+"preferences.eventAlert.duration" = "Trajanje:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Upozorenja";
+"preferences.warningAlerts.description" = "Neobavezne obavijesti prije početka događaja.";
+"preferences.warningAlerts.addButton" = "+ Dodaj";
+"preferences.warningAlerts.column.when" = "Kada";
+"preferences.warningAlerts.column.playSound" = "Zvuk";
+"preferences.warningAlerts.column.duration" = "Trajanje";
+"preferences.warningAlerts.minBeforeEvent" = "min";
+
+// General Section
+"preferences.general.header" = "Općenito";
+"preferences.general.startAtLogin" = "Pokreni Klaxon pri prijavi";
+"preferences.general.showWelcome" = "Prikaži dobrodošlicu pri pokretanju";
+
+// Buttons
+"preferences.button.ok" = "OK";
+
+// Duration Options
+"preferences.duration.noSound" = "Bez zvuka";
+"preferences.duration.oneSecond" = "1 sekunda";
+"preferences.duration.seconds" = "%d sekundi";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Bez zvuka";
+"sound.alarmBell" = "Zvono alarma";
+"sound.alarmTone" = "Ton alarma";
+"sound.alertBellsEcho" = "Jeka zvona";
+"sound.battleshipAlarm" = "Brodski alarm";
+"sound.classicShortAlarm" = "Klasični kratki alarm";
+"sound.urgentSimpleTone" = "Hitan jednostavan ton";
+"sound.warningAlarmBuzzer" = "Zujalica upozorenja";
+"sound.airHorn" = "Zračna sirena";
+"sound.redAlert" = "Crvena uzbuna";
+"sound.schoolFireAlarm" = "Školski požarni alarm";
+
+// MARK: - Alert Window
+"alert.warning.title" = "Upozorenje od %d minute";
+"alert.starting.title" = "Događaj počinje sada";
+"alert.warning.message" = "počinje za %d minutu";
+"alert.warning.messagePlural" = "počinje za %d minuta";
+"alert.starting.message" = "počinje sada!";
+"alert.startTime" = "Početak: %@";
+"alert.location" = "Lokacija: %@";
+"alert.untitledEvent" = "Događaj bez naslova";
+"alert.button.dismiss" = "Zatvori";
+"alert.button.openEvent" = "Otvori događaj";
+
+// MARK: - Welcome Window
+"welcome.title" = "Dobrodošli u Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon prati vaš kalendar i oglašava alarm kada vaši sastanci trebaju početi.\n\nNakon zatvaranja ovog prozora, Klaxon će nastaviti raditi u pozadini. Potražite ikonu zvona u traci izbornika za pristup postavkama i kontrolama.";
+"welcome.button.ok" = "OK";
+
+// MARK: - About Window
+"about.title" = "O aplikaciji Klaxon";
+"about.version" = "Verzija %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Objavljeno pod MIT licencom kao open source.";
+"about.description" = "Klaxon prati vaš kalendar i oglašava alarm kada vaši sastanci trebaju početi. Nikad više nećete propustiti sastanak!";
+"about.assistive" = "Dizajniran kao pomoćni alat za osobe s ADHD-om, vremenskom sljepoćom ili za svakoga tko se udubi u posao i treba mu nezaboravan podsjetnik.";
+"about.credits.header" = "Zahvale";
+"about.credits.icon" = "Ikona: Electric Bell od Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell od battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Javna domena, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Mixkit licenca, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Mixkit licenca, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Potreban pristup kalendaru";
+"calendar.accessRequired.message" = "Klaxon treba pristup vašim kalendarima kako bi vas obavijestio o nadolazećim događajima. Molimo odobrite pristup kalendaru u Postavke sustava > Privatnost i sigurnost > Kalendari.";
+"calendar.accessRequired.retry" = "Ponovi";
+"calendar.accessRequired.quit" = "Zatvori";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Nije uspjelo ažuriranje stavke prijave";

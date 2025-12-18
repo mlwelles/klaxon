@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Arabic localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "حول Klaxon";
+"menu.preferences" = "التفضيلات...";
+"menu.quit" = "إنهاء";
+
+// MARK: - Preferences Window
+"preferences.title" = "تفضيلات Klaxon";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "تنبيه الحدث";
+"preferences.eventAlert.description" = "التنبيه المعروض عند بدء الحدث.";
+"preferences.eventAlert.playSound" = "تشغيل الصوت:";
+"preferences.eventAlert.duration" = "المدة:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "تنبيهات التحذير";
+"preferences.warningAlerts.description" = "تنبيهات اختيارية قبل بدء الحدث.";
+"preferences.warningAlerts.addButton" = "+ إضافة";
+"preferences.warningAlerts.column.when" = "متى";
+"preferences.warningAlerts.column.playSound" = "الصوت";
+"preferences.warningAlerts.column.duration" = "المدة";
+"preferences.warningAlerts.minBeforeEvent" = "د";
+
+// General Section
+"preferences.general.header" = "عام";
+"preferences.general.startAtLogin" = "تشغيل Klaxon عند تسجيل الدخول";
+"preferences.general.showWelcome" = "إظهار الترحيب عند البدء";
+
+// Buttons
+"preferences.button.ok" = "موافق";
+
+// Duration Options
+"preferences.duration.noSound" = "بدون صوت";
+"preferences.duration.oneSecond" = "ثانية واحدة";
+"preferences.duration.seconds" = "%d ثواني";
+
+// MARK: - Sound Names
+"sound.noAudio" = "بدون صوت";
+"sound.alarmBell" = "جرس الإنذار";
+"sound.alarmTone" = "نغمة الإنذار";
+"sound.alertBellsEcho" = "صدى الأجراس";
+"sound.battleshipAlarm" = "إنذار السفينة";
+"sound.classicShortAlarm" = "إنذار كلاسيكي قصير";
+"sound.urgentSimpleTone" = "نغمة بسيطة عاجلة";
+"sound.warningAlarmBuzzer" = "صفارة التحذير";
+"sound.airHorn" = "بوق هوائي";
+"sound.redAlert" = "إنذار أحمر";
+"sound.schoolFireAlarm" = "إنذار حريق المدرسة";
+
+// MARK: - Alert Window
+"alert.warning.title" = "تحذير %d دقيقة";
+"alert.starting.title" = "الحدث يبدأ الآن";
+"alert.warning.message" = "يبدأ خلال %d دقيقة";
+"alert.warning.messagePlural" = "يبدأ خلال %d دقائق";
+"alert.starting.message" = "يبدأ الآن!";
+"alert.startTime" = "البداية: %@";
+"alert.location" = "الموقع: %@";
+"alert.untitledEvent" = "حدث بدون عنوان";
+"alert.button.dismiss" = "إغلاق";
+"alert.button.openEvent" = "فتح الحدث";
+
+// MARK: - Welcome Window
+"welcome.title" = "مرحباً بك في Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "يراقب Klaxon تقويمك ويطلق إنذاراً عندما تكون اجتماعاتك على وشك البدء.\n\nبعد إغلاق هذه النافذة، سيستمر Klaxon في العمل في الخلفية. ابحث عن أيقونة الجرس في شريط القوائم للوصول إلى التفضيلات والتحكم.";
+"welcome.button.ok" = "موافق";
+
+// MARK: - About Window
+"about.title" = "حول Klaxon";
+"about.version" = "الإصدار %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "صدر تحت رخصة MIT كمصدر مفتوح.";
+"about.description" = "يراقب Klaxon تقويمك ويطلق إنذاراً عندما تكون اجتماعاتك على وشك البدء. لن تفوت اجتماعاً مرة أخرى!";
+"about.assistive" = "مصمم كأداة مساعدة للأشخاص الذين يعانون من اضطراب فرط الحركة ونقص الانتباه، أو عمى الوقت، أو أي شخص ينغمس في العمل ويحتاج إلى تذكير لا يُنسى.";
+"about.credits.header" = "الاعتمادات";
+"about.credits.icon" = "الأيقونة: Electric Bell من Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell من battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (ملك عام, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (رخصة Mixkit, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (رخصة Mixkit, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "مطلوب الوصول إلى التقويم";
+"calendar.accessRequired.message" = "يحتاج Klaxon إلى الوصول إلى تقويماتك لإعلامك بالأحداث القادمة. يرجى منح الوصول إلى التقويم في إعدادات النظام > الخصوصية والأمان > التقويمات.";
+"calendar.accessRequired.retry" = "إعادة المحاولة";
+"calendar.accessRequired.quit" = "إنهاء";
+
+// MARK: - Login Item
+"loginItem.error.title" = "فشل تحديث عنصر تسجيل الدخول";

@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Vietnamese localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "Giới thiệu Klaxon";
+"menu.preferences" = "Tùy chọn...";
+"menu.quit" = "Thoát";
+
+// MARK: - Preferences Window
+"preferences.title" = "Tùy chọn Klaxon";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Cảnh báo sự kiện";
+"preferences.eventAlert.description" = "Cảnh báo hiển thị khi sự kiện bắt đầu.";
+"preferences.eventAlert.playSound" = "Phát âm thanh:";
+"preferences.eventAlert.duration" = "Thời lượng:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Cảnh báo trước";
+"preferences.warningAlerts.description" = "Cảnh báo tùy chọn trước khi sự kiện bắt đầu.";
+"preferences.warningAlerts.addButton" = "+ Thêm";
+"preferences.warningAlerts.column.when" = "Khi nào";
+"preferences.warningAlerts.column.playSound" = "Âm thanh";
+"preferences.warningAlerts.column.duration" = "Thời lượng";
+"preferences.warningAlerts.minBeforeEvent" = "phút";
+
+// General Section
+"preferences.general.header" = "Chung";
+"preferences.general.startAtLogin" = "Khởi động Klaxon khi đăng nhập";
+"preferences.general.showWelcome" = "Hiển thị lời chào khi khởi động";
+
+// Buttons
+"preferences.button.ok" = "OK";
+
+// Duration Options
+"preferences.duration.noSound" = "Không có âm thanh";
+"preferences.duration.oneSecond" = "1 giây";
+"preferences.duration.seconds" = "%d giây";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Không có âm thanh";
+"sound.alarmBell" = "Chuông báo thức";
+"sound.alarmTone" = "Âm báo thức";
+"sound.alertBellsEcho" = "Tiếng vọng chuông";
+"sound.battleshipAlarm" = "Còi tàu chiến";
+"sound.classicShortAlarm" = "Báo thức ngắn cổ điển";
+"sound.urgentSimpleTone" = "Âm đơn giản khẩn cấp";
+"sound.warningAlarmBuzzer" = "Còi cảnh báo";
+"sound.airHorn" = "Còi hơi";
+"sound.redAlert" = "Báo động đỏ";
+"sound.schoolFireAlarm" = "Chuông báo cháy trường học";
+
+// MARK: - Alert Window
+"alert.warning.title" = "Cảnh báo %d phút";
+"alert.starting.title" = "Sự kiện bắt đầu ngay";
+"alert.warning.message" = "bắt đầu sau %d phút";
+"alert.warning.messagePlural" = "bắt đầu sau %d phút";
+"alert.starting.message" = "bắt đầu ngay!";
+"alert.startTime" = "Bắt đầu: %@";
+"alert.location" = "Địa điểm: %@";
+"alert.untitledEvent" = "Sự kiện không có tiêu đề";
+"alert.button.dismiss" = "Bỏ qua";
+"alert.button.openEvent" = "Mở sự kiện";
+
+// MARK: - Welcome Window
+"welcome.title" = "Chào mừng đến với Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon theo dõi lịch của bạn và phát chuông báo khi các cuộc họp sắp bắt đầu.\n\nSau khi đóng cửa sổ này, Klaxon sẽ tiếp tục chạy ngầm. Tìm biểu tượng chuông trên thanh menu để truy cập tùy chọn và điều khiển.";
+"welcome.button.ok" = "OK";
+
+// MARK: - About Window
+"about.title" = "Giới thiệu Klaxon";
+"about.version" = "Phiên bản %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Phát hành theo giấy phép MIT mã nguồn mở.";
+"about.description" = "Klaxon theo dõi lịch của bạn và phát chuông báo khi các cuộc họp sắp bắt đầu. Không bao giờ bỏ lỡ cuộc họp nữa!";
+"about.assistive" = "Được thiết kế như công cụ hỗ trợ cho người có ADHD, mù thời gian, hoặc bất kỳ ai chìm đắm trong công việc và cần lời nhắc không thể bỏ qua.";
+"about.credits.header" = "Ghi nhận";
+"about.credits.icon" = "Biểu tượng: Electric Bell bởi Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell bởi battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Miền công cộng, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Giấy phép Mixkit, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Giấy phép Mixkit, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Cần quyền truy cập lịch";
+"calendar.accessRequired.message" = "Klaxon cần quyền truy cập lịch của bạn để thông báo về các sự kiện sắp tới. Vui lòng cấp quyền truy cập lịch trong Cài đặt hệ thống > Quyền riêng tư & Bảo mật > Lịch.";
+"calendar.accessRequired.retry" = "Thử lại";
+"calendar.accessRequired.quit" = "Thoát";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Không thể cập nhật mục đăng nhập";

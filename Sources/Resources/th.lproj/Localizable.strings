@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Thai localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "เกี่ยวกับ Klaxon";
+"menu.preferences" = "การตั้งค่า...";
+"menu.quit" = "ออก";
+
+// MARK: - Preferences Window
+"preferences.title" = "การตั้งค่า Klaxon";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "การแจ้งเตือนกิจกรรม";
+"preferences.eventAlert.description" = "การแจ้งเตือนเมื่อกิจกรรมเริ่มต้น";
+"preferences.eventAlert.playSound" = "เล่นเสียง:";
+"preferences.eventAlert.duration" = "ระยะเวลา:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "การแจ้งเตือนล่วงหน้า";
+"preferences.warningAlerts.description" = "การแจ้งเตือนทางเลือกก่อนกิจกรรมเริ่มต้น";
+"preferences.warningAlerts.addButton" = "+ เพิ่ม";
+"preferences.warningAlerts.column.when" = "เมื่อไร";
+"preferences.warningAlerts.column.playSound" = "เสียง";
+"preferences.warningAlerts.column.duration" = "ระยะเวลา";
+"preferences.warningAlerts.minBeforeEvent" = "นาที";
+
+// General Section
+"preferences.general.header" = "ทั่วไป";
+"preferences.general.startAtLogin" = "เริ่ม Klaxon เมื่อเข้าสู่ระบบ";
+"preferences.general.showWelcome" = "แสดงข้อความต้อนรับเมื่อเริ่มต้น";
+
+// Buttons
+"preferences.button.ok" = "ตกลง";
+
+// Duration Options
+"preferences.duration.noSound" = "ไม่มีเสียง";
+"preferences.duration.oneSecond" = "1 วินาที";
+"preferences.duration.seconds" = "%d วินาที";
+
+// MARK: - Sound Names
+"sound.noAudio" = "ไม่มีเสียง";
+"sound.alarmBell" = "กระดิ่งปลุก";
+"sound.alarmTone" = "เสียงปลุก";
+"sound.alertBellsEcho" = "เสียงสะท้อนกระดิ่ง";
+"sound.battleshipAlarm" = "สัญญาณเรือรบ";
+"sound.classicShortAlarm" = "เสียงปลุกสั้นคลาสสิก";
+"sound.urgentSimpleTone" = "เสียงเรียบง่ายเร่งด่วน";
+"sound.warningAlarmBuzzer" = "เสียงเตือน";
+"sound.airHorn" = "แตรลม";
+"sound.redAlert" = "แจ้งเตือนสีแดง";
+"sound.schoolFireAlarm" = "สัญญาณไฟไหม้โรงเรียน";
+
+// MARK: - Alert Window
+"alert.warning.title" = "แจ้งเตือน %d นาที";
+"alert.starting.title" = "กิจกรรมเริ่มต้นแล้ว";
+"alert.warning.message" = "เริ่มใน %d นาที";
+"alert.warning.messagePlural" = "เริ่มใน %d นาที";
+"alert.starting.message" = "เริ่มต้นแล้ว!";
+"alert.startTime" = "เริ่ม: %@";
+"alert.location" = "สถานที่: %@";
+"alert.untitledEvent" = "กิจกรรมไม่มีชื่อ";
+"alert.button.dismiss" = "ปิด";
+"alert.button.openEvent" = "เปิดกิจกรรม";
+
+// MARK: - Welcome Window
+"welcome.title" = "ยินดีต้อนรับสู่ Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon ติดตามปฏิทินของคุณและส่งสัญญาณเตือนเมื่อการประชุมกำลังจะเริ่ม\n\nหลังจากปิดหน้าต่างนี้ Klaxon จะทำงานต่อไปในพื้นหลัง มองหาไอคอนกระดิ่งในแถบเมนูเพื่อเข้าถึงการตั้งค่าและการควบคุม";
+"welcome.button.ok" = "ตกลง";
+
+// MARK: - About Window
+"about.title" = "เกี่ยวกับ Klaxon";
+"about.version" = "เวอร์ชัน %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "เผยแพร่ภายใต้ใบอนุญาต MIT เป็นโอเพนซอร์ส";
+"about.description" = "Klaxon ติดตามปฏิทินของคุณและส่งสัญญาณเตือนเมื่อการประชุมกำลังจะเริ่ม ไม่พลาดการประชุมอีกต่อไป!";
+"about.assistive" = "ออกแบบเป็นเครื่องมือช่วยเหลือสำหรับผู้ที่มี ADHD ตาบอดเวลา หรือใครก็ตามที่จมอยู่ในงานและต้องการการเตือนที่พลาดไม่ได้";
+"about.credits.header" = "เครดิต";
+"about.credits.icon" = "ไอคอน: Electric Bell โดย Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell โดย battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (สาธารณสมบัติ, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (ใบอนุญาต Mixkit, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (ใบอนุญาต Mixkit, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "ต้องการสิทธิ์เข้าถึงปฏิทิน";
+"calendar.accessRequired.message" = "Klaxon ต้องการเข้าถึงปฏิทินของคุณเพื่อแจ้งเตือนเกี่ยวกับกิจกรรมที่จะมาถึง กรุณาอนุญาตการเข้าถึงปฏิทินในการตั้งค่าระบบ > ความเป็นส่วนตัวและความปลอดภัย > ปฏิทิน";
+"calendar.accessRequired.retry" = "ลองใหม่";
+"calendar.accessRequired.quit" = "ออก";
+
+// MARK: - Login Item
+"loginItem.error.title" = "ไม่สามารถอัปเดตรายการเข้าสู่ระบบ";

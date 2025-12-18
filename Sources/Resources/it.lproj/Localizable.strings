@@ -29,7 +29,7 @@
 "preferences.warningAlerts.column.when" = "Quando";
 "preferences.warningAlerts.column.playSound" = "Suono";
 "preferences.warningAlerts.column.duration" = "Durata";
-"preferences.warningAlerts.minBeforeEvent" = "min prima dell'evento";
+"preferences.warningAlerts.minBeforeEvent" = "min";
 
 // General Section
 "preferences.general.header" = "Generali";

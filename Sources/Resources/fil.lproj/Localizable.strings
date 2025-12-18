@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Filipino localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "Tungkol sa Klaxon";
+"menu.preferences" = "Mga Kagustuhan...";
+"menu.quit" = "Lumabas";
+
+// MARK: - Preferences Window
+"preferences.title" = "Mga Kagustuhan ng Klaxon";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Alerto ng Kaganapan";
+"preferences.eventAlert.description" = "Alerto na ipinapakita kapag nagsisimula ang kaganapan.";
+"preferences.eventAlert.playSound" = "Tugtugin ang tunog:";
+"preferences.eventAlert.duration" = "Tagal:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Mga Babalang Alerto";
+"preferences.warningAlerts.description" = "Opsyonal na mga alerto bago magsimula ang kaganapan.";
+"preferences.warningAlerts.addButton" = "+ Idagdag";
+"preferences.warningAlerts.column.when" = "Kailan";
+"preferences.warningAlerts.column.playSound" = "Tunog";
+"preferences.warningAlerts.column.duration" = "Tagal";
+"preferences.warningAlerts.minBeforeEvent" = "min";
+
+// General Section
+"preferences.general.header" = "Pangkalahatan";
+"preferences.general.startAtLogin" = "Simulan ang Klaxon sa pag-login";
+"preferences.general.showWelcome" = "Ipakita ang pagbati sa pagsisimula";
+
+// Buttons
+"preferences.button.ok" = "OK";
+
+// Duration Options
+"preferences.duration.noSound" = "Walang tunog";
+"preferences.duration.oneSecond" = "1 segundo";
+"preferences.duration.seconds" = "%d segundo";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Walang tunog";
+"sound.alarmBell" = "Kampana ng Alarma";
+"sound.alarmTone" = "Tono ng Alarma";
+"sound.alertBellsEcho" = "Alingawngaw ng Kampana";
+"sound.battleshipAlarm" = "Alarma ng Barko";
+"sound.classicShortAlarm" = "Klasikong Maikling Alarma";
+"sound.urgentSimpleTone" = "Agarang Simpleng Tono";
+"sound.warningAlarmBuzzer" = "Buzzer ng Babala";
+"sound.airHorn" = "Busina ng Hangin";
+"sound.redAlert" = "Pulang Alerto";
+"sound.schoolFireAlarm" = "Alarma ng Sunog sa Paaralan";
+
+// MARK: - Alert Window
+"alert.warning.title" = "Babala ng %d Minuto";
+"alert.starting.title" = "Nagsisimula na ang Kaganapan";
+"alert.warning.message" = "magsisimula sa %d minuto";
+"alert.warning.messagePlural" = "magsisimula sa %d minuto";
+"alert.starting.message" = "nagsisimula na!";
+"alert.startTime" = "Simula: %@";
+"alert.location" = "Lokasyon: %@";
+"alert.untitledEvent" = "Walang Pamagat na Kaganapan";
+"alert.button.dismiss" = "Isara";
+"alert.button.openEvent" = "Buksan ang Kaganapan";
+
+// MARK: - Welcome Window
+"welcome.title" = "Maligayang Pagdating sa Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Sinusubaybayan ng Klaxon ang iyong kalendaryo at nagpapatunog ng alarma kapag malapit nang magsimula ang iyong mga pulong.\n\nMatapos isara ang window na ito, patuloy na tatakbo ang Klaxon sa background. Hanapin ang icon ng kampana sa menu bar para ma-access ang mga kagustuhan at kontrol.";
+"welcome.button.ok" = "OK";
+
+// MARK: - About Window
+"about.title" = "Tungkol sa Klaxon";
+"about.version" = "Bersyon %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Inilabas sa ilalim ng MIT License bilang open source.";
+"about.description" = "Sinusubaybayan ng Klaxon ang iyong kalendaryo at nagpapatunog ng alarma kapag malapit nang magsimula ang iyong mga pulong. Huwag nang mapalampas pa ang pulong!";
+"about.assistive" = "Idinisenyo bilang assistive tool para sa mga taong may ADHD, time blindness, o sinumang nalulubog sa trabaho at nangangailangan ng hindi makakalimutang paalala.";
+"about.credits.header" = "Mga Kredito";
+"about.credits.icon" = "Icon: Electric Bell ni Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell ni battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Public Domain, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Mixkit License, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Mixkit License, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Kailangan ang Access sa Kalendaryo";
+"calendar.accessRequired.message" = "Kailangan ng Klaxon ang access sa iyong mga kalendaryo para ipaalam sa iyo ang mga paparating na kaganapan. Mangyaring bigyan ng access sa kalendaryo sa System Settings > Privacy & Security > Calendars.";
+"calendar.accessRequired.retry" = "Subukan Muli";
+"calendar.accessRequired.quit" = "Lumabas";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Nabigong i-update ang login item";

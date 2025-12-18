@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Russian localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "О Klaxon";
+"menu.preferences" = "Настройки...";
+"menu.quit" = "Выход";
+
+// MARK: - Preferences Window
+"preferences.title" = "Настройки Klaxon";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Оповещение о событии";
+"preferences.eventAlert.description" = "Оповещение при начале события.";
+"preferences.eventAlert.playSound" = "Воспроизвести звук:";
+"preferences.eventAlert.duration" = "Длительность:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Предупреждения";
+"preferences.warningAlerts.description" = "Необязательные оповещения перед началом события.";
+"preferences.warningAlerts.addButton" = "+ Добавить";
+"preferences.warningAlerts.column.when" = "Когда";
+"preferences.warningAlerts.column.playSound" = "Звук";
+"preferences.warningAlerts.column.duration" = "Длительность";
+"preferences.warningAlerts.minBeforeEvent" = "мин";
+
+// General Section
+"preferences.general.header" = "Общие";
+"preferences.general.startAtLogin" = "Запускать Klaxon при входе";
+"preferences.general.showWelcome" = "Показывать приветствие при запуске";
+
+// Buttons
+"preferences.button.ok" = "OK";
+
+// Duration Options
+"preferences.duration.noSound" = "Без звука";
+"preferences.duration.oneSecond" = "1 секунда";
+"preferences.duration.seconds" = "%d секунд";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Без аудио";
+"sound.alarmBell" = "Звонок будильника";
+"sound.alarmTone" = "Сигнал тревоги";
+"sound.alertBellsEcho" = "Эхо колоколов";
+"sound.battleshipAlarm" = "Сирена корабля";
+"sound.classicShortAlarm" = "Классический короткий сигнал";
+"sound.urgentSimpleTone" = "Срочный простой тон";
+"sound.warningAlarmBuzzer" = "Предупредительный зуммер";
+"sound.airHorn" = "Воздушный горн";
+"sound.redAlert" = "Красная тревога";
+"sound.schoolFireAlarm" = "Школьная пожарная сигнализация";
+
+// MARK: - Alert Window
+"alert.warning.title" = "Предупреждение за %d минуту";
+"alert.starting.title" = "Событие начинается сейчас";
+"alert.warning.message" = "начинается через %d минуту";
+"alert.warning.messagePlural" = "начинается через %d минут";
+"alert.starting.message" = "начинается сейчас!";
+"alert.startTime" = "Начало: %@";
+"alert.location" = "Место: %@";
+"alert.untitledEvent" = "Событие без названия";
+"alert.button.dismiss" = "Закрыть";
+"alert.button.openEvent" = "Открыть событие";
+
+// MARK: - Welcome Window
+"welcome.title" = "Добро пожаловать в Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon отслеживает ваш календарь и подаёт сигнал тревоги, когда ваши встречи вот-вот начнутся.\n\nПосле закрытия этого окна Klaxon продолжит работать в фоновом режиме. Найдите значок колокольчика в строке меню для доступа к настройкам и управлению.";
+"welcome.button.ok" = "OK";
+
+// MARK: - About Window
+"about.title" = "О Klaxon";
+"about.version" = "Версия %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Выпущено под лицензией MIT с открытым исходным кодом.";
+"about.description" = "Klaxon отслеживает ваш календарь и подаёт сигнал, когда встречи вот-вот начнутся. Больше никогда не пропустите встречу!";
+"about.assistive" = "Разработано как вспомогательный инструмент для людей с СДВГ, временной слепотой или для тех, кто погружается в работу и нуждается в незабываемом напоминании.";
+"about.credits.header" = "Благодарности";
+"about.credits.icon" = "Иконка: Electric Bell от Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell от battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Общественное достояние, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Лицензия Mixkit, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Лицензия Mixkit, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Требуется доступ к календарю";
+"calendar.accessRequired.message" = "Klaxon нужен доступ к вашим календарям для уведомления о предстоящих событиях. Пожалуйста, предоставьте доступ к календарю в Системных настройках > Конфиденциальность и безопасность > Календари.";
+"calendar.accessRequired.retry" = "Повторить";
+"calendar.accessRequired.quit" = "Выход";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Не удалось обновить элемент входа";

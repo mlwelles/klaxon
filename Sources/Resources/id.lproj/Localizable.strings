@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Indonesian localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "Tentang Klaxon";
+"menu.preferences" = "Preferensi...";
+"menu.quit" = "Keluar";
+
+// MARK: - Preferences Window
+"preferences.title" = "Preferensi Klaxon";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Peringatan Acara";
+"preferences.eventAlert.description" = "Peringatan yang ditampilkan saat acara dimulai.";
+"preferences.eventAlert.playSound" = "Putar suara:";
+"preferences.eventAlert.duration" = "Durasi:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Peringatan Awal";
+"preferences.warningAlerts.description" = "Peringatan opsional sebelum acara dimulai.";
+"preferences.warningAlerts.addButton" = "+ Tambah";
+"preferences.warningAlerts.column.when" = "Kapan";
+"preferences.warningAlerts.column.playSound" = "Suara";
+"preferences.warningAlerts.column.duration" = "Durasi";
+"preferences.warningAlerts.minBeforeEvent" = "mnt";
+
+// General Section
+"preferences.general.header" = "Umum";
+"preferences.general.startAtLogin" = "Mulai Klaxon saat login";
+"preferences.general.showWelcome" = "Tampilkan sambutan saat mulai";
+
+// Buttons
+"preferences.button.ok" = "OK";
+
+// Duration Options
+"preferences.duration.noSound" = "Tanpa suara";
+"preferences.duration.oneSecond" = "1 detik";
+"preferences.duration.seconds" = "%d detik";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Tanpa suara";
+"sound.alarmBell" = "Bel Alarm";
+"sound.alarmTone" = "Nada Alarm";
+"sound.alertBellsEcho" = "Gema Bel";
+"sound.battleshipAlarm" = "Alarm Kapal Perang";
+"sound.classicShortAlarm" = "Alarm Pendek Klasik";
+"sound.urgentSimpleTone" = "Nada Sederhana Mendesak";
+"sound.warningAlarmBuzzer" = "Buzzer Peringatan";
+"sound.airHorn" = "Klakson Udara";
+"sound.redAlert" = "Siaga Merah";
+"sound.schoolFireAlarm" = "Alarm Kebakaran Sekolah";
+
+// MARK: - Alert Window
+"alert.warning.title" = "Peringatan %d Menit";
+"alert.starting.title" = "Acara Dimulai Sekarang";
+"alert.warning.message" = "dimulai dalam %d menit";
+"alert.warning.messagePlural" = "dimulai dalam %d menit";
+"alert.starting.message" = "dimulai sekarang!";
+"alert.startTime" = "Mulai: %@";
+"alert.location" = "Lokasi: %@";
+"alert.untitledEvent" = "Acara Tanpa Judul";
+"alert.button.dismiss" = "Tutup";
+"alert.button.openEvent" = "Buka Acara";
+
+// MARK: - Welcome Window
+"welcome.title" = "Selamat Datang di Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Klaxon memantau kalender Anda dan membunyikan alarm saat pertemuan Anda akan dimulai.\n\nSetelah menutup jendela ini, Klaxon akan terus berjalan di latar belakang. Cari ikon bel di bilah menu untuk mengakses preferensi dan kontrol.";
+"welcome.button.ok" = "OK";
+
+// MARK: - About Window
+"about.title" = "Tentang Klaxon";
+"about.version" = "Versi %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Dirilis di bawah Lisensi MIT sebagai sumber terbuka.";
+"about.description" = "Klaxon memantau kalender Anda dan membunyikan alarm saat pertemuan Anda akan dimulai. Jangan pernah lewatkan pertemuan lagi!";
+"about.assistive" = "Dirancang sebagai alat bantu bagi orang dengan ADHD, kebutaan waktu, atau siapa saja yang tenggelam dalam pekerjaan dan membutuhkan pengingat yang tak terlupakan.";
+"about.credits.header" = "Kredit";
+"about.credits.icon" = "Ikon: Electric Bell oleh Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell oleh battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Domain Publik, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Lisensi Mixkit, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Lisensi Mixkit, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Akses Kalender Diperlukan";
+"calendar.accessRequired.message" = "Klaxon memerlukan akses ke kalender Anda untuk memberi tahu tentang acara yang akan datang. Harap berikan akses kalender di Pengaturan Sistem > Privasi & Keamanan > Kalender.";
+"calendar.accessRequired.retry" = "Coba Lagi";
+"calendar.accessRequired.quit" = "Keluar";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Gagal memperbarui item login";

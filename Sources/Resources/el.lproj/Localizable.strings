@@ -1,0 +1,99 @@
+/*
+  Localizable.strings
+  Klaxon
+
+  Greek localization strings
+*/
+
+// MARK: - App General
+"app.name" = "Klaxon";
+
+// MARK: - Menu Bar
+"menu.about" = "Σχετικά με το Klaxon";
+"menu.preferences" = "Προτιμήσεις...";
+"menu.quit" = "Έξοδος";
+
+// MARK: - Preferences Window
+"preferences.title" = "Προτιμήσεις Klaxon";
+
+// Event Alert Section
+"preferences.eventAlert.header" = "Ειδοποίηση Εκδήλωσης";
+"preferences.eventAlert.description" = "Ειδοποίηση που εμφανίζεται όταν ξεκινά μια εκδήλωση.";
+"preferences.eventAlert.playSound" = "Αναπαραγωγή ήχου:";
+"preferences.eventAlert.duration" = "Διάρκεια:";
+
+// Warning Alerts Section
+"preferences.warningAlerts.header" = "Προειδοποιητικές Ειδοποιήσεις";
+"preferences.warningAlerts.description" = "Προαιρετικές ειδοποιήσεις πριν την έναρξη της εκδήλωσης.";
+"preferences.warningAlerts.addButton" = "+ Προσθήκη";
+"preferences.warningAlerts.column.when" = "Πότε";
+"preferences.warningAlerts.column.playSound" = "Ήχος";
+"preferences.warningAlerts.column.duration" = "Διάρκεια";
+"preferences.warningAlerts.minBeforeEvent" = "λεπ";
+
+// General Section
+"preferences.general.header" = "Γενικά";
+"preferences.general.startAtLogin" = "Εκκίνηση Klaxon κατά τη σύνδεση";
+"preferences.general.showWelcome" = "Εμφάνιση καλωσορίσματος κατά την εκκίνηση";
+
+// Buttons
+"preferences.button.ok" = "OK";
+
+// Duration Options
+"preferences.duration.noSound" = "Χωρίς ήχο";
+"preferences.duration.oneSecond" = "1 δευτερόλεπτο";
+"preferences.duration.seconds" = "%d δευτερόλεπτα";
+
+// MARK: - Sound Names
+"sound.noAudio" = "Χωρίς ήχο";
+"sound.alarmBell" = "Κουδούνι Συναγερμού";
+"sound.alarmTone" = "Τόνος Συναγερμού";
+"sound.alertBellsEcho" = "Ηχώ Κουδουνιών";
+"sound.battleshipAlarm" = "Συναγερμός Θωρηκτού";
+"sound.classicShortAlarm" = "Κλασικός Σύντομος Συναγερμός";
+"sound.urgentSimpleTone" = "Επείγων Απλός Τόνος";
+"sound.warningAlarmBuzzer" = "Βομβητής Προειδοποίησης";
+"sound.airHorn" = "Αεροκόρνα";
+"sound.redAlert" = "Κόκκινος Συναγερμός";
+"sound.schoolFireAlarm" = "Σχολικός Συναγερμός Πυρκαγιάς";
+
+// MARK: - Alert Window
+"alert.warning.title" = "Προειδοποίηση %d Λεπτού";
+"alert.starting.title" = "Η Εκδήλωση Ξεκινά Τώρα";
+"alert.warning.message" = "ξεκινά σε %d λεπτό";
+"alert.warning.messagePlural" = "ξεκινά σε %d λεπτά";
+"alert.starting.message" = "ξεκινά τώρα!";
+"alert.startTime" = "Έναρξη: %@";
+"alert.location" = "Τοποθεσία: %@";
+"alert.untitledEvent" = "Εκδήλωση Χωρίς Τίτλο";
+"alert.button.dismiss" = "Απόρριψη";
+"alert.button.openEvent" = "Άνοιγμα Εκδήλωσης";
+
+// MARK: - Welcome Window
+"welcome.title" = "Καλώς ήρθατε στο Klaxon";
+"welcome.copyright" = "© %d Michael L. Welles";
+"welcome.description" = "Το Klaxon παρακολουθεί το ημερολόγιό σας και ηχεί έναν αδύνατο να χαθεί συναγερμό όταν οι συναντήσεις σας πρόκειται να ξεκινήσουν.\n\nΜόλις κλείσετε αυτό το παράθυρο, το Klaxon θα συνεχίσει να τρέχει στο παρασκήνιο. Αναζητήστε το εικονίδιο κουδουνιού στη γραμμή μενού για να αποκτήσετε πρόσβαση στις προτιμήσεις και τα στοιχεία ελέγχου.";
+"welcome.button.ok" = "OK";
+
+// MARK: - About Window
+"about.title" = "Σχετικά με το Klaxon";
+"about.version" = "Έκδοση %@";
+"about.copyright" = "© %d Michael L. Welles (@mlwelles)";
+"about.license" = "Κυκλοφόρησε υπό την Άδεια MIT ως ανοιχτός κώδικας.";
+"about.description" = "Το Klaxon παρακολουθεί το ημερολόγιό σας και ηχεί τον συναγερμό όταν οι συναντήσεις σας πρόκειται να ξεκινήσουν. Μην χάσετε ποτέ ξανά συνάντηση!";
+"about.assistive" = "Σχεδιάστηκε ως βοηθητικό εργαλείο για άτομα με ΔΕΠΥ, τύφλωση χρόνου ή οποιονδήποτε απορροφάται στη δουλειά του και χρειάζεται μια αδύνατη να χαθεί υπενθύμιση.";
+"about.credits.header" = "Συντελεστές";
+"about.credits.icon" = "Εικονίδιο: Electric Bell από Firkin (CC0, OpenClipart)";
+"about.credits.sound1" = "Fire Alarm Bell από battlestar10 (CC BY 3.0, SoundBible)";
+"about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Δημόσιο Κτήμα, SoundBible)";
+"about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Άδεια Mixkit, Mixkit)";
+"about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Άδεια Mixkit, Mixkit)";
+
+// MARK: - Calendar Access
+"calendar.accessRequired.title" = "Απαιτείται Πρόσβαση Ημερολογίου";
+"calendar.accessRequired.message" = "Το Klaxon χρειάζεται πρόσβαση στα ημερολόγιά σας για να σας ειδοποιεί για επερχόμενες εκδηλώσεις. Παρακαλώ παραχωρήστε πρόσβαση ημερολογίου στις Ρυθμίσεις Συστήματος > Απόρρητο & Ασφάλεια > Ημερολόγια.";
+"calendar.accessRequired.retry" = "Επανάληψη";
+"calendar.accessRequired.quit" = "Έξοδος";
+
+// MARK: - Login Item
+"loginItem.error.title" = "Αποτυχία ενημέρωσης στοιχείου σύνδεσης";
