@@ -182,7 +182,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
             warningsScrollView.topAnchor.constraint(equalTo: warningsDescription.bottomAnchor, constant: 12),
             warningsScrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             warningsScrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            warningsScrollView.heightAnchor.constraint(equalToConstant: 100),
+            warningsScrollView.heightAnchor.constraint(equalToConstant: 144),
 
             // Add warning button
             addWarningButton.topAnchor.constraint(equalTo: warningsScrollView.bottomAnchor, constant: 8),
@@ -276,6 +276,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         // Load warnings sorted by duration (longest first)
         warnings = prefs.warnings.sorted(by: { $0.minutesBefore > $1.minutesBefore })
         warningsTableView.reloadData()
+        updateAddButtonState()
 
         // Select the current alert sound
         if let soundIndex = Preferences.availableSounds.firstIndex(where: { $0.id == prefs.alertSound }) {
@@ -309,6 +310,10 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         eventStartSoundPopup.isEnabled = soundEnabled
     }
 
+    private func updateAddButtonState() {
+        addWarningButton.isEnabled = warnings.count < 4
+    }
+
     /// Get the maximum duration option index for a sound (first option >= actual duration)
     private func maxDurationOptionIndex(for soundName: String) -> Int {
         guard !soundName.isEmpty else { return soundDurationOptions.count - 1 }
@@ -333,6 +338,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
     // MARK: - Warning Management
 
     @objc private func addWarning() {
+        guard warnings.count < 4 else { return }
         let prefs = Preferences.shared
         let newWarning = AlertWarning(
             minutesBefore: 5,
@@ -341,6 +347,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         )
         warnings.append(newWarning)
         warningsTableView.reloadData()
+        updateAddButtonState()
         saveWarnings()
     }
 
@@ -349,6 +356,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         guard row >= 0 && row < warnings.count else { return }
         warnings.remove(at: row)
         warningsTableView.reloadData()
+        updateAddButtonState()
         saveWarnings()
     }
 
@@ -357,7 +365,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         guard row >= 0 && row < warnings.count else { return }
         warnings[row].minutesBefore = sender.integerValue
         // Update the text field in the same row (find the editable-looking text field)
-        if let cellView = warningsTableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? NSView {
+        if let cellView = warningsTableView.view(atColumn: 0, row: row, makeIfNecessary: false) {
             let textFields = cellView.subviews.compactMap { $0 as? NSTextField }
             // The minutes field is the one with a border/bezel (not a label)
             if let minutesField = textFields.first(where: { $0.isBordered }) {
