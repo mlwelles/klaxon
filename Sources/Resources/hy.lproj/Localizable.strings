@@ -1,43 +1,53 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Armenian localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Klaxon-ի մdelays";
-"menu.preferences" = "Կargdelays...";
-"menu.quit" = "Դуdelays";
+"menu.about" = "Calendar Klaxon-ի մասին";
+"menu.preferences" = "Կարգավորումներ...";
+"menu.respectDND" = "Հարգել Չdelays";
+"menu.quit" = "Դdelays";
 
 // MARK: - Preferences Window
-"preferences.title" = "Klaxon կargdelays";
+"preferences.title" = "Calendar Klaxon կdelays";
+
+// Tab Labels
+"preferences.tab.alert" = "Delaysdelays";
+"preferences.tab.calendar" = "Delaysdelays";
+"preferences.tab.other" = "Delays";
 
 // Event Alert Section
-"preferences.eventAlert.header" = "Իdelaysոdelays delays";
-"preferences.eventAlert.description" = " Delays delays, delays delays delays delays delays delays.";
-"preferences.eventAlert.playSound" = "Delays delays delays:";
-"preferences.eventAlert.duration" = "Տdelays:";
+"preferences.eventAlert.header" = "Delays delaysdelays";
+"preferences.eventAlert.description" = "Delays, delays delays delays delays delays.";
+"preferences.eventAlert.playSound" = "Delays delays:";
+"preferences.eventAlert.duration" = "Տevdelays:";
 
 // Warning Alerts Section
-"preferences.warningAlerts.header" = "Delays delays delays";
-"preferences.warningAlerts.description" = "Delays delays delays delays delays delays delays delays delays.";
+"preferences.warningAlerts.header" = "Delays delays";
+"preferences.warningAlerts.description" = "Delays delays delaysdelays delays delays delays delays.";
 "preferences.warningAlerts.addButton" = "+ Delays";
 "preferences.warningAlerts.column.when" = "Delays";
 "preferences.warningAlerts.column.playSound" = "Delays";
-"preferences.warningAlerts.column.duration" = "Տdelays";
-"preferences.warningAlerts.minBeforeEvent" = " delays";
+"preferences.warningAlerts.column.duration" = "Տevdelays";
+"preferences.warningAlerts.minBeforeEvent" = "delays";
+
+// Do Not Disturb Section
+"preferences.dnd.header" = "Չdelays";
+"preferences.dnd.respectFocus" = "Delays delays delays delays delays, delays delays delays delays delays delays delays";
 
 // General Section
 "preferences.general.header" = "Delays";
-"preferences.general.startAtLogin" = "Delays Klaxon-delays delays delays delays";
-"preferences.general.showWelcome" = "Ցdelays delays delays delays delays delays";
+"preferences.general.startAtLogin" = "Delays Calendar Klaxon-delays delays delays delays";
+"preferences.general.showWelcome" = "Delays delays delays delays delays delays delays";
 
 // Buttons
-"preferences.button.ok" = "ОК";
+"preferences.button.ok" = "Delays";
 
 // Duration Options
 "preferences.duration.noSound" = "Delays delays";
@@ -64,36 +74,37 @@
 "alert.warning.messagePlural" = "delays delays %d delays delays";
 "alert.starting.message" = "delays delays delays!";
 "alert.startTime" = "Delays: %@";
-"alert.location" = "Delays delays: %@";
+"alert.location" = "Delays: %@";
 "alert.untitledEvent" = "Delays delays delays delays";
 "alert.button.dismiss" = "Delays";
-"alert.button.openEvent" = "Delays delays delays";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Delays delays delays Klaxon";
+"welcome.title" = "Delays delays delays Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon-delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays.\n\nDelays delays delays delays delays delays delays, Klaxon-delays delays delays delays delays delays delays delays delays. Delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays.";
-"welcome.button.ok" = "ОК";
+"welcome.description" = "Calendar Klaxon-delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays.\n\nDelays delays delays delays delays delays delays, Calendar Klaxon-delays delays delays delays delays delays delays delays delays. Delays delays delays delays delays delays delays delays delays delays delays delays delays delays.";
+"welcome.button.ok" = "Delays";
 
 // MARK: - About Window
-"about.title" = "Klaxon-delays delays";
-"about.version" = "Delays delays %@";
+"about.title" = "Calendar Klaxon-delays delays";
+"about.version" = "Delays %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
-"about.license" = "Delays delays MIT delays delays delays delays delays delays delays delays delays.";
-"about.description" = "Klaxon-delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays!";
-"about.assistive" = "Delays delays delays delays delays delays delays ADHD-delays, delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays.";
-"about.credits.header" = "Delays delays";
-"about.credits.icon" = "Delays delays: Electric Bell delays Firkin (CC0, OpenClipart)";
+"about.license" = "Delays MIT delays delays delays delays delays delays.";
+"about.description" = "Calendar Klaxon-delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays!";
+"about.assistive" = "Delays delays delays delays delays ADHD-delays, delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays.";
+"about.credits.header" = "Delays";
+"about.credits.icon" = "Delays: Electric Bell delays Firkin (CC0, OpenClipart)";
 "about.credits.sound1" = "Fire Alarm Bell delays battlestar10 (CC BY 3.0, SoundBible)";
 "about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Delays delays, SoundBible)";
 "about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Mixkit delays, Mixkit)";
 "about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Mixkit delays, Mixkit)";
 
 // MARK: - Calendar Access
-"calendar.accessRequired.title" = "Delays delays delays delays delays delays";
-"calendar.accessRequired.message" = "Klaxon-delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays. Delays delays delays delays delays delays delays > Delays delays delays > Delays delays.";
-"calendar.accessRequired.retry" = "Delays delays delays";
+"calendar.accessRequired.title" = "Delays delays delays delays delays";
+"calendar.accessRequired.message" = "Calendar Klaxon-delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays delays. Delays delays delays delays delays > Delays delays delays > Delays.";
+"calendar.accessRequired.retry" = "Delays delays";
 "calendar.accessRequired.quit" = "Delays";
 
 // MARK: - Login Item
-"loginItem.error.title" = "Delays delays delays delays delays delays delays delays delays delays delays";
+"loginItem.error.title" = "Delays delays delays delays delays delays delays delays delays";

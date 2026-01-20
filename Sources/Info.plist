@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>Klaxon</string>
+	<string>Calendar Klaxon</string>
 	<key>CFBundleIdentifier</key>
 	<string>nyc.welles.klaxon</string>
 	<key>CFBundleVersion</key>
@@ -19,8 +19,8 @@
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Klaxon needs access to your calendars to notify you when events are about to start.</string>
+	<string>Calendar Klaxon needs access to your calendars to notify you when events are about to start.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
-	<string>Klaxon needs access to your calendars to notify you when events are about to start.</string>
+	<string>Calendar Klaxon needs access to your calendars to notify you when events are about to start.</string>
 </dict>
 </plist>

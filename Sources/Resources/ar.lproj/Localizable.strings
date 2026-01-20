@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Arabic localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "حول Klaxon";
+"menu.about" = "حول Calendar Klaxon";
 "menu.preferences" = "التفضيلات...";
+"menu.respectDND" = "احترام عدم الإزعاج";
 "menu.quit" = "إنهاء";
 
 // MARK: - Preferences Window
-"preferences.title" = "تفضيلات Klaxon";
+"preferences.title" = "تفضيلات Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "التنبيهات";
+"preferences.tab.calendar" = "التقويمات";
+"preferences.tab.other" = "بدء التشغيل";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "تنبيه الحدث";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "المدة";
 "preferences.warningAlerts.minBeforeEvent" = "د";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "عدم الإزعاج";
+"preferences.dnd.respectFocus" = "تعطيل التنبيهات والتحذيرات إذا كان وضع عدم الإزعاج مفعلاً";
+
 // General Section
 "preferences.general.header" = "عام";
-"preferences.general.startAtLogin" = "تشغيل Klaxon عند تسجيل الدخول";
+"preferences.general.startAtLogin" = "تشغيل Calendar Klaxon عند تسجيل الدخول";
 "preferences.general.showWelcome" = "إظهار الترحيب عند البدء";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "الموقع: %@";
 "alert.untitledEvent" = "حدث بدون عنوان";
 "alert.button.dismiss" = "إغلاق";
-"alert.button.openEvent" = "فتح الحدث";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "مرحباً بك في Klaxon";
+"welcome.title" = "مرحباً بك في Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "يراقب Klaxon تقويمك ويطلق إنذاراً عندما تكون اجتماعاتك على وشك البدء.\n\nبعد إغلاق هذه النافذة، سيستمر Klaxon في العمل في الخلفية. ابحث عن أيقونة الجرس في شريط القوائم للوصول إلى التفضيلات والتحكم.";
+"welcome.description" = "يراقب Calendar Klaxon تقويمك ويطلق إنذاراً عندما تكون اجتماعاتك على وشك البدء.\n\nبعد إغلاق هذه النافذة، سيستمر Calendar Klaxon في العمل في الخلفية. ابحث عن أيقونة الجرس في شريط القوائم للوصول إلى التفضيلات والتحكم.";
 "welcome.button.ok" = "موافق";
 
 // MARK: - About Window
-"about.title" = "حول Klaxon";
+"about.title" = "حول Calendar Klaxon";
 "about.version" = "الإصدار %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "صدر تحت رخصة MIT كمصدر مفتوح.";
-"about.description" = "يراقب Klaxon تقويمك ويطلق إنذاراً عندما تكون اجتماعاتك على وشك البدء. لن تفوت اجتماعاً مرة أخرى!";
+"about.description" = "يراقب Calendar Klaxon تقويمك ويطلق إنذاراً عندما تكون اجتماعاتك على وشك البدء. لن تفوت اجتماعاً مرة أخرى!";
 "about.assistive" = "مصمم كأداة مساعدة للأشخاص الذين يعانون من اضطراب فرط الحركة ونقص الانتباه، أو عمى الوقت، أو أي شخص ينغمس في العمل ويحتاج إلى تذكير لا يُنسى.";
 "about.credits.header" = "الاعتمادات";
 "about.credits.icon" = "الأيقونة: Electric Bell من Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "مطلوب الوصول إلى التقويم";
-"calendar.accessRequired.message" = "يحتاج Klaxon إلى الوصول إلى تقويماتك لإعلامك بالأحداث القادمة. يرجى منح الوصول إلى التقويم في إعدادات النظام > الخصوصية والأمان > التقويمات.";
+"calendar.accessRequired.message" = "يحتاج Calendar Klaxon إلى الوصول إلى تقويماتك لإعلامك بالأحداث القادمة. يرجى منح الوصول إلى التقويم في إعدادات النظام > الخصوصية والأمان > التقويمات.";
 "calendar.accessRequired.retry" = "إعادة المحاولة";
 "calendar.accessRequired.quit" = "إنهاء";
 

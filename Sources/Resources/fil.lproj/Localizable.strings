@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Filipino localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Tungkol sa Klaxon";
+"menu.about" = "Tungkol sa Calendar Klaxon";
 "menu.preferences" = "Mga Kagustuhan...";
+"menu.respectDND" = "Igalang ang Huwag Gambalain";
 "menu.quit" = "Lumabas";
 
 // MARK: - Preferences Window
-"preferences.title" = "Mga Kagustuhan ng Klaxon";
+"preferences.title" = "Mga Kagustuhan ng Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "Mga Alerto";
+"preferences.tab.calendar" = "Mga Kalendaryo";
+"preferences.tab.other" = "Pagsisimula";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Alerto ng Kaganapan";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Tagal";
 "preferences.warningAlerts.minBeforeEvent" = "min";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Huwag Gambalain";
+"preferences.dnd.respectFocus" = "I-disable ang mga alerto at babala kung naka-on ang huwag gambalain";
+
 // General Section
 "preferences.general.header" = "Pangkalahatan";
-"preferences.general.startAtLogin" = "Simulan ang Klaxon sa pag-login";
+"preferences.general.startAtLogin" = "Simulan ang Calendar Klaxon sa pag-login";
 "preferences.general.showWelcome" = "Ipakita ang pagbati sa pagsisimula";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Lokasyon: %@";
 "alert.untitledEvent" = "Walang Pamagat na Kaganapan";
 "alert.button.dismiss" = "Isara";
-"alert.button.openEvent" = "Buksan ang Kaganapan";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Maligayang Pagdating sa Klaxon";
+"welcome.title" = "Maligayang Pagdating sa Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Sinusubaybayan ng Klaxon ang iyong kalendaryo at nagpapatunog ng alarma kapag malapit nang magsimula ang iyong mga pulong.\n\nMatapos isara ang window na ito, patuloy na tatakbo ang Klaxon sa background. Hanapin ang icon ng kampana sa menu bar para ma-access ang mga kagustuhan at kontrol.";
+"welcome.description" = "Sinusubaybayan ng Calendar Klaxon ang iyong kalendaryo at nagpapatunog ng alarma kapag malapit nang magsimula ang iyong mga pulong.\n\nMatapos isara ang window na ito, patuloy na tatakbo ang Calendar Klaxon sa background. Hanapin ang icon ng kampana sa menu bar para ma-access ang mga kagustuhan at kontrol.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "Tungkol sa Klaxon";
+"about.title" = "Tungkol sa Calendar Klaxon";
 "about.version" = "Bersyon %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Inilabas sa ilalim ng MIT License bilang open source.";
-"about.description" = "Sinusubaybayan ng Klaxon ang iyong kalendaryo at nagpapatunog ng alarma kapag malapit nang magsimula ang iyong mga pulong. Huwag nang mapalampas pa ang pulong!";
+"about.description" = "Sinusubaybayan ng Calendar Klaxon ang iyong kalendaryo at nagpapatunog ng alarma kapag malapit nang magsimula ang iyong mga pulong. Huwag nang mapalampas pa ang pulong!";
 "about.assistive" = "Idinisenyo bilang assistive tool para sa mga taong may ADHD, time blindness, o sinumang nalulubog sa trabaho at nangangailangan ng hindi makakalimutang paalala.";
 "about.credits.header" = "Mga Kredito";
 "about.credits.icon" = "Icon: Electric Bell ni Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Kailangan ang Access sa Kalendaryo";
-"calendar.accessRequired.message" = "Kailangan ng Klaxon ang access sa iyong mga kalendaryo para ipaalam sa iyo ang mga paparating na kaganapan. Mangyaring bigyan ng access sa kalendaryo sa System Settings > Privacy & Security > Calendars.";
+"calendar.accessRequired.message" = "Kailangan ng Calendar Klaxon ang access sa iyong mga kalendaryo para ipaalam sa iyo ang mga paparating na kaganapan. Mangyaring bigyan ng access sa kalendaryo sa System Settings > Privacy & Security > Calendars.";
 "calendar.accessRequired.retry" = "Subukan Muli";
 "calendar.accessRequired.quit" = "Lumabas";
 

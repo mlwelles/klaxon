@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Ukrainian localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Про Klaxon";
+"menu.about" = "Про Calendar Klaxon";
 "menu.preferences" = "Налаштування...";
+"menu.respectDND" = "Поважати режим Не турбувати";
 "menu.quit" = "Вихід";
 
 // MARK: - Preferences Window
-"preferences.title" = "Налаштування Klaxon";
+"preferences.title" = "Налаштування Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "Сповіщення";
+"preferences.tab.calendar" = "Календарі";
+"preferences.tab.other" = "Запуск";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Сповіщення про подію";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Тривалість";
 "preferences.warningAlerts.minBeforeEvent" = "хв";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Не турбувати";
+"preferences.dnd.respectFocus" = "Вимкнути сповіщення та попередження, якщо увімкнено режим Не турбувати";
+
 // General Section
 "preferences.general.header" = "Загальні";
-"preferences.general.startAtLogin" = "Запускати Klaxon при вході";
+"preferences.general.startAtLogin" = "Запускати Calendar Klaxon при вході";
 "preferences.general.showWelcome" = "Показувати привітання при запуску";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Місце: %@";
 "alert.untitledEvent" = "Подія без назви";
 "alert.button.dismiss" = "Закрити";
-"alert.button.openEvent" = "Відкрити подію";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Ласкаво просимо до Klaxon";
+"welcome.title" = "Ласкаво просимо до Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon відстежує ваш календар і подає сигнал тривоги, коли ваші зустрічі ось-ось почнуться.\n\nПісля закриття цього вікна Klaxon продовжить працювати у фоновому режимі. Знайдіть значок дзвінка в рядку меню для доступу до налаштувань і керування.";
+"welcome.description" = "Calendar Klaxon відстежує ваш календар і подає сигнал тривоги, коли ваші зустрічі ось-ось почнуться.\n\nПісля закриття цього вікна Calendar Klaxon продовжить працювати у фоновому режимі. Знайдіть значок дзвінка в рядку меню для доступу до налаштувань і керування.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "Про Klaxon";
+"about.title" = "Про Calendar Klaxon";
 "about.version" = "Версія %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Випущено під ліцензією MIT як відкритий код.";
-"about.description" = "Klaxon відстежує ваш календар і подає сигнал, коли зустрічі ось-ось почнуться. Більше ніколи не пропустіть зустріч!";
+"about.description" = "Calendar Klaxon відстежує ваш календар і подає сигнал, коли зустрічі ось-ось почнуться. Більше ніколи не пропустіть зустріч!";
 "about.assistive" = "Розроблено як допоміжний інструмент для людей з СДУГ, часовою сліпотою або для тих, хто занурюється в роботу і потребує незабутнього нагадування.";
 "about.credits.header" = "Подяки";
 "about.credits.icon" = "Іконка: Electric Bell від Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Потрібен доступ до календаря";
-"calendar.accessRequired.message" = "Klaxon потребує доступу до ваших календарів для сповіщення про майбутні події. Будь ласка, надайте доступ до календаря в Системні налаштування > Конфіденційність і безпека > Календарі.";
+"calendar.accessRequired.message" = "Calendar Klaxon потребує доступу до ваших календарів для сповіщення про майбутні події. Будь ласка, надайте доступ до календаря в Системні налаштування > Конфіденційність і безпека > Календарі.";
 "calendar.accessRequired.retry" = "Повторити";
 "calendar.accessRequired.quit" = "Вихід";
 

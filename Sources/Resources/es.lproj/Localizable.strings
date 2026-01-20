@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Spanish localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Acerca de Klaxon";
+"menu.about" = "Acerca de Calendar Klaxon";
 "menu.preferences" = "Preferencias...";
+"menu.respectDND" = "Respetar No molestar";
 "menu.quit" = "Salir";
 
 // MARK: - Preferences Window
-"preferences.title" = "Preferencias de Klaxon";
+"preferences.title" = "Preferencias de Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "Alertas";
+"preferences.tab.calendar" = "Calendarios";
+"preferences.tab.other" = "Inicio";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Alerta de evento";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Duración";
 "preferences.warningAlerts.minBeforeEvent" = "min";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "No molestar";
+"preferences.dnd.respectFocus" = "Desactivar alertas y avisos si no molestar está activado";
+
 // General Section
 "preferences.general.header" = "General";
-"preferences.general.startAtLogin" = "Iniciar Klaxon al iniciar sesión";
+"preferences.general.startAtLogin" = "Iniciar Calendar Klaxon al iniciar sesión";
 "preferences.general.showWelcome" = "Mostrar bienvenida al iniciar";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Ubicación: %@";
 "alert.untitledEvent" = "Evento sin título";
 "alert.button.dismiss" = "Descartar";
-"alert.button.openEvent" = "Abrir evento";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Bienvenido a Klaxon";
+"welcome.title" = "Bienvenido a Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon monitorea tu calendario y hace sonar una alarma imposible de ignorar cuando tus reuniones están por comenzar.\n\nUna vez que cierres esta ventana, Klaxon seguirá ejecutándose en segundo plano. Busca el icono de campana en tu barra de menú para acceder a las preferencias y controles.";
+"welcome.description" = "Calendar Klaxon monitorea tu calendario y hace sonar una alarma imposible de ignorar cuando tus reuniones están por comenzar.\n\nUna vez que cierres esta ventana, Calendar Klaxon seguirá ejecutándose en segundo plano. Busca el icono de campana en tu barra de menú para acceder a las preferencias y controles.";
 "welcome.button.ok" = "Aceptar";
 
 // MARK: - About Window
-"about.title" = "Acerca de Klaxon";
+"about.title" = "Acerca de Calendar Klaxon";
 "about.version" = "Versión %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Publicado bajo la Licencia MIT como código abierto.";
-"about.description" = "Klaxon vigila tu calendario y hace sonar la alarma cuando tus reuniones están por comenzar. ¡No vuelvas a perderte una reunión!";
+"about.description" = "Calendar Klaxon vigila tu calendario y hace sonar la alarma cuando tus reuniones están por comenzar. ¡No vuelvas a perderte una reunión!";
 "about.assistive" = "Diseñado como herramienta de asistencia para personas con TDAH, ceguera temporal o cualquiera que se absorba en su trabajo y necesite un recordatorio imposible de ignorar.";
 "about.credits.header" = "Créditos";
 "about.credits.icon" = "Icono: Electric Bell por Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Se requiere acceso al calendario";
-"calendar.accessRequired.message" = "Klaxon necesita acceso a tus calendarios para notificarte sobre próximos eventos. Por favor, concede acceso al calendario en Configuración del Sistema > Privacidad y Seguridad > Calendarios.";
+"calendar.accessRequired.message" = "Calendar Klaxon necesita acceso a tus calendarios para notificarte sobre próximos eventos. Por favor, concede acceso al calendario en Configuración del Sistema > Privacidad y Seguridad > Calendarios.";
 "calendar.accessRequired.retry" = "Reintentar";
 "calendar.accessRequired.quit" = "Salir";
 

@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Swahili localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Kuhusu Klaxon";
+"menu.about" = "Kuhusu Calendar Klaxon";
 "menu.preferences" = "Mapendeleo...";
+"menu.respectDND" = "Heshimu Usisumbue";
 "menu.quit" = "Ondoka";
 
 // MARK: - Preferences Window
-"preferences.title" = "Mapendeleo ya Klaxon";
+"preferences.title" = "Mapendeleo ya Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "Tahadhari";
+"preferences.tab.calendar" = "Kalenda";
+"preferences.tab.other" = "Kuanza";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Tahadhari ya Tukio";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Muda";
 "preferences.warningAlerts.minBeforeEvent" = "dak";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Usisumbue";
+"preferences.dnd.respectFocus" = "Zima tahadhari na maonyo ikiwa usisumbue imewashwa";
+
 // General Section
 "preferences.general.header" = "Jumla";
-"preferences.general.startAtLogin" = "Anza Klaxon wakati wa kuingia";
+"preferences.general.startAtLogin" = "Anza Calendar Klaxon wakati wa kuingia";
 "preferences.general.showWelcome" = "Onyesha karibu wakati wa kuanza";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Mahali: %@";
 "alert.untitledEvent" = "Tukio Bila Kichwa";
 "alert.button.dismiss" = "Funga";
-"alert.button.openEvent" = "Fungua Tukio";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Karibu Klaxon";
+"welcome.title" = "Karibu Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon inafuatilia kalenda yako na kupiga kengele isiyokosa wakati mikutano yako inakaribia kuanza.\n\nUkishaifunga dirisha hili, Klaxon itaendelea kufanya kazi nyuma. Tafuta ikoni ya kengele kwenye upau wa menyu ili kufikia mapendeleo na udhibiti.";
+"welcome.description" = "Calendar Klaxon inafuatilia kalenda yako na kupiga kengele isiyokosa wakati mikutano yako inakaribia kuanza.\n\nUkishaifunga dirisha hili, Calendar Klaxon itaendelea kufanya kazi nyuma. Tafuta ikoni ya kengele kwenye upau wa menyu ili kufikia mapendeleo na udhibiti.";
 "welcome.button.ok" = "Sawa";
 
 // MARK: - About Window
-"about.title" = "Kuhusu Klaxon";
+"about.title" = "Kuhusu Calendar Klaxon";
 "about.version" = "Toleo %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Imetolewa chini ya Leseni ya MIT kama chanzo huria.";
-"about.description" = "Klaxon inafuatilia kalenda yako na kupiga kengele wakati mikutano yako inakaribia kuanza. Usikose mkutano tena kamwe!";
+"about.description" = "Calendar Klaxon inafuatilia kalenda yako na kupiga kengele wakati mikutano yako inakaribia kuanza. Usikose mkutano tena kamwe!";
 "about.assistive" = "Imeundwa kama zana ya kusaidia watu wenye ADHD, upofu wa muda, au yeyote anayezama katika kazi yake na anahitaji ukumbusho usiokosa.";
 "about.credits.header" = "Shukrani";
 "about.credits.icon" = "Ikoni: Electric Bell na Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Upatikanaji wa Kalenda Unahitajika";
-"calendar.accessRequired.message" = "Klaxon inahitaji upatikanaji wa kalenda zako ili kukuarifu kuhusu matukio yanayokuja. Tafadhali ruhusu upatikanaji wa kalenda katika Mipangilio ya Mfumo > Faragha na Usalama > Kalenda.";
+"calendar.accessRequired.message" = "Calendar Klaxon inahitaji upatikanaji wa kalenda zako ili kukuarifu kuhusu matukio yanayokuja. Tafadhali ruhusu upatikanaji wa kalenda katika Mipangilio ya Mfumo > Faragha na Usalama > Kalenda.";
 "calendar.accessRequired.retry" = "Jaribu Tena";
 "calendar.accessRequired.quit" = "Ondoka";
 

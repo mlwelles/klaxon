@@ -241,4 +241,73 @@ final class PreferencesTests: XCTestCase {
         let instance2 = Preferences.shared
         XCTAssertTrue(instance1 === instance2, "Shared should return the same instance")
     }
+
+    // MARK: - Calendar Selection Tests
+
+    func testDefaultCalendarState() {
+        // All calendars should be enabled by default (empty disabled list)
+        XCTAssertEqual(preferences.disabledCalendarIDs.count, 0, "No calendars should be disabled by default")
+    }
+
+    func testDisableCalendar() {
+        preferences.setCalendar("test-calendar-1", enabled: false)
+        XCTAssertFalse(preferences.isCalendarEnabled("test-calendar-1"), "Calendar should be disabled")
+        XCTAssertEqual(preferences.disabledCalendarIDs, ["test-calendar-1"], "Disabled list should contain calendar")
+    }
+
+    func testEnableDisabledCalendar() {
+        preferences.setCalendar("test-calendar-1", enabled: false)
+        preferences.setCalendar("test-calendar-1", enabled: true)
+        XCTAssertTrue(preferences.isCalendarEnabled("test-calendar-1"), "Calendar should be enabled")
+        XCTAssertEqual(preferences.disabledCalendarIDs.count, 0, "Disabled list should be empty")
+    }
+
+    func testMultipleDisabledCalendars() {
+        preferences.setCalendar("calendar-1", enabled: false)
+        preferences.setCalendar("calendar-2", enabled: false)
+        preferences.setCalendar("calendar-3", enabled: false)
+
+        XCTAssertEqual(preferences.disabledCalendarIDs.count, 3, "Should have 3 disabled calendars")
+        XCTAssertFalse(preferences.isCalendarEnabled("calendar-1"), "Calendar 1 should be disabled")
+        XCTAssertFalse(preferences.isCalendarEnabled("calendar-2"), "Calendar 2 should be disabled")
+        XCTAssertFalse(preferences.isCalendarEnabled("calendar-3"), "Calendar 3 should be disabled")
+    }
+
+    func testEnableOneOfMultipleDisabled() {
+        preferences.setCalendar("calendar-1", enabled: false)
+        preferences.setCalendar("calendar-2", enabled: false)
+        preferences.setCalendar("calendar-1", enabled: true)
+
+        XCTAssertTrue(preferences.isCalendarEnabled("calendar-1"), "Calendar 1 should be enabled")
+        XCTAssertFalse(preferences.isCalendarEnabled("calendar-2"), "Calendar 2 should be disabled")
+        XCTAssertEqual(preferences.disabledCalendarIDs, ["calendar-2"], "Only calendar-2 should be in disabled list")
+    }
+
+    func testDisablingAlreadyDisabledCalendar() {
+        preferences.setCalendar("calendar-1", enabled: false)
+        preferences.setCalendar("calendar-1", enabled: false)
+
+        XCTAssertEqual(preferences.disabledCalendarIDs.count, 1, "Should not duplicate disabled calendar")
+    }
+
+    func testEnablingAlreadyEnabledCalendar() {
+        preferences.setCalendar("calendar-1", enabled: true)
+        XCTAssertTrue(preferences.isCalendarEnabled("calendar-1"), "Calendar should be enabled")
+        XCTAssertEqual(preferences.disabledCalendarIDs.count, 0, "Disabled list should remain empty")
+    }
+
+    func testNewCalendarEnabledByDefault() {
+        // A calendar not in disabledCalendarIDs should be enabled
+        XCTAssertTrue(preferences.isCalendarEnabled("new-calendar-999"), "New calendar should be enabled by default")
+    }
+
+    func testDisabledCalendarsPersistence() {
+        preferences.setCalendar("calendar-1", enabled: false)
+        preferences.setCalendar("calendar-2", enabled: false)
+
+        let newPreferences = Preferences(defaults: testDefaults)
+        XCTAssertFalse(newPreferences.isCalendarEnabled("calendar-1"), "Calendar 1 should remain disabled")
+        XCTAssertFalse(newPreferences.isCalendarEnabled("calendar-2"), "Calendar 2 should remain disabled")
+        XCTAssertEqual(newPreferences.disabledCalendarIDs.count, 2, "Should have 2 disabled calendars after reload")
+    }
 }

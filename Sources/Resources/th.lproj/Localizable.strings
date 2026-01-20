@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Thai localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "เกี่ยวกับ Klaxon";
+"menu.about" = "เกี่ยวกับ Calendar Klaxon";
 "menu.preferences" = "การตั้งค่า...";
+"menu.respectDND" = "เคารพห้ามรบกวน";
 "menu.quit" = "ออก";
 
 // MARK: - Preferences Window
-"preferences.title" = "การตั้งค่า Klaxon";
+"preferences.title" = "การตั้งค่า Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "การแจ้งเตือน";
+"preferences.tab.calendar" = "ปฏิทิน";
+"preferences.tab.other" = "เริ่มต้น";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "การแจ้งเตือนกิจกรรม";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "ระยะเวลา";
 "preferences.warningAlerts.minBeforeEvent" = "นาที";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "ห้ามรบกวน";
+"preferences.dnd.respectFocus" = "ปิดการแจ้งเตือนและคำเตือนหากเปิดห้ามรบกวน";
+
 // General Section
 "preferences.general.header" = "ทั่วไป";
-"preferences.general.startAtLogin" = "เริ่ม Klaxon เมื่อเข้าสู่ระบบ";
+"preferences.general.startAtLogin" = "เริ่ม Calendar Klaxon เมื่อเข้าสู่ระบบ";
 "preferences.general.showWelcome" = "แสดงข้อความต้อนรับเมื่อเริ่มต้น";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "สถานที่: %@";
 "alert.untitledEvent" = "กิจกรรมไม่มีชื่อ";
 "alert.button.dismiss" = "ปิด";
-"alert.button.openEvent" = "เปิดกิจกรรม";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "ยินดีต้อนรับสู่ Klaxon";
+"welcome.title" = "ยินดีต้อนรับสู่ Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon ติดตามปฏิทินของคุณและส่งสัญญาณเตือนเมื่อการประชุมกำลังจะเริ่ม\n\nหลังจากปิดหน้าต่างนี้ Klaxon จะทำงานต่อไปในพื้นหลัง มองหาไอคอนกระดิ่งในแถบเมนูเพื่อเข้าถึงการตั้งค่าและการควบคุม";
+"welcome.description" = "Calendar Klaxon ติดตามปฏิทินของคุณและส่งสัญญาณเตือนเมื่อการประชุมกำลังจะเริ่ม\n\nหลังจากปิดหน้าต่างนี้ Calendar Klaxon จะทำงานต่อไปในพื้นหลัง มองหาไอคอนกระดิ่งในแถบเมนูเพื่อเข้าถึงการตั้งค่าและการควบคุม";
 "welcome.button.ok" = "ตกลง";
 
 // MARK: - About Window
-"about.title" = "เกี่ยวกับ Klaxon";
+"about.title" = "เกี่ยวกับ Calendar Klaxon";
 "about.version" = "เวอร์ชัน %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "เผยแพร่ภายใต้ใบอนุญาต MIT เป็นโอเพนซอร์ส";
-"about.description" = "Klaxon ติดตามปฏิทินของคุณและส่งสัญญาณเตือนเมื่อการประชุมกำลังจะเริ่ม ไม่พลาดการประชุมอีกต่อไป!";
+"about.description" = "Calendar Klaxon ติดตามปฏิทินของคุณและส่งสัญญาณเตือนเมื่อการประชุมกำลังจะเริ่ม ไม่พลาดการประชุมอีกต่อไป!";
 "about.assistive" = "ออกแบบเป็นเครื่องมือช่วยเหลือสำหรับผู้ที่มี ADHD ตาบอดเวลา หรือใครก็ตามที่จมอยู่ในงานและต้องการการเตือนที่พลาดไม่ได้";
 "about.credits.header" = "เครดิต";
 "about.credits.icon" = "ไอคอน: Electric Bell โดย Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "ต้องการสิทธิ์เข้าถึงปฏิทิน";
-"calendar.accessRequired.message" = "Klaxon ต้องการเข้าถึงปฏิทินของคุณเพื่อแจ้งเตือนเกี่ยวกับกิจกรรมที่จะมาถึง กรุณาอนุญาตการเข้าถึงปฏิทินในการตั้งค่าระบบ > ความเป็นส่วนตัวและความปลอดภัย > ปฏิทิน";
+"calendar.accessRequired.message" = "Calendar Klaxon ต้องการเข้าถึงปฏิทินของคุณเพื่อแจ้งเตือนเกี่ยวกับกิจกรรมที่จะมาถึง กรุณาอนุญาตการเข้าถึงปฏิทินในการตั้งค่าระบบ > ความเป็นส่วนตัวและความปลอดภัย > ปฏิทิน";
 "calendar.accessRequired.retry" = "ลองใหม่";
 "calendar.accessRequired.quit" = "ออก";
 

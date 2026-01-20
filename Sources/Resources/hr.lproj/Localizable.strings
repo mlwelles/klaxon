@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Croatian localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "O aplikaciji Klaxon";
+"menu.about" = "O aplikaciji Calendar Klaxon";
 "menu.preferences" = "Postavke...";
+"menu.respectDND" = "Poštuj Ne uznemiravaj";
 "menu.quit" = "Zatvori";
 
 // MARK: - Preferences Window
-"preferences.title" = "Klaxon postavke";
+"preferences.title" = "Calendar Klaxon postavke";
+
+// Tab Labels
+"preferences.tab.alert" = "Obavijesti";
+"preferences.tab.calendar" = "Kalendari";
+"preferences.tab.other" = "Pokretanje";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Obavijest o događaju";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Trajanje";
 "preferences.warningAlerts.minBeforeEvent" = "min";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Ne uznemiravaj";
+"preferences.dnd.respectFocus" = "Onemogući obavijesti i upozorenja ako je uključen način Ne uznemiravaj";
+
 // General Section
 "preferences.general.header" = "Općenito";
-"preferences.general.startAtLogin" = "Pokreni Klaxon pri prijavi";
+"preferences.general.startAtLogin" = "Pokreni Calendar Klaxon pri prijavi";
 "preferences.general.showWelcome" = "Prikaži dobrodošlicu pri pokretanju";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Lokacija: %@";
 "alert.untitledEvent" = "Događaj bez naslova";
 "alert.button.dismiss" = "Zatvori";
-"alert.button.openEvent" = "Otvori događaj";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Dobrodošli u Klaxon";
+"welcome.title" = "Dobrodošli u Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon prati vaš kalendar i oglašava alarm kada vaši sastanci trebaju početi.\n\nNakon zatvaranja ovog prozora, Klaxon će nastaviti raditi u pozadini. Potražite ikonu zvona u traci izbornika za pristup postavkama i kontrolama.";
+"welcome.description" = "Calendar Klaxon prati vaš kalendar i oglašava alarm kada vaši sastanci trebaju početi.\n\nNakon zatvaranja ovog prozora, Calendar Klaxon će nastaviti raditi u pozadini. Potražite ikonu zvona u traci izbornika za pristup postavkama i kontrolama.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "O aplikaciji Klaxon";
+"about.title" = "O aplikaciji Calendar Klaxon";
 "about.version" = "Verzija %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Objavljeno pod MIT licencom kao open source.";
-"about.description" = "Klaxon prati vaš kalendar i oglašava alarm kada vaši sastanci trebaju početi. Nikad više nećete propustiti sastanak!";
+"about.description" = "Calendar Klaxon prati vaš kalendar i oglašava alarm kada vaši sastanci trebaju početi. Nikad više nećete propustiti sastanak!";
 "about.assistive" = "Dizajniran kao pomoćni alat za osobe s ADHD-om, vremenskom sljepoćom ili za svakoga tko se udubi u posao i treba mu nezaboravan podsjetnik.";
 "about.credits.header" = "Zahvale";
 "about.credits.icon" = "Ikona: Electric Bell od Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Potreban pristup kalendaru";
-"calendar.accessRequired.message" = "Klaxon treba pristup vašim kalendarima kako bi vas obavijestio o nadolazećim događajima. Molimo odobrite pristup kalendaru u Postavke sustava > Privatnost i sigurnost > Kalendari.";
+"calendar.accessRequired.message" = "Calendar Klaxon treba pristup vašim kalendarima kako bi vas obavijestio o nadolazećim događajima. Molimo odobrite pristup kalendaru u Postavke sustava > Privatnost i sigurnost > Kalendari.";
 "calendar.accessRequired.retry" = "Ponovi";
 "calendar.accessRequired.quit" = "Zatvori";
 

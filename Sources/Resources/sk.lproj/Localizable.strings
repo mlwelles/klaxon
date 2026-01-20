@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Slovak localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "O aplikácii Klaxon";
+"menu.about" = "O aplikácii Calendar Klaxon";
 "menu.preferences" = "Predvoľby...";
+"menu.respectDND" = "Rešpektovať Nerušiť";
 "menu.quit" = "Ukončiť";
 
 // MARK: - Preferences Window
-"preferences.title" = "Predvoľby Klaxon";
+"preferences.title" = "Predvoľby Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "Upozornenia";
+"preferences.tab.calendar" = "Kalendáre";
+"preferences.tab.other" = "Spustenie";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Upozornenie na udalosť";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Trvanie";
 "preferences.warningAlerts.minBeforeEvent" = "min";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Nerušiť";
+"preferences.dnd.respectFocus" = "Zakázať upozornenia a varovania, ak je zapnutý režim Nerušiť";
+
 // General Section
 "preferences.general.header" = "Všeobecné";
-"preferences.general.startAtLogin" = "Spustiť Klaxon pri prihlásení";
+"preferences.general.startAtLogin" = "Spustiť Calendar Klaxon pri prihlásení";
 "preferences.general.showWelcome" = "Zobraziť privítanie pri spustení";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Miesto: %@";
 "alert.untitledEvent" = "Udalosť bez názvu";
 "alert.button.dismiss" = "Zavrieť";
-"alert.button.openEvent" = "Otvoriť udalosť";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Vitajte v Klaxon";
+"welcome.title" = "Vitajte v Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon sleduje váš kalendár a spustí nezameniteľný alarm, keď sa vaše stretnutia blížia.\n\nPo zatvorení tohto okna bude Klaxon naďalej bežať na pozadí. Hľadajte ikonu zvončeka v lište ponuky pre prístup k predvoľbám a ovládaniu.";
+"welcome.description" = "Calendar Klaxon sleduje váš kalendár a spustí nezameniteľný alarm, keď sa vaše stretnutia blížia.\n\nPo zatvorení tohto okna bude Calendar Klaxon naďalej bežať na pozadí. Hľadajte ikonu zvončeka v lište ponuky pre prístup k predvoľbám a ovládaniu.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "O aplikácii Klaxon";
+"about.title" = "O aplikácii Calendar Klaxon";
 "about.version" = "Verzia %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Vydané pod licenciou MIT ako open source.";
-"about.description" = "Klaxon sleduje váš kalendár a spustí alarm, keď sa vaše stretnutia blížia. Už nikdy nezmeškáte stretnutie!";
+"about.description" = "Calendar Klaxon sleduje váš kalendár a spustí alarm, keď sa vaše stretnutia blížia. Už nikdy nezmeškáte stretnutie!";
 "about.assistive" = "Navrhnuté ako asistenčný nástroj pre ľudí s ADHD, časovou slepotou alebo kohokoľvek, kto sa ponorí do práce a potrebuje nezameniteľnú pripomienku.";
 "about.credits.header" = "Poďakovanie";
 "about.credits.icon" = "Ikona: Electric Bell od Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Vyžadovaný prístup ku kalendáru";
-"calendar.accessRequired.message" = "Klaxon potrebuje prístup k vašim kalendárom, aby vás mohol upozorňovať na nadchádzajúce udalosti. Udeľte prosím prístup ku kalendáru v Nastavenia systému > Súkromie a bezpečnosť > Kalendáre.";
+"calendar.accessRequired.message" = "Calendar Klaxon potrebuje prístup k vašim kalendárom, aby vás mohol upozorňovať na nadchádzajúce udalosti. Udeľte prosím prístup ku kalendáru v Nastavenia systému > Súkromie a bezpečnosť > Kalendáre.";
 "calendar.accessRequired.retry" = "Opakovať";
 "calendar.accessRequired.quit" = "Ukončiť";
 

@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Greek localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Σχετικά με το Klaxon";
+"menu.about" = "Σχετικά με το Calendar Klaxon";
 "menu.preferences" = "Προτιμήσεις...";
+"menu.respectDND" = "Σεβασμός Μην ενοχλείτε";
 "menu.quit" = "Έξοδος";
 
 // MARK: - Preferences Window
-"preferences.title" = "Προτιμήσεις Klaxon";
+"preferences.title" = "Προτιμήσεις Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "Ειδοποιήσεις";
+"preferences.tab.calendar" = "Ημερολόγια";
+"preferences.tab.other" = "Εκκίνηση";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Ειδοποίηση Εκδήλωσης";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Διάρκεια";
 "preferences.warningAlerts.minBeforeEvent" = "λεπ";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Μην ενοχλείτε";
+"preferences.dnd.respectFocus" = "Απενεργοποίηση ειδοποιήσεων και προειδοποιήσεων αν είναι ενεργό το μην ενοχλείτε";
+
 // General Section
 "preferences.general.header" = "Γενικά";
-"preferences.general.startAtLogin" = "Εκκίνηση Klaxon κατά τη σύνδεση";
+"preferences.general.startAtLogin" = "Εκκίνηση Calendar Klaxon κατά τη σύνδεση";
 "preferences.general.showWelcome" = "Εμφάνιση καλωσορίσματος κατά την εκκίνηση";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Τοποθεσία: %@";
 "alert.untitledEvent" = "Εκδήλωση Χωρίς Τίτλο";
 "alert.button.dismiss" = "Απόρριψη";
-"alert.button.openEvent" = "Άνοιγμα Εκδήλωσης";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Καλώς ήρθατε στο Klaxon";
+"welcome.title" = "Καλώς ήρθατε στο Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Το Klaxon παρακολουθεί το ημερολόγιό σας και ηχεί έναν αδύνατο να χαθεί συναγερμό όταν οι συναντήσεις σας πρόκειται να ξεκινήσουν.\n\nΜόλις κλείσετε αυτό το παράθυρο, το Klaxon θα συνεχίσει να τρέχει στο παρασκήνιο. Αναζητήστε το εικονίδιο κουδουνιού στη γραμμή μενού για να αποκτήσετε πρόσβαση στις προτιμήσεις και τα στοιχεία ελέγχου.";
+"welcome.description" = "Το Calendar Klaxon παρακολουθεί το ημερολόγιό σας και ηχεί έναν αδύνατο να χαθεί συναγερμό όταν οι συναντήσεις σας πρόκειται να ξεκινήσουν.\n\nΜόλις κλείσετε αυτό το παράθυρο, το Calendar Klaxon θα συνεχίσει να τρέχει στο παρασκήνιο. Αναζητήστε το εικονίδιο κουδουνιού στη γραμμή μενού για να αποκτήσετε πρόσβαση στις προτιμήσεις και τα στοιχεία ελέγχου.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "Σχετικά με το Klaxon";
+"about.title" = "Σχετικά με το Calendar Klaxon";
 "about.version" = "Έκδοση %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Κυκλοφόρησε υπό την Άδεια MIT ως ανοιχτός κώδικας.";
-"about.description" = "Το Klaxon παρακολουθεί το ημερολόγιό σας και ηχεί τον συναγερμό όταν οι συναντήσεις σας πρόκειται να ξεκινήσουν. Μην χάσετε ποτέ ξανά συνάντηση!";
+"about.description" = "Το Calendar Klaxon παρακολουθεί το ημερολόγιό σας και ηχεί τον συναγερμό όταν οι συναντήσεις σας πρόκειται να ξεκινήσουν. Μην χάσετε ποτέ ξανά συνάντηση!";
 "about.assistive" = "Σχεδιάστηκε ως βοηθητικό εργαλείο για άτομα με ΔΕΠΥ, τύφλωση χρόνου ή οποιονδήποτε απορροφάται στη δουλειά του και χρειάζεται μια αδύνατη να χαθεί υπενθύμιση.";
 "about.credits.header" = "Συντελεστές";
 "about.credits.icon" = "Εικονίδιο: Electric Bell από Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Απαιτείται Πρόσβαση Ημερολογίου";
-"calendar.accessRequired.message" = "Το Klaxon χρειάζεται πρόσβαση στα ημερολόγιά σας για να σας ειδοποιεί για επερχόμενες εκδηλώσεις. Παρακαλώ παραχωρήστε πρόσβαση ημερολογίου στις Ρυθμίσεις Συστήματος > Απόρρητο & Ασφάλεια > Ημερολόγια.";
+"calendar.accessRequired.message" = "Το Calendar Klaxon χρειάζεται πρόσβαση στα ημερολόγιά σας για να σας ειδοποιεί για επερχόμενες εκδηλώσεις. Παρακαλώ παραχωρήστε πρόσβαση ημερολογίου στις Ρυθμίσεις Συστήματος > Απόρρητο & Ασφάλεια > Ημερολόγια.";
 "calendar.accessRequired.retry" = "Επανάληψη";
 "calendar.accessRequired.quit" = "Έξοδος";
 

@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Japanese localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Klaxonについて";
+"menu.about" = "Calendar Klaxonについて";
 "menu.preferences" = "設定...";
+"menu.respectDND" = "おやすみモードを尊重";
 "menu.quit" = "終了";
 
 // MARK: - Preferences Window
-"preferences.title" = "Klaxon 設定";
+"preferences.title" = "Calendar Klaxon 設定";
+
+// Tab Labels
+"preferences.tab.alert" = "アラート";
+"preferences.tab.calendar" = "カレンダー";
+"preferences.tab.other" = "起動";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "イベントアラート";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "長さ";
 "preferences.warningAlerts.minBeforeEvent" = "分";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "おやすみモード";
+"preferences.dnd.respectFocus" = "おやすみモードがオンの場合、アラートと警告を無効にする";
+
 // General Section
 "preferences.general.header" = "一般";
-"preferences.general.startAtLogin" = "ログイン時にKlaxonを起動";
+"preferences.general.startAtLogin" = "ログイン時にCalendar Klaxonを起動";
 "preferences.general.showWelcome" = "起動時にようこそ画面を表示";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "場所: %@";
 "alert.untitledEvent" = "無題のイベント";
 "alert.button.dismiss" = "閉じる";
-"alert.button.openEvent" = "イベントを開く";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Klaxonへようこそ";
+"welcome.title" = "Calendar Klaxonへようこそ";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxonはカレンダーを監視し、会議が始まる前に見逃せないアラームを鳴らします。\n\nこのウィンドウを閉じると、Klaxonはバックグラウンドで動作し続けます。メニューバーのベルアイコンを探して、設定やコントロールにアクセスしてください。";
+"welcome.description" = "Calendar Klaxonはカレンダーを監視し、会議が始まる前に見逃せないアラームを鳴らします。\n\nこのウィンドウを閉じると、Calendar Klaxonはバックグラウンドで動作し続けます。メニューバーのベルアイコンを探して、設定やコントロールにアクセスしてください。";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "Klaxonについて";
+"about.title" = "Calendar Klaxonについて";
 "about.version" = "バージョン %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "MITライセンスの下でオープンソースとして公開。";
-"about.description" = "Klaxonはカレンダーを監視し、会議が始まる前にアラームを鳴らします。もう会議を見逃しません！";
+"about.description" = "Calendar Klaxonはカレンダーを監視し、会議が始まる前にアラームを鳴らします。もう会議を見逃しません！";
 "about.assistive" = "ADHD、時間盲、または仕事に没頭して見逃せないリマインダーが必要な方のための支援ツールとして設計されています。";
 "about.credits.header" = "クレジット";
 "about.credits.icon" = "アイコン: Electric Bell by Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "カレンダーへのアクセスが必要";
-"calendar.accessRequired.message" = "Klaxonは今後のイベントを通知するためにカレンダーへのアクセスが必要です。システム設定 > プライバシーとセキュリティ > カレンダーでカレンダーへのアクセスを許可してください。";
+"calendar.accessRequired.message" = "Calendar Klaxonは今後のイベントを通知するためにカレンダーへのアクセスが必要です。システム設定 > プライバシーとセキュリティ > カレンダーでカレンダーへのアクセスを許可してください。";
 "calendar.accessRequired.retry" = "再試行";
 "calendar.accessRequired.quit" = "終了";
 

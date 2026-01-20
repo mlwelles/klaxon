@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Bulgarian localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "За Klaxon";
+"menu.about" = "За Calendar Klaxon";
 "menu.preferences" = "Настройки...";
+"menu.respectDND" = "Зачитай Не безпокой";
 "menu.quit" = "Изход";
 
 // MARK: - Preferences Window
-"preferences.title" = "Настройки на Klaxon";
+"preferences.title" = "Настройки на Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "Известия";
+"preferences.tab.calendar" = "Календари";
+"preferences.tab.other" = "Стартиране";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Известие за събитие";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Продължителност";
 "preferences.warningAlerts.minBeforeEvent" = "мин";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Не безпокой";
+"preferences.dnd.respectFocus" = "Деактивирай известията и предупрежденията, ако е включен режим Не безпокой";
+
 // General Section
 "preferences.general.header" = "Общи";
-"preferences.general.startAtLogin" = "Стартирай Klaxon при влизане";
+"preferences.general.startAtLogin" = "Стартирай Calendar Klaxon при влизане";
 "preferences.general.showWelcome" = "Покажи приветствие при стартиране";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Място: %@";
 "alert.untitledEvent" = "Събитие без заглавие";
 "alert.button.dismiss" = "Затвори";
-"alert.button.openEvent" = "Отвори събитие";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Добре дошли в Klaxon";
+"welcome.title" = "Добре дошли в Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon следи календара ви и подава аларма, когато срещите ви предстоят да започнат.\n\nСлед затваряне на този прозорец, Klaxon ще продължи да работи във фонов режим. Потърсете иконата на камбана в лентата с менюта за достъп до настройки и контроли.";
+"welcome.description" = "Calendar Klaxon следи календара ви и подава аларма, когато срещите ви предстоят да започнат.\n\nСлед затваряне на този прозорец, Calendar Klaxon ще продължи да работи във фонов режим. Потърсете иконата на камбана в лентата с менюта за достъп до настройки и контроли.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "За Klaxon";
+"about.title" = "За Calendar Klaxon";
 "about.version" = "Версия %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Издадено под MIT лиценз като отворен код.";
-"about.description" = "Klaxon следи календара ви и подава аларма, когато срещите ви предстоят да започнат. Никога повече няма да пропуснете среща!";
+"about.description" = "Calendar Klaxon следи календара ви и подава аларма, когато срещите ви предстоят да започнат. Никога повече няма да пропуснете среща!";
 "about.assistive" = "Проектиран като помощен инструмент за хора с ADHD, времева слепота или за всеки, който се потапя в работата и се нуждае от незабравимо напомняне.";
 "about.credits.header" = "Благодарности";
 "about.credits.icon" = "Икона: Electric Bell от Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Изисква се достъп до календар";
-"calendar.accessRequired.message" = "Klaxon се нуждае от достъп до календарите ви, за да ви уведомява за предстоящи събития. Моля, предоставете достъп до календар в Системни настройки > Поверителност и сигурност > Календари.";
+"calendar.accessRequired.message" = "Calendar Klaxon се нуждае от достъп до календарите ви, за да ви уведомява за предстоящи събития. Моля, предоставете достъп до календар в Системни настройки > Поверителност и сигурност > Календари.";
 "calendar.accessRequired.retry" = "Опитай отново";
 "calendar.accessRequired.quit" = "Изход";
 

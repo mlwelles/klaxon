@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Vietnamese localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Giới thiệu Klaxon";
+"menu.about" = "Giới thiệu Calendar Klaxon";
 "menu.preferences" = "Tùy chọn...";
+"menu.respectDND" = "Tuân theo Không làm phiền";
 "menu.quit" = "Thoát";
 
 // MARK: - Preferences Window
-"preferences.title" = "Tùy chọn Klaxon";
+"preferences.title" = "Tùy chọn Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "Cảnh báo";
+"preferences.tab.calendar" = "Lịch";
+"preferences.tab.other" = "Khởi động";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Cảnh báo sự kiện";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Thời lượng";
 "preferences.warningAlerts.minBeforeEvent" = "phút";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Không làm phiền";
+"preferences.dnd.respectFocus" = "Tắt cảnh báo và thông báo nếu không làm phiền được bật";
+
 // General Section
 "preferences.general.header" = "Chung";
-"preferences.general.startAtLogin" = "Khởi động Klaxon khi đăng nhập";
+"preferences.general.startAtLogin" = "Khởi động Calendar Klaxon khi đăng nhập";
 "preferences.general.showWelcome" = "Hiển thị lời chào khi khởi động";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Địa điểm: %@";
 "alert.untitledEvent" = "Sự kiện không có tiêu đề";
 "alert.button.dismiss" = "Bỏ qua";
-"alert.button.openEvent" = "Mở sự kiện";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Chào mừng đến với Klaxon";
+"welcome.title" = "Chào mừng đến với Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon theo dõi lịch của bạn và phát chuông báo khi các cuộc họp sắp bắt đầu.\n\nSau khi đóng cửa sổ này, Klaxon sẽ tiếp tục chạy ngầm. Tìm biểu tượng chuông trên thanh menu để truy cập tùy chọn và điều khiển.";
+"welcome.description" = "Calendar Klaxon theo dõi lịch của bạn và phát chuông báo khi các cuộc họp sắp bắt đầu.\n\nSau khi đóng cửa sổ này, Calendar Klaxon sẽ tiếp tục chạy ngầm. Tìm biểu tượng chuông trên thanh menu để truy cập tùy chọn và điều khiển.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "Giới thiệu Klaxon";
+"about.title" = "Giới thiệu Calendar Klaxon";
 "about.version" = "Phiên bản %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Phát hành theo giấy phép MIT mã nguồn mở.";
-"about.description" = "Klaxon theo dõi lịch của bạn và phát chuông báo khi các cuộc họp sắp bắt đầu. Không bao giờ bỏ lỡ cuộc họp nữa!";
+"about.description" = "Calendar Klaxon theo dõi lịch của bạn và phát chuông báo khi các cuộc họp sắp bắt đầu. Không bao giờ bỏ lỡ cuộc họp nữa!";
 "about.assistive" = "Được thiết kế như công cụ hỗ trợ cho người có ADHD, mù thời gian, hoặc bất kỳ ai chìm đắm trong công việc và cần lời nhắc không thể bỏ qua.";
 "about.credits.header" = "Ghi nhận";
 "about.credits.icon" = "Biểu tượng: Electric Bell bởi Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Cần quyền truy cập lịch";
-"calendar.accessRequired.message" = "Klaxon cần quyền truy cập lịch của bạn để thông báo về các sự kiện sắp tới. Vui lòng cấp quyền truy cập lịch trong Cài đặt hệ thống > Quyền riêng tư & Bảo mật > Lịch.";
+"calendar.accessRequired.message" = "Calendar Klaxon cần quyền truy cập lịch của bạn để thông báo về các sự kiện sắp tới. Vui lòng cấp quyền truy cập lịch trong Cài đặt hệ thống > Quyền riêng tư & Bảo mật > Lịch.";
 "calendar.accessRequired.retry" = "Thử lại";
 "calendar.accessRequired.quit" = "Thoát";
 

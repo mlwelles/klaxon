@@ -7,6 +7,7 @@ final class AlertWindowController: NSWindowController {
     private let alertType: AlertType
     private var audioPlayer: AVAudioPlayer?
     private var audioStopTimer: Timer?
+    private var joinURL: URL?
 
     init(event: EKEvent, alertType: AlertType = .warning(minutes: 1, sound: "fire-alarm-bell", soundDuration: 4.0)) {
         self.event = event
@@ -110,24 +111,42 @@ final class AlertWindowController: NSWindowController {
             contentView.addSubview(locationLabel)
         }
 
-        // URL (clickable)
-        if let url = event.url {
+        // Join link (clickable) - check event.url and notes for video conference links
+        joinURL = findJoinLink()
+        if let url = joinURL {
             let urlTextView = createClickableLink(url: url, frame: NSRect(x: rightX, y: 70, width: rightWidth, height: 16))
             contentView.addSubview(urlTextView)
         }
 
-        // Buttons
+        // Buttons - always show all three
         let dismissButton = NSButton(title: NSLocalizedString("alert.button.dismiss", comment: "Dismiss button"), target: self, action: #selector(dismissAlert))
         dismissButton.bezelStyle = .rounded
-        dismissButton.frame = NSRect(x: 390, y: 15, width: 90, height: 32)
         dismissButton.keyEquivalent = "\u{1b}" // Escape key
+        dismissButton.frame = NSRect(x: 390, y: 15, width: 90, height: 32)
         contentView.addSubview(dismissButton)
 
         let openEventButton = NSButton(title: NSLocalizedString("alert.button.openEvent", comment: "Open Event button"), target: self, action: #selector(openEvent))
         openEventButton.bezelStyle = .rounded
-        openEventButton.frame = NSRect(x: 280, y: 15, width: 100, height: 32)
-        openEventButton.keyEquivalent = "\r" // Enter key
+        openEventButton.frame = NSRect(x: 275, y: 15, width: 105, height: 32)
         contentView.addSubview(openEventButton)
+
+        let joinButton = NSButton(title: NSLocalizedString("alert.button.join", comment: "Join button"), target: self, action: #selector(joinMeeting))
+        joinButton.bezelStyle = .rounded
+        joinButton.frame = NSRect(x: 160, y: 15, width: 105, height: 32)
+        contentView.addSubview(joinButton)
+
+        // Set enabled state based on join link availability
+        if joinURL == nil {
+            joinButton.isEnabled = false
+        }
+
+        // Enter: Join Meeting (if available) or Open Event
+        // Escape: Dismiss (handled via cancelOperation)
+        if joinURL != nil {
+            joinButton.keyEquivalent = "\r"
+        } else {
+            openEventButton.keyEquivalent = "\r"
+        }
 
         window?.contentView = contentView
     }
@@ -149,6 +168,77 @@ final class AlertWindowController: NSWindowController {
         linkField.attributedStringValue = NSAttributedString(string: url.absoluteString, attributes: attributes)
 
         return linkField
+    }
+
+    /// Extracts a video conference join link from the event
+    /// Checks event.url first, then searches notes for common meeting URLs
+    private func findJoinLink() -> URL? {
+        // Check event.url first
+        if let url = event.url {
+            if isVideoConferenceURL(url) {
+                return url
+            }
+        }
+
+        // Search in notes/description for video conference links
+        if let notes = event.notes, !notes.isEmpty {
+            if let url = extractVideoConferenceURL(from: notes) {
+                return url
+            }
+        }
+
+        // Fall back to event.url even if not a recognized video conference
+        return event.url
+    }
+
+    private func isVideoConferenceURL(_ url: URL) -> Bool {
+        let host = url.host?.lowercased() ?? ""
+        let videoConferenceHosts = [
+            "zoom.us", "zoom.com",
+            "meet.google.com",
+            "teams.microsoft.com", "teams.live.com",
+            "webex.com",
+            "gotomeeting.com", "gotomeet.me",
+            "bluejeans.com",
+            "whereby.com",
+            "around.co",
+            "meet.jit.si",
+            "slack.com"  // Slack huddles
+        ]
+        return videoConferenceHosts.contains { host.contains($0) }
+    }
+
+    private func extractVideoConferenceURL(from text: String) -> URL? {
+        // Patterns for common video conference URLs
+        let patterns = [
+            "https://[\\w.-]*zoom\\.us/j/[\\w?=&-]+",
+            "https://[\\w.-]*zoom\\.com/j/[\\w?=&-]+",
+            "https://meet\\.google\\.com/[\\w-]+",
+            "https://teams\\.microsoft\\.com/l/meetup-join/[\\w%/-]+",
+            "https://teams\\.live\\.com/meet/[\\w-]+",
+            "https://[\\w.-]*webex\\.com/[\\w/.-]+",
+            "https://[\\w.-]*gotomeeting\\.com/join/[\\w-]+",
+            "https://[\\w.-]*gotomeet\\.me/[\\w-]+",
+            "https://[\\w.-]*bluejeans\\.com/[\\w/-]+",
+            "https://whereby\\.com/[\\w-]+",
+            "https://meet\\.jit\\.si/[\\w-]+"
+        ]
+
+        for pattern in patterns {
+            if let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) {
+                let range = NSRange(text.startIndex..., in: text)
+                if let match = regex.firstMatch(in: text, options: [], range: range) {
+                    if let matchRange = Range(match.range, in: text) {
+                        let urlString = String(text[matchRange])
+                        if let url = URL(string: urlString) {
+                            return url
+                        }
+                    }
+                }
+            }
+        }
+
+        return nil
     }
 
     private func centerOnMainScreen() {
@@ -232,6 +322,11 @@ final class AlertWindowController: NSWindowController {
         close()
     }
 
+    // Handle Escape key to dismiss (since Enter may override the button's Escape key equivalent)
+    override func cancelOperation(_ sender: Any?) {
+        dismissAlert()
+    }
+
     @objc private func openEvent() {
         stopAlertSound()
         // Build the Calendar.app URL to open the specific event
@@ -250,6 +345,14 @@ final class AlertWindowController: NSWindowController {
         } else {
             // Fallback: just open Calendar.app
             NSWorkspace.shared.open(URL(string: "ical://")!)
+        }
+        close()
+    }
+
+    @objc private func joinMeeting() {
+        stopAlertSound()
+        if let url = joinURL {
+            NSWorkspace.shared.open(url)
         }
         close()
     }

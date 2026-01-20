@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   French localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "À propos de Klaxon";
+"menu.about" = "À propos de Calendar Klaxon";
 "menu.preferences" = "Préférences...";
+"menu.respectDND" = "Respecter Ne pas déranger";
 "menu.quit" = "Quitter";
 
 // MARK: - Preferences Window
-"preferences.title" = "Préférences Klaxon";
+"preferences.title" = "Préférences Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "Alertes";
+"preferences.tab.calendar" = "Calendriers";
+"preferences.tab.other" = "Démarrage";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Alerte d'événement";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Durée";
 "preferences.warningAlerts.minBeforeEvent" = "min";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Ne pas déranger";
+"preferences.dnd.respectFocus" = "Désactiver les alertes et avertissements si ne pas déranger est activé";
+
 // General Section
 "preferences.general.header" = "Général";
-"preferences.general.startAtLogin" = "Démarrer Klaxon à la connexion";
+"preferences.general.startAtLogin" = "Démarrer Calendar Klaxon à la connexion";
 "preferences.general.showWelcome" = "Afficher l'accueil au démarrage";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Lieu : %@";
 "alert.untitledEvent" = "Événement sans titre";
 "alert.button.dismiss" = "Fermer";
-"alert.button.openEvent" = "Ouvrir l'événement";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Bienvenue dans Klaxon";
+"welcome.title" = "Bienvenue dans Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon surveille votre calendrier et sonne une alarme immanquable lorsque vos réunions sont sur le point de commencer.\n\nUne fois cette fenêtre fermée, Klaxon continuera à fonctionner en arrière-plan. Recherchez l'icône de cloche dans votre barre de menus pour accéder aux préférences et aux contrôles.";
+"welcome.description" = "Calendar Klaxon surveille votre calendrier et sonne une alarme immanquable lorsque vos réunions sont sur le point de commencer.\n\nUne fois cette fenêtre fermée, Calendar Klaxon continuera à fonctionner en arrière-plan. Recherchez l'icône de cloche dans votre barre de menus pour accéder aux préférences et aux contrôles.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "À propos de Klaxon";
+"about.title" = "À propos de Calendar Klaxon";
 "about.version" = "Version %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Publié sous licence MIT en open source.";
-"about.description" = "Klaxon surveille votre calendrier et sonne l'alarme lorsque vos réunions sont sur le point de commencer. Ne manquez plus jamais une réunion !";
+"about.description" = "Calendar Klaxon surveille votre calendrier et sonne l'alarme lorsque vos réunions sont sur le point de commencer. Ne manquez plus jamais une réunion !";
 "about.assistive" = "Conçu comme outil d'assistance pour les personnes atteintes de TDAH, de cécité temporelle ou toute personne absorbée par son travail qui a besoin d'un rappel immanquable.";
 "about.credits.header" = "Crédits";
 "about.credits.icon" = "Icône : Electric Bell par Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Accès au calendrier requis";
-"calendar.accessRequired.message" = "Klaxon a besoin d'accéder à vos calendriers pour vous notifier des événements à venir. Veuillez autoriser l'accès au calendrier dans Réglages système > Confidentialité et sécurité > Calendriers.";
+"calendar.accessRequired.message" = "Calendar Klaxon a besoin d'accéder à vos calendriers pour vous notifier des événements à venir. Veuillez autoriser l'accès au calendrier dans Réglages système > Confidentialité et sécurité > Calendriers.";
 "calendar.accessRequired.retry" = "Réessayer";
 "calendar.accessRequired.quit" = "Quitter";
 

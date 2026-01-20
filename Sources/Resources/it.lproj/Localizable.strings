@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Italian localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Informazioni su Klaxon";
+"menu.about" = "Informazioni su Calendar Klaxon";
 "menu.preferences" = "Preferenze...";
+"menu.respectDND" = "Rispetta Non disturbare";
 "menu.quit" = "Esci";
 
 // MARK: - Preferences Window
-"preferences.title" = "Preferenze Klaxon";
+"preferences.title" = "Preferenze Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "Avvisi";
+"preferences.tab.calendar" = "Calendari";
+"preferences.tab.other" = "Avvio";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Avviso evento";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Durata";
 "preferences.warningAlerts.minBeforeEvent" = "min";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Non disturbare";
+"preferences.dnd.respectFocus" = "Disabilita avvisi e notifiche se non disturbare è attivo";
+
 // General Section
 "preferences.general.header" = "Generali";
-"preferences.general.startAtLogin" = "Avvia Klaxon all'accesso";
+"preferences.general.startAtLogin" = "Avvia Calendar Klaxon all'accesso";
 "preferences.general.showWelcome" = "Mostra benvenuto all'avvio";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Luogo: %@";
 "alert.untitledEvent" = "Evento senza titolo";
 "alert.button.dismiss" = "Chiudi";
-"alert.button.openEvent" = "Apri evento";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Benvenuto in Klaxon";
+"welcome.title" = "Benvenuto in Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon monitora il tuo calendario e fa suonare un allarme impossibile da ignorare quando le tue riunioni stanno per iniziare.\n\nUna volta chiusa questa finestra, Klaxon continuerà a funzionare in background. Cerca l'icona della campana nella barra dei menu per accedere alle preferenze e ai controlli.";
+"welcome.description" = "Calendar Klaxon monitora il tuo calendario e fa suonare un allarme impossibile da ignorare quando le tue riunioni stanno per iniziare.\n\nUna volta chiusa questa finestra, Calendar Klaxon continuerà a funzionare in background. Cerca l'icona della campana nella barra dei menu per accedere alle preferenze e ai controlli.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "Informazioni su Klaxon";
+"about.title" = "Informazioni su Calendar Klaxon";
 "about.version" = "Versione %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Rilasciato sotto licenza MIT come open source.";
-"about.description" = "Klaxon monitora il tuo calendario e fa suonare l'allarme quando le tue riunioni stanno per iniziare. Non perdere mai più una riunione!";
+"about.description" = "Calendar Klaxon monitora il tuo calendario e fa suonare l'allarme quando le tue riunioni stanno per iniziare. Non perdere mai più una riunione!";
 "about.assistive" = "Progettato come strumento di assistenza per persone con ADHD, cecità temporale o chiunque si immerga nel lavoro e abbia bisogno di un promemoria impossibile da ignorare.";
 "about.credits.header" = "Crediti";
 "about.credits.icon" = "Icona: Electric Bell di Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Accesso al calendario richiesto";
-"calendar.accessRequired.message" = "Klaxon ha bisogno dell'accesso ai tuoi calendari per notificarti degli eventi imminenti. Per favore, concedi l'accesso al calendario in Impostazioni di Sistema > Privacy e Sicurezza > Calendari.";
+"calendar.accessRequired.message" = "Calendar Klaxon ha bisogno dell'accesso ai tuoi calendari per notificarti degli eventi imminenti. Per favore, concedi l'accesso al calendario in Impostazioni di Sistema > Privacy e Sicurezza > Calendari.";
 "calendar.accessRequired.retry" = "Riprova";
 "calendar.accessRequired.quit" = "Esci";
 

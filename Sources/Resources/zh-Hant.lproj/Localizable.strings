@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Traditional Chinese localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "關於 Klaxon";
+"menu.about" = "關於 Calendar Klaxon";
 "menu.preferences" = "偏好設定...";
+"menu.respectDND" = "遵循勿擾模式";
 "menu.quit" = "結束";
 
 // MARK: - Preferences Window
-"preferences.title" = "Klaxon 偏好設定";
+"preferences.title" = "Calendar Klaxon 偏好設定";
+
+// Tab Labels
+"preferences.tab.alert" = "提醒";
+"preferences.tab.calendar" = "行事曆";
+"preferences.tab.other" = "啟動";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "事件提醒";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "時長";
 "preferences.warningAlerts.minBeforeEvent" = "分鐘";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "勿擾模式";
+"preferences.dnd.respectFocus" = "勿擾模式開啟時停用提醒和警告";
+
 // General Section
 "preferences.general.header" = "一般";
-"preferences.general.startAtLogin" = "登入時啟動 Klaxon";
+"preferences.general.startAtLogin" = "登入時啟動 Calendar Klaxon";
 "preferences.general.showWelcome" = "啟動時顯示歡迎畫面";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "地點：%@";
 "alert.untitledEvent" = "無標題事件";
 "alert.button.dismiss" = "關閉";
-"alert.button.openEvent" = "開啟事件";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "歡迎使用 Klaxon";
+"welcome.title" = "歡迎使用 Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon 監控您的行事曆，並在會議即將開始時發出警報。\n\n關閉此視窗後，Klaxon 將在背景繼續執行。在選單列尋找鈴鐺圖示以存取偏好設定和控制項。";
+"welcome.description" = "Calendar Klaxon 監控您的行事曆，並在會議即將開始時發出警報。\n\n關閉此視窗後，Calendar Klaxon 將在背景繼續執行。在選單列尋找鈴鐺圖示以存取偏好設定和控制項。";
 "welcome.button.ok" = "確定";
 
 // MARK: - About Window
-"about.title" = "關於 Klaxon";
+"about.title" = "關於 Calendar Klaxon";
 "about.version" = "版本 %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "以 MIT 授權條款發布為開放原始碼。";
-"about.description" = "Klaxon 監控您的行事曆，並在會議即將開始時發出警報。再也不會錯過會議！";
+"about.description" = "Calendar Klaxon 監控您的行事曆，並在會議即將開始時發出警報。再也不會錯過會議！";
 "about.assistive" = "專為 ADHD、時間盲或任何沉浸於工作而需要難以忘懷提醒的人設計的輔助工具。";
 "about.credits.header" = "致謝";
 "about.credits.icon" = "圖示：Electric Bell 來自 Firkin（CC0，OpenClipart）";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "需要行事曆存取權限";
-"calendar.accessRequired.message" = "Klaxon 需要存取您的行事曆以通知您即將到來的事件。請在系統設定 > 隱私權與安全性 > 行事曆中授予行事曆存取權限。";
+"calendar.accessRequired.message" = "Calendar Klaxon 需要存取您的行事曆以通知您即將到來的事件。請在系統設定 > 隱私權與安全性 > 行事曆中授予行事曆存取權限。";
 "calendar.accessRequired.retry" = "重試";
 "calendar.accessRequired.quit" = "結束";
 

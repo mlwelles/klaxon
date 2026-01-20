@@ -6,15 +6,16 @@
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "About Klaxon";
+"menu.about" = "About Calendar Klaxon";
 "menu.preferences" = "Preferences...";
+"menu.respectDND" = "Respect Do Not Disturb";
 "menu.quit" = "Quit";
 
 // MARK: - Preferences Window
-"preferences.title" = "Klaxon Preferences";
+"preferences.title" = "Calendar Klaxon Preferences";
 
 // Tab Labels
 "preferences.tab.alert" = "Alerts";
@@ -47,7 +48,7 @@
 
 // General Section
 "preferences.general.header" = "General";
-"preferences.general.startAtLogin" = "Start Klaxon at login";
+"preferences.general.startAtLogin" = "Start Calendar Klaxon at login";
 "preferences.general.showWelcome" = "Show welcome on start";
 
 // Buttons
@@ -82,19 +83,20 @@
 "alert.untitledEvent" = "Untitled Event";
 "alert.button.dismiss" = "Dismiss";
 "alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Welcome to Klaxon";
+"welcome.title" = "Welcome to Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon monitors your calendar and sounds an unmissable alarm when meetings are about to start.\n\nOnce you dismiss this window, Klaxon will keep running in the background. Look for the bell icon in your menu bar to access preferences and controls.";
+"welcome.description" = "Calendar Klaxon monitors your calendar and sounds an unmissable alarm when meetings are about to start.\n\nOnce you dismiss this window, Calendar Klaxon will keep running in the background. Look for the bell icon in your menu bar to access preferences and controls.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "About Klaxon";
+"about.title" = "About Calendar Klaxon";
 "about.version" = "Version %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Released under the MIT License as open source.";
-"about.description" = "Klaxon watches your calendar and sounds the alarm when meetings are about to start. Never miss a meeting again!";
+"about.description" = "Calendar Klaxon watches your calendar and sounds the alarm when meetings are about to start. Never miss a meeting again!";
 "about.assistive" = "Designed as an assistive tool for people with ADHD, time blindness, or anyone who gets absorbed in their work and needs an unmissable reminder.";
 "about.credits.header" = "Credits";
 "about.credits.icon" = "Icon: Electric Bell by Firkin (CC0, OpenClipart)";
@@ -105,7 +107,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Calendar Access Required";
-"calendar.accessRequired.message" = "Klaxon needs access to your calendars to notify you about upcoming events. Please grant calendar access in System Settings > Privacy & Security > Calendars.";
+"calendar.accessRequired.message" = "Calendar Klaxon needs access to your calendars to notify you about upcoming events. Please grant calendar access in System Settings > Privacy & Security > Calendars.";
 "calendar.accessRequired.retry" = "Retry";
 "calendar.accessRequired.quit" = "Quit";
 

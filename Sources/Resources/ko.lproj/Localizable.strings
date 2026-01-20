@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Korean localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Klaxon에 관하여";
+"menu.about" = "Calendar Klaxon에 관하여";
 "menu.preferences" = "환경설정...";
+"menu.respectDND" = "방해 금지 모드 준수";
 "menu.quit" = "종료";
 
 // MARK: - Preferences Window
-"preferences.title" = "Klaxon 환경설정";
+"preferences.title" = "Calendar Klaxon 환경설정";
+
+// Tab Labels
+"preferences.tab.alert" = "알림";
+"preferences.tab.calendar" = "캘린더";
+"preferences.tab.other" = "시작";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "이벤트 알림";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "길이";
 "preferences.warningAlerts.minBeforeEvent" = "분";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "방해 금지 모드";
+"preferences.dnd.respectFocus" = "방해 금지 모드가 켜져 있으면 알림 및 경고 비활성화";
+
 // General Section
 "preferences.general.header" = "일반";
-"preferences.general.startAtLogin" = "로그인 시 Klaxon 시작";
+"preferences.general.startAtLogin" = "로그인 시 Calendar Klaxon 시작";
 "preferences.general.showWelcome" = "시작 시 환영 화면 표시";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "장소: %@";
 "alert.untitledEvent" = "제목 없는 이벤트";
 "alert.button.dismiss" = "닫기";
-"alert.button.openEvent" = "이벤트 열기";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Klaxon에 오신 것을 환영합니다";
+"welcome.title" = "Calendar Klaxon에 오신 것을 환영합니다";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon은 캘린더를 모니터링하고 회의가 시작되기 전에 놓칠 수 없는 알람을 울립니다.\n\n이 창을 닫으면 Klaxon은 백그라운드에서 계속 실행됩니다. 메뉴 막대에서 벨 아이콘을 찾아 환경설정과 컨트롤에 접근하세요.";
+"welcome.description" = "Calendar Klaxon은 캘린더를 모니터링하고 회의가 시작되기 전에 놓칠 수 없는 알람을 울립니다.\n\n이 창을 닫으면 Calendar Klaxon은 백그라운드에서 계속 실행됩니다. 메뉴 막대에서 벨 아이콘을 찾아 환경설정과 컨트롤에 접근하세요.";
 "welcome.button.ok" = "확인";
 
 // MARK: - About Window
-"about.title" = "Klaxon에 관하여";
+"about.title" = "Calendar Klaxon에 관하여";
 "about.version" = "버전 %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "MIT 라이선스 하에 오픈 소스로 배포됨.";
-"about.description" = "Klaxon은 캘린더를 모니터링하고 회의가 시작되기 전에 알람을 울립니다. 다시는 회의를 놓치지 마세요!";
+"about.description" = "Calendar Klaxon은 캘린더를 모니터링하고 회의가 시작되기 전에 알람을 울립니다. 다시는 회의를 놓치지 마세요!";
 "about.assistive" = "ADHD, 시간 맹목 또는 일에 몰두하여 놓칠 수 없는 알림이 필요한 분들을 위한 보조 도구로 설계되었습니다.";
 "about.credits.header" = "크레딧";
 "about.credits.icon" = "아이콘: Electric Bell by Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "캘린더 접근 권한 필요";
-"calendar.accessRequired.message" = "Klaxon은 예정된 이벤트를 알리기 위해 캘린더 접근 권한이 필요합니다. 시스템 설정 > 개인 정보 보호 및 보안 > 캘린더에서 캘린더 접근을 허용해 주세요.";
+"calendar.accessRequired.message" = "Calendar Klaxon은 예정된 이벤트를 알리기 위해 캘린더 접근 권한이 필요합니다. 시스템 설정 > 개인 정보 보호 및 보안 > 캘린더에서 캘린더 접근을 허용해 주세요.";
 "calendar.accessRequired.retry" = "다시 시도";
 "calendar.accessRequired.quit" = "종료";
 

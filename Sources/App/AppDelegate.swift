@@ -1,7 +1,7 @@
 import AppKit
 import EventKit
 
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private var statusItem: NSStatusItem?
     private var calendarService: CalendarService?
     private var alertWindowController: AlertWindowController?
@@ -9,6 +9,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var aboutWindowController: AboutWindowController?
     private var welcomeWindowController: WelcomeWindowController?
     private var launchedAtLogin = false
+    private var respectDNDMenuItem: NSMenuItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Detect if launched at login by checking system uptime
@@ -58,12 +59,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         let menu = NSMenu()
+        menu.delegate = self
         menu.addItem(NSMenuItem(title: NSLocalizedString("menu.about", comment: "About menu item"), action: #selector(openAbout), keyEquivalent: ""))
+        menu.addItem(NSMenuItem.separator())
+        respectDNDMenuItem = NSMenuItem(title: NSLocalizedString("menu.respectDND", comment: "Respect DND menu item"), action: #selector(toggleRespectDND), keyEquivalent: "")
+        menu.addItem(respectDNDMenuItem!)
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: NSLocalizedString("menu.preferences", comment: "Preferences menu item"), action: #selector(openPreferences), keyEquivalent: ","))
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: NSLocalizedString("menu.quit", comment: "Quit menu item"), action: #selector(quitApp), keyEquivalent: "q"))
         statusItem?.menu = menu
+    }
+
+    // MARK: - NSMenuDelegate
+
+    func menuWillOpen(_ menu: NSMenu) {
+        respectDNDMenuItem?.state = Preferences.shared.respectDoNotDisturb ? .on : .off
     }
 
     private func requestCalendarAccess() {
@@ -136,6 +147,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             preferencesWindowController = PreferencesWindowController()
         }
         preferencesWindowController?.showWindow(nil)
+    }
+
+    @objc private func toggleRespectDND() {
+        Preferences.shared.respectDoNotDisturb.toggle()
     }
 
     @objc private func quitApp() {

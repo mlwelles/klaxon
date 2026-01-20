@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Dutch localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Over Klaxon";
+"menu.about" = "Over Calendar Klaxon";
 "menu.preferences" = "Voorkeuren...";
+"menu.respectDND" = "Respecteer Niet storen";
 "menu.quit" = "Stop";
 
 // MARK: - Preferences Window
-"preferences.title" = "Klaxon Voorkeuren";
+"preferences.title" = "Calendar Klaxon Voorkeuren";
+
+// Tab Labels
+"preferences.tab.alert" = "Alarmen";
+"preferences.tab.calendar" = "Agenda's";
+"preferences.tab.other" = "Opstarten";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Gebeurtenisalarm";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Duur";
 "preferences.warningAlerts.minBeforeEvent" = "min";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Niet storen";
+"preferences.dnd.respectFocus" = "Schakel alarmen en waarschuwingen uit als niet storen is ingeschakeld";
+
 // General Section
 "preferences.general.header" = "Algemeen";
-"preferences.general.startAtLogin" = "Start Klaxon bij inloggen";
+"preferences.general.startAtLogin" = "Start Calendar Klaxon bij inloggen";
 "preferences.general.showWelcome" = "Toon welkom bij starten";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Locatie: %@";
 "alert.untitledEvent" = "Naamloze gebeurtenis";
 "alert.button.dismiss" = "Sluiten";
-"alert.button.openEvent" = "Open gebeurtenis";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Welkom bij Klaxon";
+"welcome.title" = "Welkom bij Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon bewaakt je agenda en laat een onmisbare alarm klinken wanneer je vergaderingen op het punt staan te beginnen.\n\nNa het sluiten van dit venster blijft Klaxon op de achtergrond draaien. Zoek het belpictogram in je menubalk om toegang te krijgen tot voorkeuren en bedieningselementen.";
+"welcome.description" = "Calendar Klaxon bewaakt je agenda en laat een onmisbare alarm klinken wanneer je vergaderingen op het punt staan te beginnen.\n\nNa het sluiten van dit venster blijft Calendar Klaxon op de achtergrond draaien. Zoek het belpictogram in je menubalk om toegang te krijgen tot voorkeuren en bedieningselementen.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "Over Klaxon";
+"about.title" = "Over Calendar Klaxon";
 "about.version" = "Versie %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Uitgebracht onder de MIT-licentie als open source.";
-"about.description" = "Klaxon bewaakt je agenda en laat het alarm klinken wanneer je vergaderingen op het punt staan te beginnen. Mis nooit meer een vergadering!";
+"about.description" = "Calendar Klaxon bewaakt je agenda en laat het alarm klinken wanneer je vergaderingen op het punt staan te beginnen. Mis nooit meer een vergadering!";
 "about.assistive" = "Ontworpen als hulpmiddel voor mensen met ADHD, tijdsblindheid of iedereen die opgaat in het werk en een onmisbare herinnering nodig heeft.";
 "about.credits.header" = "Credits";
 "about.credits.icon" = "Pictogram: Electric Bell door Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Agenda-toegang vereist";
-"calendar.accessRequired.message" = "Klaxon heeft toegang nodig tot je agenda's om je te informeren over aankomende gebeurtenissen. Verleen agenda-toegang in Systeeminstellingen > Privacy en beveiliging > Agenda's.";
+"calendar.accessRequired.message" = "Calendar Klaxon heeft toegang nodig tot je agenda's om je te informeren over aankomende gebeurtenissen. Verleen agenda-toegang in Systeeminstellingen > Privacy en beveiliging > Agenda's.";
 "calendar.accessRequired.retry" = "Opnieuw proberen";
 "calendar.accessRequired.quit" = "Stop";
 

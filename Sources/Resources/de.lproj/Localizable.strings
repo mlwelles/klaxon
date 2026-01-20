@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   German localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Über Klaxon";
+"menu.about" = "Über Calendar Klaxon";
 "menu.preferences" = "Einstellungen ...";
+"menu.respectDND" = "Nicht stören beachten";
 "menu.quit" = "Beenden";
 
 // MARK: - Preferences Window
-"preferences.title" = "Klaxon Einstellungen";
+"preferences.title" = "Calendar Klaxon Einstellungen";
+
+// Tab Labels
+"preferences.tab.alert" = "Alarme";
+"preferences.tab.calendar" = "Kalender";
+"preferences.tab.other" = "Start";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Ereignis-Alarm";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Dauer";
 "preferences.warningAlerts.minBeforeEvent" = "Min";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Nicht stören";
+"preferences.dnd.respectFocus" = "Alarme und Warnungen deaktivieren, wenn Nicht stören aktiviert ist";
+
 // General Section
 "preferences.general.header" = "Allgemein";
-"preferences.general.startAtLogin" = "Klaxon bei Anmeldung starten";
+"preferences.general.startAtLogin" = "Calendar Klaxon bei Anmeldung starten";
 "preferences.general.showWelcome" = "Willkommen beim Start anzeigen";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Ort: %@";
 "alert.untitledEvent" = "Ereignis ohne Titel";
 "alert.button.dismiss" = "Schließen";
-"alert.button.openEvent" = "Ereignis öffnen";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Willkommen bei Klaxon";
+"welcome.title" = "Willkommen bei Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon überwacht Ihren Kalender und gibt einen unüberhörbaren Alarm, wenn Ihre Besprechungen beginnen.\n\nNachdem Sie dieses Fenster geschlossen haben, läuft Klaxon im Hintergrund weiter. Suchen Sie das Glockensymbol in Ihrer Menüleiste, um auf Einstellungen und Steuerungen zuzugreifen.";
+"welcome.description" = "Calendar Klaxon überwacht Ihren Kalender und gibt einen unüberhörbaren Alarm, wenn Ihre Besprechungen beginnen.\n\nNachdem Sie dieses Fenster geschlossen haben, läuft Calendar Klaxon im Hintergrund weiter. Suchen Sie das Glockensymbol in Ihrer Menüleiste, um auf Einstellungen und Steuerungen zuzugreifen.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "Über Klaxon";
+"about.title" = "Über Calendar Klaxon";
 "about.version" = "Version %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Veröffentlicht unter der MIT-Lizenz als Open Source.";
-"about.description" = "Klaxon überwacht Ihren Kalender und gibt Alarm, wenn Ihre Besprechungen beginnen. Verpassen Sie nie wieder eine Besprechung!";
+"about.description" = "Calendar Klaxon überwacht Ihren Kalender und gibt Alarm, wenn Ihre Besprechungen beginnen. Verpassen Sie nie wieder eine Besprechung!";
 "about.assistive" = "Entwickelt als Hilfsmittel für Menschen mit ADHS, Zeitblindheit oder alle, die in ihrer Arbeit vertieft sind und eine unüberhörbare Erinnerung brauchen.";
 "about.credits.header" = "Danksagungen";
 "about.credits.icon" = "Symbol: Electric Bell von Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Kalenderzugriff erforderlich";
-"calendar.accessRequired.message" = "Klaxon benötigt Zugriff auf Ihre Kalender, um Sie über bevorstehende Ereignisse zu benachrichtigen. Bitte gewähren Sie den Kalenderzugriff in Systemeinstellungen > Datenschutz & Sicherheit > Kalender.";
+"calendar.accessRequired.message" = "Calendar Klaxon benötigt Zugriff auf Ihre Kalender, um Sie über bevorstehende Ereignisse zu benachrichtigen. Bitte gewähren Sie den Kalenderzugriff in Systemeinstellungen > Datenschutz & Sicherheit > Kalender.";
 "calendar.accessRequired.retry" = "Erneut versuchen";
 "calendar.accessRequired.quit" = "Beenden";
 

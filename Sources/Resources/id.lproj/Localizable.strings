@@ -1,20 +1,26 @@
 /*
   Localizable.strings
-  Klaxon
+  Calendar Klaxon
 
   Indonesian localization strings
 */
 
 // MARK: - App General
-"app.name" = "Klaxon";
+"app.name" = "Calendar Klaxon";
 
 // MARK: - Menu Bar
-"menu.about" = "Tentang Klaxon";
+"menu.about" = "Tentang Calendar Klaxon";
 "menu.preferences" = "Preferensi...";
+"menu.respectDND" = "Hormati Jangan Ganggu";
 "menu.quit" = "Keluar";
 
 // MARK: - Preferences Window
-"preferences.title" = "Preferensi Klaxon";
+"preferences.title" = "Preferensi Calendar Klaxon";
+
+// Tab Labels
+"preferences.tab.alert" = "Peringatan";
+"preferences.tab.calendar" = "Kalender";
+"preferences.tab.other" = "Mulai";
 
 // Event Alert Section
 "preferences.eventAlert.header" = "Peringatan Acara";
@@ -31,9 +37,13 @@
 "preferences.warningAlerts.column.duration" = "Durasi";
 "preferences.warningAlerts.minBeforeEvent" = "mnt";
 
+// Do Not Disturb Section
+"preferences.dnd.header" = "Jangan Ganggu";
+"preferences.dnd.respectFocus" = "Nonaktifkan peringatan jika jangan ganggu diaktifkan";
+
 // General Section
 "preferences.general.header" = "Umum";
-"preferences.general.startAtLogin" = "Mulai Klaxon saat login";
+"preferences.general.startAtLogin" = "Mulai Calendar Klaxon saat login";
 "preferences.general.showWelcome" = "Tampilkan sambutan saat mulai";
 
 // Buttons
@@ -67,20 +77,21 @@
 "alert.location" = "Lokasi: %@";
 "alert.untitledEvent" = "Acara Tanpa Judul";
 "alert.button.dismiss" = "Tutup";
-"alert.button.openEvent" = "Buka Acara";
+"alert.button.openEvent" = "Open Event";
+"alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
-"welcome.title" = "Selamat Datang di Klaxon";
+"welcome.title" = "Selamat Datang di Calendar Klaxon";
 "welcome.copyright" = "© %d Michael L. Welles";
-"welcome.description" = "Klaxon memantau kalender Anda dan membunyikan alarm saat pertemuan Anda akan dimulai.\n\nSetelah menutup jendela ini, Klaxon akan terus berjalan di latar belakang. Cari ikon bel di bilah menu untuk mengakses preferensi dan kontrol.";
+"welcome.description" = "Calendar Klaxon memantau kalender Anda dan membunyikan alarm saat pertemuan Anda akan dimulai.\n\nSetelah menutup jendela ini, Calendar Klaxon akan terus berjalan di latar belakang. Cari ikon bel di bilah menu untuk mengakses preferensi dan kontrol.";
 "welcome.button.ok" = "OK";
 
 // MARK: - About Window
-"about.title" = "Tentang Klaxon";
+"about.title" = "Tentang Calendar Klaxon";
 "about.version" = "Versi %@";
 "about.copyright" = "© %d Michael L. Welles (@mlwelles)";
 "about.license" = "Dirilis di bawah Lisensi MIT sebagai sumber terbuka.";
-"about.description" = "Klaxon memantau kalender Anda dan membunyikan alarm saat pertemuan Anda akan dimulai. Jangan pernah lewatkan pertemuan lagi!";
+"about.description" = "Calendar Klaxon memantau kalender Anda dan membunyikan alarm saat pertemuan Anda akan dimulai. Jangan pernah lewatkan pertemuan lagi!";
 "about.assistive" = "Dirancang sebagai alat bantu bagi orang dengan ADHD, kebutaan waktu, atau siapa saja yang tenggelam dalam pekerjaan dan membutuhkan pengingat yang tak terlupakan.";
 "about.credits.header" = "Kredit";
 "about.credits.icon" = "Ikon: Electric Bell oleh Firkin (CC0, OpenClipart)";
@@ -91,7 +102,7 @@
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Akses Kalender Diperlukan";
-"calendar.accessRequired.message" = "Klaxon memerlukan akses ke kalender Anda untuk memberi tahu tentang acara yang akan datang. Harap berikan akses kalender di Pengaturan Sistem > Privasi & Keamanan > Kalender.";
+"calendar.accessRequired.message" = "Calendar Klaxon memerlukan akses ke kalender Anda untuk memberi tahu tentang acara yang akan datang. Harap berikan akses kalender di Pengaturan Sistem > Privasi & Keamanan > Kalender.";
 "calendar.accessRequired.retry" = "Coba Lagi";
 "calendar.accessRequired.quit" = "Keluar";
 
