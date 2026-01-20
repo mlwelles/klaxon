@@ -60,17 +60,20 @@ final class AboutWindowController: NSWindowController {
         contentView.addSubview(licenseLabel)
 
         // Description
-        let descriptionLabel = NSTextField(wrappingLabelWithString: NSLocalizedString("about.description", comment: "About description"))
-        descriptionLabel.font = NSFont.systemFont(ofSize: 12)
-        descriptionLabel.alignment = .center
+        let descriptionLabel = createCenteredWrappingLabel(
+            text: NSLocalizedString("about.description", comment: "About description"),
+            fontSize: 12,
+            textColor: .labelColor
+        )
         descriptionLabel.frame = NSRect(x: 30, y: 232, width: 340, height: 45)
         contentView.addSubview(descriptionLabel)
 
         // Assistive purpose
-        let assistiveLabel = NSTextField(wrappingLabelWithString: NSLocalizedString("about.assistive", comment: "Assistive purpose description"))
-        assistiveLabel.font = NSFont.systemFont(ofSize: 11)
-        assistiveLabel.alignment = .center
-        assistiveLabel.textColor = .secondaryLabelColor
+        let assistiveLabel = createCenteredWrappingLabel(
+            text: NSLocalizedString("about.assistive", comment: "Assistive purpose description"),
+            fontSize: 11,
+            textColor: .secondaryLabelColor
+        )
         assistiveLabel.frame = NSRect(x: 30, y: 177, width: 340, height: 50)
         contentView.addSubview(assistiveLabel)
 
@@ -118,13 +121,18 @@ final class AboutWindowController: NSWindowController {
         field.backgroundColor = .clear
         field.allowsEditingTextAttributes = true
         field.isSelectable = true
-        field.alignment = .center
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
 
         let year = Calendar.current.component(.year, from: Date())
         let fullText = String(format: NSLocalizedString("about.copyright", comment: "© %d Michael L. Welles (@mlwelles)"), year)
         let attributedString = NSMutableAttributedString(
             string: fullText,
-            attributes: [.font: NSFont.systemFont(ofSize: 11)]
+            attributes: [
+                .font: NSFont.systemFont(ofSize: 11),
+                .paragraphStyle: paragraphStyle
+            ]
         )
 
         // Make (@mlwelles) a clickable link
@@ -148,14 +156,17 @@ final class AboutWindowController: NSWindowController {
         field.backgroundColor = .clear
         field.allowsEditingTextAttributes = true
         field.isSelectable = true
-        field.alignment = .center
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
 
         let fullText = NSLocalizedString("about.license", comment: "Released under the MIT License as open source.")
         let attributedString = NSMutableAttributedString(
             string: fullText,
             attributes: [
                 .font: NSFont.systemFont(ofSize: 11),
-                .foregroundColor: NSColor.secondaryLabelColor
+                .foregroundColor: NSColor.secondaryLabelColor,
+                .paragraphStyle: paragraphStyle
             ]
         )
 
@@ -168,6 +179,29 @@ final class AboutWindowController: NSWindowController {
                 .underlineStyle: NSUnderlineStyle.single.rawValue
             ], range: nsRange)
         }
+
+        field.attributedStringValue = attributedString
+        return field
+    }
+
+    private func createCenteredWrappingLabel(text: String, fontSize: CGFloat, textColor: NSColor) -> NSTextField {
+        let field = NSTextField(frame: .zero)
+        field.isEditable = false
+        field.isBordered = false
+        field.backgroundColor = .clear
+        field.isSelectable = false
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+
+        let attributedString = NSAttributedString(
+            string: text,
+            attributes: [
+                .font: NSFont.systemFont(ofSize: fontSize),
+                .foregroundColor: textColor,
+                .paragraphStyle: paragraphStyle
+            ]
+        )
 
         field.attributedStringValue = attributedString
         return field
