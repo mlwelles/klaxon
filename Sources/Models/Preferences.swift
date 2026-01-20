@@ -1,4 +1,5 @@
 import AVFoundation
+import EventKit
 import Foundation
 
 /// A configurable warning that fires before an event starts
@@ -98,6 +99,8 @@ final class Preferences {
         static let alertSound = "alertSound"
         static let hasLaunchedBefore = "hasLaunchedBefore"
         static let showWindowOnLaunch = "showWindowOnLaunch"
+        static let disabledCalendarIDs = "disabledCalendarIDs"
+        static let respectDoNotDisturb = "respectDoNotDisturb"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -151,5 +154,86 @@ final class Preferences {
     var showWindowOnLaunch: Bool {
         get { defaults.bool(forKey: Keys.showWindowOnLaunch) }
         set { defaults.set(newValue, forKey: Keys.showWindowOnLaunch) }
+    }
+
+    /// Whether to respect system Do Not Disturb / Focus mode
+    var respectDoNotDisturb: Bool {
+        get { defaults.bool(forKey: Keys.respectDoNotDisturb) }
+        set { defaults.set(newValue, forKey: Keys.respectDoNotDisturb) }
+    }
+
+    /// Check if system Do Not Disturb / Focus mode is currently active
+    static func isDoNotDisturbActive() -> Bool {
+        // On macOS 12+, Focus modes are stored in a different location
+        // We check the assertion state which is more reliable across versions
+        let task = Process()
+        let pipe = Pipe()
+
+        task.standardOutput = pipe
+        task.standardError = FileHandle.nullDevice
+        task.executableURL = URL(fileURLWithPath: "/usr/bin/plutil")
+        task.arguments = [
+            "-extract", "dnd_prefs.userPref.enabled", "raw",
+            "-o", "-",
+            NSString(string: "~/Library/DoNotDisturb/DB/Assertions.json").expandingTildeInPath
+        ]
+
+        do {
+            try task.run()
+            task.waitUntilExit()
+
+            let data = pipe.fileHandleForReading.readDataToEndOfFile()
+            if let output = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
+                return output == "1" || output.lowercased() == "true"
+            }
+        } catch {
+            // Fall back to checking ModeConfigurations
+        }
+
+        // Fallback: Check for active Focus mode via ModeConfigurations
+        let modeConfigPath = NSString(string: "~/Library/DoNotDisturb/DB/ModeConfigurations.json").expandingTildeInPath
+        if let data = FileManager.default.contents(atPath: modeConfigPath),
+           let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+           let modeData = json["data"] as? [[String: Any]] {
+            for mode in modeData {
+                if let isActive = mode["isActive"] as? Bool, isActive {
+                    return true
+                }
+            }
+        }
+
+        return false
+    }
+
+    /// Calendar identifiers that are disabled (not monitored)
+    var disabledCalendarIDs: [String] {
+        get {
+            return defaults.stringArray(forKey: Keys.disabledCalendarIDs) ?? []
+        }
+        set {
+            defaults.set(newValue, forKey: Keys.disabledCalendarIDs)
+        }
+    }
+
+    /// Check if a calendar is enabled for monitoring
+    func isCalendarEnabled(_ calendarID: String) -> Bool {
+        return !disabledCalendarIDs.contains(calendarID)
+    }
+
+    /// Enable or disable a calendar
+    func setCalendar(_ calendarID: String, enabled: Bool) {
+        var disabled = disabledCalendarIDs
+        if enabled {
+            disabled.removeAll { $0 == calendarID }
+        } else if !disabled.contains(calendarID) {
+            disabled.append(calendarID)
+        }
+        disabledCalendarIDs = disabled
+    }
+
+    /// Remove calendar IDs that no longer exist in the event store
+    func cleanupDeletedCalendars(eventStore: EKEventStore) {
+        let currentIDs = Set(eventStore.calendars(for: .event).map { $0.calendarIdentifier })
+        disabledCalendarIDs = disabledCalendarIDs.filter { currentIDs.contains($0) }
     }
 }

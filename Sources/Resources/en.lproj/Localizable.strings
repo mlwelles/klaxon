@@ -16,20 +16,34 @@
 // MARK: - Preferences Window
 "preferences.title" = "Klaxon Preferences";
 
+// Tab Labels
+"preferences.tab.alert" = "Alerts";
+"preferences.tab.calendar" = "Calendars";
+"preferences.tab.other" = "Startup";
+
 // Event Alert Section
 "preferences.eventAlert.header" = "Event Alert";
 "preferences.eventAlert.description" = "Alert shown when an event starts.";
 "preferences.eventAlert.playSound" = "Play sound:";
 "preferences.eventAlert.duration" = "Duration:";
 
-// Warning Alerts Section
-"preferences.warningAlerts.header" = "Warning Alerts";
+// Calendars Section
+"preferences.calendars.header" = "Calendars";
+"preferences.calendars.description" = "Choose which calendars to monitor for events.";
+"preferences.calendars.noCalendarsEnabled" = "⚠️ No calendars enabled. Events will not be monitored.";
+
+// Warnings Section
+"preferences.warningAlerts.header" = "Warnings";
 "preferences.warningAlerts.description" = "Optional alerts shown before event start.";
 "preferences.warningAlerts.addButton" = "+ Add";
 "preferences.warningAlerts.column.when" = "When";
 "preferences.warningAlerts.column.playSound" = "Play Sound";
 "preferences.warningAlerts.column.duration" = "Duration";
 "preferences.warningAlerts.minBeforeEvent" = "min";
+
+// Do Not Disturb Section
+"preferences.dnd.header" = "Do Not Disturb";
+"preferences.dnd.respectFocus" = "Disable alerts and warnings if do not disturb is on";
 
 // General Section
 "preferences.general.header" = "General";

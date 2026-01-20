@@ -1,5 +1,6 @@
 import AppKit
 import AVFoundation
+import EventKit
 import ServiceManagement
 
 final class PreferencesWindowController: NSWindowController, NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate {
@@ -11,8 +12,14 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
     private var eventStartSoundPopup: NSPopUpButton!
     private var launchAtLoginCheckbox: NSButton!
     private var showWindowOnLaunchCheckbox: NSButton!
+    private var respectDNDCheckbox: NSButton!
     private var audioPlayer: AVAudioPlayer?
     private var audioStopTimer: Timer?
+    private var calendarsTableView: NSTableView!
+    private var calendarsScrollView: NSScrollView!
+    private var eventStore: EKEventStore?
+    private var availableCalendars: [EKCalendar] = []
+    private var noCalendarsLabel: NSTextField!
 
     private var soundDurationOptions: [(title: String, value: Double)] {
         [
@@ -27,7 +34,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
     init() {
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 520, height: 480),
+            contentRect: NSRect(x: 0, y: 0, width: 520, height: 540),
             styleMask: [.titled, .closable, .miniaturizable],
             backing: .buffered,
             defer: false
@@ -52,36 +59,82 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
         let contentView = NSView(frame: window.contentRect(forFrameRect: window.frame))
 
+        // Create tab view
+        let tabView = NSTabView()
+        tabView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(tabView)
+
+        // Create tabs
+        let alertTab = NSTabViewItem(identifier: "alert")
+        alertTab.label = NSLocalizedString("preferences.tab.alert", comment: "Alert tab label")
+        alertTab.view = createAlertTabContent()
+        tabView.addTabViewItem(alertTab)
+
+        let calendarTab = NSTabViewItem(identifier: "calendar")
+        calendarTab.label = NSLocalizedString("preferences.tab.calendar", comment: "Calendar tab label")
+        calendarTab.view = createCalendarTabContent()
+        tabView.addTabViewItem(calendarTab)
+
+        let otherTab = NSTabViewItem(identifier: "other")
+        otherTab.label = NSLocalizedString("preferences.tab.other", comment: "Other tab label")
+        otherTab.view = createOtherTabContent()
+        tabView.addTabViewItem(otherTab)
+
+        // OK button at bottom
+        let okButton = NSButton(title: NSLocalizedString("preferences.button.ok", comment: "OK button"), target: self, action: #selector(okPressed))
+        okButton.translatesAutoresizingMaskIntoConstraints = false
+        okButton.bezelStyle = .rounded
+        okButton.keyEquivalent = "\r"
+        contentView.addSubview(okButton)
+
+        NSLayoutConstraint.activate([
+            tabView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            tabView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            tabView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            tabView.bottomAnchor.constraint(equalTo: okButton.topAnchor, constant: -12),
+
+            okButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            okButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            okButton.widthAnchor.constraint(equalToConstant: 80),
+        ])
+
+        window.contentView = contentView
+    }
+
+    // MARK: - Tab Content Creation
+
+    private func createAlertTabContent() -> NSView {
+        let tabContent = NSView()
+
         // Event section header
         let eventHeaderLabel = createSectionHeader(NSLocalizedString("preferences.eventAlert.header", comment: "Event Alert section header"))
-        contentView.addSubview(eventHeaderLabel)
+        tabContent.addSubview(eventHeaderLabel)
 
         // Event section description
         let eventDescription = createNoteLabel(NSLocalizedString("preferences.eventAlert.description", comment: "Event alert description"))
-        contentView.addSubview(eventDescription)
+        tabContent.addSubview(eventDescription)
 
         // Sound selection row
         let alertSoundLabel = createLabel(NSLocalizedString("preferences.eventAlert.playSound", comment: "Play sound label"))
-        contentView.addSubview(alertSoundLabel)
+        tabContent.addSubview(alertSoundLabel)
 
         alertSoundPopup = createAlertSoundPopup()
-        contentView.addSubview(alertSoundPopup)
-
+        tabContent.addSubview(alertSoundPopup)
 
         // Duration row
         let eventStartSoundLabel = createLabel(NSLocalizedString("preferences.eventAlert.duration", comment: "Duration label"))
-        contentView.addSubview(eventStartSoundLabel)
+        tabContent.addSubview(eventStartSoundLabel)
 
         eventStartSoundPopup = createSoundDurationPopup(action: #selector(eventStartSoundChanged))
-        contentView.addSubview(eventStartSoundPopup)
+        tabContent.addSubview(eventStartSoundPopup)
 
         // Warnings section header
         let warningsHeaderLabel = createSectionHeader(NSLocalizedString("preferences.warningAlerts.header", comment: "Warning Alerts section header"))
-        contentView.addSubview(warningsHeaderLabel)
+        tabContent.addSubview(warningsHeaderLabel)
 
         // Warnings section description
         let warningsDescription = createNoteLabel(NSLocalizedString("preferences.warningAlerts.description", comment: "Warning alerts description"))
-        contentView.addSubview(warningsDescription)
+        tabContent.addSubview(warningsDescription)
 
         // Warnings table view
         warningsTableView = NSTableView()
@@ -97,7 +150,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
         let timeColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("time"))
         timeColumn.title = NSLocalizedString("preferences.warningAlerts.column.when", comment: "When column header")
-        timeColumn.width = 140
+        timeColumn.width = 105
         warningsTableView.addTableColumn(timeColumn)
 
         let soundColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("sound"))
@@ -122,39 +175,35 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         warningsScrollView.hasHorizontalScroller = false
         warningsScrollView.borderType = .bezelBorder
         warningsScrollView.autohidesScrollers = true
-        contentView.addSubview(warningsScrollView)
+        tabContent.addSubview(warningsScrollView)
 
         // Add warning button
         addWarningButton = NSButton(title: NSLocalizedString("preferences.warningAlerts.addButton", comment: "Add warning button"), target: self, action: #selector(addWarning))
         addWarningButton.translatesAutoresizingMaskIntoConstraints = false
         addWarningButton.bezelStyle = .rounded
         addWarningButton.controlSize = .small
-        contentView.addSubview(addWarningButton)
+        tabContent.addSubview(addWarningButton)
 
-        // General section header
-        let generalHeaderLabel = createSectionHeader(NSLocalizedString("preferences.general.header", comment: "General section header"))
-        contentView.addSubview(generalHeaderLabel)
+        // Do Not Disturb section header
+        let dndHeaderLabel = createSectionHeader(NSLocalizedString("preferences.dnd.header", comment: "Do Not Disturb section header"))
+        tabContent.addSubview(dndHeaderLabel)
 
-        // Launch at login checkbox
-        launchAtLoginCheckbox = createCheckbox(title: NSLocalizedString("preferences.general.startAtLogin", comment: "Start at login checkbox"), action: #selector(launchAtLoginToggled))
-        contentView.addSubview(launchAtLoginCheckbox)
-
-        // Show window on launch checkbox
-        showWindowOnLaunchCheckbox = createCheckbox(title: NSLocalizedString("preferences.general.showWelcome", comment: "Show welcome checkbox"), action: #selector(showWindowOnLaunchToggled))
-        contentView.addSubview(showWindowOnLaunchCheckbox)
+        // Respect DND checkbox
+        respectDNDCheckbox = createCheckbox(title: NSLocalizedString("preferences.dnd.respectFocus", comment: "Respect DND checkbox"), action: #selector(respectDNDToggled))
+        tabContent.addSubview(respectDNDCheckbox)
 
         NSLayoutConstraint.activate([
             // Event header
-            eventHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            eventHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            eventHeaderLabel.topAnchor.constraint(equalTo: tabContent.topAnchor, constant: 16),
+            eventHeaderLabel.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
 
             // Event description
             eventDescription.topAnchor.constraint(equalTo: eventHeaderLabel.bottomAnchor, constant: 4),
-            eventDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            eventDescription.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
 
             // Sound selection row
             alertSoundLabel.topAnchor.constraint(equalTo: eventDescription.bottomAnchor, constant: 12),
-            alertSoundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            alertSoundLabel.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
             alertSoundLabel.widthAnchor.constraint(equalToConstant: 100),
 
             alertSoundPopup.centerYAnchor.constraint(equalTo: alertSoundLabel.centerYAnchor),
@@ -163,7 +212,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
             // Duration row
             eventStartSoundLabel.topAnchor.constraint(equalTo: alertSoundLabel.bottomAnchor, constant: 12),
-            eventStartSoundLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            eventStartSoundLabel.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
             eventStartSoundLabel.widthAnchor.constraint(equalToConstant: 100),
 
             eventStartSoundPopup.centerYAnchor.constraint(equalTo: eventStartSoundLabel.centerYAnchor),
@@ -172,49 +221,133 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
             // Warnings header
             warningsHeaderLabel.topAnchor.constraint(equalTo: eventStartSoundLabel.bottomAnchor, constant: 24),
-            warningsHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            warningsHeaderLabel.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
 
             // Warnings description
             warningsDescription.topAnchor.constraint(equalTo: warningsHeaderLabel.bottomAnchor, constant: 4),
-            warningsDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            warningsDescription.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
 
             // Warnings table view
             warningsScrollView.topAnchor.constraint(equalTo: warningsDescription.bottomAnchor, constant: 12),
-            warningsScrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            warningsScrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            warningsScrollView.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+            warningsScrollView.trailingAnchor.constraint(equalTo: tabContent.trailingAnchor, constant: -16),
             warningsScrollView.heightAnchor.constraint(equalToConstant: 144),
 
             // Add warning button
             addWarningButton.topAnchor.constraint(equalTo: warningsScrollView.bottomAnchor, constant: 8),
-            addWarningButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            addWarningButton.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
 
+            // Do Not Disturb header
+            dndHeaderLabel.topAnchor.constraint(equalTo: addWarningButton.bottomAnchor, constant: 24),
+            dndHeaderLabel.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+
+            // Respect DND checkbox
+            respectDNDCheckbox.topAnchor.constraint(equalTo: dndHeaderLabel.bottomAnchor, constant: 12),
+            respectDNDCheckbox.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+        ])
+
+        return tabContent
+    }
+
+    private func createCalendarTabContent() -> NSView {
+        let tabContent = NSView()
+
+        // Calendars section header
+        let calendarsHeaderLabel = createSectionHeader(NSLocalizedString("preferences.calendars.header", comment: "Calendars section header"))
+        tabContent.addSubview(calendarsHeaderLabel)
+
+        // Calendars section description
+        let calendarsDescription = createNoteLabel(NSLocalizedString("preferences.calendars.description", comment: "Calendars description"))
+        tabContent.addSubview(calendarsDescription)
+
+        // Calendars table view
+        calendarsTableView = NSTableView()
+        calendarsTableView.translatesAutoresizingMaskIntoConstraints = false
+        calendarsTableView.dataSource = self
+        calendarsTableView.delegate = self
+        calendarsTableView.headerView = nil
+        calendarsTableView.rowHeight = 24
+        calendarsTableView.intercellSpacing = NSSize(width: 4, height: 2)
+        calendarsTableView.gridStyleMask = []
+        calendarsTableView.backgroundColor = .clear
+        calendarsTableView.usesAlternatingRowBackgroundColors = false
+
+        let checkboxColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("checkbox"))
+        checkboxColumn.width = 40
+        calendarsTableView.addTableColumn(checkboxColumn)
+
+        let calendarNameColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("name"))
+        calendarNameColumn.width = 400
+        calendarsTableView.addTableColumn(calendarNameColumn)
+
+        calendarsScrollView = NSScrollView()
+        calendarsScrollView.translatesAutoresizingMaskIntoConstraints = false
+        calendarsScrollView.documentView = calendarsTableView
+        calendarsScrollView.hasVerticalScroller = true
+        calendarsScrollView.hasHorizontalScroller = false
+        calendarsScrollView.borderType = .bezelBorder
+        calendarsScrollView.autohidesScrollers = true
+        tabContent.addSubview(calendarsScrollView)
+
+        // Warning label when no calendars are enabled
+        noCalendarsLabel = createNoteLabel(NSLocalizedString("preferences.calendars.noCalendarsEnabled", comment: "No calendars enabled warning"))
+        noCalendarsLabel.textColor = .systemOrange
+        noCalendarsLabel.isHidden = true
+        tabContent.addSubview(noCalendarsLabel)
+
+        NSLayoutConstraint.activate([
+            // Calendars header
+            calendarsHeaderLabel.topAnchor.constraint(equalTo: tabContent.topAnchor, constant: 16),
+            calendarsHeaderLabel.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+
+            // Calendars description
+            calendarsDescription.topAnchor.constraint(equalTo: calendarsHeaderLabel.bottomAnchor, constant: 4),
+            calendarsDescription.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+
+            // Calendars table view
+            calendarsScrollView.topAnchor.constraint(equalTo: calendarsDescription.bottomAnchor, constant: 12),
+            calendarsScrollView.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+            calendarsScrollView.trailingAnchor.constraint(equalTo: tabContent.trailingAnchor, constant: -16),
+            calendarsScrollView.bottomAnchor.constraint(equalTo: noCalendarsLabel.topAnchor, constant: -8),
+
+            // No calendars warning
+            noCalendarsLabel.bottomAnchor.constraint(equalTo: tabContent.bottomAnchor, constant: -16),
+            noCalendarsLabel.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+        ])
+
+        return tabContent
+    }
+
+    private func createOtherTabContent() -> NSView {
+        let tabContent = NSView()
+
+        // General section header
+        let generalHeaderLabel = createSectionHeader(NSLocalizedString("preferences.general.header", comment: "General section header"))
+        tabContent.addSubview(generalHeaderLabel)
+
+        // Launch at login checkbox
+        launchAtLoginCheckbox = createCheckbox(title: NSLocalizedString("preferences.general.startAtLogin", comment: "Start at login checkbox"), action: #selector(launchAtLoginToggled))
+        tabContent.addSubview(launchAtLoginCheckbox)
+
+        // Show window on launch checkbox
+        showWindowOnLaunchCheckbox = createCheckbox(title: NSLocalizedString("preferences.general.showWelcome", comment: "Show welcome checkbox"), action: #selector(showWindowOnLaunchToggled))
+        tabContent.addSubview(showWindowOnLaunchCheckbox)
+
+        NSLayoutConstraint.activate([
             // General header
-            generalHeaderLabel.topAnchor.constraint(equalTo: addWarningButton.bottomAnchor, constant: 24),
-            generalHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            generalHeaderLabel.topAnchor.constraint(equalTo: tabContent.topAnchor, constant: 16),
+            generalHeaderLabel.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
 
             // Launch at login
             launchAtLoginCheckbox.topAnchor.constraint(equalTo: generalHeaderLabel.bottomAnchor, constant: 12),
-            launchAtLoginCheckbox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            launchAtLoginCheckbox.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
 
             // Show window on launch
             showWindowOnLaunchCheckbox.topAnchor.constraint(equalTo: launchAtLoginCheckbox.bottomAnchor, constant: 8),
-            showWindowOnLaunchCheckbox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            showWindowOnLaunchCheckbox.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
         ])
 
-        // OK button at bottom
-        let okButton = NSButton(title: NSLocalizedString("preferences.button.ok", comment: "OK button"), target: self, action: #selector(okPressed))
-        okButton.translatesAutoresizingMaskIntoConstraints = false
-        okButton.bezelStyle = .rounded
-        okButton.keyEquivalent = "\r"
-        contentView.addSubview(okButton)
-
-        NSLayoutConstraint.activate([
-            okButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            okButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            okButton.widthAnchor.constraint(equalToConstant: 80),
-        ])
-
-        window.contentView = contentView
+        return tabContent
     }
 
     // MARK: - UI Factory Methods
@@ -268,6 +401,85 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         return label
     }
 
+    // MARK: - Calendar Management
+
+    private func createCalendarCell(columnId: String, row: Int) -> NSView? {
+        guard row < availableCalendars.count else { return nil }
+        let calendar = availableCalendars[row]
+
+        let cellView = NSView()
+
+        switch columnId {
+        case "checkbox":
+            let checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(calendarCheckboxToggled(_:)))
+            checkbox.translatesAutoresizingMaskIntoConstraints = false
+            checkbox.state = Preferences.shared.isCalendarEnabled(calendar.calendarIdentifier) ? .on : .off
+            cellView.addSubview(checkbox)
+
+            NSLayoutConstraint.activate([
+                checkbox.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 4),
+                checkbox.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+            ])
+
+        case "name":
+            // Color circle
+            let colorView = NSView()
+            colorView.translatesAutoresizingMaskIntoConstraints = false
+            colorView.wantsLayer = true
+            colorView.layer?.cornerRadius = 6
+            colorView.layer?.backgroundColor = calendar.color.cgColor
+            cellView.addSubview(colorView)
+
+            // Calendar title
+            let label = NSTextField(labelWithString: calendar.title)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.lineBreakMode = .byTruncatingTail
+            cellView.addSubview(label)
+
+            NSLayoutConstraint.activate([
+                colorView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor),
+                colorView.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+                colorView.widthAnchor.constraint(equalToConstant: 12),
+                colorView.heightAnchor.constraint(equalToConstant: 12),
+
+                label.leadingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: 6),
+                label.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+                label.trailingAnchor.constraint(lessThanOrEqualTo: cellView.trailingAnchor),
+            ])
+
+        default:
+            break
+        }
+
+        return cellView
+    }
+
+    private func loadCalendars() {
+        guard let eventStore = eventStore else { return }
+
+        // Cleanup deleted calendars first
+        Preferences.shared.cleanupDeletedCalendars(eventStore: eventStore)
+
+        availableCalendars = eventStore.calendars(for: .event).sorted { $0.title < $1.title }
+        calendarsTableView.reloadData()
+        updateNoCalendarsWarning()
+    }
+
+    private func updateNoCalendarsWarning() {
+        let enabledCount = availableCalendars.filter {
+            Preferences.shared.isCalendarEnabled($0.calendarIdentifier)
+        }.count
+        noCalendarsLabel.isHidden = enabledCount > 0
+    }
+
+    @objc private func calendarCheckboxToggled(_ sender: NSButton) {
+        let row = calendarsTableView.row(for: sender)
+        guard row >= 0 && row < availableCalendars.count else { return }
+        let calendar = availableCalendars[row]
+        Preferences.shared.setCalendar(calendar.calendarIdentifier, enabled: sender.state == .on)
+        updateNoCalendarsWarning()
+    }
+
     // MARK: - Load/Save
 
     private func loadPreferences() {
@@ -288,6 +500,11 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
         launchAtLoginCheckbox.state = SMAppService.mainApp.status == .enabled ? .on : .off
         showWindowOnLaunchCheckbox.state = Preferences.shared.showWindowOnLaunch ? .on : .off
+        respectDNDCheckbox.state = Preferences.shared.respectDoNotDisturb ? .on : .off
+
+        // Load calendars
+        eventStore = EKEventStore()
+        loadCalendars()
     }
 
     private func saveWarnings() {
@@ -424,16 +641,27 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
     // MARK: - NSTableViewDataSource
 
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return warnings.count
+        if tableView == calendarsTableView {
+            return availableCalendars.count
+        } else {
+            return warnings.count
+        }
     }
 
     // MARK: - NSTableViewDelegate
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard row < warnings.count, let columnId = tableColumn?.identifier.rawValue else { return nil }
-        let warning = warnings[row]
+        guard let columnId = tableColumn?.identifier.rawValue else { return nil }
 
         let cellView = NSView()
+
+        if tableView == calendarsTableView {
+            return createCalendarCell(columnId: columnId, row: row)
+        }
+
+        // Warnings table
+        guard row < warnings.count else { return nil }
+        let warning = warnings[row]
 
         switch columnId {
         case "time":
@@ -639,6 +867,10 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
     @objc private func showWindowOnLaunchToggled() {
         Preferences.shared.showWindowOnLaunch = showWindowOnLaunchCheckbox.state == .on
+    }
+
+    @objc private func respectDNDToggled() {
+        Preferences.shared.respectDoNotDisturb = respectDNDCheckbox.state == .on
     }
 
     @objc private func okPressed() {

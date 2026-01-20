@@ -33,11 +33,24 @@ final class CalendarService {
     }
 
     private func scanCalendars() {
+        // Skip alerts if DND is active and user has enabled the preference
+        if Preferences.shared.respectDoNotDisturb && Preferences.isDoNotDisturbActive() {
+            return
+        }
+
         let now = Date()
         let endDate = Calendar.current.date(byAdding: .hour, value: lookAheadHours, to: now) ?? now
 
-        let calendars = eventStore.calendars(for: .event)
-        let predicate = eventStore.predicateForEvents(withStart: now, end: endDate, calendars: calendars)
+        // Get all calendars and filter to only enabled ones
+        let allCalendars = eventStore.calendars(for: .event)
+        let enabledCalendars = allCalendars.filter { calendar in
+            Preferences.shared.isCalendarEnabled(calendar.calendarIdentifier)
+        }
+
+        // If no calendars are enabled, return early (no events to scan)
+        guard !enabledCalendars.isEmpty else { return }
+
+        let predicate = eventStore.predicateForEvents(withStart: now, end: endDate, calendars: enabledCalendars)
         let events = eventStore.events(matching: predicate)
 
         let prefs = Preferences.shared
@@ -73,11 +86,20 @@ final class CalendarService {
     private func cleanupOldEventIDs() {
         let cutoffDate = Calendar.current.date(byAdding: .hour, value: -1, to: Date()) ?? Date()
 
-        let calendars = eventStore.calendars(for: .event)
+        let allCalendars = eventStore.calendars(for: .event)
+        let enabledCalendars = allCalendars.filter { calendar in
+            Preferences.shared.isCalendarEnabled(calendar.calendarIdentifier)
+        }
+
+        guard !enabledCalendars.isEmpty else {
+            notifiedEvents = [:]
+            return
+        }
+
         let predicate = eventStore.predicateForEvents(
             withStart: cutoffDate,
             end: Date(),
-            calendars: calendars
+            calendars: enabledCalendars
         )
         let recentEvents = eventStore.events(matching: predicate)
         let recentIDs = Set(recentEvents.compactMap { $0.eventIdentifier })
