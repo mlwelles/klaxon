@@ -1,0 +1,42 @@
+Calendar Klaxon delivers unmissable calendar alerts for people who need them.
+
+Standard notifications are easy to ignore. When you're deep in work, a gentle banner disappears before you notice it. Calendar Klaxon takes a different approach: it displays a blocking window that appears above everything, including fullscreen apps, and plays a configurable alarm sound to get your attention. It's not rude, it's reliable.
+
+KEY FEATURES
+
+• Blocking Alerts
+Alerts appear above all windows, including fullscreen video calls, presentations, and games.
+
+• Customizable Warnings
+Set up to 4 different warning times before each event. Get alerts at 15 minutes, 5 minutes, 1 minute, or whatever timing works for you.
+
+• Multiple Alert Sounds
+Choose from 10 different sounds including alarms, bells, and air horns. Set different sounds for different warning stages, or use silent mode.
+
+• Calendar Filtering
+Select which calendars to monitor. Keep work alerts on while silencing personal calendars, or vice versa.
+
+• Do Not Disturb
+Respects your system's Focus modes. When Do Not Disturb is on, Calendar Klaxon stays quiet.
+
+• Event Details
+Each alert shows the event title, time remaining, start time, location, and event URL.
+
+• Quick Actions
+Press Escape to dismiss, or Enter to open the event directly in Calendar.
+
+• Launch at Login
+Start automatically when you log in.
+
+• Menu Bar Native
+Runs quietly in your menu bar with no dock icon.
+
+ACCESSIBILITY
+
+Designed for people with ADHD, time blindness, or anyone who gets absorbed in their work and needs an unmissable reminder.
+
+PRIVACY
+
+Calendar Klaxon reads your calendar data locally to display alerts. No data is collected or transmitted. Your calendar stays on your Mac.
+
+Open source software.
