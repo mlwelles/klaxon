@@ -114,3 +114,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Failed to update login item";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Dismiss alert";
+"accessibility.alert.openEventButton" = "Open event in Calendar";
+"accessibility.alert.joinButton" = "Join video meeting";
+"accessibility.alert.joinButtonUnavailable" = "Join video meeting, unavailable";
+"accessibility.alert.joinLink" = "Meeting link: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, dismiss welcome window";
+
+// About Window
+"accessibility.about.okButton" = "OK, close About window";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, close Preferences window";
+"accessibility.preferences.tabView" = "Preferences sections";
+"accessibility.preferences.alertSound" = "Event alert sound selection";
+"accessibility.preferences.alertDuration" = "Event alert sound duration";
+"accessibility.preferences.warningsTable" = "Warning alerts list";
+"accessibility.preferences.addWarning" = "Add a new warning alert";
+"accessibility.preferences.removeWarning" = "Remove this warning alert";
+"accessibility.preferences.calendarsTable" = "Calendars list, select which calendars to monitor";
+"accessibility.preferences.calendarCheckbox" = "Enable or disable %@ calendar";

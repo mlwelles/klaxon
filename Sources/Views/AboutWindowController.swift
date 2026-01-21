@@ -49,6 +49,7 @@ final class AboutWindowController: NSWindowController {
         iconView.image = NSApp.applicationIconImage
         iconView.imageScaling = .scaleProportionallyUpOrDown
         iconView.translatesAutoresizingMaskIntoConstraints = false
+        iconView.setAccessibilityLabel(NSLocalizedString("app.name", comment: "App name") + " icon")
         iconContainer.addSubview(iconView)
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: 80),
@@ -175,6 +176,8 @@ final class AboutWindowController: NSWindowController {
         okButton.bezelStyle = .rounded
         okButton.keyEquivalent = "\r"
         okButton.frame = NSRect(x: (windowWidth - 80) / 2, y: 12, width: 80, height: 28)
+        okButton.setAccessibilityIdentifier("okButton")
+        okButton.setAccessibilityLabel(NSLocalizedString("accessibility.about.okButton", comment: "OK, close About window"))
         contentView.addSubview(okButton)
 
         window?.contentView = contentView
@@ -203,7 +206,8 @@ final class AboutWindowController: NSWindowController {
         fontSize: CGFloat,
         bold: Bool = false,
         textColor: NSColor = .labelColor,
-        width: CGFloat
+        width: CGFloat,
+        accessibilityId: String? = nil
     ) -> NSTextField {
         let field = NSTextField(labelWithString: text)
         field.font = bold ? NSFont.boldSystemFont(ofSize: fontSize) : NSFont.systemFont(ofSize: fontSize)
@@ -211,6 +215,9 @@ final class AboutWindowController: NSWindowController {
         field.textColor = textColor
         field.translatesAutoresizingMaskIntoConstraints = false
         field.widthAnchor.constraint(equalToConstant: width).isActive = true
+        if let id = accessibilityId {
+            field.setAccessibilityIdentifier(id)
+        }
         return field
     }
 
@@ -219,7 +226,8 @@ final class AboutWindowController: NSWindowController {
         text: String,
         fontSize: CGFloat,
         textColor: NSColor = .labelColor,
-        width: CGFloat
+        width: CGFloat,
+        accessibilityId: String? = nil
     ) -> NSTextField {
         let field = NSTextField(wrappingLabelWithString: text)
         field.font = NSFont.systemFont(ofSize: fontSize)
@@ -228,6 +236,9 @@ final class AboutWindowController: NSWindowController {
         field.isSelectable = true
         field.translatesAutoresizingMaskIntoConstraints = false
         field.widthAnchor.constraint(equalToConstant: width).isActive = true
+        if let id = accessibilityId {
+            field.setAccessibilityIdentifier(id)
+        }
         return field
     }
 
@@ -238,7 +249,9 @@ final class AboutWindowController: NSWindowController {
         url: URL,
         fontSize: CGFloat,
         textColor: NSColor = .labelColor,
-        width: CGFloat
+        width: CGFloat,
+        accessibilityId: String? = nil,
+        accessibilityLabel: String? = nil
     ) -> NSTextField {
         let field = NSTextField(frame: .zero)
         field.isEditable = false
@@ -271,6 +284,13 @@ final class AboutWindowController: NSWindowController {
         }
 
         field.attributedStringValue = attributedString
+
+        if let id = accessibilityId {
+            field.setAccessibilityIdentifier(id)
+        }
+        if let label = accessibilityLabel {
+            field.setAccessibilityLabel(label)
+        }
         return field
     }
 

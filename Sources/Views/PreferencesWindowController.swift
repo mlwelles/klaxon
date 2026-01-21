@@ -62,6 +62,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         // Create tab view
         let tabView = NSTabView()
         tabView.translatesAutoresizingMaskIntoConstraints = false
+        tabView.setAccessibilityIdentifier("preferencesTabView")
+        tabView.setAccessibilityLabel(NSLocalizedString("accessibility.preferences.tabView", comment: "Preferences sections"))
         contentView.addSubview(tabView)
 
         // Create tabs
@@ -85,6 +87,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         okButton.translatesAutoresizingMaskIntoConstraints = false
         okButton.bezelStyle = .rounded
         okButton.keyEquivalent = "\r"
+        okButton.setAccessibilityIdentifier("okButton")
+        okButton.setAccessibilityLabel(NSLocalizedString("accessibility.preferences.okButton", comment: "OK, close Preferences window"))
         contentView.addSubview(okButton)
 
         NSLayoutConstraint.activate([
@@ -119,6 +123,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         tabContent.addSubview(alertSoundLabel)
 
         alertSoundPopup = createAlertSoundPopup()
+        alertSoundPopup.setAccessibilityIdentifier("eventAlertSoundPopup")
+        alertSoundPopup.setAccessibilityLabel(NSLocalizedString("accessibility.preferences.alertSound", comment: "Event alert sound selection"))
         tabContent.addSubview(alertSoundPopup)
 
         // Duration row
@@ -126,6 +132,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         tabContent.addSubview(eventStartSoundLabel)
 
         eventStartSoundPopup = createSoundDurationPopup(action: #selector(eventStartSoundChanged))
+        eventStartSoundPopup.setAccessibilityIdentifier("eventAlertDurationPopup")
+        eventStartSoundPopup.setAccessibilityLabel(NSLocalizedString("accessibility.preferences.alertDuration", comment: "Event alert sound duration"))
         tabContent.addSubview(eventStartSoundPopup)
 
         // Warnings section header
@@ -147,6 +155,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         warningsTableView.gridStyleMask = []
         warningsTableView.backgroundColor = .clear
         warningsTableView.usesAlternatingRowBackgroundColors = false
+        warningsTableView.setAccessibilityIdentifier("warningsTable")
+        warningsTableView.setAccessibilityLabel(NSLocalizedString("accessibility.preferences.warningsTable", comment: "Warning alerts list"))
 
         let timeColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("time"))
         timeColumn.title = NSLocalizedString("preferences.warningAlerts.column.when", comment: "When column header")
@@ -182,6 +192,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         addWarningButton.translatesAutoresizingMaskIntoConstraints = false
         addWarningButton.bezelStyle = .rounded
         addWarningButton.controlSize = .small
+        addWarningButton.setAccessibilityIdentifier("addWarningButton")
+        addWarningButton.setAccessibilityLabel(NSLocalizedString("accessibility.preferences.addWarning", comment: "Add a new warning alert"))
         tabContent.addSubview(addWarningButton)
 
         // Do Not Disturb section header
@@ -190,6 +202,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
         // Respect DND checkbox
         respectDNDCheckbox = createCheckbox(title: NSLocalizedString("preferences.dnd.respectFocus", comment: "Respect DND checkbox"), action: #selector(respectDNDToggled))
+        respectDNDCheckbox.setAccessibilityIdentifier("respectDNDCheckbox")
         tabContent.addSubview(respectDNDCheckbox)
 
         NSLayoutConstraint.activate([
@@ -271,6 +284,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         calendarsTableView.gridStyleMask = []
         calendarsTableView.backgroundColor = .clear
         calendarsTableView.usesAlternatingRowBackgroundColors = false
+        calendarsTableView.setAccessibilityIdentifier("calendarsTable")
+        calendarsTableView.setAccessibilityLabel(NSLocalizedString("accessibility.preferences.calendarsTable", comment: "Calendars list, select which calendars to monitor"))
 
         let checkboxColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("checkbox"))
         checkboxColumn.width = 40
@@ -293,6 +308,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         noCalendarsLabel = createNoteLabel(NSLocalizedString("preferences.calendars.noCalendarsEnabled", comment: "No calendars enabled warning"))
         noCalendarsLabel.textColor = .systemOrange
         noCalendarsLabel.isHidden = true
+        noCalendarsLabel.setAccessibilityIdentifier("noCalendarsWarning")
         tabContent.addSubview(noCalendarsLabel)
 
         NSLayoutConstraint.activate([
@@ -327,10 +343,12 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
         // Launch at login checkbox
         launchAtLoginCheckbox = createCheckbox(title: NSLocalizedString("preferences.general.startAtLogin", comment: "Start at login checkbox"), action: #selector(launchAtLoginToggled))
+        launchAtLoginCheckbox.setAccessibilityIdentifier("launchAtLoginCheckbox")
         tabContent.addSubview(launchAtLoginCheckbox)
 
         // Show window on launch checkbox
         showWindowOnLaunchCheckbox = createCheckbox(title: NSLocalizedString("preferences.general.showWelcome", comment: "Show welcome checkbox"), action: #selector(showWindowOnLaunchToggled))
+        showWindowOnLaunchCheckbox.setAccessibilityIdentifier("showWelcomeCheckbox")
         tabContent.addSubview(showWindowOnLaunchCheckbox)
 
         NSLayoutConstraint.activate([
@@ -414,6 +432,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
             let checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(calendarCheckboxToggled(_:)))
             checkbox.translatesAutoresizingMaskIntoConstraints = false
             checkbox.state = Preferences.shared.isCalendarEnabled(calendar.calendarIdentifier) ? .on : .off
+            checkbox.setAccessibilityIdentifier("calendarCheckbox_\(row)")
+            checkbox.setAccessibilityLabel(String(format: NSLocalizedString("accessibility.preferences.calendarCheckbox", comment: "Enable or disable %@ calendar"), calendar.title))
             cellView.addSubview(checkbox)
 
             NSLayoutConstraint.activate([
@@ -753,10 +773,12 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
             button.translatesAutoresizingMaskIntoConstraints = false
             button.bezelStyle = .rounded
             button.controlSize = .small
-            if let trashImage = NSImage(systemSymbolName: "trash", accessibilityDescription: "Remove") {
+            if let trashImage = NSImage(systemSymbolName: "trash", accessibilityDescription: NSLocalizedString("accessibility.preferences.removeWarning", comment: "Remove warning")) {
                 button.image = trashImage
             }
             button.imagePosition = .imageOnly
+            button.setAccessibilityIdentifier("removeWarningButton")
+            button.setAccessibilityLabel(NSLocalizedString("accessibility.preferences.removeWarning", comment: "Remove this warning alert"))
             cellView.addSubview(button)
 
             NSLayoutConstraint.activate([

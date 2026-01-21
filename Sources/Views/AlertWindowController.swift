@@ -66,6 +66,7 @@ final class AlertWindowController: NSWindowController {
         let iconView = NSImageView(frame: NSRect(x: 25, y: (220 - iconSize) / 2 + 10, width: iconSize, height: iconSize))
         iconView.image = NSApp.applicationIconImage
         iconView.imageScaling = .scaleProportionallyUpOrDown
+        iconView.setAccessibilityLabel(NSLocalizedString("app.name", comment: "App name"))
         contentView.addSubview(iconView)
 
         // Right 2/3: Event details
@@ -78,14 +79,18 @@ final class AlertWindowController: NSWindowController {
         titleLabel.font = NSFont.boldSystemFont(ofSize: 18)
         titleLabel.alignment = .left
         titleLabel.frame = NSRect(x: rightX, y: 170, width: rightWidth, height: 24)
+        titleLabel.setAccessibilityIdentifier("eventTitle")
+        titleLabel.setAccessibilityRole(.staticText)
         contentView.addSubview(titleLabel)
 
         // Alert message
-        let messageLabel = NSTextField(labelWithString: alertMessage(for: alertType))
+        let alertMsg = alertMessage(for: alertType)
+        let messageLabel = NSTextField(labelWithString: alertMsg)
         messageLabel.font = NSFont.systemFont(ofSize: 14)
         messageLabel.alignment = .left
         messageLabel.textColor = .secondaryLabelColor
         messageLabel.frame = NSRect(x: rightX, y: 145, width: rightWidth, height: 20)
+        messageLabel.setAccessibilityIdentifier("alertMessage")
         contentView.addSubview(messageLabel)
 
         // Start time
@@ -99,6 +104,7 @@ final class AlertWindowController: NSWindowController {
         timeLabel.alignment = .left
         timeLabel.textColor = .tertiaryLabelColor
         timeLabel.frame = NSRect(x: rightX, y: 120, width: rightWidth, height: 18)
+        timeLabel.setAccessibilityIdentifier("startTime")
         contentView.addSubview(timeLabel)
 
         // Location
@@ -108,6 +114,7 @@ final class AlertWindowController: NSWindowController {
             locationLabel.alignment = .left
             locationLabel.textColor = .secondaryLabelColor
             locationLabel.frame = NSRect(x: rightX, y: 95, width: rightWidth, height: 16)
+            locationLabel.setAccessibilityIdentifier("location")
             contentView.addSubview(locationLabel)
         }
 
@@ -115,6 +122,8 @@ final class AlertWindowController: NSWindowController {
         joinURL = findJoinLink()
         if let url = joinURL {
             let urlTextView = createClickableLink(url: url, frame: NSRect(x: rightX, y: 70, width: rightWidth, height: 16))
+            urlTextView.setAccessibilityIdentifier("joinLink")
+            urlTextView.setAccessibilityLabel(String(format: NSLocalizedString("accessibility.alert.joinLink", comment: "Meeting link: %@"), url.host ?? url.absoluteString))
             contentView.addSubview(urlTextView)
         }
 
@@ -123,21 +132,28 @@ final class AlertWindowController: NSWindowController {
         dismissButton.bezelStyle = .rounded
         dismissButton.keyEquivalent = "\u{1b}" // Escape key
         dismissButton.frame = NSRect(x: 390, y: 15, width: 90, height: 32)
+        dismissButton.setAccessibilityIdentifier("dismissButton")
+        dismissButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.dismissButton", comment: "Dismiss alert"))
         contentView.addSubview(dismissButton)
 
         let openEventButton = NSButton(title: NSLocalizedString("alert.button.openEvent", comment: "Open Event button"), target: self, action: #selector(openEvent))
         openEventButton.bezelStyle = .rounded
         openEventButton.frame = NSRect(x: 275, y: 15, width: 105, height: 32)
+        openEventButton.setAccessibilityIdentifier("openEventButton")
+        openEventButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.openEventButton", comment: "Open event in Calendar"))
         contentView.addSubview(openEventButton)
 
         let joinButton = NSButton(title: NSLocalizedString("alert.button.join", comment: "Join button"), target: self, action: #selector(joinMeeting))
         joinButton.bezelStyle = .rounded
         joinButton.frame = NSRect(x: 160, y: 15, width: 105, height: 32)
+        joinButton.setAccessibilityIdentifier("joinMeetingButton")
+        joinButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.joinButton", comment: "Join video meeting"))
         contentView.addSubview(joinButton)
 
         // Set enabled state based on join link availability
         if joinURL == nil {
             joinButton.isEnabled = false
+            joinButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.joinButtonUnavailable", comment: "Join video meeting, unavailable"))
         }
 
         // Enter: Join Meeting (if available) or Open Event
@@ -147,6 +163,10 @@ final class AlertWindowController: NSWindowController {
         } else {
             openEventButton.keyEquivalent = "\r"
         }
+
+        // Set up content view accessibility - group event info for VoiceOver
+        contentView.setAccessibilityLabel("\(eventTitle), \(alertMsg)")
+        contentView.setAccessibilityRole(.group)
 
         window?.contentView = contentView
     }
