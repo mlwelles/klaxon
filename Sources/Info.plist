@@ -14,10 +14,18 @@
 	<string>Klaxon</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2026 Michael L. Welles. All rights reserved.</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>13.0</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.productivity</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Calendar Klaxon needs access to your calendars to notify you when events are about to start.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>

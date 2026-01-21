@@ -29,6 +29,7 @@
 		A1000024229A0001 /* soundbible-school-fire-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A1000034229A0001 /* soundbible-school-fire-alarm.mp3 */; };
 		A1000025229A0001 /* WelcomeWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000035229A0001 /* WelcomeWindowController.swift */; };
 		A1000026229A0001 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1000036229A0001 /* Localizable.strings */; };
+		A1000027229A0001 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A10000C0229A0001 /* LICENSE */; };
 		A2000001229A0001 /* CalendarAccessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000011229A0001 /* CalendarAccessTests.swift */; };
 		A2000002229A0001 /* AlertWindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012229A0001 /* AlertWindowTests.swift */; };
 		A2000003229A0001 /* PreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000013229A0001 /* PreferencesTests.swift */; };
@@ -98,6 +99,7 @@
 		A10000B0229A0001 /* fil */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fil; path = fil.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A10000B1229A0001 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A10000B2229A0001 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A10000C0229A0001 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		A2000011229A0001 /* CalendarAccessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAccessTests.swift; sourceTree = "<group>"; };
 		A2000012229A0001 /* AlertWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowTests.swift; sourceTree = "<group>"; };
 		A2000013229A0001 /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				A2000051229A0001 /* Tests */,
 				A1000053229A0001 /* Frameworks */,
 				A1000054229A0001 /* Products */,
+				A10000C0229A0001 /* LICENSE */,
 			);
 			sourceTree = "<group>";
 		};
@@ -351,6 +354,7 @@
 				A1000022229A0001 /* soundbible-air-horn.mp3 in Resources */,
 				A1000023229A0001 /* soundbible-red-alert.mp3 in Resources */,
 				A1000024229A0001 /* soundbible-school-fire-alarm.mp3 in Resources */,
+				A1000027229A0001 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,7 +577,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nyc.welles.klaxon;
+				PRODUCT_BUNDLE_IDENTIFIER = nyc.welles.Klaxon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -599,7 +603,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nyc.welles.klaxon;
+				PRODUCT_BUNDLE_IDENTIFIER = nyc.welles.Klaxon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

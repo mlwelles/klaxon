@@ -104,6 +104,7 @@
 "about.credits.sound2" = "Air Horn, Red Alert, School Fire Alarm (Public Domain, SoundBible)";
 "about.credits.sound3" = "Alarm Tone, Alert Bells, Battleship Alarm (Mixkit License, Mixkit)";
 "about.credits.sound4" = "Classic Alarm, Urgent Tone, Warning Buzzer (Mixkit License, Mixkit)";
+"about.license.header" = "License";
 
 // MARK: - Calendar Access
 "calendar.accessRequired.title" = "Calendar Access Required";
