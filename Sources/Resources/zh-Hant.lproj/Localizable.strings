@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "無法更新登入項目";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "關閉提醒";
+"accessibility.alert.openEventButton" = "在行事曆中開啟事件";
+"accessibility.alert.joinButton" = "加入視訊會議";
+"accessibility.alert.joinButtonUnavailable" = "加入視訊會議，無法使用";
+"accessibility.alert.joinLink" = "會議連結：%@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "好，關閉歡迎視窗";
+
+// About Window
+"accessibility.about.okButton" = "好，關閉關於視窗";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "好，關閉偏好設定";
+"accessibility.preferences.tabView" = "偏好設定部分";
+"accessibility.preferences.alertSound" = "提醒聲音選擇";
+"accessibility.preferences.alertDuration" = "提醒聲音時長";
+"accessibility.preferences.warningsTable" = "警告提醒清單";
+"accessibility.preferences.addWarning" = "新增警告提醒";
+"accessibility.preferences.removeWarning" = "移除此警告提醒";
+"accessibility.preferences.calendarsTable" = "行事曆清單，選擇要監控的行事曆";
+"accessibility.preferences.calendarCheckbox" = "啟用或停用 %@ 行事曆";

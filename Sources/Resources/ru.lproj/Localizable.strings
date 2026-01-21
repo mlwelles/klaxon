@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Не удалось обновить элемент входа";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Закрыть оповещение";
+"accessibility.alert.openEventButton" = "Открыть событие в Календаре";
+"accessibility.alert.joinButton" = "Присоединиться к видеоконференции";
+"accessibility.alert.joinButtonUnavailable" = "Присоединиться к видеоконференции, недоступно";
+"accessibility.alert.joinLink" = "Ссылка на встречу: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, закрыть окно приветствия";
+
+// About Window
+"accessibility.about.okButton" = "OK, закрыть окно О программе";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, закрыть Настройки";
+"accessibility.preferences.tabView" = "Разделы настроек";
+"accessibility.preferences.alertSound" = "Выбор звука оповещения";
+"accessibility.preferences.alertDuration" = "Длительность звука оповещения";
+"accessibility.preferences.warningsTable" = "Список предупреждений";
+"accessibility.preferences.addWarning" = "Добавить новое предупреждение";
+"accessibility.preferences.removeWarning" = "Удалить это предупреждение";
+"accessibility.preferences.calendarsTable" = "Список календарей, выберите календари для отслеживания";
+"accessibility.preferences.calendarCheckbox" = "Включить или отключить календарь %@";

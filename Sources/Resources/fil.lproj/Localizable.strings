@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Nabigong i-update ang login item";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Isara ang alerto";
+"accessibility.alert.openEventButton" = "Buksan ang kaganapan sa Kalendaryo";
+"accessibility.alert.joinButton" = "Sumali sa video call";
+"accessibility.alert.joinButtonUnavailable" = "Sumali sa video call, hindi available";
+"accessibility.alert.joinLink" = "Link ng pagpupulong: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, isara ang welcome window";
+
+// About Window
+"accessibility.about.okButton" = "OK, isara ang About window";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, isara ang Preferences";
+"accessibility.preferences.tabView" = "Mga seksyon ng preferences";
+"accessibility.preferences.alertSound" = "Pagpili ng tunog ng alerto";
+"accessibility.preferences.alertDuration" = "Tagal ng tunog ng alerto";
+"accessibility.preferences.warningsTable" = "Listahan ng mga babala";
+"accessibility.preferences.addWarning" = "Magdagdag ng bagong babala";
+"accessibility.preferences.removeWarning" = "Alisin ang babalang ito";
+"accessibility.preferences.calendarsTable" = "Listahan ng mga kalendaryo, piliin kung alin ang susubaybayan";
+"accessibility.preferences.calendarCheckbox" = "I-enable o i-disable ang %@ na kalendaryo";

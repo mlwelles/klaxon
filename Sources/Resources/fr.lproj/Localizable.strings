@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Échec de la mise à jour de l'élément de connexion";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Fermer l'alerte";
+"accessibility.alert.openEventButton" = "Ouvrir l'événement dans Calendrier";
+"accessibility.alert.joinButton" = "Rejoindre la vidéoconférence";
+"accessibility.alert.joinButtonUnavailable" = "Rejoindre la vidéoconférence, non disponible";
+"accessibility.alert.joinLink" = "Lien de réunion : %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, fermer la fenêtre de bienvenue";
+
+// About Window
+"accessibility.about.okButton" = "OK, fermer la fenêtre À propos";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, fermer les Préférences";
+"accessibility.preferences.tabView" = "Sections des préférences";
+"accessibility.preferences.alertSound" = "Sélection du son d'alerte";
+"accessibility.preferences.alertDuration" = "Durée du son d'alerte";
+"accessibility.preferences.warningsTable" = "Liste des alertes d'avertissement";
+"accessibility.preferences.addWarning" = "Ajouter une nouvelle alerte d'avertissement";
+"accessibility.preferences.removeWarning" = "Supprimer cette alerte d'avertissement";
+"accessibility.preferences.calendarsTable" = "Liste des calendriers, sélectionnez les calendriers à surveiller";
+"accessibility.preferences.calendarCheckbox" = "Activer ou désactiver le calendrier %@";

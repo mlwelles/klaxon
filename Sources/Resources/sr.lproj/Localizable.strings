@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Nije uspelo ažuriranje stavke prijave";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Zatvori obaveštenje";
+"accessibility.alert.openEventButton" = "Otvori događaj u Kalendaru";
+"accessibility.alert.joinButton" = "Pridruži se video pozivu";
+"accessibility.alert.joinButtonUnavailable" = "Pridruži se video pozivu, nedostupno";
+"accessibility.alert.joinLink" = "Link za sastanak: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, zatvori prozor dobrodošlice";
+
+// About Window
+"accessibility.about.okButton" = "OK, zatvori prozor O programu";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, zatvori Podešavanja";
+"accessibility.preferences.tabView" = "Odeljci podešavanja";
+"accessibility.preferences.alertSound" = "Izbor zvuka obaveštenja";
+"accessibility.preferences.alertDuration" = "Trajanje zvuka obaveštenja";
+"accessibility.preferences.warningsTable" = "Lista upozorenja";
+"accessibility.preferences.addWarning" = "Dodaj novo upozorenje";
+"accessibility.preferences.removeWarning" = "Ukloni ovo upozorenje";
+"accessibility.preferences.calendarsTable" = "Lista kalendara, izaberite koje kalendare pratiti";
+"accessibility.preferences.calendarCheckbox" = "Uključi ili isključi kalendar %@";

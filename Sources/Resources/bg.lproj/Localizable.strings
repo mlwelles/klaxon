@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Неуспешно обновяване на елемента за влизане";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Затвори известието";
+"accessibility.alert.openEventButton" = "Отвори събитието в Календар";
+"accessibility.alert.joinButton" = "Присъедини се към видеоконференция";
+"accessibility.alert.joinButtonUnavailable" = "Присъедини се към видеоконференция, недостъпно";
+"accessibility.alert.joinLink" = "Линк за среща: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, затвори прозореца за добре дошли";
+
+// About Window
+"accessibility.about.okButton" = "OK, затвори прозореца За програмата";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, затвори Настройки";
+"accessibility.preferences.tabView" = "Секции с настройки";
+"accessibility.preferences.alertSound" = "Избор на звук за известие";
+"accessibility.preferences.alertDuration" = "Продължителност на звука за известие";
+"accessibility.preferences.warningsTable" = "Списък с предупреждения";
+"accessibility.preferences.addWarning" = "Добави ново предупреждение";
+"accessibility.preferences.removeWarning" = "Премахни това предупреждение";
+"accessibility.preferences.calendarsTable" = "Списък с календари, избери кои календари да се наблюдават";
+"accessibility.preferences.calendarCheckbox" = "Включи или изключи календар %@";

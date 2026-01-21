@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Gagal memperbarui item login";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Tutup peringatan";
+"accessibility.alert.openEventButton" = "Buka acara di Kalender";
+"accessibility.alert.joinButton" = "Gabung panggilan video";
+"accessibility.alert.joinButtonUnavailable" = "Gabung panggilan video, tidak tersedia";
+"accessibility.alert.joinLink" = "Tautan rapat: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, tutup jendela selamat datang";
+
+// About Window
+"accessibility.about.okButton" = "OK, tutup jendela Tentang";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, tutup Preferensi";
+"accessibility.preferences.tabView" = "Bagian preferensi";
+"accessibility.preferences.alertSound" = "Pilihan suara peringatan";
+"accessibility.preferences.alertDuration" = "Durasi suara peringatan";
+"accessibility.preferences.warningsTable" = "Daftar peringatan";
+"accessibility.preferences.addWarning" = "Tambah peringatan baru";
+"accessibility.preferences.removeWarning" = "Hapus peringatan ini";
+"accessibility.preferences.calendarsTable" = "Daftar kalender, pilih kalender yang akan dipantau";
+"accessibility.preferences.calendarCheckbox" = "Aktifkan atau nonaktifkan kalender %@";

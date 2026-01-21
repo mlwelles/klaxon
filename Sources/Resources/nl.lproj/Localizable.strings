@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Kan inlogitem niet bijwerken";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Waarschuwing sluiten";
+"accessibility.alert.openEventButton" = "Gebeurtenis openen in Agenda";
+"accessibility.alert.joinButton" = "Deelnemen aan videovergadering";
+"accessibility.alert.joinButtonUnavailable" = "Deelnemen aan videovergadering, niet beschikbaar";
+"accessibility.alert.joinLink" = "Vergaderlink: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, welkomstvenster sluiten";
+
+// About Window
+"accessibility.about.okButton" = "OK, Info-venster sluiten";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, Voorkeuren sluiten";
+"accessibility.preferences.tabView" = "Voorkeurensecties";
+"accessibility.preferences.alertSound" = "Waarschuwingsgeluid selecteren";
+"accessibility.preferences.alertDuration" = "Duur waarschuwingsgeluid";
+"accessibility.preferences.warningsTable" = "Lijst met waarschuwingen";
+"accessibility.preferences.addWarning" = "Nieuwe waarschuwing toevoegen";
+"accessibility.preferences.removeWarning" = "Deze waarschuwing verwijderen";
+"accessibility.preferences.calendarsTable" = "Agendalijst, selecteer welke agenda's bewaken";
+"accessibility.preferences.calendarCheckbox" = "Agenda %@ in- of uitschakelen";

@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Αποτυχία ενημέρωσης στοιχείου σύνδεσης";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Κλείσιμο ειδοποίησης";
+"accessibility.alert.openEventButton" = "Άνοιγμα εκδήλωσης στο Ημερολόγιο";
+"accessibility.alert.joinButton" = "Συμμετοχή σε βιντεοκλήση";
+"accessibility.alert.joinButtonUnavailable" = "Συμμετοχή σε βιντεοκλήση, μη διαθέσιμο";
+"accessibility.alert.joinLink" = "Σύνδεσμος συνάντησης: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, κλείσιμο παραθύρου καλωσορίσματος";
+
+// About Window
+"accessibility.about.okButton" = "OK, κλείσιμο παραθύρου Σχετικά";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, κλείσιμο Προτιμήσεων";
+"accessibility.preferences.tabView" = "Ενότητες προτιμήσεων";
+"accessibility.preferences.alertSound" = "Επιλογή ήχου ειδοποίησης";
+"accessibility.preferences.alertDuration" = "Διάρκεια ήχου ειδοποίησης";
+"accessibility.preferences.warningsTable" = "Λίστα προειδοποιήσεων";
+"accessibility.preferences.addWarning" = "Προσθήκη νέας προειδοποίησης";
+"accessibility.preferences.removeWarning" = "Αφαίρεση αυτής της προειδοποίησης";
+"accessibility.preferences.calendarsTable" = "Λίστα ημερολογίων, επιλέξτε ποια ημερολόγια θα παρακολουθούνται";
+"accessibility.preferences.calendarCheckbox" = "Ενεργοποίηση ή απενεργοποίηση ημερολογίου %@";

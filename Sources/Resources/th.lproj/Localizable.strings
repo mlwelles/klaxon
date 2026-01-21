@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "ไม่สามารถอัปเดตรายการเข้าสู่ระบบ";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "ปิดการแจ้งเตือน";
+"accessibility.alert.openEventButton" = "เปิดกิจกรรมในปฏิทิน";
+"accessibility.alert.joinButton" = "เข้าร่วมวิดีโอคอล";
+"accessibility.alert.joinButtonUnavailable" = "เข้าร่วมวิดีโอคอล ไม่พร้อมใช้งาน";
+"accessibility.alert.joinLink" = "ลิงก์การประชุม: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "ตกลง ปิดหน้าต่างต้อนรับ";
+
+// About Window
+"accessibility.about.okButton" = "ตกลง ปิดหน้าต่างเกี่ยวกับ";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "ตกลง ปิดการตั้งค่า";
+"accessibility.preferences.tabView" = "ส่วนการตั้งค่า";
+"accessibility.preferences.alertSound" = "เลือกเสียงแจ้งเตือน";
+"accessibility.preferences.alertDuration" = "ระยะเวลาเสียงแจ้งเตือน";
+"accessibility.preferences.warningsTable" = "รายการการเตือน";
+"accessibility.preferences.addWarning" = "เพิ่มการเตือนใหม่";
+"accessibility.preferences.removeWarning" = "ลบการเตือนนี้";
+"accessibility.preferences.calendarsTable" = "รายการปฏิทิน เลือกปฏิทินที่จะติดตาม";
+"accessibility.preferences.calendarCheckbox" = "เปิดหรือปิดปฏิทิน %@";

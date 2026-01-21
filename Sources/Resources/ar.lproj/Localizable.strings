@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "فشل تحديث عنصر تسجيل الدخول";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "إغلاق التنبيه";
+"accessibility.alert.openEventButton" = "فتح الحدث في التقويم";
+"accessibility.alert.joinButton" = "الانضمام إلى مكالمة الفيديو";
+"accessibility.alert.joinButtonUnavailable" = "الانضمام إلى مكالمة الفيديو، غير متاح";
+"accessibility.alert.joinLink" = "رابط الاجتماع: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "موافق، إغلاق نافذة الترحيب";
+
+// About Window
+"accessibility.about.okButton" = "موافق، إغلاق نافذة حول";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "موافق، إغلاق التفضيلات";
+"accessibility.preferences.tabView" = "أقسام التفضيلات";
+"accessibility.preferences.alertSound" = "اختيار صوت التنبيه";
+"accessibility.preferences.alertDuration" = "مدة صوت التنبيه";
+"accessibility.preferences.warningsTable" = "قائمة التحذيرات";
+"accessibility.preferences.addWarning" = "إضافة تحذير جديد";
+"accessibility.preferences.removeWarning" = "إزالة هذا التحذير";
+"accessibility.preferences.calendarsTable" = "قائمة التقويمات، اختر التقويمات للمراقبة";
+"accessibility.preferences.calendarCheckbox" = "تفعيل أو تعطيل تقويم %@";

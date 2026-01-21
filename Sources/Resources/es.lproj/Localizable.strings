@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Error al actualizar elemento de inicio";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Cerrar alerta";
+"accessibility.alert.openEventButton" = "Abrir evento en Calendario";
+"accessibility.alert.joinButton" = "Unirse a videollamada";
+"accessibility.alert.joinButtonUnavailable" = "Unirse a videollamada, no disponible";
+"accessibility.alert.joinLink" = "Enlace de reunión: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, cerrar ventana de bienvenida";
+
+// About Window
+"accessibility.about.okButton" = "OK, cerrar ventana Acerca de";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, cerrar Preferencias";
+"accessibility.preferences.tabView" = "Secciones de preferencias";
+"accessibility.preferences.alertSound" = "Selección de sonido de alerta";
+"accessibility.preferences.alertDuration" = "Duración del sonido de alerta";
+"accessibility.preferences.warningsTable" = "Lista de alertas de advertencia";
+"accessibility.preferences.addWarning" = "Añadir nueva alerta de advertencia";
+"accessibility.preferences.removeWarning" = "Eliminar esta alerta de advertencia";
+"accessibility.preferences.calendarsTable" = "Lista de calendarios, seleccione qué calendarios monitorear";
+"accessibility.preferences.calendarCheckbox" = "Activar o desactivar calendario %@";

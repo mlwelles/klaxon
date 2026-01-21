@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Nie udało się zaktualizować elementu logowania";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Zamknij alert";
+"accessibility.alert.openEventButton" = "Otwórz wydarzenie w Kalendarzu";
+"accessibility.alert.joinButton" = "Dołącz do wideokonferencji";
+"accessibility.alert.joinButtonUnavailable" = "Dołącz do wideokonferencji, niedostępne";
+"accessibility.alert.joinLink" = "Link do spotkania: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, zamknij okno powitalne";
+
+// About Window
+"accessibility.about.okButton" = "OK, zamknij okno O programie";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, zamknij Preferencje";
+"accessibility.preferences.tabView" = "Sekcje preferencji";
+"accessibility.preferences.alertSound" = "Wybór dźwięku alertu";
+"accessibility.preferences.alertDuration" = "Czas trwania dźwięku alertu";
+"accessibility.preferences.warningsTable" = "Lista alertów ostrzegawczych";
+"accessibility.preferences.addWarning" = "Dodaj nowy alert ostrzegawczy";
+"accessibility.preferences.removeWarning" = "Usuń ten alert ostrzegawczy";
+"accessibility.preferences.calendarsTable" = "Lista kalendarzy, wybierz które kalendarze monitorować";
+"accessibility.preferences.calendarCheckbox" = "Włącz lub wyłącz kalendarz %@";

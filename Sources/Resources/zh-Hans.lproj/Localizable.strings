@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "更新登录项失败";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "关闭提醒";
+"accessibility.alert.openEventButton" = "在日历中打开事件";
+"accessibility.alert.joinButton" = "加入视频会议";
+"accessibility.alert.joinButtonUnavailable" = "加入视频会议，不可用";
+"accessibility.alert.joinLink" = "会议链接：%@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "好，关闭欢迎窗口";
+
+// About Window
+"accessibility.about.okButton" = "好，关闭关于窗口";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "好，关闭偏好设置";
+"accessibility.preferences.tabView" = "偏好设置部分";
+"accessibility.preferences.alertSound" = "提醒声音选择";
+"accessibility.preferences.alertDuration" = "提醒声音时长";
+"accessibility.preferences.warningsTable" = "警告提醒列表";
+"accessibility.preferences.addWarning" = "添加新警告提醒";
+"accessibility.preferences.removeWarning" = "移除此警告提醒";
+"accessibility.preferences.calendarsTable" = "日历列表，选择要监控的日历";
+"accessibility.preferences.calendarCheckbox" = "启用或禁用 %@ 日历";

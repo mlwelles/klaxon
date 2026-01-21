@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Nepodařilo se aktualizovat položku přihlášení";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Zavřít upozornění";
+"accessibility.alert.openEventButton" = "Otevřít událost v Kalendáři";
+"accessibility.alert.joinButton" = "Připojit se k videokonferenci";
+"accessibility.alert.joinButtonUnavailable" = "Připojit se k videokonferenci, nedostupné";
+"accessibility.alert.joinLink" = "Odkaz na schůzku: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, zavřít uvítací okno";
+
+// About Window
+"accessibility.about.okButton" = "OK, zavřít okno O aplikaci";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, zavřít Předvolby";
+"accessibility.preferences.tabView" = "Sekce předvoleb";
+"accessibility.preferences.alertSound" = "Výběr zvuku upozornění";
+"accessibility.preferences.alertDuration" = "Délka zvuku upozornění";
+"accessibility.preferences.warningsTable" = "Seznam varování";
+"accessibility.preferences.addWarning" = "Přidat nové varování";
+"accessibility.preferences.removeWarning" = "Odstranit toto varování";
+"accessibility.preferences.calendarsTable" = "Seznam kalendářů, vyberte které kalendáře sledovat";
+"accessibility.preferences.calendarCheckbox" = "Povolit nebo zakázat kalendář %@";

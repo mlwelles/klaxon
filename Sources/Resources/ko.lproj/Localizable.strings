@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "로그인 항목 업데이트 실패";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "알림 닫기";
+"accessibility.alert.openEventButton" = "캘린더에서 이벤트 열기";
+"accessibility.alert.joinButton" = "화상 회의 참가";
+"accessibility.alert.joinButtonUnavailable" = "화상 회의 참가, 사용 불가";
+"accessibility.alert.joinLink" = "회의 링크: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "확인, 환영 창 닫기";
+
+// About Window
+"accessibility.about.okButton" = "확인, 정보 창 닫기";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "확인, 환경설정 닫기";
+"accessibility.preferences.tabView" = "환경설정 섹션";
+"accessibility.preferences.alertSound" = "알림 소리 선택";
+"accessibility.preferences.alertDuration" = "알림 소리 길이";
+"accessibility.preferences.warningsTable" = "경고 알림 목록";
+"accessibility.preferences.addWarning" = "새 경고 알림 추가";
+"accessibility.preferences.removeWarning" = "이 경고 알림 제거";
+"accessibility.preferences.calendarsTable" = "캘린더 목록, 모니터링할 캘린더 선택";
+"accessibility.preferences.calendarCheckbox" = "%@ 캘린더 활성화 또는 비활성화";

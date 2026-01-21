@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "ログイン項目の更新に失敗";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "アラートを閉じる";
+"accessibility.alert.openEventButton" = "カレンダーでイベントを開く";
+"accessibility.alert.joinButton" = "ビデオ会議に参加";
+"accessibility.alert.joinButtonUnavailable" = "ビデオ会議に参加、利用不可";
+"accessibility.alert.joinLink" = "会議リンク: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK、ようこそウィンドウを閉じる";
+
+// About Window
+"accessibility.about.okButton" = "OK、このアプリについてウィンドウを閉じる";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK、設定を閉じる";
+"accessibility.preferences.tabView" = "設定セクション";
+"accessibility.preferences.alertSound" = "アラート音の選択";
+"accessibility.preferences.alertDuration" = "アラート音の長さ";
+"accessibility.preferences.warningsTable" = "警告アラートリスト";
+"accessibility.preferences.addWarning" = "新しい警告アラートを追加";
+"accessibility.preferences.removeWarning" = "この警告アラートを削除";
+"accessibility.preferences.calendarsTable" = "カレンダーリスト、監視するカレンダーを選択";
+"accessibility.preferences.calendarCheckbox" = "%@ カレンダーを有効または無効にする";

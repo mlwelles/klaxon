@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Oturum açma öğesi güncellenemedi";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Uyarıyı kapat";
+"accessibility.alert.openEventButton" = "Etkinliği Takvim'de aç";
+"accessibility.alert.joinButton" = "Görüntülü görüşmeye katıl";
+"accessibility.alert.joinButtonUnavailable" = "Görüntülü görüşmeye katıl, kullanılamıyor";
+"accessibility.alert.joinLink" = "Toplantı bağlantısı: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "Tamam, hoş geldiniz penceresini kapat";
+
+// About Window
+"accessibility.about.okButton" = "Tamam, Hakkında penceresini kapat";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "Tamam, Tercihler'i kapat";
+"accessibility.preferences.tabView" = "Tercih bölümleri";
+"accessibility.preferences.alertSound" = "Uyarı sesi seçimi";
+"accessibility.preferences.alertDuration" = "Uyarı sesi süresi";
+"accessibility.preferences.warningsTable" = "Uyarı listesi";
+"accessibility.preferences.addWarning" = "Yeni uyarı ekle";
+"accessibility.preferences.removeWarning" = "Bu uyarıyı kaldır";
+"accessibility.preferences.calendarsTable" = "Takvim listesi, hangi takvimlerin izleneceğini seç";
+"accessibility.preferences.calendarCheckbox" = "%@ takvimini etkinleştir veya devre dışı bırak";

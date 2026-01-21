@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Не вдалося оновити елемент входу";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Закрити сповіщення";
+"accessibility.alert.openEventButton" = "Відкрити подію в Календарі";
+"accessibility.alert.joinButton" = "Приєднатися до відеоконференції";
+"accessibility.alert.joinButtonUnavailable" = "Приєднатися до відеоконференції, недоступно";
+"accessibility.alert.joinLink" = "Посилання на зустріч: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, закрити вікно привітання";
+
+// About Window
+"accessibility.about.okButton" = "OK, закрити вікно Про програму";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, закрити Налаштування";
+"accessibility.preferences.tabView" = "Розділи налаштувань";
+"accessibility.preferences.alertSound" = "Вибір звуку сповіщення";
+"accessibility.preferences.alertDuration" = "Тривалість звуку сповіщення";
+"accessibility.preferences.warningsTable" = "Список попереджень";
+"accessibility.preferences.addWarning" = "Додати нове попередження";
+"accessibility.preferences.removeWarning" = "Видалити це попередження";
+"accessibility.preferences.calendarsTable" = "Список календарів, виберіть календарі для відстеження";
+"accessibility.preferences.calendarCheckbox" = "Увімкнути або вимкнути календар %@";

@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Imeshindwa kusasisha kipengee cha kuingia";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Funga arifa";
+"accessibility.alert.openEventButton" = "Fungua tukio katika Kalenda";
+"accessibility.alert.joinButton" = "Jiunge na simu ya video";
+"accessibility.alert.joinButtonUnavailable" = "Jiunge na simu ya video, haipatikani";
+"accessibility.alert.joinLink" = "Kiungo cha mkutano: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "Sawa, funga dirisha la karibu";
+
+// About Window
+"accessibility.about.okButton" = "Sawa, funga dirisha la Kuhusu";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "Sawa, funga Mapendeleo";
+"accessibility.preferences.tabView" = "Sehemu za mapendeleo";
+"accessibility.preferences.alertSound" = "Chaguo la sauti ya arifa";
+"accessibility.preferences.alertDuration" = "Muda wa sauti ya arifa";
+"accessibility.preferences.warningsTable" = "Orodha ya onyo";
+"accessibility.preferences.addWarning" = "Ongeza onyo jipya";
+"accessibility.preferences.removeWarning" = "Ondoa onyo hili";
+"accessibility.preferences.calendarsTable" = "Orodha ya kalenda, chagua kalenda za kufuatilia";
+"accessibility.preferences.calendarCheckbox" = "Washa au zima kalenda ya %@";

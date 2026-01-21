@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Không thể cập nhật mục đăng nhập";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Đóng thông báo";
+"accessibility.alert.openEventButton" = "Mở sự kiện trong Lịch";
+"accessibility.alert.joinButton" = "Tham gia cuộc gọi video";
+"accessibility.alert.joinButtonUnavailable" = "Tham gia cuộc gọi video, không khả dụng";
+"accessibility.alert.joinLink" = "Liên kết cuộc họp: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, đóng cửa sổ chào mừng";
+
+// About Window
+"accessibility.about.okButton" = "OK, đóng cửa sổ Giới thiệu";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, đóng Tùy chọn";
+"accessibility.preferences.tabView" = "Các phần tùy chọn";
+"accessibility.preferences.alertSound" = "Chọn âm thanh thông báo";
+"accessibility.preferences.alertDuration" = "Thời lượng âm thanh thông báo";
+"accessibility.preferences.warningsTable" = "Danh sách cảnh báo";
+"accessibility.preferences.addWarning" = "Thêm cảnh báo mới";
+"accessibility.preferences.removeWarning" = "Xóa cảnh báo này";
+"accessibility.preferences.calendarsTable" = "Danh sách lịch, chọn lịch để theo dõi";
+"accessibility.preferences.calendarCheckbox" = "Bật hoặc tắt lịch %@";

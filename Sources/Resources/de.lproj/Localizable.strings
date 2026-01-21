@@ -108,3 +108,29 @@
 
 // MARK: - Login Item
 "loginItem.error.title" = "Anmeldeobjekt konnte nicht aktualisiert werden";
+
+// MARK: - Accessibility Labels
+
+// Alert Window
+"accessibility.alert.dismissButton" = "Alarm schließen";
+"accessibility.alert.openEventButton" = "Ereignis im Kalender öffnen";
+"accessibility.alert.joinButton" = "An Videokonferenz teilnehmen";
+"accessibility.alert.joinButtonUnavailable" = "An Videokonferenz teilnehmen, nicht verfügbar";
+"accessibility.alert.joinLink" = "Besprechungslink: %@";
+
+// Welcome Window
+"accessibility.welcome.okButton" = "OK, Willkommensfenster schließen";
+
+// About Window
+"accessibility.about.okButton" = "OK, Info-Fenster schließen";
+
+// Preferences Window
+"accessibility.preferences.okButton" = "OK, Einstellungen schließen";
+"accessibility.preferences.tabView" = "Einstellungsbereiche";
+"accessibility.preferences.alertSound" = "Ereignis-Alarmton auswählen";
+"accessibility.preferences.alertDuration" = "Ereignis-Alarmton Dauer";
+"accessibility.preferences.warningsTable" = "Liste der Warnungsalarme";
+"accessibility.preferences.addWarning" = "Neuen Warnungsalarm hinzufügen";
+"accessibility.preferences.removeWarning" = "Diesen Warnungsalarm entfernen";
+"accessibility.preferences.calendarsTable" = "Kalenderliste, wählen Sie zu überwachende Kalender";
+"accessibility.preferences.calendarCheckbox" = "Kalender %@ aktivieren oder deaktivieren";
