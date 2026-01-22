@@ -6,14 +6,56 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 # Build the app
-xcodebuild -project Klaxon/Klaxon.xcodeproj -scheme Klaxon -configuration Debug build
+xcodebuild -project Klaxon.xcodeproj -scheme Klaxon -configuration Debug build
 
 # Run all tests
-xcodebuild test -project Klaxon/Klaxon.xcodeproj -scheme Klaxon -destination 'platform=macOS'
+xcodebuild test -project Klaxon.xcodeproj -scheme Klaxon -destination 'platform=macOS'
 
 # Run a single test
-xcodebuild test -project Klaxon/Klaxon.xcodeproj -scheme Klaxon -destination 'platform=macOS' -only-testing:KlaxonTests/AlertWindowTests/testAlertWindowVisualDisplay
+xcodebuild test -project Klaxon.xcodeproj -scheme Klaxon -destination 'platform=macOS' -only-testing:KlaxonTests/AlertWindowTests/testAlertWindowVisualDisplay
 ```
+
+## CI/CD
+
+### Continuous Integration
+
+Tests run automatically on:
+- Push to `main` branch
+- Pull requests targeting `main`
+
+Workflow: `.github/workflows/ci.yml`
+
+### Releasing
+
+Releases are automated via GitHub Actions when you push a version tag:
+
+```bash
+# Create and push a release tag
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+Workflow: `.github/workflows/release.yml`
+
+The release workflow will:
+1. Build the app in Release configuration
+2. Code sign with Developer ID certificate
+3. Submit to Apple for notarization
+4. Staple the notarization ticket
+5. Create DMG and ZIP artifacts
+6. Publish a GitHub Release
+
+#### Required Secrets
+
+Configure these in GitHub → Settings → Secrets and variables → Actions:
+
+| Secret | Description |
+|--------|-------------|
+| `APPLE_CERTIFICATE_P12` | Base64-encoded Developer ID Application certificate |
+| `APPLE_CERTIFICATE_PASSWORD` | Password for the .p12 file |
+| `APPLE_TEAM_ID` | 10-character Apple Team ID |
+| `APPLE_ID` | Apple Developer account email |
+| `APPLE_APP_SPECIFIC_PASSWORD` | App-specific password from appleid.apple.com |
 
 ## Architecture
 

@@ -1,0 +1,130 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  SCHEME: Klaxon
+  PROJECT: Klaxon.xcodeproj
+  APP_NAME: Klaxon
+
+jobs:
+  build-and-release:
+    name: Build, Sign, Notarize & Release
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Show Xcode Version
+        run: xcodebuild -version
+
+      - name: Build Archive
+        run: |
+          xcodebuild archive \
+            -project "$PROJECT" \
+            -scheme "$SCHEME" \
+            -configuration Release \
+            -archivePath "build/$APP_NAME.xcarchive" \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Export App
+        run: |
+          # Create export options plist for unsigned export
+          cat > ExportOptions.plist << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>method</key>
+              <string>mac-application</string>
+              <key>signingStyle</key>
+              <string>manual</string>
+              <key>signingCertificate</key>
+              <string>-</string>
+          </dict>
+          </plist>
+          EOF
+
+          # Export the archive to an app bundle
+          xcodebuild -exportArchive \
+            -archivePath "build/$APP_NAME.xcarchive" \
+            -exportPath "build/export" \
+            -exportOptionsPlist ExportOptions.plist \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO || true
+
+          # Fallback: copy from archive if export fails
+          if [ ! -d "build/export/$APP_NAME.app" ]; then
+            mkdir -p "build/export"
+            cp -R "build/$APP_NAME.xcarchive/Products/Applications/$APP_NAME.app" "build/export/"
+          fi
+
+      - name: Code Sign and Notarize
+        uses: lando/code-sign-action@v3
+        with:
+          file: build/export/${{ env.APP_NAME }}.app
+          certificate-data: ${{ secrets.APPLE_CERTIFICATE_P12 }}
+          certificate-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          apple-team-id: ${{ secrets.APPLE_TEAM_ID }}
+          apple-notary-user: ${{ secrets.APPLE_ID }}
+          apple-notary-password: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          apple-notary-team-id: ${{ secrets.APPLE_TEAM_ID }}
+          options: --force --options runtime --timestamp
+
+      - name: Staple Notarization Ticket
+        run: xcrun stapler staple "build/export/$APP_NAME.app"
+
+      - name: Create DMG
+        run: |
+          # Create a temporary directory for DMG contents
+          mkdir -p dmg_contents
+          cp -R "build/export/$APP_NAME.app" dmg_contents/
+
+          # Create a symlink to Applications folder
+          ln -s /Applications dmg_contents/Applications
+
+          # Create the DMG
+          hdiutil create -volname "$APP_NAME" \
+            -srcfolder dmg_contents \
+            -ov -format UDZO \
+            "build/$APP_NAME-${{ github.ref_name }}.dmg"
+
+      - name: Create ZIP
+        run: |
+          cd build/export
+          ditto -c -k --keepParent "$APP_NAME.app" "../$APP_NAME-${{ github.ref_name }}.zip"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ env.APP_NAME }} ${{ github.ref_name }}
+          body: |
+            ## ${{ env.APP_NAME }} ${{ github.ref_name }}
+
+            ### Installation
+            1. Download `${{ env.APP_NAME }}-${{ github.ref_name }}.dmg`
+            2. Open the DMG and drag ${{ env.APP_NAME }} to your Applications folder
+            3. Launch ${{ env.APP_NAME }} from Applications
+
+            ### Requirements
+            - macOS 13.0 or later
+
+            ### What's New
+            See [CHANGELOG](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for details.
+          files: |
+            build/${{ env.APP_NAME }}-${{ github.ref_name }}.dmg
+            build/${{ env.APP_NAME }}-${{ github.ref_name }}.zip
+          draft: false
+          prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
