@@ -6,27 +6,46 @@ final class LocalizationTests: XCTestCase {
     // All supported language codes
     static let supportedLanguages = [
         "en", "es", "fr", "de", "it", "pt", "nl", "ja", "zh-Hans", "ko", "sw",
-        "tr", "el", "hy", "ru", "pl", "uk", "cs", "sk", "sr", "hr", "bg",
+        "tr", "el", "ru", "pl", "uk", "cs", "sk", "sr", "hr", "bg",
         "vi", "th", "id", "ms", "fil", "zh-Hant", "ar"
     ]
+
+    // Get the bundle containing Klaxon's resources (works in both app and test contexts)
+    static var klaxonBundle: Bundle {
+        // In tests, Bundle.main is the test runner. We need the Klaxon app bundle.
+        // Bundle(for:) with a class from Klaxon gives us the correct bundle.
+        Bundle(for: AppDelegate.self)
+    }
 
     // All localization keys used in the app
     static let allKeys = [
         // App General
         "app.name",
         // Menu Bar
-        "menu.about", "menu.preferences", "menu.quit",
+        "menu.about", "menu.preferences", "menu.respectDND", "menu.quit",
         // Preferences Window
         "preferences.title",
+        // Tab Labels
+        "preferences.tab.alert", "preferences.tab.calendar", "preferences.tab.other",
+        // Event Alert Section
         "preferences.eventAlert.header", "preferences.eventAlert.description",
         "preferences.eventAlert.playSound", "preferences.eventAlert.duration",
+        // Calendars Section
+        "preferences.calendars.header", "preferences.calendars.description",
+        "preferences.calendars.noCalendarsEnabled",
+        // Warnings Section
         "preferences.warningAlerts.header", "preferences.warningAlerts.description",
         "preferences.warningAlerts.addButton", "preferences.warningAlerts.column.when",
         "preferences.warningAlerts.column.playSound", "preferences.warningAlerts.column.duration",
         "preferences.warningAlerts.minBeforeEvent",
+        // Do Not Disturb Section
+        "preferences.dnd.header", "preferences.dnd.respectFocus",
+        // General Section
         "preferences.general.header", "preferences.general.startAtLogin",
         "preferences.general.showWelcome",
+        // Buttons
         "preferences.button.ok",
+        // Duration Options
         "preferences.duration.noSound", "preferences.duration.oneSecond",
         "preferences.duration.seconds",
         // Sound Names
@@ -39,6 +58,7 @@ final class LocalizationTests: XCTestCase {
         "alert.warning.message", "alert.warning.messagePlural",
         "alert.starting.message", "alert.startTime", "alert.location",
         "alert.untitledEvent", "alert.button.dismiss", "alert.button.openEvent",
+        "alert.button.join",
         // Welcome Window
         "welcome.title", "welcome.copyright", "welcome.description",
         "welcome.button.ok",
@@ -46,19 +66,33 @@ final class LocalizationTests: XCTestCase {
         "about.title", "about.version", "about.copyright", "about.license",
         "about.description", "about.assistive", "about.credits.header",
         "about.credits.icon", "about.credits.sound1", "about.credits.sound2",
-        "about.credits.sound3", "about.credits.sound4",
+        "about.credits.sound3", "about.credits.sound4", "about.license.header",
         // Calendar Access
         "calendar.accessRequired.title", "calendar.accessRequired.message",
         "calendar.accessRequired.retry", "calendar.accessRequired.quit",
         // Login Item
-        "loginItem.error.title"
+        "loginItem.error.title",
+        // Accessibility Labels - Alert Window
+        "accessibility.alert.dismissButton", "accessibility.alert.openEventButton",
+        "accessibility.alert.joinButton", "accessibility.alert.joinButtonUnavailable",
+        "accessibility.alert.joinLink",
+        // Accessibility Labels - Welcome Window
+        "accessibility.welcome.okButton",
+        // Accessibility Labels - About Window
+        "accessibility.about.okButton",
+        // Accessibility Labels - Preferences Window
+        "accessibility.preferences.okButton", "accessibility.preferences.tabView",
+        "accessibility.preferences.alertSound", "accessibility.preferences.alertDuration",
+        "accessibility.preferences.warningsTable", "accessibility.preferences.addWarning",
+        "accessibility.preferences.removeWarning", "accessibility.preferences.calendarsTable",
+        "accessibility.preferences.calendarCheckbox"
     ]
 
     // MARK: - Localization File Existence Tests
 
     func testAllLocalizationFilesExist() {
         for language in Self.supportedLanguages {
-            let bundle = Bundle.main
+            let bundle = Self.klaxonBundle
             let lprojPath = bundle.path(forResource: language, ofType: "lproj")
             XCTAssertNotNil(lprojPath, "Localization folder '\(language).lproj' should exist")
 
@@ -71,7 +105,7 @@ final class LocalizationTests: XCTestCase {
     }
 
     func testSupportedLanguagesCount() {
-        XCTAssertEqual(Self.supportedLanguages.count, 29, "Should support 29 languages")
+        XCTAssertEqual(Self.supportedLanguages.count, 28, "Should support 28 languages")
     }
 
     // MARK: - Key Coverage Tests
@@ -79,14 +113,14 @@ final class LocalizationTests: XCTestCase {
     func testEnglishHasAllKeys() {
         // English is the base language and should have all keys
         for key in Self.allKeys {
-            let value = NSLocalizedString(key, tableName: nil, bundle: Bundle.main, value: "NOT_FOUND", comment: "")
+            let value = NSLocalizedString(key, tableName: nil, bundle: Self.klaxonBundle, value: "NOT_FOUND", comment: "")
             XCTAssertNotEqual(value, "NOT_FOUND", "English should have translation for '\(key)'")
             XCTAssertNotEqual(value, "", "English translation for '\(key)' should not be empty")
         }
     }
 
     func testAllKeysCount() {
-        XCTAssertEqual(Self.allKeys.count, 60, "Should have 60 localization keys defined")
+        XCTAssertEqual(Self.allKeys.count, 92, "Should have 92 localization keys defined")
     }
 
     // MARK: - Language-specific Tests
@@ -99,7 +133,7 @@ final class LocalizationTests: XCTestCase {
         ]
 
         for language in Self.supportedLanguages {
-            guard let lprojPath = Bundle.main.path(forResource: language, ofType: "lproj"),
+            guard let lprojPath = Self.klaxonBundle.path(forResource: language, ofType: "lproj"),
                   let bundle = Bundle(path: lprojPath) else {
                 continue // Skip if bundle not found (will be caught by existence test)
             }
@@ -129,7 +163,7 @@ final class LocalizationTests: XCTestCase {
 
         for (key, specifier) in formatKeys {
             for language in Self.supportedLanguages {
-                guard let lprojPath = Bundle.main.path(forResource: language, ofType: "lproj"),
+                guard let lprojPath = Self.klaxonBundle.path(forResource: language, ofType: "lproj"),
                       let bundle = Bundle(path: lprojPath) else {
                     continue
                 }
@@ -146,7 +180,7 @@ final class LocalizationTests: XCTestCase {
     // MARK: - RTL Language Tests
 
     func testArabicLocalizationExists() {
-        let lprojPath = Bundle.main.path(forResource: "ar", ofType: "lproj")
+        let lprojPath = Self.klaxonBundle.path(forResource: "ar", ofType: "lproj")
         XCTAssertNotNil(lprojPath, "Arabic localization should exist for RTL support")
     }
 
@@ -155,7 +189,7 @@ final class LocalizationTests: XCTestCase {
     func testCJKLanguagesExist() {
         let cjkLanguages = ["ja", "ko", "zh-Hans", "zh-Hant"]
         for language in cjkLanguages {
-            let lprojPath = Bundle.main.path(forResource: language, ofType: "lproj")
+            let lprojPath = Self.klaxonBundle.path(forResource: language, ofType: "lproj")
             XCTAssertNotNil(lprojPath, "CJK language '\(language)' localization should exist")
         }
     }
@@ -165,7 +199,7 @@ final class LocalizationTests: XCTestCase {
     func testCyrillicLanguagesExist() {
         let cyrillicLanguages = ["ru", "uk", "bg", "sr"]
         for language in cyrillicLanguages {
-            let lprojPath = Bundle.main.path(forResource: language, ofType: "lproj")
+            let lprojPath = Self.klaxonBundle.path(forResource: language, ofType: "lproj")
             XCTAssertNotNil(lprojPath, "Cyrillic language '\(language)' localization should exist")
         }
     }

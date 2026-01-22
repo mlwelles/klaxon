@@ -37,7 +37,12 @@ final class CalendarAccessTests: XCTestCase {
         XCTAssertNotNil(eventStore, "EKEventStore should be created successfully")
     }
 
-    func testCanRequestCalendarAccess() {
+    func testCanRequestCalendarAccess() throws {
+        // Skip in CI environments - calendar access requires user interaction
+        if ProcessInfo.processInfo.environment["CI"] != nil {
+            throw XCTSkip("Skipping calendar access test in CI environment")
+        }
+
         let expectation = expectation(description: "Calendar access request completes")
 
         if #available(macOS 14.0, *) {
