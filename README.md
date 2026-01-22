@@ -16,18 +16,26 @@ Klaxon takes a different approach. Instead of hoping you'll notice a subtle aler
 - **Quick actions**: Dismiss the alert or open the event directly in Calendar.app
 - **Respects your calendar**: Works with all calendars in your macOS Calendar app
 
-## Building
+## Installation
+
+1. Download the latest `Klaxon-vX.X.X.dmg` from the [Releases page](https://github.com/mlwelles/klaxon/releases/latest)
+2. Open the DMG file
+3. Drag **Klaxon** to your **Applications** folder
+4. Launch Klaxon from Applications
+5. Grant calendar access when prompted
+
+Klaxon will appear in your menu bar as a bell icon. Click it to access preferences or quit the app.
+
+## Building from Source
 
 ```bash
-xcodebuild -project Klaxon/Klaxon.xcodeproj -scheme Klaxon -configuration Release build
+xcodebuild -project Klaxon.xcodeproj -scheme Klaxon -configuration Release build
 ```
-
-The built app will be in `Klaxon/build/Release/Klaxon.app`.
 
 ## Running Tests
 
 ```bash
-xcodebuild test -project Klaxon/Klaxon.xcodeproj -scheme Klaxon -destination 'platform=macOS'
+xcodebuild test -project Klaxon.xcodeproj -scheme Klaxon -destination 'platform=macOS'
 ```
 
 ## Requirements
