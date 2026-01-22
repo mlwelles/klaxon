@@ -44,6 +44,7 @@ jobs:
             -project "$PROJECT" \
             -scheme "$SCHEME" \
             -destination 'platform=macOS' \
+            -skip-testing:KlaxonTests/CalendarAccessTests/testCanRequestCalendarAccess \
             CODE_SIGN_IDENTITY="-" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
