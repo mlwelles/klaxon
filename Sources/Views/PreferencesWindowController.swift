@@ -20,6 +20,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
     private var eventStore: EKEventStore?
     private var availableCalendars: [EKCalendar] = []
     private var noCalendarsLabel: NSTextField!
+    private let loginItemService: LoginItemServiceProtocol
 
     private var soundDurationOptions: [(title: String, value: Double)] {
         [
@@ -32,7 +33,9 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         ]
     }
 
-    init() {
+    init(loginItemService: LoginItemServiceProtocol = LoginItemService.shared) {
+        self.loginItemService = loginItemService
+
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 520, height: 540),
             styleMask: [.titled, .closable, .miniaturizable],
@@ -518,7 +521,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         selectSoundDuration(prefs.eventStartSoundDuration, in: eventStartSoundPopup)
         updateSoundControlsEnabled()
 
-        launchAtLoginCheckbox.state = SMAppService.mainApp.status == .enabled ? .on : .off
+        launchAtLoginCheckbox.state = loginItemService.isEnabled ? .on : .off
         showWindowOnLaunchCheckbox.state = Preferences.shared.showWindowOnLaunch ? .on : .off
         respectDNDCheckbox.state = Preferences.shared.respectDoNotDisturb ? .on : .off
 
@@ -873,11 +876,13 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
     @objc private func launchAtLoginToggled() {
         do {
             if launchAtLoginCheckbox.state == .on {
-                try SMAppService.mainApp.register()
+                // Uses enableLaunchAtLogin which checks status first to prevent duplicates
+                try loginItemService.enableLaunchAtLogin()
             } else {
-                try SMAppService.mainApp.unregister()
+                try loginItemService.disableLaunchAtLogin()
             }
         } catch {
+            // Revert checkbox state on error
             launchAtLoginCheckbox.state = launchAtLoginCheckbox.state == .on ? .off : .on
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("loginItem.error.title", comment: "Login item error title")
