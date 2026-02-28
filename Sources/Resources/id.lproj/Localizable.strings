@@ -77,7 +77,7 @@
 "alert.location" = "Lokasi: %@";
 "alert.untitledEvent" = "Acara Tanpa Judul";
 "alert.button.dismiss" = "Tutup";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Buka Kalender";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Tutup peringatan";
-"accessibility.alert.openEventButton" = "Buka acara di Kalender";
+"accessibility.alert.openEventButton" = "Buka aplikasi Kalender";
 "accessibility.alert.joinButton" = "Gabung panggilan video";
 "accessibility.alert.joinButtonUnavailable" = "Gabung panggilan video, tidak tersedia";
 "accessibility.alert.joinLink" = "Tautan rapat: %@";

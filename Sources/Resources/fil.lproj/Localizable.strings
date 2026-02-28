@@ -77,7 +77,7 @@
 "alert.location" = "Lokasyon: %@";
 "alert.untitledEvent" = "Walang Pamagat na Kaganapan";
 "alert.button.dismiss" = "Isara";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Buksan ang Kalendaryo";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Isara ang alerto";
-"accessibility.alert.openEventButton" = "Buksan ang kaganapan sa Kalendaryo";
+"accessibility.alert.openEventButton" = "Buksan ang app na Kalendaryo";
 "accessibility.alert.joinButton" = "Sumali sa video call";
 "accessibility.alert.joinButtonUnavailable" = "Sumali sa video call, hindi available";
 "accessibility.alert.joinLink" = "Link ng pagpupulong: %@";

@@ -77,7 +77,7 @@
 "alert.location" = "الموقع: %@";
 "alert.untitledEvent" = "حدث بدون عنوان";
 "alert.button.dismiss" = "إغلاق";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "فتح التقويم";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "إغلاق التنبيه";
-"accessibility.alert.openEventButton" = "فتح الحدث في التقويم";
+"accessibility.alert.openEventButton" = "فتح تطبيق التقويم";
 "accessibility.alert.joinButton" = "الانضمام إلى مكالمة الفيديو";
 "accessibility.alert.joinButtonUnavailable" = "الانضمام إلى مكالمة الفيديو، غير متاح";
 "accessibility.alert.joinLink" = "رابط الاجتماع: %@";

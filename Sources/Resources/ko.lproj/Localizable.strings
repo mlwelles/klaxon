@@ -77,7 +77,7 @@
 "alert.location" = "장소: %@";
 "alert.untitledEvent" = "제목 없는 이벤트";
 "alert.button.dismiss" = "닫기";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "캘린더 열기";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "알림 닫기";
-"accessibility.alert.openEventButton" = "캘린더에서 이벤트 열기";
+"accessibility.alert.openEventButton" = "캘린더 앱 열기";
 "accessibility.alert.joinButton" = "화상 회의 참가";
 "accessibility.alert.joinButtonUnavailable" = "화상 회의 참가, 사용 불가";
 "accessibility.alert.joinLink" = "회의 링크: %@";

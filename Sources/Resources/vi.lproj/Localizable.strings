@@ -77,7 +77,7 @@
 "alert.location" = "Địa điểm: %@";
 "alert.untitledEvent" = "Sự kiện không có tiêu đề";
 "alert.button.dismiss" = "Bỏ qua";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Mở lịch";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Đóng thông báo";
-"accessibility.alert.openEventButton" = "Mở sự kiện trong Lịch";
+"accessibility.alert.openEventButton" = "Mở ứng dụng Lịch";
 "accessibility.alert.joinButton" = "Tham gia cuộc gọi video";
 "accessibility.alert.joinButtonUnavailable" = "Tham gia cuộc gọi video, không khả dụng";
 "accessibility.alert.joinLink" = "Liên kết cuộc họp: %@";

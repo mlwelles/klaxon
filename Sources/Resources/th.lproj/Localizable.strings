@@ -77,7 +77,7 @@
 "alert.location" = "สถานที่: %@";
 "alert.untitledEvent" = "กิจกรรมไม่มีชื่อ";
 "alert.button.dismiss" = "ปิด";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "เปิดปฏิทิน";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "ปิดการแจ้งเตือน";
-"accessibility.alert.openEventButton" = "เปิดกิจกรรมในปฏิทิน";
+"accessibility.alert.openEventButton" = "เปิดแอปปฏิทิน";
 "accessibility.alert.joinButton" = "เข้าร่วมวิดีโอคอล";
 "accessibility.alert.joinButtonUnavailable" = "เข้าร่วมวิดีโอคอล ไม่พร้อมใช้งาน";
 "accessibility.alert.joinLink" = "ลิงก์การประชุม: %@";

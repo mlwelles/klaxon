@@ -77,7 +77,7 @@
 "alert.location" = "Locatie: %@";
 "alert.untitledEvent" = "Naamloze gebeurtenis";
 "alert.button.dismiss" = "Sluiten";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Open agenda";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Waarschuwing sluiten";
-"accessibility.alert.openEventButton" = "Gebeurtenis openen in Agenda";
+"accessibility.alert.openEventButton" = "Open de Agenda-app";
 "accessibility.alert.joinButton" = "Deelnemen aan videovergadering";
 "accessibility.alert.joinButtonUnavailable" = "Deelnemen aan videovergadering, niet beschikbaar";
 "accessibility.alert.joinLink" = "Vergaderlink: %@";

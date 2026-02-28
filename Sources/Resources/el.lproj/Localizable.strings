@@ -77,7 +77,7 @@
 "alert.location" = "Τοποθεσία: %@";
 "alert.untitledEvent" = "Εκδήλωση Χωρίς Τίτλο";
 "alert.button.dismiss" = "Απόρριψη";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Άνοιγμα ημερολογίου";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Κλείσιμο ειδοποίησης";
-"accessibility.alert.openEventButton" = "Άνοιγμα εκδήλωσης στο Ημερολόγιο";
+"accessibility.alert.openEventButton" = "Άνοιγμα της εφαρμογής Ημερολόγιο";
 "accessibility.alert.joinButton" = "Συμμετοχή σε βιντεοκλήση";
 "accessibility.alert.joinButtonUnavailable" = "Συμμετοχή σε βιντεοκλήση, μη διαθέσιμο";
 "accessibility.alert.joinLink" = "Σύνδεσμος συνάντησης: %@";

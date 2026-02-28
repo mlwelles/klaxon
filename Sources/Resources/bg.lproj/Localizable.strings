@@ -77,7 +77,7 @@
 "alert.location" = "Място: %@";
 "alert.untitledEvent" = "Събитие без заглавие";
 "alert.button.dismiss" = "Затвори";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Отвори календар";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Затвори известието";
-"accessibility.alert.openEventButton" = "Отвори събитието в Календар";
+"accessibility.alert.openEventButton" = "Отвори приложението Календар";
 "accessibility.alert.joinButton" = "Присъедини се към видеоконференция";
 "accessibility.alert.joinButtonUnavailable" = "Присъедини се към видеоконференция, недостъпно";
 "accessibility.alert.joinLink" = "Линк за среща: %@";

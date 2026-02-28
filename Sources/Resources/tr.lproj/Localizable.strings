@@ -77,7 +77,7 @@
 "alert.location" = "Konum: %@";
 "alert.untitledEvent" = "Başlıksız Etkinlik";
 "alert.button.dismiss" = "Kapat";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Takvimi Aç";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Uyarıyı kapat";
-"accessibility.alert.openEventButton" = "Etkinliği Takvim'de aç";
+"accessibility.alert.openEventButton" = "Takvim uygulamasını aç";
 "accessibility.alert.joinButton" = "Görüntülü görüşmeye katıl";
 "accessibility.alert.joinButtonUnavailable" = "Görüntülü görüşmeye katıl, kullanılamıyor";
 "accessibility.alert.joinLink" = "Toplantı bağlantısı: %@";

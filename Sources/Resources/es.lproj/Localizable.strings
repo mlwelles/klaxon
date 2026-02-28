@@ -77,7 +77,7 @@
 "alert.location" = "Ubicación: %@";
 "alert.untitledEvent" = "Evento sin título";
 "alert.button.dismiss" = "Descartar";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Abrir calendario";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Cerrar alerta";
-"accessibility.alert.openEventButton" = "Abrir evento en Calendario";
+"accessibility.alert.openEventButton" = "Abrir la app Calendario";
 "accessibility.alert.joinButton" = "Unirse a videollamada";
 "accessibility.alert.joinButtonUnavailable" = "Unirse a videollamada, no disponible";
 "accessibility.alert.joinLink" = "Enlace de reunión: %@";

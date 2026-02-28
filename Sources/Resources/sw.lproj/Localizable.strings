@@ -77,7 +77,7 @@
 "alert.location" = "Mahali: %@";
 "alert.untitledEvent" = "Tukio Bila Kichwa";
 "alert.button.dismiss" = "Funga";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Fungua Kalenda";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Funga arifa";
-"accessibility.alert.openEventButton" = "Fungua tukio katika Kalenda";
+"accessibility.alert.openEventButton" = "Fungua programu ya Kalenda";
 "accessibility.alert.joinButton" = "Jiunge na simu ya video";
 "accessibility.alert.joinButtonUnavailable" = "Jiunge na simu ya video, haipatikani";
 "accessibility.alert.joinLink" = "Kiungo cha mkutano: %@";

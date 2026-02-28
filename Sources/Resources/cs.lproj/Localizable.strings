@@ -77,7 +77,7 @@
 "alert.location" = "Místo: %@";
 "alert.untitledEvent" = "Událost bez názvu";
 "alert.button.dismiss" = "Zavřít";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Otevřít kalendář";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Zavřít upozornění";
-"accessibility.alert.openEventButton" = "Otevřít událost v Kalendáři";
+"accessibility.alert.openEventButton" = "Otevřít aplikaci Kalendář";
 "accessibility.alert.joinButton" = "Připojit se k videokonferenci";
 "accessibility.alert.joinButtonUnavailable" = "Připojit se k videokonferenci, nedostupné";
 "accessibility.alert.joinLink" = "Odkaz na schůzku: %@";

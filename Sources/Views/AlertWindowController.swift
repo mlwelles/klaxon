@@ -136,11 +136,11 @@ final class AlertWindowController: NSWindowController {
         dismissButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.dismissButton", comment: "Dismiss alert"))
         contentView.addSubview(dismissButton)
 
-        let openEventButton = NSButton(title: NSLocalizedString("alert.button.openEvent", comment: "Open Event button"), target: self, action: #selector(openEvent))
+        let openEventButton = NSButton(title: NSLocalizedString("alert.button.openEvent", comment: "Open Calendar button"), target: self, action: #selector(openEvent))
         openEventButton.bezelStyle = .rounded
         openEventButton.frame = NSRect(x: 275, y: 15, width: 105, height: 32)
         openEventButton.setAccessibilityIdentifier("openEventButton")
-        openEventButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.openEventButton", comment: "Open event in Calendar"))
+        openEventButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.openEventButton", comment: "Open the Calendar app"))
         contentView.addSubview(openEventButton)
 
         let joinButton = NSButton(title: NSLocalizedString("alert.button.join", comment: "Join button"), target: self, action: #selector(joinMeeting))

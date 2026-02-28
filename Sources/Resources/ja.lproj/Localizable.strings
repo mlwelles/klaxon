@@ -77,7 +77,7 @@
 "alert.location" = "場所: %@";
 "alert.untitledEvent" = "無題のイベント";
 "alert.button.dismiss" = "閉じる";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "カレンダーを開く";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "アラートを閉じる";
-"accessibility.alert.openEventButton" = "カレンダーでイベントを開く";
+"accessibility.alert.openEventButton" = "カレンダーアプリを開く";
 "accessibility.alert.joinButton" = "ビデオ会議に参加";
 "accessibility.alert.joinButtonUnavailable" = "ビデオ会議に参加、利用不可";
 "accessibility.alert.joinLink" = "会議リンク: %@";

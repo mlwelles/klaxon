@@ -77,7 +77,7 @@
 "alert.location" = "Lokacija: %@";
 "alert.untitledEvent" = "Događaj bez naziva";
 "alert.button.dismiss" = "Zatvori";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Отвори календар";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Zatvori obaveštenje";
-"accessibility.alert.openEventButton" = "Otvori događaj u Kalendaru";
+"accessibility.alert.openEventButton" = "Отвори апликацију Календар";
 "accessibility.alert.joinButton" = "Pridruži se video pozivu";
 "accessibility.alert.joinButtonUnavailable" = "Pridruži se video pozivu, nedostupno";
 "accessibility.alert.joinLink" = "Link za sastanak: %@";

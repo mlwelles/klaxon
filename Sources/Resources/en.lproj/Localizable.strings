@@ -82,7 +82,7 @@
 "alert.location" = "Location: %@";
 "alert.untitledEvent" = "Untitled Event";
 "alert.button.dismiss" = "Dismiss";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Open Calendar";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -119,7 +119,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Dismiss alert";
-"accessibility.alert.openEventButton" = "Open event in Calendar";
+"accessibility.alert.openEventButton" = "Open the Calendar app";
 "accessibility.alert.joinButton" = "Join video meeting";
 "accessibility.alert.joinButtonUnavailable" = "Join video meeting, unavailable";
 "accessibility.alert.joinLink" = "Meeting link: %@";

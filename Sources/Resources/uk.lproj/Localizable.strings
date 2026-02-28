@@ -77,7 +77,7 @@
 "alert.location" = "Місце: %@";
 "alert.untitledEvent" = "Подія без назви";
 "alert.button.dismiss" = "Закрити";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "Відкрити календар";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "Закрити сповіщення";
-"accessibility.alert.openEventButton" = "Відкрити подію в Календарі";
+"accessibility.alert.openEventButton" = "Відкрити програму Календар";
 "accessibility.alert.joinButton" = "Приєднатися до відеоконференції";
 "accessibility.alert.joinButtonUnavailable" = "Приєднатися до відеоконференції, недоступно";
 "accessibility.alert.joinLink" = "Посилання на зустріч: %@";

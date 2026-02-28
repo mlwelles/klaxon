@@ -77,7 +77,7 @@
 "alert.location" = "地点: %@";
 "alert.untitledEvent" = "无标题事件";
 "alert.button.dismiss" = "关闭";
-"alert.button.openEvent" = "Open Event";
+"alert.button.openEvent" = "打开日历";
 "alert.button.join" = "Join Meeting";
 
 // MARK: - Welcome Window
@@ -113,7 +113,7 @@
 
 // Alert Window
 "accessibility.alert.dismissButton" = "关闭提醒";
-"accessibility.alert.openEventButton" = "在日历中打开事件";
+"accessibility.alert.openEventButton" = "打开日历应用";
 "accessibility.alert.joinButton" = "加入视频会议";
 "accessibility.alert.joinButtonUnavailable" = "加入视频会议，不可用";
 "accessibility.alert.joinLink" = "会议链接：%@";
