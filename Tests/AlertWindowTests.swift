@@ -86,10 +86,10 @@ final class AlertWindowTests: XCTestCase {
         let controller = AlertWindowController(event: mockEvent)
 
         let contentView = controller.window?.contentView
-        let openEventButton = findButton(in: contentView, withTitle: "Open Event")
+        let openEventButton = findButton(in: contentView, withTitle: "Open Calendar")
 
-        XCTAssertNotNil(openEventButton, "Window should contain an Open Event button")
-        XCTAssertEqual(openEventButton?.keyEquivalent, "\r", "Open Event button should respond to Enter key")
+        XCTAssertNotNil(openEventButton, "Window should contain an Open Calendar button")
+        XCTAssertEqual(openEventButton?.keyEquivalent, "\r", "Open Calendar button should respond to Enter key")
     }
 
     @MainActor
