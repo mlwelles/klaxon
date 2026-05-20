@@ -6,10 +6,19 @@ enum AlertType: Hashable {
     case eventStarting
 }
 
+/// Identifies one occurrence of an event, so that silencing today's instance
+/// of a recurring event does not silence tomorrow's (occurrences share an
+/// eventIdentifier but differ by startDate).
+struct SilencedOccurrence: Hashable {
+    let eventIdentifier: String
+    let startDate: Date
+}
+
 final class CalendarService {
     private let eventStore: EKEventStore
     private var scanTimer: Timer?
     private var notifiedEvents: [String: Set<AlertType>] = [:]
+    private var silencedOccurrences: Set<SilencedOccurrence> = []
 
     var onEventAlert: ((EKEvent, AlertType) -> Void)?
 
@@ -30,6 +39,26 @@ final class CalendarService {
     func stopMonitoring() {
         scanTimer?.invalidate()
         scanTimer = nil
+    }
+
+    /// Suppress all remaining alerts for this event's occurrence.
+    func silence(_ event: EKEvent) {
+        guard let identifier = event.eventIdentifier else { return }
+        silenceOccurrence(eventIdentifier: identifier, startDate: event.startDate)
+    }
+
+    func silenceOccurrence(eventIdentifier: String, startDate: Date) {
+        silencedOccurrences.insert(SilencedOccurrence(eventIdentifier: eventIdentifier, startDate: startDate))
+    }
+
+    func isOccurrenceSilenced(eventIdentifier: String, startDate: Date) -> Bool {
+        silencedOccurrences.contains(SilencedOccurrence(eventIdentifier: eventIdentifier, startDate: startDate))
+    }
+
+    /// Drop silenced occurrences whose start time is more than an hour past.
+    func pruneSilencedOccurrences(referenceDate: Date = Date()) {
+        let cutoff = Calendar.current.date(byAdding: .hour, value: -1, to: referenceDate) ?? referenceDate
+        silencedOccurrences = silencedOccurrences.filter { $0.startDate > cutoff }
     }
 
     private func scanCalendars() {

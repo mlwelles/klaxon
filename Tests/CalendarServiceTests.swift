@@ -166,4 +166,73 @@ final class CalendarServiceTests: XCTestCase {
         // Cleanup
         testDefaults.removePersistentDomain(forName: testDefaults.description)
     }
+
+    // MARK: - Silence Tests
+
+    func testSilencedOccurrenceEquality() {
+        let start = Date()
+        let a = SilencedOccurrence(eventIdentifier: "e", startDate: start)
+        let b = SilencedOccurrence(eventIdentifier: "e", startDate: start)
+        let c = SilencedOccurrence(eventIdentifier: "e", startDate: start.addingTimeInterval(60))
+
+        XCTAssertEqual(a, b, "Same identifier and start date should be equal")
+        XCTAssertNotEqual(a, c, "Different start dates should not be equal")
+    }
+
+    func testSilenceOccurrenceMarksItSilenced() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let start = Date()
+
+        service.silenceOccurrence(eventIdentifier: "event-1", startDate: start)
+
+        XCTAssertTrue(
+            service.isOccurrenceSilenced(eventIdentifier: "event-1", startDate: start),
+            "Occurrence should be silenced after silenceOccurrence"
+        )
+    }
+
+    func testSilenceIsScopedToSingleOccurrence() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let today = Date()
+        let tomorrow = today.addingTimeInterval(86_400)
+
+        service.silenceOccurrence(eventIdentifier: "standup", startDate: today)
+
+        XCTAssertTrue(
+            service.isOccurrenceSilenced(eventIdentifier: "standup", startDate: today),
+            "Today's occurrence should be silenced"
+        )
+        XCTAssertFalse(
+            service.isOccurrenceSilenced(eventIdentifier: "standup", startDate: tomorrow),
+            "Tomorrow's occurrence of the same recurring event should NOT be silenced"
+        )
+    }
+
+    func testPruneRemovesPastOccurrences() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let now = Date()
+        let twoHoursAgo = now.addingTimeInterval(-7_200)
+
+        service.silenceOccurrence(eventIdentifier: "old-event", startDate: twoHoursAgo)
+        service.pruneSilencedOccurrences(referenceDate: now)
+
+        XCTAssertFalse(
+            service.isOccurrenceSilenced(eventIdentifier: "old-event", startDate: twoHoursAgo),
+            "Occurrence more than an hour past should be pruned"
+        )
+    }
+
+    func testPruneKeepsUpcomingOccurrences() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let now = Date()
+        let tenMinutesAway = now.addingTimeInterval(600)
+
+        service.silenceOccurrence(eventIdentifier: "soon-event", startDate: tenMinutesAway)
+        service.pruneSilencedOccurrences(referenceDate: now)
+
+        XCTAssertTrue(
+            service.isOccurrenceSilenced(eventIdentifier: "soon-event", startDate: tenMinutesAway),
+            "Upcoming silenced occurrence should survive pruning"
+        )
+    }
 }
