@@ -79,6 +79,7 @@
 "alert.button.dismiss" = "Zatvori";
 "alert.button.openEvent" = "Отвори календар";
 "alert.button.join" = "Join Meeting";
+"alert.button.silence" = "Утишај";
 
 // MARK: - Welcome Window
 "welcome.title" = "Dobrodošli u Calendar Klaxon";
@@ -116,6 +117,7 @@
 "accessibility.alert.openEventButton" = "Отвори апликацију Календар";
 "accessibility.alert.joinButton" = "Pridruži se video pozivu";
 "accessibility.alert.joinButtonUnavailable" = "Pridruži se video pozivu, nedostupno";
+"accessibility.alert.silenceButton" = "Утишај преостала обавештења за овај догађај";
 "accessibility.alert.joinLink" = "Link za sastanak: %@";
 
 // Welcome Window

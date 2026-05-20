@@ -79,6 +79,7 @@
 "alert.button.dismiss" = "닫기";
 "alert.button.openEvent" = "캘린더 열기";
 "alert.button.join" = "Join Meeting";
+"alert.button.silence" = "음소거";
 
 // MARK: - Welcome Window
 "welcome.title" = "Calendar Klaxon에 오신 것을 환영합니다";
@@ -116,6 +117,7 @@
 "accessibility.alert.openEventButton" = "캘린더 앱 열기";
 "accessibility.alert.joinButton" = "화상 회의 참가";
 "accessibility.alert.joinButtonUnavailable" = "화상 회의 참가, 사용 불가";
+"accessibility.alert.silenceButton" = "이 이벤트의 남은 알림 음소거";
 "accessibility.alert.joinLink" = "회의 링크: %@";
 
 // Welcome Window

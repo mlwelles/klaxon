@@ -58,7 +58,7 @@ final class LocalizationTests: XCTestCase {
         "alert.warning.message", "alert.warning.messagePlural",
         "alert.starting.message", "alert.startTime", "alert.location",
         "alert.untitledEvent", "alert.button.dismiss", "alert.button.openEvent",
-        "alert.button.join",
+        "alert.button.join", "alert.button.silence",
         // Welcome Window
         "welcome.title", "welcome.copyright", "welcome.description",
         "welcome.button.ok",
@@ -75,7 +75,7 @@ final class LocalizationTests: XCTestCase {
         // Accessibility Labels - Alert Window
         "accessibility.alert.dismissButton", "accessibility.alert.openEventButton",
         "accessibility.alert.joinButton", "accessibility.alert.joinButtonUnavailable",
-        "accessibility.alert.joinLink",
+        "accessibility.alert.joinLink", "accessibility.alert.silenceButton",
         // Accessibility Labels - Welcome Window
         "accessibility.welcome.okButton",
         // Accessibility Labels - About Window
@@ -120,7 +120,7 @@ final class LocalizationTests: XCTestCase {
     }
 
     func testAllKeysCount() {
-        XCTAssertEqual(Self.allKeys.count, 92, "Should have 92 localization keys defined")
+        XCTAssertEqual(Self.allKeys.count, 94, "Should have 94 localization keys defined")
     }
 
     // MARK: - Language-specific Tests
@@ -129,7 +129,7 @@ final class LocalizationTests: XCTestCase {
         // Test that critical UI keys exist for each language
         let criticalKeys = [
             "menu.about", "menu.preferences", "menu.quit",
-            "preferences.button.ok", "alert.button.dismiss"
+            "preferences.button.ok", "alert.button.dismiss", "alert.button.silence"
         ]
 
         for language in Self.supportedLanguages {

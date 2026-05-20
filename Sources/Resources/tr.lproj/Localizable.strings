@@ -79,6 +79,7 @@
 "alert.button.dismiss" = "Kapat";
 "alert.button.openEvent" = "Takvimi Aç";
 "alert.button.join" = "Join Meeting";
+"alert.button.silence" = "Sustur";
 
 // MARK: - Welcome Window
 "welcome.title" = "Calendar Klaxon'a Hoş Geldiniz";
@@ -116,6 +117,7 @@
 "accessibility.alert.openEventButton" = "Takvim uygulamasını aç";
 "accessibility.alert.joinButton" = "Görüntülü görüşmeye katıl";
 "accessibility.alert.joinButtonUnavailable" = "Görüntülü görüşmeye katıl, kullanılamıyor";
+"accessibility.alert.silenceButton" = "Bu etkinliğin kalan uyarılarını sustur";
 "accessibility.alert.joinLink" = "Toplantı bağlantısı: %@";
 
 // Welcome Window
