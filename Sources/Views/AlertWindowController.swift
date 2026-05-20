@@ -5,16 +5,22 @@ import EventKit
 final class AlertWindowController: NSWindowController {
     private let event: EKEvent
     private let alertType: AlertType
+    private let onSilence: ((EKEvent) -> Void)?
     private var audioPlayer: AVAudioPlayer?
     private var audioStopTimer: Timer?
     private var joinURL: URL?
 
-    init(event: EKEvent, alertType: AlertType = .warning(minutes: 1, sound: "fire-alarm-bell", soundDuration: 4.0)) {
+    init(
+        event: EKEvent,
+        alertType: AlertType = .warning(minutes: 1, sound: "fire-alarm-bell", soundDuration: 4.0),
+        onSilence: ((EKEvent) -> Void)? = nil
+    ) {
         self.event = event
         self.alertType = alertType
+        self.onSilence = onSilence
 
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 500, height: 220),
+            contentRect: NSRect(x: 0, y: 0, width: 580, height: 220),
             styleMask: [.titled, .closable],
             backing: .buffered,
             defer: false
@@ -59,7 +65,7 @@ final class AlertWindowController: NSWindowController {
     }
 
     private func setupContent() {
-        let contentView = NSView(frame: NSRect(x: 0, y: 0, width: 500, height: 220))
+        let contentView = NSView(frame: NSRect(x: 0, y: 0, width: 580, height: 220))
 
         // Left 1/3: App icon
         let iconSize: CGFloat = 120
@@ -71,7 +77,7 @@ final class AlertWindowController: NSWindowController {
 
         // Right 2/3: Event details
         let rightX: CGFloat = 160
-        let rightWidth: CGFloat = 320
+        let rightWidth: CGFloat = 400
 
         // Event title
         let eventTitle = event.title?.isEmpty == false ? event.title! : NSLocalizedString("alert.untitledEvent", comment: "Untitled Event")
@@ -127,28 +133,39 @@ final class AlertWindowController: NSWindowController {
             contentView.addSubview(urlTextView)
         }
 
-        // Buttons - always show all three
-        let dismissButton = NSButton(title: NSLocalizedString("alert.button.dismiss", comment: "Dismiss button"), target: self, action: #selector(dismissAlert))
-        dismissButton.bezelStyle = .rounded
-        dismissButton.keyEquivalent = "\u{1b}" // Escape key
-        dismissButton.frame = NSRect(x: 390, y: 15, width: 90, height: 32)
-        dismissButton.setAccessibilityIdentifier("dismissButton")
-        dismissButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.dismissButton", comment: "Dismiss alert"))
-        contentView.addSubview(dismissButton)
+        // Buttons - bottom row of four, evenly spaced across the content width
+        let buttonY: CGFloat = 15
+        let buttonWidth: CGFloat = 126
+        let buttonHeight: CGFloat = 32
+
+        let joinButton = NSButton(title: NSLocalizedString("alert.button.join", comment: "Join button"), target: self, action: #selector(joinMeeting))
+        joinButton.bezelStyle = .rounded
+        joinButton.frame = NSRect(x: 20, y: buttonY, width: buttonWidth, height: buttonHeight)
+        joinButton.setAccessibilityIdentifier("joinMeetingButton")
+        joinButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.joinButton", comment: "Join video meeting"))
+        contentView.addSubview(joinButton)
 
         let openEventButton = NSButton(title: NSLocalizedString("alert.button.openEvent", comment: "Open Calendar button"), target: self, action: #selector(openEvent))
         openEventButton.bezelStyle = .rounded
-        openEventButton.frame = NSRect(x: 275, y: 15, width: 105, height: 32)
+        openEventButton.frame = NSRect(x: 158, y: buttonY, width: buttonWidth, height: buttonHeight)
         openEventButton.setAccessibilityIdentifier("openEventButton")
         openEventButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.openEventButton", comment: "Open the Calendar app"))
         contentView.addSubview(openEventButton)
 
-        let joinButton = NSButton(title: NSLocalizedString("alert.button.join", comment: "Join button"), target: self, action: #selector(joinMeeting))
-        joinButton.bezelStyle = .rounded
-        joinButton.frame = NSRect(x: 160, y: 15, width: 105, height: 32)
-        joinButton.setAccessibilityIdentifier("joinMeetingButton")
-        joinButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.joinButton", comment: "Join video meeting"))
-        contentView.addSubview(joinButton)
+        let silenceButton = NSButton(title: NSLocalizedString("alert.button.silence", comment: "Silence button"), target: self, action: #selector(silenceAlert))
+        silenceButton.bezelStyle = .rounded
+        silenceButton.frame = NSRect(x: 296, y: buttonY, width: buttonWidth, height: buttonHeight)
+        silenceButton.setAccessibilityIdentifier("silenceButton")
+        silenceButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.silenceButton", comment: "Silence remaining alerts for this event"))
+        contentView.addSubview(silenceButton)
+
+        let dismissButton = NSButton(title: NSLocalizedString("alert.button.dismiss", comment: "Dismiss button"), target: self, action: #selector(dismissAlert))
+        dismissButton.bezelStyle = .rounded
+        dismissButton.keyEquivalent = "\u{1b}" // Escape key
+        dismissButton.frame = NSRect(x: 434, y: buttonY, width: buttonWidth, height: buttonHeight)
+        dismissButton.setAccessibilityIdentifier("dismissButton")
+        dismissButton.setAccessibilityLabel(NSLocalizedString("accessibility.alert.dismissButton", comment: "Dismiss alert"))
+        contentView.addSubview(dismissButton)
 
         // Set enabled state based on join link availability
         if joinURL == nil {
@@ -339,6 +356,12 @@ final class AlertWindowController: NSWindowController {
 
     @objc private func dismissAlert() {
         stopAlertSound()
+        close()
+    }
+
+    @objc private func silenceAlert() {
+        stopAlertSound()
+        onSilence?(event)
         close()
     }
 

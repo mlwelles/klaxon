@@ -64,8 +64,8 @@ final class AlertWindowTests: XCTestCase {
 
         let frame = controller.window?.frame ?? .zero
 
-        // Width should be exactly 500
-        XCTAssertEqual(frame.width, 500, "Window width should be 500")
+        // Width should be exactly 580
+        XCTAssertEqual(frame.width, 580, "Window width should be 580")
         // Height includes title bar, so it will be greater than content height of 220
         XCTAssertGreaterThanOrEqual(frame.height, 220, "Window height should be at least 220")
     }
@@ -166,6 +166,31 @@ final class AlertWindowTests: XCTestCase {
         if controller.window?.isVisible == true {
             controller.close()
         }
+    }
+
+    @MainActor
+    func testAlertWindowContainsSilenceButton() {
+        let controller = AlertWindowController(event: mockEvent)
+
+        let contentView = controller.window?.contentView
+        let silenceButton = findButton(in: contentView, withTitle: "Silence")
+
+        XCTAssertNotNil(silenceButton, "Window should contain a Silence button")
+    }
+
+    @MainActor
+    func testSilenceButtonInvokesOnSilenceAndCloses() {
+        var silencedEvent: EKEvent?
+        let controller = AlertWindowController(event: mockEvent, onSilence: { event in
+            silencedEvent = event
+        })
+        controller.showWindow(nil)
+
+        let silenceButton = findButton(in: controller.window?.contentView, withTitle: "Silence")
+        silenceButton?.performClick(nil)
+
+        XCTAssertTrue(silencedEvent === mockEvent, "Silence should invoke onSilence with the event")
+        XCTAssertFalse(controller.window?.isVisible ?? true, "Window should close after Silence")
     }
 
     // MARK: - Audio Tests
