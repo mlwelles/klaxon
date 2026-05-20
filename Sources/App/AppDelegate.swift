@@ -130,7 +130,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private func showEventAlert(event: EKEvent, alertType: AlertType) {
         DispatchQueue.main.async { [weak self] in
             self?.alertWindowController?.close()
-            self?.alertWindowController = AlertWindowController(event: event, alertType: alertType)
+            self?.alertWindowController = AlertWindowController(
+                event: event,
+                alertType: alertType,
+                onSilence: { [weak self] silencedEvent in
+                    self?.calendarService?.silence(silencedEvent)
+                }
+            )
             self?.alertWindowController?.showWindow(nil)
         }
     }
