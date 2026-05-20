@@ -36,6 +36,8 @@
 		A2000002229A0001 /* AlertWindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012229A0001 /* AlertWindowTests.swift */; };
 		A2000003229A0001 /* PreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000013229A0001 /* PreferencesTests.swift */; };
 		A2000004229A0001 /* LocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000014229A0001 /* LocalizationTests.swift */; };
+		A2000005229A0001 /* CalendarServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000015229A0001 /* CalendarServiceTests.swift */; };
+		A2000006229A0001 /* CalendarFilteringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000016229A0001 /* CalendarFilteringTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +109,8 @@
 		A2000012229A0001 /* AlertWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowTests.swift; sourceTree = "<group>"; };
 		A2000013229A0001 /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
 		A2000014229A0001 /* LocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTests.swift; sourceTree = "<group>"; };
+		A2000015229A0001 /* CalendarServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarServiceTests.swift; sourceTree = "<group>"; };
+		A2000016229A0001 /* CalendarFilteringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFilteringTests.swift; sourceTree = "<group>"; };
 		A2000031229A0001 /* KlaxonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KlaxonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -233,6 +237,8 @@
 				A2000012229A0001 /* AlertWindowTests.swift */,
 				A2000014229A0001 /* LocalizationTests.swift */,
 				A2000013229A0001 /* PreferencesTests.swift */,
+				A2000015229A0001 /* CalendarServiceTests.swift */,
+				A2000016229A0001 /* CalendarFilteringTests.swift */,
 				67BC29B4F53D47099A1F8CF6 /* PreferencesWindowControllerTests.swift */,
 				7AC7096C6294AB815F65C52B /* LoginItemServiceTests.swift */,
 			);
@@ -412,6 +418,8 @@
 				A2000002229A0001 /* AlertWindowTests.swift in Sources */,
 				A2000004229A0001 /* LocalizationTests.swift in Sources */,
 				A2000003229A0001 /* PreferencesTests.swift in Sources */,
+				A2000005229A0001 /* CalendarServiceTests.swift in Sources */,
+				A2000006229A0001 /* CalendarFilteringTests.swift in Sources */,
 				67BC29B4F53D47099A1F8CE6 /* PreferencesWindowControllerTests.swift in Sources */,
 				7C5B773B38260B26EE5408CB /* LoginItemServiceTests.swift in Sources */,
 			);

@@ -30,10 +30,10 @@ final class CalendarFilteringTests: XCTestCase {
         }
     }
 
-    func testFilteringProducesSubset() {
+    func testFilteringProducesSubset() throws {
         let allCalendars = eventStore.calendars(for: .event)
         guard allCalendars.count > 0 else {
-            XCTSkip("No calendars available for testing")
+            throw XCTSkip("No calendars available for testing")
         }
 
         // Disable first calendar
@@ -99,10 +99,10 @@ final class CalendarFilteringTests: XCTestCase {
         }
     }
 
-    func testFilteringWithMultipleCalendars() {
+    func testFilteringWithMultipleCalendars() throws {
         let allCalendars = eventStore.calendars(for: .event)
         guard allCalendars.count >= 3 else {
-            XCTSkip("Need at least 3 calendars for this test")
+            throw XCTSkip("Need at least 3 calendars for this test")
         }
 
         // Disable first and third calendar
