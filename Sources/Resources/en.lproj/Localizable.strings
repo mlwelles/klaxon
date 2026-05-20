@@ -84,6 +84,7 @@
 "alert.button.dismiss" = "Dismiss";
 "alert.button.openEvent" = "Open Calendar";
 "alert.button.join" = "Join Meeting";
+"alert.button.silence" = "Silence";
 
 // MARK: - Welcome Window
 "welcome.title" = "Welcome to Calendar Klaxon";
@@ -122,6 +123,7 @@
 "accessibility.alert.openEventButton" = "Open the Calendar app";
 "accessibility.alert.joinButton" = "Join video meeting";
 "accessibility.alert.joinButtonUnavailable" = "Join video meeting, unavailable";
+"accessibility.alert.silenceButton" = "Silence remaining alerts for this event";
 "accessibility.alert.joinLink" = "Meeting link: %@";
 
 // Welcome Window

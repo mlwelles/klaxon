@@ -79,6 +79,7 @@
 "alert.button.dismiss" = "關閉";
 "alert.button.openEvent" = "打開行事曆";
 "alert.button.join" = "Join Meeting";
+"alert.button.silence" = "靜音";
 
 // MARK: - Welcome Window
 "welcome.title" = "歡迎使用 Calendar Klaxon";
@@ -116,6 +117,7 @@
 "accessibility.alert.openEventButton" = "打開行事曆 App";
 "accessibility.alert.joinButton" = "加入視訊會議";
 "accessibility.alert.joinButtonUnavailable" = "加入視訊會議，無法使用";
+"accessibility.alert.silenceButton" = "靜音此活動的剩餘提醒";
 "accessibility.alert.joinLink" = "會議連結：%@";
 
 // Welcome Window

@@ -79,6 +79,7 @@
 "alert.button.dismiss" = "閉じる";
 "alert.button.openEvent" = "カレンダーを開く";
 "alert.button.join" = "Join Meeting";
+"alert.button.silence" = "消音";
 
 // MARK: - Welcome Window
 "welcome.title" = "Calendar Klaxonへようこそ";
@@ -116,6 +117,7 @@
 "accessibility.alert.openEventButton" = "カレンダーアプリを開く";
 "accessibility.alert.joinButton" = "ビデオ会議に参加";
 "accessibility.alert.joinButtonUnavailable" = "ビデオ会議に参加、利用不可";
+"accessibility.alert.silenceButton" = "このイベントの残りのアラートを消音";
 "accessibility.alert.joinLink" = "会議リンク: %@";
 
 // Welcome Window
