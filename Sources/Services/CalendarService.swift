@@ -87,6 +87,9 @@ final class CalendarService {
         for event in events {
             guard let eventID = event.eventIdentifier else { continue }
 
+            // Skip occurrences the user silenced from the alarm modal.
+            if isOccurrenceSilenced(eventIdentifier: eventID, startDate: event.startDate) { continue }
+
             let timeUntilStart = event.startDate.timeIntervalSince(now)
             var sentAlerts = notifiedEvents[eventID] ?? []
 
@@ -110,6 +113,7 @@ final class CalendarService {
         }
 
         cleanupOldEventIDs()
+        pruneSilencedOccurrences()
     }
 
     private func cleanupOldEventIDs() {
