@@ -310,4 +310,56 @@ final class PreferencesTests: XCTestCase {
         XCTAssertFalse(newPreferences.isCalendarEnabled("calendar-2"), "Calendar 2 should remain disabled")
         XCTAssertEqual(newPreferences.disabledCalendarIDs.count, 2, "Should have 2 disabled calendars after reload")
     }
+
+    // MARK: - TitleIgnoreList
+
+    func testTitleIgnoreMatchesCaseInsensitiveSubstring() {
+        let list = TitleIgnoreList(patterns: ["OOTO"])
+        XCTAssertTrue(list.matches("ooto - team offsite"), "Unanchored, case-insensitive substring matches")
+    }
+
+    func testTitleIgnoreAnchoredPatternMatchesExactly() {
+        let list = TitleIgnoreList(patterns: ["^Busy$"])
+        XCTAssertTrue(list.matches("Busy"))
+        XCTAssertFalse(list.matches("Busy with client"), "Anchored pattern only matches the exact title")
+    }
+
+    func testTitleIgnoreMatchesAnyPattern() {
+        let list = TitleIgnoreList(patterns: ["Unavailable", "OOTO"])
+        XCTAssertTrue(list.matches("OOTO"))
+        XCTAssertTrue(list.matches("Unavailable"))
+        XCTAssertFalse(list.matches("Sprint planning"))
+    }
+
+    func testTitleIgnoreSkipsBlankPatterns() {
+        let list = TitleIgnoreList(patterns: ["   ", ""])
+        XCTAssertFalse(list.matches("Any meeting"), "Blank patterns must not match everything")
+    }
+
+    func testTitleIgnoreSkipsInvalidRegex() {
+        let list = TitleIgnoreList(patterns: ["["]) // invalid regex
+        XCTAssertFalse(list.matches("[ bracket meeting"), "Invalid regex is skipped, not fatal")
+    }
+
+    func testTitleIgnoreNilOrEmptyTitleNeverMatches() {
+        let list = TitleIgnoreList(patterns: ["OOTO"])
+        XCTAssertFalse(list.matches(nil))
+        XCTAssertFalse(list.matches(""))
+    }
+
+    func testTitleIgnoreParseSplitsTrimsAndDropsEmpties() {
+        let parsed = TitleIgnoreList.parse("OOTO\n  Unavailable  \n\n\t\nBusy")
+        XCTAssertEqual(parsed, ["OOTO", "Unavailable", "Busy"])
+    }
+
+    func testIgnoredTitlePatternsPersistenceRoundTrip() {
+        let suite = "IgnoreTest-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let prefs = Preferences(defaults: defaults)
+
+        XCTAssertEqual(prefs.ignoredTitlePatterns, [], "Default is empty")
+        prefs.ignoredTitlePatterns = ["OOTO", "Unavailable"]
+        XCTAssertEqual(Preferences(defaults: defaults).ignoredTitlePatterns, ["OOTO", "Unavailable"])
+    }
 }

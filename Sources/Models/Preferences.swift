@@ -14,6 +14,33 @@ struct AlertWarning: Codable, Equatable {
     ]
 }
 
+/// A list of regular-expression patterns. An event whose title matches any
+/// pattern should never alert. Matching is case-insensitive and unanchored;
+/// blank and invalid patterns are skipped (never matching everything, never
+/// fatal).
+struct TitleIgnoreList {
+    let patterns: [String]
+
+    func matches(_ title: String?) -> Bool {
+        guard let title = title, !title.isEmpty else { return false }
+        let range = NSRange(title.startIndex..., in: title)
+        for raw in patterns {
+            let pattern = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !pattern.isEmpty else { continue }
+            guard let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive]) else { continue }
+            if regex.firstMatch(in: title, options: [], range: range) != nil { return true }
+        }
+        return false
+    }
+
+    /// Split user-entered text (one pattern per line) into trimmed, non-empty patterns.
+    static func parse(_ text: String) -> [String] {
+        text.split(separator: "\n", omittingEmptySubsequences: false)
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+    }
+}
+
 final class Preferences {
     static let shared = Preferences()
 
@@ -101,6 +128,7 @@ final class Preferences {
         static let showWindowOnLaunch = "showWindowOnLaunch"
         static let disabledCalendarIDs = "disabledCalendarIDs"
         static let respectDoNotDisturb = "respectDoNotDisturb"
+        static let ignoredTitlePatterns = "ignoredTitlePatterns"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -213,6 +241,12 @@ final class Preferences {
         set {
             defaults.set(newValue, forKey: Keys.disabledCalendarIDs)
         }
+    }
+
+    /// Regex patterns; events whose title matches any pattern never alert.
+    var ignoredTitlePatterns: [String] {
+        get { defaults.stringArray(forKey: Keys.ignoredTitlePatterns) ?? [] }
+        set { defaults.set(newValue, forKey: Keys.ignoredTitlePatterns) }
     }
 
     /// Check if a calendar is enabled for monitoring
