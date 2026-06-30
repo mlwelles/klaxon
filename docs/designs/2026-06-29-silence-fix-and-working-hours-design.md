@@ -1,11 +1,11 @@
-# Design: Silence reliability, occurrence-aware scanning, and working hours
+# Design: Silence reliability, occurrence-aware scanning, working hours, and title filters
 
 Date: 2026-06-29
 Status: Approved
 
 ## Summary
 
-Two changes to Klaxon's alert pipeline, both refining the "should this alert
+Three changes to Klaxon's alert pipeline, all refining the "should this alert
 fire?" decision in `CalendarService.scanCalendars()`:
 
 - **Change A — Occurrence-aware scan.** Make the scan track *occurrences*, not
@@ -13,11 +13,14 @@ fire?" decision in `CalendarService.scanCalendars()`:
   remaining alerts), guarantees per-occurrence silence for recurring events,
   fixes a latent recurring-event alert-dedup bug, and always ignores all-day
   events. Diagnostics are added to confirm behavior in the field.
-- **Change B — Working hours.** A configurable daily window with a weekday
-  picker. Alerts fire only for events that *start* inside the window on an
-  active day.
+- **Change B — Working hours.** A toggleable daily window (with a weekday
+  picker) that may wrap past midnight. When enabled, alerts fire only for events
+  that *start* inside the window on an active day.
+- **Change C — Title ignore patterns.** A configurable list of regular
+  expressions. An event whose title matches any pattern never triggers an alert
+  (e.g. "Unavailable", "OOTO" blocks).
 
-The two changes ship as one spec and one plan because they touch the same scan
+The three changes ship as one spec and one plan because they touch the same scan
 loop, but they are independent in behavior.
 
 ## Background
@@ -107,11 +110,15 @@ fire-time in Console.app and confirm the fix in the field.
 
 ### Scan gate order (per event)
 
-1. `event.isAllDay` → skip.
-2. Outside working hours (Change B) → skip.
-3. Occurrence silenced → skip.
-4. Otherwise evaluate warnings and the event-starting alert against
+1. `event.isAllDay` → skip (always, no preference).
+2. Title matches an ignore pattern (Change C) → skip.
+3. Outside working hours (Change B) → skip.
+4. Occurrence silenced → skip.
+5. Otherwise evaluate warnings and the event-starting alert against
    `notifiedEvents[key]`.
+
+Gates 1–3 are content/time filters that skip the event before any tracking
+state is touched; gate 4 is the per-occurrence silence check.
 
 ## Change B: Working hours
 
@@ -130,15 +137,23 @@ struct WorkingHours: Codable, Equatable {
 }
 ```
 
-`allows` returns `true` when `!enabled`. Otherwise it returns `true` only when
-the event's start weekday is in `activeDays` and its minute-of-day falls within
-the inclusive range `startMinutes...endMinutes`.
+`allows` returns `true` when `!enabled` — the feature is an on/off toggle, and
+when off the gate disappears entirely. When enabled, it returns `true` only when
+the event's start weekday is in `activeDays` **and** its minute-of-day falls
+within the window. The window may wrap past midnight:
+
+- `startMinutes <= endMinutes` (e.g. 09:00–17:00): in-window when
+  `start ≤ minuteOfDay ≤ end`.
+- `startMinutes > endMinutes` (e.g. 23:00–07:00, a night shift): in-window when
+  `minuteOfDay ≥ start` **or** `minuteOfDay ≤ end`.
+
+There is no "daytime only" restriction and no "overnight" special case — a night
+worker's "from 11pm to 7am" is as valid as a day worker's "from 9am to 5pm". The
+weekday check uses the event's own calendar weekday (the day the event shows on
+the calendar), so it matches what the user sees.
 
 **Defaults:** disabled, 09:00–17:00, Mon–Fri (`{2,3,4,5,6}`). Shipping disabled
 means existing users see no behavior change until they opt in.
-
-**Scope (v1):** daytime window only (`startMinutes < endMinutes`); the UI enforces
-end after start. Overnight windows that cross midnight are out of scope.
 
 **Gating semantics:** the window applies to the event's *start time*, not to
 wall-clock time at firing. An event that starts inside the window keeps all its
@@ -150,44 +165,117 @@ property.
 
 **Scan integration:** one per-event line —
 `if !prefs.workingHours.allows(eventStart: event.startDate) { continue }` —
-at gate position 2 above.
+at gate position 3 above.
 
-**UI:** a new "Schedule" tab in `PreferencesWindowController`. Controls: an enable
-checkbox, two `NSDatePicker`s (`.hourMinute`), seven weekday checkboxes, and a
-note label. Time and day controls disable when the checkbox is off, following the
-existing `updateSoundControlsEnabled()` idiom. Weekday labels come from
-`Calendar.current.shortWeekdaySymbols`, already localized by the OS.
+**UI:** a "Working Hours" section on a new shared **"Filters"** tab in
+`PreferencesWindowController` (see Change C, which adds a second section to the
+same tab). Controls: an enable checkbox, a "from" and a "to" `NSDatePicker`
+(`.hourMinute`), seven weekday checkboxes, and a note. Time and day controls
+disable when the checkbox is off, following the existing
+`updateSoundControlsEnabled()` idiom. Weekday labels come from
+`Calendar.current.shortWeekdaySymbols`, already localized by the OS. The window
+may wrap past midnight, so the UI imposes no "end after start" constraint.
 
-**i18n:** roughly four new strings (tab title, "Enable working hours",
-"From"/"to", a note), added across all 28 locales. Weekday names need no new
-translations because the OS provides localized symbols.
+## Change C: Title ignore patterns
+
+### Problem
+
+Users block time in a work calendar with placeholder events ("Unavailable",
+"OOTO", "Busy") that mirror commitments held elsewhere. These should never raise
+a Klaxon alarm. There is no way today to suppress alerts by event title.
+
+### Design
+
+**New value type** `TitleIgnoreList` (pure, testable):
+
+```swift
+struct TitleIgnoreList {
+    let patterns: [String]
+    func matches(_ title: String?) -> Bool
+}
+```
+
+`matches` returns `true` if the title contains a match for any pattern. Rules:
+
+- **Case-insensitive, unanchored.** A pattern matches when found anywhere in the
+  title (`NSRegularExpression.firstMatch` with `.caseInsensitive`). So plain
+  substrings like `OOTO` work; power users can anchor (`^Busy$`) or use full
+  regex syntax.
+- **Empty patterns are skipped.** Each pattern is trimmed; blank entries are
+  ignored. This is a safety requirement — an empty regex matches *everything*, so
+  a stray blank line must never suppress all alerts.
+- **Invalid patterns are skipped and logged**, never fatal. A pattern that fails
+  to compile is treated as non-matching, and the scan continues.
+- A nil or empty title never matches.
+
+**Defaults:** empty list. Existing users see no change until they add a pattern.
+
+**Preferences integration:** store the patterns as `[String]` under one key, via
+`UserDefaults.stringArray` — mirroring `disabledCalendarIDs`.
+
+**Scan integration:** at gate position 2 —
+`if TitleIgnoreList(patterns: prefs.ignoredTitlePatterns).matches(event.title) { continue }`.
+
+**UI:** an "Ignore Events by Title" section on the shared "Filters" tab. A
+scrollable `NSTextView` holds one pattern per line; a note shows examples. The
+text-to-list parsing (`split on newlines → trim → drop empties`) is a pure helper
+so it can be unit-tested apart from the view. Patterns persist on edit.
 
 ## Testing
 
-Run logic tests freely; defer window-showing tests and ask before running them
-(the app pops blocking modals).
+Tests are thorough by intent: every new branch and every documented edge case
+gets a test. Run logic tests freely; defer window-showing tests and ask before
+running them (the app pops blocking modals).
 
-**Change A (logic):**
-- Two `startDate`s differing by sub-second yield the same `OccurrenceKey`.
-- Nil `eventIdentifier` falls back to `calendarItemExternalIdentifier`; both nil
-  falls back to `title` without crashing.
-- The same factory feeds `silence()` and the scan (consistency).
+**Change A — occurrence-aware scan (logic):**
+- `OccurrenceKey` from two `startDate`s differing by sub-second yields one key.
+- `OccurrenceKey` from starts one minute apart yields two distinct keys.
+- Identifier resolution: `eventIdentifier` wins; nil falls back to
+  `calendarItemExternalIdentifier`; both nil falls back to `title`; empty strings
+  count as missing.
+- The same factory feeds `silence()` and the scan decision (consistency).
 - Silencing occurrence A of a recurring event does not suppress occurrence B.
-- An alert fired for occurrence A does not suppress occurrence B's alerts.
-- The all-day filter drops `isAllDay` events.
+- Recorded-alert state for occurrence A does not suppress occurrence B's alerts.
+- `shouldEvaluate` skips all-day events, ignored-title events, out-of-window
+  events, and silenced occurrences; allows an otherwise-eligible event.
+- Pruning drops silenced and notified entries older than one hour and keeps
+  recent ones.
 
-**Change B (logic):**
-- `allows` — in-hours fires; before/after window suppressed; inactive weekday
-  suppressed; `enabled == false` always allows; boundaries at exactly start and
-  end; weekend off.
+**Change B — working hours (logic):**
+- `enabled == false` always allows.
+- Daytime window: in-window allows; before and after suppress; both boundaries
+  inclusive.
+- Wrapping (night-shift) window (23:00–07:00): a time after start (23:30) and a
+  time before end (02:00) allow; a midday time (12:00) suppresses; both
+  boundaries inclusive.
+- Inactive weekday suppresses even when the time is in-window.
+- Persistence round-trips `enabled`, `startMinutes`, `endMinutes`, `activeDays`,
+  including a wrapping window.
+
+**Change C — title ignore patterns (logic):**
+- A plain substring pattern matches case-insensitively ("ooto" matches "OOTO -
+  offsite").
+- An anchored pattern (`^Busy$`) matches only the exact title.
+- Multiple patterns: a title matching any one is ignored.
+- A blank/whitespace-only pattern is skipped (does not suppress everything).
+- An invalid regex is skipped (does not crash, does not match).
+- Nil and empty titles never match.
+- Text parsing: newline-separated text splits into trimmed, non-empty patterns;
+  round-trips through the preference.
+
+**i18n:**
+- `LocalizationTests` confirm the new keys exist with identical key sets across
+  all 28 locales.
 
 **Deferred (UI):**
-- Schedule tab load/save and enable/disable behavior.
+- Filters tab load/save, enable/disable behavior, and pattern-text round-trip.
 
 ## Out of scope
 
 - Persisting silenced occurrences across app restarts (in-memory; pruned after an
   hour; the app runs continuously).
-- Overnight working-hours windows.
-- Per-day working-hours windows.
-- A preference to re-enable all-day alerts.
+- Per-day working-hours windows (a single window, applied on the selected days).
+- A preference to re-enable all-day alerts (they are always ignored).
+- Live regex validation feedback in the UI (invalid patterns are simply skipped
+  at scan time; a future enhancement could flag them as the user types).
+- Matching ignore patterns against fields other than the title (location, notes).
