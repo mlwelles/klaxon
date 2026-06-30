@@ -204,8 +204,10 @@ struct TitleIgnoreList {
 - **Empty patterns are skipped.** Each pattern is trimmed; blank entries are
   ignored. This is a safety requirement — an empty regex matches *everything*, so
   a stray blank line must never suppress all alerts.
-- **Invalid patterns are skipped and logged**, never fatal. A pattern that fails
-  to compile is treated as non-matching, and the scan continues.
+- **Invalid patterns are skipped**, never fatal. A pattern that fails to compile
+  is treated as non-matching, and the scan continues. (The matcher stays a pure
+  value type; per-scan logging would spam, so invalid patterns are silently
+  inert. Surfacing them in the UI is a future enhancement — see Out of scope.)
 - A nil or empty title never matches.
 
 **Defaults:** empty list. Existing users see no change until they add a pattern.
