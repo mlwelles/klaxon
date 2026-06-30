@@ -362,4 +362,73 @@ final class PreferencesTests: XCTestCase {
         prefs.ignoredTitlePatterns = ["OOTO", "Unavailable"]
         XCTAssertEqual(Preferences(defaults: defaults).ignoredTitlePatterns, ["OOTO", "Unavailable"])
     }
+
+    // MARK: - WorkingHours
+
+    /// Build a date at a known weekday/time. 2026-06-28 is a Sunday (weekday 1);
+    /// adding (weekday-1) days yields the requested weekday.
+    private func whDate(weekday: Int, hour: Int, minute: Int) -> Date {
+        var comps = DateComponents()
+        comps.year = 2026; comps.month = 6; comps.day = 28 + (weekday - 1)
+        comps.hour = hour; comps.minute = minute
+        let date = Calendar.current.date(from: comps)!
+        XCTAssertEqual(Calendar.current.component(.weekday, from: date), weekday, "date helper weekday sanity")
+        return date
+    }
+
+    func testWorkingHoursDisabledAlwaysAllows() {
+        let wh = WorkingHours(enabled: false, startMinutes: 540, endMinutes: 1020, activeDays: [2])
+        XCTAssertTrue(wh.allows(eventStart: whDate(weekday: 1, hour: 3, minute: 0)))
+    }
+
+    func testWorkingHoursDaytimeInWindow() {
+        let wh = WorkingHours(enabled: true, startMinutes: 540, endMinutes: 1020, activeDays: [2,3,4,5,6])
+        XCTAssertTrue(wh.allows(eventStart: whDate(weekday: 2, hour: 10, minute: 0)))
+    }
+
+    func testWorkingHoursDaytimeBeforeAndAfterSuppress() {
+        let wh = WorkingHours(enabled: true, startMinutes: 540, endMinutes: 1020, activeDays: [2,3,4,5,6])
+        XCTAssertFalse(wh.allows(eventStart: whDate(weekday: 2, hour: 8, minute: 30)))
+        XCTAssertFalse(wh.allows(eventStart: whDate(weekday: 2, hour: 17, minute: 30)))
+    }
+
+    func testWorkingHoursDaytimeBoundariesInclusive() {
+        let wh = WorkingHours(enabled: true, startMinutes: 540, endMinutes: 1020, activeDays: [2])
+        XCTAssertTrue(wh.allows(eventStart: whDate(weekday: 2, hour: 9, minute: 0)), "start inclusive")
+        XCTAssertTrue(wh.allows(eventStart: whDate(weekday: 2, hour: 17, minute: 0)), "end inclusive")
+    }
+
+    func testWorkingHoursInactiveDaySuppresses() {
+        let wh = WorkingHours(enabled: true, startMinutes: 540, endMinutes: 1020, activeDays: [2,3,4,5,6])
+        XCTAssertFalse(wh.allows(eventStart: whDate(weekday: 1, hour: 10, minute: 0)), "Sunday inactive")
+    }
+
+    func testWorkingHoursWrappingNightShift() {
+        let wh = WorkingHours(enabled: true, startMinutes: 23 * 60, endMinutes: 7 * 60, activeDays: [2])
+        XCTAssertTrue(wh.allows(eventStart: whDate(weekday: 2, hour: 23, minute: 30)), "after start, before midnight")
+        XCTAssertTrue(wh.allows(eventStart: whDate(weekday: 2, hour: 2, minute: 0)), "after midnight, before end")
+        XCTAssertFalse(wh.allows(eventStart: whDate(weekday: 2, hour: 12, minute: 0)), "midday outside")
+    }
+
+    func testWorkingHoursWrappingBoundariesInclusive() {
+        let wh = WorkingHours(enabled: true, startMinutes: 23 * 60, endMinutes: 7 * 60, activeDays: [2])
+        XCTAssertTrue(wh.allows(eventStart: whDate(weekday: 2, hour: 23, minute: 0)), "start inclusive")
+        XCTAssertTrue(wh.allows(eventStart: whDate(weekday: 2, hour: 7, minute: 0)), "end inclusive")
+    }
+
+    func testWorkingHoursPersistenceRoundTrip() {
+        let suite = "WorkingHoursTest-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let prefs = Preferences(defaults: defaults)
+
+        XCTAssertFalse(prefs.workingHours.enabled, "Default disabled")
+
+        prefs.workingHours = WorkingHours(enabled: true, startMinutes: 23 * 60, endMinutes: 7 * 60, activeDays: [2, 4])
+        let reloaded = Preferences(defaults: defaults).workingHours
+        XCTAssertEqual(reloaded.enabled, true)
+        XCTAssertEqual(reloaded.startMinutes, 23 * 60)
+        XCTAssertEqual(reloaded.endMinutes, 7 * 60)
+        XCTAssertEqual(reloaded.activeDays, [2, 4])
+    }
 }
