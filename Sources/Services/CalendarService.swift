@@ -1,24 +1,67 @@
 import EventKit
 import Foundation
+import os
 
 enum AlertType: Hashable {
     case warning(minutes: Int, sound: String, soundDuration: Double)
     case eventStarting
 }
 
-/// Identifies one occurrence of an event, so that silencing today's instance
-/// of a recurring event does not silence tomorrow's (occurrences share an
-/// eventIdentifier but differ by startDate).
-struct SilencedOccurrence: Hashable {
-    let eventIdentifier: String
-    let startDate: Date
+/// Identifies one occurrence of an event. Recurring occurrences share an
+/// identifier but differ by start time, so the key combines a stable identifier
+/// with a whole-second-normalized start (defeating sub-second float drift across
+/// separate event-store fetches).
+struct OccurrenceKey: Hashable {
+    let identifier: String
+    let startSecond: Int
+
+    init(identifier: String, startSecond: Int) {
+        self.identifier = identifier
+        self.startSecond = startSecond
+    }
+
+    init(identifier: String, startDate: Date) {
+        self.init(identifier: identifier, startSecond: OccurrenceKey.second(from: startDate))
+    }
+
+    init(eventIdentifier: String?, externalIdentifier: String?, title: String?, startDate: Date) {
+        let resolved = OccurrenceKey.resolveIdentifier(
+            eventIdentifier: eventIdentifier,
+            externalIdentifier: externalIdentifier,
+            title: title
+        )
+        self.init(identifier: resolved, startDate: startDate)
+    }
+
+    static func second(from date: Date) -> Int {
+        Int(date.timeIntervalSinceReferenceDate.rounded())
+    }
+
+    static func resolveIdentifier(eventIdentifier: String?, externalIdentifier: String?, title: String?) -> String {
+        if let id = eventIdentifier, !id.isEmpty { return id }
+        if let ext = externalIdentifier, !ext.isEmpty { return ext }
+        if let title = title, !title.isEmpty { return title }
+        return ""
+    }
+}
+
+extension OccurrenceKey {
+    init(event: EKEvent) {
+        self.init(
+            eventIdentifier: event.eventIdentifier,
+            externalIdentifier: event.calendarItemExternalIdentifier,
+            title: event.title,
+            startDate: event.startDate
+        )
+    }
 }
 
 final class CalendarService {
     private let eventStore: EKEventStore
     private var scanTimer: Timer?
-    private var notifiedEvents: [String: Set<AlertType>] = [:]
-    private var silencedOccurrences: Set<SilencedOccurrence> = []
+    private var notifiedEvents: [OccurrenceKey: Set<AlertType>] = [:]
+    private var silencedOccurrences: Set<OccurrenceKey> = []
+    private let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "com.mlwelles.klaxon", category: "scan")
 
     var onEventAlert: ((EKEvent, AlertType) -> Void)?
 
@@ -43,22 +86,59 @@ final class CalendarService {
 
     /// Suppress all remaining alerts for this event's occurrence.
     func silence(_ event: EKEvent) {
-        guard let identifier = event.eventIdentifier else { return }
-        silenceOccurrence(eventIdentifier: identifier, startDate: event.startDate)
+        if event.eventIdentifier == nil {
+            log.warning("Silencing event with no eventIdentifier; using fallback key")
+        }
+        silence(key: OccurrenceKey(event: event))
     }
 
+    func silence(key: OccurrenceKey) {
+        silencedOccurrences.insert(key)
+        log.notice("Silenced occurrence id=\(key.identifier, privacy: .private) sec=\(key.startSecond, privacy: .public)")
+    }
+
+    func isSilenced(_ key: OccurrenceKey) -> Bool {
+        silencedOccurrences.contains(key)
+    }
+
+    // Back-compat convenience.
     func silenceOccurrence(eventIdentifier: String, startDate: Date) {
-        silencedOccurrences.insert(SilencedOccurrence(eventIdentifier: eventIdentifier, startDate: startDate))
+        silence(key: OccurrenceKey(identifier: eventIdentifier, startDate: startDate))
     }
 
     func isOccurrenceSilenced(eventIdentifier: String, startDate: Date) -> Bool {
-        silencedOccurrences.contains(SilencedOccurrence(eventIdentifier: eventIdentifier, startDate: startDate))
+        isSilenced(OccurrenceKey(identifier: eventIdentifier, startDate: startDate))
     }
 
-    /// Drop silenced occurrences whose start time is more than an hour past.
+    func wasAlertSent(_ type: AlertType, for key: OccurrenceKey) -> Bool {
+        notifiedEvents[key]?.contains(type) ?? false
+    }
+
+    func recordAlert(_ type: AlertType, for key: OccurrenceKey) {
+        notifiedEvents[key, default: []].insert(type)
+    }
+
+    /// Decide whether an event's occurrence should be evaluated for alerts this scan.
+    /// Gate order: all-day, ignored title, working hours, silenced.
+    func shouldEvaluate(isAllDay: Bool, title: String?, eventStart: Date, key: OccurrenceKey,
+                        workingHours: WorkingHours, ignoreList: TitleIgnoreList) -> Bool {
+        if isAllDay { return false }
+        if ignoreList.matches(title) { return false }
+        if !workingHours.allows(eventStart: eventStart) { return false }
+        if isSilenced(key) { return false }
+        return true
+    }
+
+    /// Drop silenced and notified entries whose start is more than an hour past.
+    func pruneState(referenceDate: Date = Date()) {
+        let cutoff = OccurrenceKey.second(from: referenceDate) - 3600
+        silencedOccurrences = silencedOccurrences.filter { $0.startSecond > cutoff }
+        notifiedEvents = notifiedEvents.filter { $0.key.startSecond > cutoff }
+    }
+
+    // Back-compat alias.
     func pruneSilencedOccurrences(referenceDate: Date = Date()) {
-        let cutoff = Calendar.current.date(byAdding: .hour, value: -1, to: referenceDate) ?? referenceDate
-        silencedOccurrences = silencedOccurrences.filter { $0.startDate > cutoff }
+        pruneState(referenceDate: referenceDate)
     }
 
     private func scanCalendars() {
@@ -83,60 +163,35 @@ final class CalendarService {
         let events = eventStore.events(matching: predicate)
 
         let prefs = Preferences.shared
+        let workingHours = prefs.workingHours
+        let ignoreList = TitleIgnoreList(patterns: prefs.ignoredTitlePatterns)
 
         for event in events {
-            guard let eventID = event.eventIdentifier else { continue }
-
-            // Skip occurrences the user silenced from the alarm modal.
-            if isOccurrenceSilenced(eventIdentifier: eventID, startDate: event.startDate) { continue }
+            let key = OccurrenceKey(event: event)
+            guard shouldEvaluate(isAllDay: event.isAllDay, title: event.title, eventStart: event.startDate,
+                                 key: key, workingHours: workingHours, ignoreList: ignoreList) else { continue }
 
             let timeUntilStart = event.startDate.timeIntervalSince(now)
-            var sentAlerts = notifiedEvents[eventID] ?? []
 
             // Check each configured warning
             for warning in prefs.warnings {
                 let alertSeconds = TimeInterval(warning.minutesBefore * 60)
                 let alertType = AlertType.warning(minutes: warning.minutesBefore, sound: warning.sound, soundDuration: warning.soundDuration)
-                if timeUntilStart <= alertSeconds && timeUntilStart > alertSeconds - 30 && !sentAlerts.contains(alertType) {
-                    sentAlerts.insert(alertType)
-                    notifiedEvents[eventID] = sentAlerts
+                if timeUntilStart <= alertSeconds && timeUntilStart > alertSeconds - 30 && !wasAlertSent(alertType, for: key) {
+                    recordAlert(alertType, for: key)
+                    log.notice("Firing \(warning.minutesBefore, privacy: .public)-min warning sec=\(key.startSecond, privacy: .public)")
                     onEventAlert?(event, alertType)
                 }
             }
 
             // Event starting (between 0 and -30 seconds)
-            if timeUntilStart <= 0 && timeUntilStart > -30 && !sentAlerts.contains(.eventStarting) {
-                sentAlerts.insert(.eventStarting)
-                notifiedEvents[eventID] = sentAlerts
+            if timeUntilStart <= 0 && timeUntilStart > -30 && !wasAlertSent(.eventStarting, for: key) {
+                recordAlert(.eventStarting, for: key)
+                log.notice("Firing event-starting sec=\(key.startSecond, privacy: .public)")
                 onEventAlert?(event, .eventStarting)
             }
         }
 
-        cleanupOldEventIDs()
-        pruneSilencedOccurrences()
-    }
-
-    private func cleanupOldEventIDs() {
-        let cutoffDate = Calendar.current.date(byAdding: .hour, value: -1, to: Date()) ?? Date()
-
-        let allCalendars = eventStore.calendars(for: .event)
-        let enabledCalendars = allCalendars.filter { calendar in
-            Preferences.shared.isCalendarEnabled(calendar.calendarIdentifier)
-        }
-
-        guard !enabledCalendars.isEmpty else {
-            notifiedEvents = [:]
-            return
-        }
-
-        let predicate = eventStore.predicateForEvents(
-            withStart: cutoffDate,
-            end: Date(),
-            calendars: enabledCalendars
-        )
-        let recentEvents = eventStore.events(matching: predicate)
-        let recentIDs = Set(recentEvents.compactMap { $0.eventIdentifier })
-
-        notifiedEvents = notifiedEvents.filter { recentIDs.contains($0.key) }
+        pruneState()
     }
 }

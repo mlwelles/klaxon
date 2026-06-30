@@ -14,6 +14,69 @@ struct AlertWarning: Codable, Equatable {
     ]
 }
 
+/// A list of regular-expression patterns. An event whose title matches any
+/// pattern should never alert. Matching is case-insensitive and unanchored;
+/// blank and invalid patterns are skipped (never matching everything, never
+/// fatal).
+struct TitleIgnoreList {
+    let patterns: [String]
+
+    func matches(_ title: String?) -> Bool {
+        guard let title = title, !title.isEmpty else { return false }
+        let range = NSRange(title.startIndex..., in: title)
+        for raw in patterns {
+            let pattern = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !pattern.isEmpty else { continue }
+            guard let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive]) else { continue }
+            if regex.firstMatch(in: title, options: [], range: range) != nil { return true }
+        }
+        return false
+    }
+
+    /// Split user-entered text (one pattern per line) into trimmed, non-empty patterns.
+    static func parse(_ text: String) -> [String] {
+        text.split(separator: "\n", omittingEmptySubsequences: false)
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+    }
+}
+
+/// A daily window (and active weekdays) during which alerts are allowed. Times
+/// are minutes since midnight; weekdays use Calendar's convention (1 = Sunday …
+/// 7 = Saturday). The window may wrap past midnight (a night shift).
+struct WorkingHours: Codable, Equatable {
+    var enabled: Bool
+    var startMinutes: Int
+    var endMinutes: Int
+    var activeDays: Set<Int>
+
+    static let `default` = WorkingHours(
+        enabled: false,
+        startMinutes: 9 * 60,
+        endMinutes: 17 * 60,
+        activeDays: [2, 3, 4, 5, 6]   // Mon–Fri
+    )
+
+    /// True if alerts are allowed for an event starting at `date`. Disabled hours
+    /// always allow. Otherwise the event's start weekday must be active and its
+    /// minute-of-day within the window. A "from" later than its "to" (e.g.
+    /// 23:00–07:00) wraps past midnight.
+    func allows(eventStart date: Date, calendar: Calendar = .current) -> Bool {
+        guard enabled else { return true }
+        let comps = calendar.dateComponents([.weekday, .hour, .minute], from: date)
+        guard let weekday = comps.weekday, let hour = comps.hour, let minute = comps.minute else {
+            return true
+        }
+        guard activeDays.contains(weekday) else { return false }
+        let minuteOfDay = hour * 60 + minute
+        if startMinutes <= endMinutes {
+            return minuteOfDay >= startMinutes && minuteOfDay <= endMinutes
+        } else {
+            return minuteOfDay >= startMinutes || minuteOfDay <= endMinutes
+        }
+    }
+}
+
 final class Preferences {
     static let shared = Preferences()
 
@@ -101,6 +164,8 @@ final class Preferences {
         static let showWindowOnLaunch = "showWindowOnLaunch"
         static let disabledCalendarIDs = "disabledCalendarIDs"
         static let respectDoNotDisturb = "respectDoNotDisturb"
+        static let ignoredTitlePatterns = "ignoredTitlePatterns"
+        static let workingHours = "workingHours"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -212,6 +277,28 @@ final class Preferences {
         }
         set {
             defaults.set(newValue, forKey: Keys.disabledCalendarIDs)
+        }
+    }
+
+    /// Regex patterns; events whose title matches any pattern never alert.
+    var ignoredTitlePatterns: [String] {
+        get { defaults.stringArray(forKey: Keys.ignoredTitlePatterns) ?? [] }
+        set { defaults.set(newValue, forKey: Keys.ignoredTitlePatterns) }
+    }
+
+    /// Daily window during which alerts are shown.
+    var workingHours: WorkingHours {
+        get {
+            guard let data = defaults.data(forKey: Keys.workingHours),
+                  let decoded = try? JSONDecoder().decode(WorkingHours.self, from: data) else {
+                return .default
+            }
+            return decoded
+        }
+        set {
+            if let encoded = try? JSONEncoder().encode(newValue) {
+                defaults.set(encoded, forKey: Keys.workingHours)
+            }
         }
     }
 

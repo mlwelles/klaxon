@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Deze waarschuwing verwijderen";
 "accessibility.preferences.calendarsTable" = "Agendalijst, selecteer welke agenda's bewaken";
 "accessibility.preferences.calendarCheckbox" = "Agenda %@ in- of uitschakelen";
+
+/* Filters tab */
+"preferences.tab.filters" = "Filters";
+"preferences.filters.workingHours.header" = "Werkuren";
+"preferences.filters.workingHours.enable" = "Alleen waarschuwen tijdens werkuren";
+"preferences.filters.from" = "Van";
+"preferences.filters.to" = "tot";
+"preferences.filters.days" = "Dagen";
+"preferences.filters.workingHours.note" = "Meldingen verschijnen alleen voor afspraken die binnen dit venster op de geselecteerde dagen beginnen. Een begintijd later dan de eindtijd is een venster dat middernacht overschrijdt (een nachtdienst).";
+"preferences.filters.titles.header" = "Afspraken op titel negeren";
+"preferences.filters.titles.note" = "Eén patroon per regel. Patronen zijn hoofdletterongevoelige reguliere expressies die overal in de titel worden gezocht. Voorbeelden: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "Afspraken die de hele dag duren (feestdagen, afwezigheid en dergelijke) worden altijd genegeerd.";

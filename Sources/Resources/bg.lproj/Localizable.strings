@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Премахни това предупреждение";
 "accessibility.preferences.calendarsTable" = "Списък с календари, избери кои календари да се наблюдават";
 "accessibility.preferences.calendarCheckbox" = "Включи или изключи календар %@";
+
+/* Filters tab */
+"preferences.tab.filters" = "Филтри";
+"preferences.filters.workingHours.header" = "Работно време";
+"preferences.filters.workingHours.enable" = "Известявай само през работното време";
+"preferences.filters.from" = "От";
+"preferences.filters.to" = "до";
+"preferences.filters.days" = "Дни";
+"preferences.filters.workingHours.note" = "Известията се задействат само за събития, които започват в този интервал в избраните дни. Начален час, по-късен от крайния, задава интервал, преминаващ полунощ (нощна смяна).";
+"preferences.filters.titles.header" = "Игнориране на събития по заглавие";
+"preferences.filters.titles.note" = "Един шаблон на ред. Шаблоните са регулярни изрази без чувствителност към регистъра, които съвпадат навсякъде в заглавието. Примери: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "Целодневните събития (празници, отсъствия и подобни) винаги се игнорират.";

@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "移除此警告提醒";
 "accessibility.preferences.calendarsTable" = "行事曆清單，選擇要監控的行事曆";
 "accessibility.preferences.calendarCheckbox" = "啟用或停用 %@ 行事曆";
+
+/* Filters tab */
+"preferences.tab.filters" = "篩選";
+"preferences.filters.workingHours.header" = "工作時間";
+"preferences.filters.workingHours.enable" = "僅在工作時間內提醒";
+"preferences.filters.from" = "從";
+"preferences.filters.to" = "至";
+"preferences.filters.days" = "星期";
+"preferences.filters.workingHours.note" = "僅在所選日期、且開始時間落在此時段內的事件才會提醒。開始時間晚於結束時間表示跨越午夜的時段（夜班）。";
+"preferences.filters.titles.header" = "依標題忽略事件";
+"preferences.filters.titles.note" = "每行一個模式。模式為不區分大小寫的正規表達式，可比對標題中的任意位置。範例：Unavailable, OOTO";
+"preferences.filters.allDayNote" = "全天事件（節假日、外出等）一律忽略。";

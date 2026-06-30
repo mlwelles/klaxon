@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Ukloni ovo upozorenje";
 "accessibility.preferences.calendarsTable" = "Lista kalendara, izaberite koje kalendare pratiti";
 "accessibility.preferences.calendarCheckbox" = "Uključi ili isključi kalendar %@";
+
+/* Filters tab */
+"preferences.tab.filters" = "Филтери";
+"preferences.filters.workingHours.header" = "Радно време";
+"preferences.filters.workingHours.enable" = "Обавештавај само током радног времена";
+"preferences.filters.from" = "Од";
+"preferences.filters.to" = "до";
+"preferences.filters.days" = "Дани";
+"preferences.filters.workingHours.note" = "Упозорења се покрећу само за догађаје који почињу у овом периоду изабраних дана. Време почетка касније од времена завршетка означава период који прелази поноћ (ноћна смена).";
+"preferences.filters.titles.header" = "Игнориши догађаје по наслову";
+"preferences.filters.titles.note" = "Један образац по реду. Обрасци су регуларни изрази без разликовања великих и малих слова који се подударају било где у наслову. Примери: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "Целодневни догађаји (празници, одсуства и слично) се увек игноришу.";

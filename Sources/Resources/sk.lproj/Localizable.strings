@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Odstrániť toto varovanie";
 "accessibility.preferences.calendarsTable" = "Zoznam kalendárov, vyberte ktoré kalendáre sledovať";
 "accessibility.preferences.calendarCheckbox" = "Povoliť alebo zakázať kalendár %@";
+
+/* Filters tab */
+"preferences.tab.filters" = "Filtre";
+"preferences.filters.workingHours.header" = "Pracovný čas";
+"preferences.filters.workingHours.enable" = "Upozorňovať len počas pracovného času";
+"preferences.filters.from" = "Od";
+"preferences.filters.to" = "do";
+"preferences.filters.days" = "Dni";
+"preferences.filters.workingHours.note" = "Upozornenia sa spustia len pri udalostiach, ktoré začínajú v tomto rozmedzí vo vybrané dni. Čas začiatku neskorší ako čas konca určuje rozmedzie presahujúce polnoc (nočná zmena).";
+"preferences.filters.titles.header" = "Ignorovať udalosti podľa názvu";
+"preferences.filters.titles.note" = "Jeden vzor na riadok. Vzory sú regulárne výrazy nerozlišujúce veľkosť písmen, ktoré sa hľadajú kdekoľvek v názve. Príklady: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "Celodenné udalosti (sviatky, neprítomnosť a podobne) sa vždy ignorujú.";

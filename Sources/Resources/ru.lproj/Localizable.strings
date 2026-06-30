@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Удалить это предупреждение";
 "accessibility.preferences.calendarsTable" = "Список календарей, выберите календари для отслеживания";
 "accessibility.preferences.calendarCheckbox" = "Включить или отключить календарь %@";
+
+/* Filters tab */
+"preferences.tab.filters" = "Фильтры";
+"preferences.filters.workingHours.header" = "Рабочие часы";
+"preferences.filters.workingHours.enable" = "Уведомлять только в рабочие часы";
+"preferences.filters.from" = "С";
+"preferences.filters.to" = "до";
+"preferences.filters.days" = "Дни";
+"preferences.filters.workingHours.note" = "Уведомления срабатывают только для событий, начинающихся в этом промежутке в выбранные дни. Время начала позже времени окончания задаёт промежуток, переходящий за полночь (ночная смена).";
+"preferences.filters.titles.header" = "Игнорировать события по названию";
+"preferences.filters.titles.note" = "По одному шаблону в строке. Шаблоны — это регулярные выражения без учёта регистра, совпадающие в любом месте названия. Примеры: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "События на весь день (праздники, отсутствие на месте и подобные) всегда игнорируются.";

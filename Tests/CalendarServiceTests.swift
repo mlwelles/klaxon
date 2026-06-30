@@ -169,14 +169,141 @@ final class CalendarServiceTests: XCTestCase {
 
     // MARK: - Silence Tests
 
-    func testSilencedOccurrenceEquality() {
+    func testOccurrenceKeyEquality() {
         let start = Date()
-        let a = SilencedOccurrence(eventIdentifier: "e", startDate: start)
-        let b = SilencedOccurrence(eventIdentifier: "e", startDate: start)
-        let c = SilencedOccurrence(eventIdentifier: "e", startDate: start.addingTimeInterval(60))
+        let a = OccurrenceKey(identifier: "e", startDate: start)
+        let b = OccurrenceKey(identifier: "e", startDate: start)
+        let c = OccurrenceKey(identifier: "e", startDate: start.addingTimeInterval(60))
 
-        XCTAssertEqual(a, b, "Same identifier and start date should be equal")
-        XCTAssertNotEqual(a, c, "Different start dates should not be equal")
+        XCTAssertEqual(a, b, "Same identifier and start should be equal")
+        XCTAssertNotEqual(a, c, "Different starts should not be equal")
+    }
+
+    // MARK: - OccurrenceKey Tests
+
+    func testOccurrenceKeyIgnoresSubSecondDrift() {
+        let base = Date(timeIntervalSinceReferenceDate: 1_000_000.0)
+        let drifted = Date(timeIntervalSinceReferenceDate: 1_000_000.4)
+        let a = OccurrenceKey(eventIdentifier: "e", externalIdentifier: nil, title: "T", startDate: base)
+        let b = OccurrenceKey(eventIdentifier: "e", externalIdentifier: nil, title: "T", startDate: drifted)
+        XCTAssertEqual(a, b, "Sub-second drift must resolve to the same key")
+    }
+
+    func testOccurrenceKeyDistinguishesDifferentMinutes() {
+        let t1 = Date(timeIntervalSinceReferenceDate: 1_000_000)
+        let t2 = t1.addingTimeInterval(60)
+        let a = OccurrenceKey(eventIdentifier: "e", externalIdentifier: nil, title: "T", startDate: t1)
+        let b = OccurrenceKey(eventIdentifier: "e", externalIdentifier: nil, title: "T", startDate: t2)
+        XCTAssertNotEqual(a, b, "Occurrences a minute apart must differ")
+    }
+
+    func testOccurrenceKeyPrefersEventIdentifier() {
+        let key = OccurrenceKey(eventIdentifier: "evt", externalIdentifier: "ext", title: "T", startDate: Date())
+        XCTAssertEqual(key.identifier, "evt")
+    }
+
+    func testOccurrenceKeyFallsBackToExternalIdentifier() {
+        let key = OccurrenceKey(eventIdentifier: nil, externalIdentifier: "ext-1", title: "T", startDate: Date())
+        XCTAssertEqual(key.identifier, "ext-1", "Nil eventIdentifier falls back to externalIdentifier")
+    }
+
+    func testOccurrenceKeyFallsBackToTitle() {
+        let key = OccurrenceKey(eventIdentifier: nil, externalIdentifier: nil, title: "Standup", startDate: Date())
+        XCTAssertEqual(key.identifier, "Standup", "Both identifiers nil falls back to title")
+    }
+
+    func testOccurrenceKeyEmptyStringsTreatedAsMissing() {
+        let key = OccurrenceKey(eventIdentifier: "", externalIdentifier: "", title: "Standup", startDate: Date())
+        XCTAssertEqual(key.identifier, "Standup", "Empty strings are treated as missing")
+    }
+
+    // MARK: - Occurrence-aware scan helpers
+
+    private func allHours() -> WorkingHours {
+        WorkingHours(enabled: false, startMinutes: 0, endMinutes: 1440, activeDays: [1,2,3,4,5,6,7])
+    }
+    private func noIgnore() -> TitleIgnoreList { TitleIgnoreList(patterns: []) }
+
+    func testSilenceIsPerOccurrenceViaKey() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let today = OccurrenceKey(identifier: "standup", startDate: Date())
+        let tomorrow = OccurrenceKey(identifier: "standup", startDate: Date().addingTimeInterval(86_400))
+
+        service.silence(key: today)
+
+        XCTAssertTrue(service.isSilenced(today))
+        XCTAssertFalse(service.isSilenced(tomorrow), "Same-id next-day occurrence not silenced")
+    }
+
+    func testNotifiedStateIsPerOccurrence() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let a = OccurrenceKey(identifier: "standup", startDate: Date())
+        let b = OccurrenceKey(identifier: "standup", startDate: Date().addingTimeInterval(86_400))
+
+        service.recordAlert(.eventStarting, for: a)
+
+        XCTAssertTrue(service.wasAlertSent(.eventStarting, for: a))
+        XCTAssertFalse(service.wasAlertSent(.eventStarting, for: b), "Occurrence B independent")
+    }
+
+    func testShouldEvaluateSkipsAllDay() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let key = OccurrenceKey(identifier: "holiday", startDate: Date())
+        XCTAssertFalse(service.shouldEvaluate(isAllDay: true, title: "Holiday", eventStart: Date(),
+                                              key: key, workingHours: allHours(), ignoreList: noIgnore()))
+    }
+
+    func testShouldEvaluateSkipsIgnoredTitle() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let key = OccurrenceKey(identifier: "ooto", startDate: Date())
+        let ignore = TitleIgnoreList(patterns: ["OOTO"])
+        XCTAssertFalse(service.shouldEvaluate(isAllDay: false, title: "OOTO - dentist", eventStart: Date(),
+                                              key: key, workingHours: allHours(), ignoreList: ignore))
+    }
+
+    func testShouldEvaluateSkipsOutOfWorkingHours() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let key = OccurrenceKey(identifier: "mtg", startDate: Date())
+        let none = WorkingHours(enabled: true, startMinutes: 0, endMinutes: 1440, activeDays: [])
+        XCTAssertFalse(service.shouldEvaluate(isAllDay: false, title: "Mtg", eventStart: Date(),
+                                              key: key, workingHours: none, ignoreList: noIgnore()))
+    }
+
+    func testShouldEvaluateSkipsSilenced() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let key = OccurrenceKey(identifier: "mtg", startDate: Date())
+        service.silence(key: key)
+        XCTAssertFalse(service.shouldEvaluate(isAllDay: false, title: "Mtg", eventStart: Date(),
+                                              key: key, workingHours: allHours(), ignoreList: noIgnore()))
+    }
+
+    func testShouldEvaluateAllowsEligibleEvent() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let key = OccurrenceKey(identifier: "mtg", startDate: Date())
+        XCTAssertTrue(service.shouldEvaluate(isAllDay: false, title: "Sprint planning", eventStart: Date(),
+                                             key: key, workingHours: allHours(), ignoreList: noIgnore()))
+    }
+
+    func testPruneRemovesPastNotifiedAndSilenced() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let now = Date()
+        let oldKey = OccurrenceKey(identifier: "old", startDate: now.addingTimeInterval(-7_200))
+        service.recordAlert(.eventStarting, for: oldKey)
+        service.silence(key: oldKey)
+
+        service.pruneState(referenceDate: now)
+
+        XCTAssertFalse(service.wasAlertSent(.eventStarting, for: oldKey))
+        XCTAssertFalse(service.isSilenced(oldKey))
+    }
+
+    func testPruneKeepsRecentState() {
+        let service = CalendarService(eventStore: EKEventStore())
+        let now = Date()
+        let recent = OccurrenceKey(identifier: "soon", startDate: now.addingTimeInterval(600))
+        service.recordAlert(.eventStarting, for: recent)
+        service.pruneState(referenceDate: now)
+        XCTAssertTrue(service.wasAlertSent(.eventStarting, for: recent))
     }
 
     func testSilenceOccurrenceMarksItSilenced() {

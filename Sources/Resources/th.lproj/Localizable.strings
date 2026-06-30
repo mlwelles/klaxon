@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "ลบการเตือนนี้";
 "accessibility.preferences.calendarsTable" = "รายการปฏิทิน เลือกปฏิทินที่จะติดตาม";
 "accessibility.preferences.calendarCheckbox" = "เปิดหรือปิดปฏิทิน %@";
+
+/* Filters tab */
+"preferences.tab.filters" = "ตัวกรอง";
+"preferences.filters.workingHours.header" = "เวลาทำงาน";
+"preferences.filters.workingHours.enable" = "แจ้งเตือนเฉพาะในเวลาทำงาน";
+"preferences.filters.from" = "ตั้งแต่";
+"preferences.filters.to" = "ถึง";
+"preferences.filters.days" = "วัน";
+"preferences.filters.workingHours.note" = "การแจ้งเตือนจะทำงานเฉพาะกับกิจกรรมที่เริ่มภายในช่วงเวลานี้ในวันที่เลือกไว้ เวลาเริ่มที่อยู่หลังเวลาสิ้นสุดหมายถึงช่วงเวลาที่ข้ามเที่ยงคืน (กะกลางคืน)";
+"preferences.filters.titles.header" = "ละเว้นกิจกรรมตามชื่อ";
+"preferences.filters.titles.note" = "หนึ่งรูปแบบต่อหนึ่งบรรทัด รูปแบบเป็นนิพจน์ทั่วไปที่ไม่คำนึงถึงตัวพิมพ์ใหญ่เล็ก และจับคู่ที่ตำแหน่งใดก็ได้ในชื่อ ตัวอย่าง: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "กิจกรรมตลอดทั้งวัน (วันหยุด การไม่อยู่ที่ทำงาน และอื่น ๆ ที่คล้ายกัน) จะถูกละเว้นเสมอ";

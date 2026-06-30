@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Bu uyarıyı kaldır";
 "accessibility.preferences.calendarsTable" = "Takvim listesi, hangi takvimlerin izleneceğini seç";
 "accessibility.preferences.calendarCheckbox" = "%@ takvimini etkinleştir veya devre dışı bırak";
+
+/* Filters tab */
+"preferences.tab.filters" = "Filtreler";
+"preferences.filters.workingHours.header" = "Çalışma saatleri";
+"preferences.filters.workingHours.enable" = "Yalnızca çalışma saatlerinde uyar";
+"preferences.filters.from" = "Başlangıç";
+"preferences.filters.to" = "bitiş";
+"preferences.filters.days" = "Günler";
+"preferences.filters.workingHours.note" = "Uyarılar yalnızca seçili günlerde bu aralıkta başlayan etkinlikler için tetiklenir. Bitiş saatinden sonraki bir başlangıç saati, gece yarısını aşan bir aralıktır (gece vardiyası).";
+"preferences.filters.titles.header" = "Etkinlikleri başlığa göre yok say";
+"preferences.filters.titles.note" = "Her satıra bir desen. Desenler büyük/küçük harfe duyarsız düzenli ifadelerdir ve başlığın herhangi bir yerinde eşleşir. Örnekler: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "Tüm gün süren etkinlikler (tatiller, ofis dışı vb.) her zaman yok sayılır.";

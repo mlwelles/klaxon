@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Eliminar esta alerta de advertencia";
 "accessibility.preferences.calendarsTable" = "Lista de calendarios, seleccione qué calendarios monitorear";
 "accessibility.preferences.calendarCheckbox" = "Activar o desactivar calendario %@";
+
+/* Filters tab */
+"preferences.tab.filters" = "Filtros";
+"preferences.filters.workingHours.header" = "Horario laboral";
+"preferences.filters.workingHours.enable" = "Avisar solo durante el horario laboral";
+"preferences.filters.from" = "Desde";
+"preferences.filters.to" = "hasta";
+"preferences.filters.days" = "Días";
+"preferences.filters.workingHours.note" = "Las alertas solo se activan para eventos que empiezan dentro de esta franja en los días seleccionados. Una hora de inicio posterior a la de fin define una franja que cruza la medianoche (un turno de noche).";
+"preferences.filters.titles.header" = "Ignorar eventos por título";
+"preferences.filters.titles.note" = "Un patrón por línea. Los patrones son expresiones regulares sin distinción de mayúsculas que se buscan en cualquier parte del título. Ejemplos: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "Los eventos de todo el día (festivos, ausencias y similares) siempre se ignoran.";
