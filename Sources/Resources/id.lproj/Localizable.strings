@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Hapus peringatan ini";
 "accessibility.preferences.calendarsTable" = "Daftar kalender, pilih kalender yang akan dipantau";
 "accessibility.preferences.calendarCheckbox" = "Aktifkan atau nonaktifkan kalender %@";
+
+/* Filters tab */
+"preferences.tab.filters" = "Filter";
+"preferences.filters.workingHours.header" = "Jam kerja";
+"preferences.filters.workingHours.enable" = "Hanya ingatkan selama jam kerja";
+"preferences.filters.from" = "Dari";
+"preferences.filters.to" = "sampai";
+"preferences.filters.days" = "Hari";
+"preferences.filters.workingHours.note" = "Peringatan hanya muncul untuk acara yang dimulai dalam rentang ini pada hari yang dipilih. Waktu mulai yang lebih lambat daripada waktu selesai berarti rentang yang melewati tengah malam (giliran malam).";
+"preferences.filters.titles.header" = "Abaikan acara berdasarkan judul";
+"preferences.filters.titles.note" = "Satu pola per baris. Pola adalah ekspresi reguler yang tidak peka huruf besar/kecil dan dicocokkan di mana saja dalam judul. Contoh: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "Acara sepanjang hari (hari libur, di luar kantor, dan sejenisnya) selalu diabaikan.";

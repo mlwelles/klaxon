@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "移除此警告提醒";
 "accessibility.preferences.calendarsTable" = "日历列表，选择要监控的日历";
 "accessibility.preferences.calendarCheckbox" = "启用或禁用 %@ 日历";
+
+/* Filters tab */
+"preferences.tab.filters" = "筛选";
+"preferences.filters.workingHours.header" = "工作时间";
+"preferences.filters.workingHours.enable" = "仅在工作时间内提醒";
+"preferences.filters.from" = "从";
+"preferences.filters.to" = "至";
+"preferences.filters.days" = "星期";
+"preferences.filters.workingHours.note" = "仅在所选日期、且开始时间落在此时间段内的事件才会提醒。开始时间晚于结束时间表示跨越午夜的时间段（夜班）。";
+"preferences.filters.titles.header" = "按标题忽略事件";
+"preferences.filters.titles.note" = "每行一个模式。模式为不区分大小写的正则表达式，可匹配标题中的任意位置。示例：Unavailable, OOTO";
+"preferences.filters.allDayNote" = "全天事件（节假日、外出等）始终被忽略。";

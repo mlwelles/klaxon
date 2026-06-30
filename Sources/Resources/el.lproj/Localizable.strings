@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Αφαίρεση αυτής της προειδοποίησης";
 "accessibility.preferences.calendarsTable" = "Λίστα ημερολογίων, επιλέξτε ποια ημερολόγια θα παρακολουθούνται";
 "accessibility.preferences.calendarCheckbox" = "Ενεργοποίηση ή απενεργοποίηση ημερολογίου %@";
+
+/* Filters tab */
+"preferences.tab.filters" = "Φίλτρα";
+"preferences.filters.workingHours.header" = "Ώρες εργασίας";
+"preferences.filters.workingHours.enable" = "Ειδοποίηση μόνο κατά τις ώρες εργασίας";
+"preferences.filters.from" = "Από";
+"preferences.filters.to" = "έως";
+"preferences.filters.days" = "Ημέρες";
+"preferences.filters.workingHours.note" = "Οι ειδοποιήσεις ενεργοποιούνται μόνο για συμβάντα που ξεκινούν εντός αυτού του διαστήματος τις επιλεγμένες ημέρες. Μια ώρα έναρξης μεταγενέστερη από την ώρα λήξης ορίζει ένα διάστημα που περνά τα μεσάνυχτα (νυχτερινή βάρδια).";
+"preferences.filters.titles.header" = "Παράβλεψη συμβάντων βάσει τίτλου";
+"preferences.filters.titles.note" = "Ένα μοτίβο ανά γραμμή. Τα μοτίβα είναι κανονικές εκφράσεις χωρίς διάκριση πεζών-κεφαλαίων που αντιστοιχίζονται οπουδήποτε στον τίτλο. Παραδείγματα: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "Τα ολοήμερα συμβάντα (αργίες, απουσίες και παρόμοια) παραβλέπονται πάντα.";

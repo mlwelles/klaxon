@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Buang amaran ini";
 "accessibility.preferences.calendarsTable" = "Senarai kalendar, pilih kalendar untuk dipantau";
 "accessibility.preferences.calendarCheckbox" = "Aktifkan atau nyahaktifkan kalendar %@";
+
+/* Filters tab */
+"preferences.tab.filters" = "Penapis";
+"preferences.filters.workingHours.header" = "Waktu kerja";
+"preferences.filters.workingHours.enable" = "Beri amaran hanya semasa waktu kerja";
+"preferences.filters.from" = "Dari";
+"preferences.filters.to" = "hingga";
+"preferences.filters.days" = "Hari";
+"preferences.filters.workingHours.note" = "Amaran hanya dicetuskan untuk acara yang bermula dalam tempoh ini pada hari yang dipilih. Waktu mula yang lewat daripada waktu tamat ialah tempoh yang melepasi tengah malam (syif malam).";
+"preferences.filters.titles.header" = "Abaikan acara mengikut tajuk";
+"preferences.filters.titles.note" = "Satu corak setiap baris. Corak ialah ungkapan biasa yang tidak peka huruf besar/kecil dan dipadankan di mana-mana dalam tajuk. Contoh: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "Acara sepanjang hari (cuti, di luar pejabat dan seumpamanya) sentiasa diabaikan.";

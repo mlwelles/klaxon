@@ -85,7 +85,24 @@ final class LocalizationTests: XCTestCase {
         "accessibility.preferences.alertSound", "accessibility.preferences.alertDuration",
         "accessibility.preferences.warningsTable", "accessibility.preferences.addWarning",
         "accessibility.preferences.removeWarning", "accessibility.preferences.calendarsTable",
-        "accessibility.preferences.calendarCheckbox"
+        "accessibility.preferences.calendarCheckbox",
+        // Filters Tab (working hours + title ignore patterns)
+        "preferences.tab.filters",
+        "preferences.filters.workingHours.header", "preferences.filters.workingHours.enable",
+        "preferences.filters.from", "preferences.filters.to", "preferences.filters.days",
+        "preferences.filters.workingHours.note",
+        "preferences.filters.titles.header", "preferences.filters.titles.note",
+        "preferences.filters.allDayNote"
+    ]
+
+    // Keys added for the Filters tab; verified present in every locale.
+    static let filtersKeys = [
+        "preferences.tab.filters",
+        "preferences.filters.workingHours.header", "preferences.filters.workingHours.enable",
+        "preferences.filters.from", "preferences.filters.to", "preferences.filters.days",
+        "preferences.filters.workingHours.note",
+        "preferences.filters.titles.header", "preferences.filters.titles.note",
+        "preferences.filters.allDayNote"
     ]
 
     // MARK: - Localization File Existence Tests
@@ -120,7 +137,21 @@ final class LocalizationTests: XCTestCase {
     }
 
     func testAllKeysCount() {
-        XCTAssertEqual(Self.allKeys.count, 94, "Should have 94 localization keys defined")
+        XCTAssertEqual(Self.allKeys.count, 104, "Should have 104 localization keys defined")
+    }
+
+    func testFiltersKeysExistInAllLanguages() {
+        for language in Self.supportedLanguages {
+            guard let lprojPath = Self.klaxonBundle.path(forResource: language, ofType: "lproj"),
+                  let bundle = Bundle(path: lprojPath) else {
+                continue // existence covered by testAllLocalizationFilesExist
+            }
+            for key in Self.filtersKeys {
+                let value = NSLocalizedString(key, tableName: "Localizable", bundle: bundle, value: "NOT_FOUND", comment: "")
+                XCTAssertNotEqual(value, "NOT_FOUND", "Language '\(language)' should have Filters key '\(key)'")
+                XCTAssertNotEqual(value, "", "Language '\(language)' Filters key '\(key)' should not be empty")
+            }
+        }
     }
 
     // MARK: - Language-specific Tests

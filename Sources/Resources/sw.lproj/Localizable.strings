@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Ondoa onyo hili";
 "accessibility.preferences.calendarsTable" = "Orodha ya kalenda, chagua kalenda za kufuatilia";
 "accessibility.preferences.calendarCheckbox" = "Washa au zima kalenda ya %@";
+
+/* Filters tab */
+"preferences.tab.filters" = "Vichujio";
+"preferences.filters.workingHours.header" = "Saa za kazi";
+"preferences.filters.workingHours.enable" = "Arifu tu wakati wa saa za kazi";
+"preferences.filters.from" = "Kuanzia";
+"preferences.filters.to" = "hadi";
+"preferences.filters.days" = "Siku";
+"preferences.filters.workingHours.note" = "Arifa hutokea tu kwa matukio yanayoanza ndani ya kipindi hiki katika siku zilizochaguliwa. Saa ya kuanza iliyochelewa kuliko ya kumaliza ni kipindi kinachovuka usiku wa manane (zamu ya usiku).";
+"preferences.filters.titles.header" = "Puuza matukio kwa kichwa";
+"preferences.filters.titles.note" = "Ruwaza moja kwa kila mstari. Ruwaza ni misemo ya kawaida isiyojali herufi kubwa au ndogo, inayolingana popote kwenye kichwa. Mifano: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "Matukio ya siku nzima (sikukuu, kutokuwepo ofisini, na mengineyo) hupuuzwa kila wakati.";

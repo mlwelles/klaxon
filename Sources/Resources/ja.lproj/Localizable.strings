@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "この警告アラートを削除";
 "accessibility.preferences.calendarsTable" = "カレンダーリスト、監視するカレンダーを選択";
 "accessibility.preferences.calendarCheckbox" = "%@ カレンダーを有効または無効にする";
+
+/* Filters tab */
+"preferences.tab.filters" = "フィルタ";
+"preferences.filters.workingHours.header" = "勤務時間";
+"preferences.filters.workingHours.enable" = "勤務時間中のみ通知する";
+"preferences.filters.from" = "開始";
+"preferences.filters.to" = "終了";
+"preferences.filters.days" = "曜日";
+"preferences.filters.workingHours.note" = "選択した曜日で、この時間帯に開始する予定のみ通知します。開始時刻が終了時刻より遅い場合は、深夜をまたぐ時間帯（夜勤）になります。";
+"preferences.filters.titles.header" = "タイトルでイベントを無視";
+"preferences.filters.titles.note" = "1 行に 1 つのパターンを入力します。パターンは大文字と小文字を区別しない正規表現で、タイトルの任意の位置に一致します。例: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "終日のイベント（祝日、不在、その他同様のもの）は常に無視されます。";

@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Xóa cảnh báo này";
 "accessibility.preferences.calendarsTable" = "Danh sách lịch, chọn lịch để theo dõi";
 "accessibility.preferences.calendarCheckbox" = "Bật hoặc tắt lịch %@";
+
+/* Filters tab */
+"preferences.tab.filters" = "Bộ lọc";
+"preferences.filters.workingHours.header" = "Giờ làm việc";
+"preferences.filters.workingHours.enable" = "Chỉ báo trong giờ làm việc";
+"preferences.filters.from" = "Từ";
+"preferences.filters.to" = "đến";
+"preferences.filters.days" = "Ngày";
+"preferences.filters.workingHours.note" = "Cảnh báo chỉ kích hoạt cho các sự kiện bắt đầu trong khung giờ này vào những ngày đã chọn. Giờ bắt đầu muộn hơn giờ kết thúc là khung giờ vượt qua nửa đêm (ca đêm).";
+"preferences.filters.titles.header" = "Bỏ qua sự kiện theo tiêu đề";
+"preferences.filters.titles.note" = "Mỗi dòng một mẫu. Các mẫu là biểu thức chính quy không phân biệt chữ hoa chữ thường, khớp ở bất kỳ vị trí nào trong tiêu đề. Ví dụ: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "Sự kiện cả ngày (ngày lễ, vắng mặt và tương tự) luôn bị bỏ qua.";

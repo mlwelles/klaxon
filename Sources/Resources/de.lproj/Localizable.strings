@@ -136,3 +136,15 @@
 "accessibility.preferences.removeWarning" = "Diesen Warnungsalarm entfernen";
 "accessibility.preferences.calendarsTable" = "Kalenderliste, wählen Sie zu überwachende Kalender";
 "accessibility.preferences.calendarCheckbox" = "Kalender %@ aktivieren oder deaktivieren";
+
+/* Filters tab */
+"preferences.tab.filters" = "Filter";
+"preferences.filters.workingHours.header" = "Arbeitszeiten";
+"preferences.filters.workingHours.enable" = "Nur während der Arbeitszeiten benachrichtigen";
+"preferences.filters.from" = "Von";
+"preferences.filters.to" = "bis";
+"preferences.filters.days" = "Tage";
+"preferences.filters.workingHours.note" = "Benachrichtigungen erfolgen nur für Termine, die innerhalb dieses Zeitfensters an den ausgewählten Tagen beginnen. Eine Startzeit nach der Endzeit ergibt ein Fenster über Mitternacht hinaus (eine Nachtschicht).";
+"preferences.filters.titles.header" = "Termine nach Titel ignorieren";
+"preferences.filters.titles.note" = "Ein Muster pro Zeile. Muster sind reguläre Ausdrücke ohne Beachtung der Groß-/Kleinschreibung, die an beliebiger Stelle im Titel gesucht werden. Beispiele: Unavailable, OOTO";
+"preferences.filters.allDayNote" = "Ganztägige Termine (Feiertage, Abwesenheiten und Ähnliches) werden immer ignoriert.";
