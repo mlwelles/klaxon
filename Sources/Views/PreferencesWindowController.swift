@@ -3,7 +3,7 @@ import AVFoundation
 import EventKit
 import ServiceManagement
 
-final class PreferencesWindowController: NSWindowController, NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate {
+final class PreferencesWindowController: NSWindowController, NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate, NSTextViewDelegate {
     private var warnings: [AlertWarning] = []
     private var warningsTableView: NSTableView!
     private var warningsScrollView: NSScrollView!
@@ -20,6 +20,11 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
     private var eventStore: EKEventStore?
     private var availableCalendars: [EKCalendar] = []
     private var noCalendarsLabel: NSTextField!
+    private var workingHoursEnabledCheckbox: NSButton!
+    private var startTimePicker: NSDatePicker!
+    private var endTimePicker: NSDatePicker!
+    private var weekdayCheckboxes: [NSButton] = []
+    private var ignoredPatternsTextView: NSTextView!
     private let loginItemService: LoginItemServiceProtocol
 
     private var soundDurationOptions: [(title: String, value: Double)] {
@@ -79,6 +84,11 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         calendarTab.label = NSLocalizedString("preferences.tab.calendar", comment: "Calendar tab label")
         calendarTab.view = createCalendarTabContent()
         tabView.addTabViewItem(calendarTab)
+
+        let filtersTab = NSTabViewItem(identifier: "filters")
+        filtersTab.label = NSLocalizedString("preferences.tab.filters", comment: "Filters tab label")
+        filtersTab.view = createFiltersTabContent()
+        tabView.addTabViewItem(filtersTab)
 
         let otherTab = NSTabViewItem(identifier: "other")
         otherTab.label = NSLocalizedString("preferences.tab.other", comment: "Other tab label")
@@ -371,6 +381,135 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         return tabContent
     }
 
+    private func createFiltersTabContent() -> NSView {
+        let tabContent = NSView()
+
+        // --- Working Hours section ---
+        let whHeader = createSectionHeader(NSLocalizedString("preferences.filters.workingHours.header", comment: "Working hours header"))
+        tabContent.addSubview(whHeader)
+
+        workingHoursEnabledCheckbox = createCheckbox(
+            title: NSLocalizedString("preferences.filters.workingHours.enable", comment: "Enable working hours"),
+            action: #selector(workingHoursChanged)
+        )
+        workingHoursEnabledCheckbox.setAccessibilityIdentifier("workingHoursEnabledCheckbox")
+        tabContent.addSubview(workingHoursEnabledCheckbox)
+
+        let fromLabel = createLabel(NSLocalizedString("preferences.filters.from", comment: "From label"))
+        tabContent.addSubview(fromLabel)
+        startTimePicker = makeTimePicker(identifier: "startTimePicker")
+        tabContent.addSubview(startTimePicker)
+
+        let toLabel = createLabel(NSLocalizedString("preferences.filters.to", comment: "to label"))
+        tabContent.addSubview(toLabel)
+        endTimePicker = makeTimePicker(identifier: "endTimePicker")
+        tabContent.addSubview(endTimePicker)
+
+        let daysLabel = createLabel(NSLocalizedString("preferences.filters.days", comment: "Days label"))
+        tabContent.addSubview(daysLabel)
+
+        let symbols = Calendar.current.shortWeekdaySymbols  // index 0 = Sunday = weekday 1
+        let dayStack = NSStackView()
+        dayStack.translatesAutoresizingMaskIntoConstraints = false
+        dayStack.orientation = .horizontal
+        dayStack.spacing = 8
+        weekdayCheckboxes = (0..<7).map { index in
+            let box = NSButton(checkboxWithTitle: symbols[index], target: self, action: #selector(workingHoursChanged))
+            box.tag = index + 1
+            box.setAccessibilityIdentifier("weekday\(index + 1)Checkbox")
+            dayStack.addArrangedSubview(box)
+            return box
+        }
+        tabContent.addSubview(dayStack)
+
+        let whNote = createNoteLabel(NSLocalizedString("preferences.filters.workingHours.note", comment: "Working hours note"))
+        whNote.lineBreakMode = .byWordWrapping
+        whNote.maximumNumberOfLines = 0
+        tabContent.addSubview(whNote)
+
+        // --- Ignore-by-title section ---
+        let titleHeader = createSectionHeader(NSLocalizedString("preferences.filters.titles.header", comment: "Ignore titles header"))
+        tabContent.addSubview(titleHeader)
+
+        let patternsScroll = NSScrollView()
+        patternsScroll.translatesAutoresizingMaskIntoConstraints = false
+        patternsScroll.hasVerticalScroller = true
+        patternsScroll.borderType = .bezelBorder
+        let textView = NSTextView()
+        textView.isRichText = false
+        textView.font = .monospacedSystemFont(ofSize: 12, weight: .regular)
+        textView.delegate = self
+        textView.setAccessibilityIdentifier("ignoredPatternsTextView")
+        patternsScroll.documentView = textView
+        ignoredPatternsTextView = textView
+        tabContent.addSubview(patternsScroll)
+
+        let titleNote = createNoteLabel(NSLocalizedString("preferences.filters.titles.note", comment: "Ignore titles note"))
+        titleNote.lineBreakMode = .byWordWrapping
+        titleNote.maximumNumberOfLines = 0
+        tabContent.addSubview(titleNote)
+
+        let allDayNote = createNoteLabel(NSLocalizedString("preferences.filters.allDayNote", comment: "All-day always ignored note"))
+        allDayNote.lineBreakMode = .byWordWrapping
+        allDayNote.maximumNumberOfLines = 0
+        tabContent.addSubview(allDayNote)
+
+        NSLayoutConstraint.activate([
+            whHeader.topAnchor.constraint(equalTo: tabContent.topAnchor, constant: 16),
+            whHeader.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+
+            workingHoursEnabledCheckbox.topAnchor.constraint(equalTo: whHeader.bottomAnchor, constant: 12),
+            workingHoursEnabledCheckbox.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+
+            fromLabel.topAnchor.constraint(equalTo: workingHoursEnabledCheckbox.bottomAnchor, constant: 14),
+            fromLabel.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+            startTimePicker.centerYAnchor.constraint(equalTo: fromLabel.centerYAnchor),
+            startTimePicker.leadingAnchor.constraint(equalTo: fromLabel.trailingAnchor, constant: 8),
+            toLabel.centerYAnchor.constraint(equalTo: fromLabel.centerYAnchor),
+            toLabel.leadingAnchor.constraint(equalTo: startTimePicker.trailingAnchor, constant: 12),
+            endTimePicker.centerYAnchor.constraint(equalTo: fromLabel.centerYAnchor),
+            endTimePicker.leadingAnchor.constraint(equalTo: toLabel.trailingAnchor, constant: 8),
+
+            daysLabel.topAnchor.constraint(equalTo: fromLabel.bottomAnchor, constant: 16),
+            daysLabel.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+            dayStack.centerYAnchor.constraint(equalTo: daysLabel.centerYAnchor),
+            dayStack.leadingAnchor.constraint(equalTo: daysLabel.trailingAnchor, constant: 8),
+
+            whNote.topAnchor.constraint(equalTo: daysLabel.bottomAnchor, constant: 12),
+            whNote.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+            whNote.trailingAnchor.constraint(equalTo: tabContent.trailingAnchor, constant: -16),
+
+            titleHeader.topAnchor.constraint(equalTo: whNote.bottomAnchor, constant: 20),
+            titleHeader.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+
+            patternsScroll.topAnchor.constraint(equalTo: titleHeader.bottomAnchor, constant: 8),
+            patternsScroll.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+            patternsScroll.trailingAnchor.constraint(equalTo: tabContent.trailingAnchor, constant: -16),
+            patternsScroll.heightAnchor.constraint(equalToConstant: 100),
+
+            titleNote.topAnchor.constraint(equalTo: patternsScroll.bottomAnchor, constant: 8),
+            titleNote.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+            titleNote.trailingAnchor.constraint(equalTo: tabContent.trailingAnchor, constant: -16),
+
+            allDayNote.topAnchor.constraint(equalTo: titleNote.bottomAnchor, constant: 12),
+            allDayNote.leadingAnchor.constraint(equalTo: tabContent.leadingAnchor, constant: 16),
+            allDayNote.trailingAnchor.constraint(equalTo: tabContent.trailingAnchor, constant: -16),
+        ])
+
+        return tabContent
+    }
+
+    private func makeTimePicker(identifier: String) -> NSDatePicker {
+        let picker = NSDatePicker()
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.datePickerStyle = .textFieldAndStepper
+        picker.datePickerElements = .hourMinute
+        picker.target = self
+        picker.action = #selector(workingHoursChanged)
+        picker.setAccessibilityIdentifier(identifier)
+        return picker
+    }
+
     // MARK: - UI Factory Methods
 
     private func createSectionHeader(_ title: String) -> NSTextField {
@@ -524,6 +663,17 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         launchAtLoginCheckbox.state = loginItemService.isEnabled ? .on : .off
         showWindowOnLaunchCheckbox.state = Preferences.shared.showWindowOnLaunch ? .on : .off
         respectDNDCheckbox.state = Preferences.shared.respectDoNotDisturb ? .on : .off
+
+        let wh = Preferences.shared.workingHours
+        workingHoursEnabledCheckbox.state = wh.enabled ? .on : .off
+        startTimePicker.dateValue = timeDate(fromMinutes: wh.startMinutes)
+        endTimePicker.dateValue = timeDate(fromMinutes: wh.endMinutes)
+        for box in weekdayCheckboxes {
+            box.state = wh.activeDays.contains(box.tag) ? .on : .off
+        }
+        updateWorkingHoursControlsEnabled()
+
+        ignoredPatternsTextView.string = Preferences.shared.ignoredTitlePatterns.joined(separator: "\n")
 
         // Load calendars
         eventStore = EKEventStore()
@@ -898,6 +1048,42 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
 
     @objc private func respectDNDToggled() {
         Preferences.shared.respectDoNotDisturb = respectDNDCheckbox.state == .on
+    }
+
+    @objc private func workingHoursChanged() {
+        let days = Set(weekdayCheckboxes.filter { $0.state == .on }.map { $0.tag })
+        Preferences.shared.workingHours = WorkingHours(
+            enabled: workingHoursEnabledCheckbox.state == .on,
+            startMinutes: minutes(fromDate: startTimePicker.dateValue),
+            endMinutes: minutes(fromDate: endTimePicker.dateValue),
+            activeDays: days
+        )
+        updateWorkingHoursControlsEnabled()
+    }
+
+    private func updateWorkingHoursControlsEnabled() {
+        let enabled = workingHoursEnabledCheckbox.state == .on
+        startTimePicker.isEnabled = enabled
+        endTimePicker.isEnabled = enabled
+        weekdayCheckboxes.forEach { $0.isEnabled = enabled }
+    }
+
+    private func timeDate(fromMinutes minutes: Int) -> Date {
+        var comps = DateComponents()
+        comps.hour = minutes / 60
+        comps.minute = minutes % 60
+        return Calendar.current.date(from: comps) ?? Date()
+    }
+
+    private func minutes(fromDate date: Date) -> Int {
+        let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
+        return (comps.hour ?? 0) * 60 + (comps.minute ?? 0)
+    }
+
+    // NSTextViewDelegate: persist ignore patterns as the user edits.
+    func textDidChange(_ notification: Notification) {
+        guard (notification.object as? NSTextView) === ignoredPatternsTextView else { return }
+        Preferences.shared.ignoredTitlePatterns = TitleIgnoreList.parse(ignoredPatternsTextView.string)
     }
 
     @objc private func okPressed() {
