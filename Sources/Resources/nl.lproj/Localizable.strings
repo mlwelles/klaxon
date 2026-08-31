@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "Deze waarschuwing verwijderen";
 "accessibility.preferences.calendarsTable" = "Agendalijst, selecteer welke agenda's bewaken";
 "accessibility.preferences.calendarCheckbox" = "Agenda %@ in- of uitschakelen";
+"accessibility.preferences.calendarCheckboxWithAccount" = "Agenda %1$@ in account %2$@ in- of uitschakelen";
 
 /* Filters tab */
 "preferences.tab.filters" = "Filters";

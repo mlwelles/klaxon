@@ -142,6 +142,7 @@
 "accessibility.preferences.removeWarning" = "Remove this warning alert";
 "accessibility.preferences.calendarsTable" = "Calendars list, select which calendars to monitor";
 "accessibility.preferences.calendarCheckbox" = "Enable or disable %@ calendar";
+"accessibility.preferences.calendarCheckboxWithAccount" = "Enable or disable %1$@ calendar in %2$@";
 
 /* Filters tab */
 "preferences.tab.filters" = "Filters";

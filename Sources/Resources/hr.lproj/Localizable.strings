@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "Ukloni ovo upozorenje";
 "accessibility.preferences.calendarsTable" = "Popis kalendara, odaberite koje kalendare pratiti";
 "accessibility.preferences.calendarCheckbox" = "Uključi ili isključi kalendar %@";
+"accessibility.preferences.calendarCheckboxWithAccount" = "Uključi ili isključi kalendar %1$@ na računu %2$@";
 
 /* Filters tab */
 "preferences.tab.filters" = "Filtri";

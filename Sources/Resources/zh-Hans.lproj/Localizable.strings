@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "移除此警告提醒";
 "accessibility.preferences.calendarsTable" = "日历列表，选择要监控的日历";
 "accessibility.preferences.calendarCheckbox" = "启用或禁用 %@ 日历";
+"accessibility.preferences.calendarCheckboxWithAccount" = "启用或禁用 %2$@ 账户中的 %1$@ 日历";
 
 /* Filters tab */
 "preferences.tab.filters" = "筛选";

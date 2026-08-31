@@ -3,6 +3,25 @@ import AVFoundation
 import EventKit
 import ServiceManagement
 
+/// A calendar as it appears in the picker: its own name plus the account it comes from.
+struct CalendarListEntry: Equatable {
+    let title: String
+    let account: String
+
+    /// Account first, then title, so rows from one account sit together and
+    /// identically named calendars end up next to the account that tells them apart.
+    static func precedes(_ lhs: CalendarListEntry, _ rhs: CalendarListEntry) -> Bool {
+        let byAccount = lhs.account.localizedCaseInsensitiveCompare(rhs.account)
+        if byAccount != .orderedSame { return byAccount == .orderedAscending }
+        return lhs.title.localizedCaseInsensitiveCompare(rhs.title) == .orderedAscending
+    }
+
+    /// The account is only worth showing when calendars come from more than one.
+    static func showsAccounts(_ entries: [CalendarListEntry]) -> Bool {
+        Set(entries.map { $0.account }).count > 1
+    }
+}
+
 final class PreferencesWindowController: NSWindowController, NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate, NSTextViewDelegate {
     private var warnings: [AlertWarning] = []
     private var warningsTableView: NSTableView!
@@ -19,6 +38,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
     private var calendarsScrollView: NSScrollView!
     private var eventStore: EKEventStore?
     private var availableCalendars: [EKCalendar] = []
+    private var showsAccountNames = false
     private var noCalendarsLabel: NSTextField!
     private var workingHoursEnabledCheckbox: NSButton!
     private var startTimePicker: NSDatePicker!
@@ -566,6 +586,8 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
     private func createCalendarCell(columnId: String, row: Int) -> NSView? {
         guard row < availableCalendars.count else { return nil }
         let calendar = availableCalendars[row]
+        let account = calendar.source?.title ?? ""
+        let showsAccount = showsAccountNames && !account.isEmpty
 
         let cellView = NSView()
 
@@ -575,7 +597,11 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
             checkbox.translatesAutoresizingMaskIntoConstraints = false
             checkbox.state = Preferences.shared.isCalendarEnabled(calendar.calendarIdentifier) ? .on : .off
             checkbox.setAccessibilityIdentifier("calendarCheckbox_\(row)")
-            checkbox.setAccessibilityLabel(String(format: NSLocalizedString("accessibility.preferences.calendarCheckbox", comment: "Enable or disable %@ calendar"), calendar.title))
+            if showsAccount {
+                checkbox.setAccessibilityLabel(String(format: NSLocalizedString("accessibility.preferences.calendarCheckboxWithAccount", comment: "Enable or disable %1$@ calendar in %2$@ account"), calendar.title, account))
+            } else {
+                checkbox.setAccessibilityLabel(String(format: NSLocalizedString("accessibility.preferences.calendarCheckbox", comment: "Enable or disable %@ calendar"), calendar.title))
+            }
             cellView.addSubview(checkbox)
 
             NSLayoutConstraint.activate([
@@ -596,6 +622,7 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
             let label = NSTextField(labelWithString: calendar.title)
             label.translatesAutoresizingMaskIntoConstraints = false
             label.lineBreakMode = .byTruncatingTail
+            label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             cellView.addSubview(label)
 
             NSLayoutConstraint.activate([
@@ -608,6 +635,23 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
                 label.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
                 label.trailingAnchor.constraint(lessThanOrEqualTo: cellView.trailingAnchor),
             ])
+
+            // Owning account, trailing the row, so similarly named calendars can be told apart
+            if showsAccount {
+                let accountLabel = NSTextField(labelWithString: account)
+                accountLabel.translatesAutoresizingMaskIntoConstraints = false
+                accountLabel.lineBreakMode = .byTruncatingTail
+                accountLabel.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
+                accountLabel.textColor = .secondaryLabelColor
+                accountLabel.setAccessibilityIdentifier("calendarAccount_\(row)")
+                cellView.addSubview(accountLabel)
+
+                NSLayoutConstraint.activate([
+                    accountLabel.leadingAnchor.constraint(greaterThanOrEqualTo: label.trailingAnchor, constant: 8),
+                    accountLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -8),
+                    accountLabel.firstBaselineAnchor.constraint(equalTo: label.firstBaselineAnchor),
+                ])
+            }
 
         default:
             break
@@ -622,9 +666,17 @@ final class PreferencesWindowController: NSWindowController, NSWindowDelegate, N
         // Cleanup deleted calendars first
         Preferences.shared.cleanupDeletedCalendars(eventStore: eventStore)
 
-        availableCalendars = eventStore.calendars(for: .event).sorted { $0.title < $1.title }
+        let calendars = eventStore.calendars(for: .event)
+        showsAccountNames = CalendarListEntry.showsAccounts(calendars.map(Self.entry(for:)))
+        availableCalendars = calendars.sorted {
+            CalendarListEntry.precedes(Self.entry(for: $0), Self.entry(for: $1))
+        }
         calendarsTableView.reloadData()
         updateNoCalendarsWarning()
+    }
+
+    private static func entry(for calendar: EKCalendar) -> CalendarListEntry {
+        CalendarListEntry(title: calendar.title, account: calendar.source?.title ?? "")
     }
 
     private func updateNoCalendarsWarning() {

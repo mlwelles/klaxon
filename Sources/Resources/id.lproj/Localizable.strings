@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "Hapus peringatan ini";
 "accessibility.preferences.calendarsTable" = "Daftar kalender, pilih kalender yang akan dipantau";
 "accessibility.preferences.calendarCheckbox" = "Aktifkan atau nonaktifkan kalender %@";
+"accessibility.preferences.calendarCheckboxWithAccount" = "Aktifkan atau nonaktifkan kalender %1$@ di akun %2$@";
 
 /* Filters tab */
 "preferences.tab.filters" = "Filter";
