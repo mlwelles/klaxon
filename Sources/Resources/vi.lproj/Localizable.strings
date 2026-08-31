@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "Xóa cảnh báo này";
 "accessibility.preferences.calendarsTable" = "Danh sách lịch, chọn lịch để theo dõi";
 "accessibility.preferences.calendarCheckbox" = "Bật hoặc tắt lịch %@";
+"accessibility.preferences.calendarCheckboxWithAccount" = "Bật hoặc tắt lịch %1$@ trong tài khoản %2$@";
 
 /* Filters tab */
 "preferences.tab.filters" = "Bộ lọc";

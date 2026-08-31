@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "この警告アラートを削除";
 "accessibility.preferences.calendarsTable" = "カレンダーリスト、監視するカレンダーを選択";
 "accessibility.preferences.calendarCheckbox" = "%@ カレンダーを有効または無効にする";
+"accessibility.preferences.calendarCheckboxWithAccount" = "アカウント %2$@ の %1$@ カレンダーを有効または無効にする";
 
 /* Filters tab */
 "preferences.tab.filters" = "フィルタ";

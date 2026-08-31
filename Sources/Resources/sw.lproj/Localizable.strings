@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "Ondoa onyo hili";
 "accessibility.preferences.calendarsTable" = "Orodha ya kalenda, chagua kalenda za kufuatilia";
 "accessibility.preferences.calendarCheckbox" = "Washa au zima kalenda ya %@";
+"accessibility.preferences.calendarCheckboxWithAccount" = "Washa au zima kalenda ya %1$@ katika akaunti ya %2$@";
 
 /* Filters tab */
 "preferences.tab.filters" = "Vichujio";

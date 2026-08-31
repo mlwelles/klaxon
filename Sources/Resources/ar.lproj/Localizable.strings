@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "إزالة هذا التحذير";
 "accessibility.preferences.calendarsTable" = "قائمة التقويمات، اختر التقويمات للمراقبة";
 "accessibility.preferences.calendarCheckbox" = "تفعيل أو تعطيل تقويم %@";
+"accessibility.preferences.calendarCheckboxWithAccount" = "تفعيل أو تعطيل تقويم %1$@ في %2$@";
 
 /* Filters tab */
 "preferences.tab.filters" = "عوامل التصفية";

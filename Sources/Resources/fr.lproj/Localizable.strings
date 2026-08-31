@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "Supprimer cette alerte d'avertissement";
 "accessibility.preferences.calendarsTable" = "Liste des calendriers, sélectionnez les calendriers à surveiller";
 "accessibility.preferences.calendarCheckbox" = "Activer ou désactiver le calendrier %@";
+"accessibility.preferences.calendarCheckboxWithAccount" = "Activer ou désactiver le calendrier %1$@ du compte %2$@";
 
 /* Filters tab */
 "preferences.tab.filters" = "Filtres";

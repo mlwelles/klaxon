@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "ลบการเตือนนี้";
 "accessibility.preferences.calendarsTable" = "รายการปฏิทิน เลือกปฏิทินที่จะติดตาม";
 "accessibility.preferences.calendarCheckbox" = "เปิดหรือปิดปฏิทิน %@";
+"accessibility.preferences.calendarCheckboxWithAccount" = "เปิดหรือปิดปฏิทิน %1$@ ในบัญชี %2$@";
 
 /* Filters tab */
 "preferences.tab.filters" = "ตัวกรอง";

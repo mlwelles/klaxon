@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "Bu uyarıyı kaldır";
 "accessibility.preferences.calendarsTable" = "Takvim listesi, hangi takvimlerin izleneceğini seç";
 "accessibility.preferences.calendarCheckbox" = "%@ takvimini etkinleştir veya devre dışı bırak";
+"accessibility.preferences.calendarCheckboxWithAccount" = "%2$@ hesabındaki %1$@ takvimini etkinleştir veya devre dışı bırak";
 
 /* Filters tab */
 "preferences.tab.filters" = "Filtreler";

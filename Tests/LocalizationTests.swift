@@ -86,6 +86,7 @@ final class LocalizationTests: XCTestCase {
         "accessibility.preferences.warningsTable", "accessibility.preferences.addWarning",
         "accessibility.preferences.removeWarning", "accessibility.preferences.calendarsTable",
         "accessibility.preferences.calendarCheckbox",
+        "accessibility.preferences.calendarCheckboxWithAccount",
         // Filters Tab (working hours + title ignore patterns)
         "preferences.tab.filters",
         "preferences.filters.workingHours.header", "preferences.filters.workingHours.enable",
@@ -137,7 +138,7 @@ final class LocalizationTests: XCTestCase {
     }
 
     func testAllKeysCount() {
-        XCTAssertEqual(Self.allKeys.count, 104, "Should have 104 localization keys defined")
+        XCTAssertEqual(Self.allKeys.count, 105, "Should have 105 localization keys defined")
     }
 
     func testFiltersKeysExistInAllLanguages() {
@@ -151,6 +152,19 @@ final class LocalizationTests: XCTestCase {
                 XCTAssertNotEqual(value, "NOT_FOUND", "Language '\(language)' should have Filters key '\(key)'")
                 XCTAssertNotEqual(value, "", "Language '\(language)' Filters key '\(key)' should not be empty")
             }
+        }
+    }
+
+    func testCalendarAccountKeyExistsInAllLanguages() {
+        for language in Self.supportedLanguages {
+            guard let lprojPath = Self.klaxonBundle.path(forResource: language, ofType: "lproj"),
+                  let bundle = Bundle(path: lprojPath) else {
+                continue // existence covered by testAllLocalizationFilesExist
+            }
+            let key = "accessibility.preferences.calendarCheckboxWithAccount"
+            let value = NSLocalizedString(key, tableName: "Localizable", bundle: bundle, value: "NOT_FOUND", comment: "")
+            XCTAssertNotEqual(value, "NOT_FOUND", "Language '\(language)' should have key '\(key)'")
+            XCTAssertNotEqual(value, "", "Language '\(language)' key '\(key)' should not be empty")
         }
     }
 
@@ -189,7 +203,9 @@ final class LocalizationTests: XCTestCase {
             ("alert.location", "%@"),
             ("welcome.copyright", "%d"),
             ("about.version", "%@"),
-            ("about.copyright", "%d")
+            ("about.copyright", "%d"),
+            ("accessibility.preferences.calendarCheckboxWithAccount", "%1$@"),
+            ("accessibility.preferences.calendarCheckboxWithAccount", "%2$@")
         ]
 
         for (key, specifier) in formatKeys {

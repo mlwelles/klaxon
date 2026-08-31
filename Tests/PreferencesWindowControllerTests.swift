@@ -42,4 +42,55 @@ final class PreferencesWindowControllerTests: XCTestCase {
         let maxAlerts = 4
         XCTAssertEqual(maxAlerts, 4, "Maximum alerts should be 4")
     }
+
+    // MARK: - Calendar List Entry Tests
+
+    func testEntriesSortByAccountBeforeTitle() {
+        let entries = [
+            CalendarListEntry(title: "Work", account: "iCloud"),
+            CalendarListEntry(title: "Home", account: "Work Exchange"),
+            CalendarListEntry(title: "Work", account: "Google"),
+            CalendarListEntry(title: "Home", account: "iCloud"),
+        ]
+
+        let sorted = entries.sorted(by: CalendarListEntry.precedes)
+
+        XCTAssertEqual(sorted, [
+            CalendarListEntry(title: "Work", account: "Google"),
+            CalendarListEntry(title: "Home", account: "iCloud"),
+            CalendarListEntry(title: "Work", account: "iCloud"),
+            CalendarListEntry(title: "Home", account: "Work Exchange"),
+        ], "Entries should be grouped by account, then ordered by title")
+    }
+
+    func testEntriesSortCaseInsensitively() {
+        let entries = [
+            CalendarListEntry(title: "zebra", account: "iCloud"),
+            CalendarListEntry(title: "Apple", account: "iCloud"),
+        ]
+
+        XCTAssertEqual(entries.sorted(by: CalendarListEntry.precedes).map(\.title), ["Apple", "zebra"])
+    }
+
+    func testAccountsHiddenForSingleAccount() {
+        let entries = [
+            CalendarListEntry(title: "Work", account: "iCloud"),
+            CalendarListEntry(title: "Home", account: "iCloud"),
+        ]
+
+        XCTAssertFalse(CalendarListEntry.showsAccounts(entries), "One account tells calendars apart on its own")
+    }
+
+    func testAccountsShownForMultipleAccounts() {
+        let entries = [
+            CalendarListEntry(title: "Work", account: "iCloud"),
+            CalendarListEntry(title: "Work", account: "Google"),
+        ]
+
+        XCTAssertTrue(CalendarListEntry.showsAccounts(entries), "Calendars from several accounts need the account shown")
+    }
+
+    func testAccountsHiddenForEmptyList() {
+        XCTAssertFalse(CalendarListEntry.showsAccounts([]))
+    }
 }

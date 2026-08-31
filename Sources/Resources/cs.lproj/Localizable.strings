@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "Odstranit toto varování";
 "accessibility.preferences.calendarsTable" = "Seznam kalendářů, vyberte které kalendáře sledovat";
 "accessibility.preferences.calendarCheckbox" = "Povolit nebo zakázat kalendář %@";
+"accessibility.preferences.calendarCheckboxWithAccount" = "Povolit nebo zakázat kalendář %1$@ v účtu %2$@";
 
 /* Filters tab */
 "preferences.tab.filters" = "Filtry";

@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "Usuń ten alert ostrzegawczy";
 "accessibility.preferences.calendarsTable" = "Lista kalendarzy, wybierz które kalendarze monitorować";
 "accessibility.preferences.calendarCheckbox" = "Włącz lub wyłącz kalendarz %@";
+"accessibility.preferences.calendarCheckboxWithAccount" = "Włącz lub wyłącz kalendarz %1$@ na koncie %2$@";
 
 /* Filters tab */
 "preferences.tab.filters" = "Filtry";

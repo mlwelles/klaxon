@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "Премахни това предупреждение";
 "accessibility.preferences.calendarsTable" = "Списък с календари, избери кои календари да се наблюдават";
 "accessibility.preferences.calendarCheckbox" = "Включи или изключи календар %@";
+"accessibility.preferences.calendarCheckboxWithAccount" = "Включи или изключи календар %1$@ в %2$@";
 
 /* Filters tab */
 "preferences.tab.filters" = "Филтри";

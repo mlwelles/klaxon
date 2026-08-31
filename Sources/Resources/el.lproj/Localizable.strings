@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "Αφαίρεση αυτής της προειδοποίησης";
 "accessibility.preferences.calendarsTable" = "Λίστα ημερολογίων, επιλέξτε ποια ημερολόγια θα παρακολουθούνται";
 "accessibility.preferences.calendarCheckbox" = "Ενεργοποίηση ή απενεργοποίηση ημερολογίου %@";
+"accessibility.preferences.calendarCheckboxWithAccount" = "Ενεργοποίηση ή απενεργοποίηση ημερολογίου %1$@ στον λογαριασμό %2$@";
 
 /* Filters tab */
 "preferences.tab.filters" = "Φίλτρα";

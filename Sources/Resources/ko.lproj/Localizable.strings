@@ -136,6 +136,7 @@
 "accessibility.preferences.removeWarning" = "이 경고 알림 제거";
 "accessibility.preferences.calendarsTable" = "캘린더 목록, 모니터링할 캘린더 선택";
 "accessibility.preferences.calendarCheckbox" = "%@ 캘린더 활성화 또는 비활성화";
+"accessibility.preferences.calendarCheckboxWithAccount" = "%2$@ 계정의 %1$@ 캘린더 활성화 또는 비활성화";
 
 /* Filters tab */
 "preferences.tab.filters" = "필터";
